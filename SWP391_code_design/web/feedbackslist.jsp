@@ -16,53 +16,91 @@
                 <!-- CSS -->
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
                 <link rel="stylesheet" href="css/style.css">
+                <script src="https://kit.fontawesome.com/0e3f31cc48.js" crossorigin="anonymous"></script>
                 <!-- JavaScript Bundle with Popper -->
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
             </head>
 
             <body>
-                <div class="vertical-header">
+                <div class="header">
                     <c:import url="navbar.jsp"></c:import>
                 </div>
-                <div class="row container">
-                    <div class="col-3">
-                        <div class="sider">
-                            <c:import url="sider.jsp"></c:import>
-                        </div>
+                <div style="display: flex">
+                    <div class="sidebar">
+                        <c:import url="sidebar.jsp"></c:import>
                     </div>
-                    <div class="col-9">
-                        <div class="content">
-                            <table class="orders-list table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Order Date</th>
-                                        <th>Product</th>
-                                        <th>Total cost</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr>
-                                        <td><span>1</span>
-                                            <div><a href="orderinformation.jsp">details</a></div>
-                                        </td>
-                                        <td>01/01/2022</td>
-                                        <td>Product name</td>
-                                        <td>123.000</td>
-                                        <td>delivered</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>2</span>
-                                            <div><a href="orderinformation.jsp">details</a></div>
-                                        </td>
-                                        <td>01/01/2022</td>
-                                        <td>Product name</td>
-                                        <td>123.000</td>
-                                        <td>delivered</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="row container">
+                        <div class="col-3">
+                            <div class="sider">
+                                <c:import url="feedbackslistsider.jsp"></c:import>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="content">
+                                <table class="orders-list table">
+                                    <thead>
+                                        <tr>
+                                            <th>Fullname</th>
+                                            <th>Product Name</th>
+                                            <th>rated star</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider">
+                                        <tr>
+                                            <td>abcdefgh</td>
+                                            <td>abcdefgh</td>
+                                            <td>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                            </td>
+                                            <td>
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected>On</option>
+                                                    <option>Off</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>abcdefgh</td>
+                                            <td>abcdefgh</td>
+                                            <td>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                            </td>
+                                            <td>
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected>On</option>
+                                                    <option>Off</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>abcdefgh</td>
+                                            <td>abcdefgh</td>
+                                            <td>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                            </td>
+                                            <td>
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected>On</option>
+                                                    <option>Off</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

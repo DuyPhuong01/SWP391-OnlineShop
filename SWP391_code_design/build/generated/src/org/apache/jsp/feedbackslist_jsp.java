@@ -61,7 +61,7 @@ public final class feedbackslist_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("                <meta charset=\"UTF-8\">\n");
       out.write("                <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n");
       out.write("                <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
-      out.write("                <title>My Orders</title>\n");
+      out.write("                <title>Feedbacks List</title>\n");
       out.write("                <!-- CSS -->\n");
       out.write("                <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor\" crossorigin=\"anonymous\">\n");
       out.write("                <link rel=\"stylesheet\" href=\"css/style.css\">\n");
@@ -70,7 +70,7 @@ public final class feedbackslist_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("            </head>\n");
       out.write("\n");
       out.write("            <body>\n");
-      out.write("                <div class=\"header\">\n");
+      out.write("                <div class=\"vertical-header\">\n");
       out.write("                    ");
       if (_jspx_meth_c_import_0(_jspx_page_context))
         return;
