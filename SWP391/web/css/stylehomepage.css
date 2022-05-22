@@ -1,0 +1,68 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 19, 2022, 10:08:49 AM
+    Author     : Admin
+*/
+body{
+    background: #f1f2f7;
+}
+.navbar{
+    margin-left: 10%;
+    margin-right: 10%;
+    border-bottom: 1px solid black;
+}
+.slide{
+    margin-left: 10%;
+    margin-right: 10%;
+    /* height: 350px; */
+    height: 500px;
+    border: 1px solid;
+}
+.latest-post{
+    border: solid;
+    margin-top: 20px;
+    height: 200px;
+}
+.static-link{
+    border: solid;
+    height: 50px;
+    margin-top: 20px;
+}
+.container{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.main-content{
+    margin-top: 10px;
+    background: #fff;
+    margin-bottom: 20px;
+}
+.padding-right{
+    border-left: solid;
+}
+.hot-post, .feature-item{
+    height: 200px;
+}
+.hot-post-container{
+    border: solid;
+    height: 200px;
+}
+.feature-item{
+    margin-top: 20px;
+    height: 200px;
+    margin-bottom: 70px;
+}
+.item-container{
+    border: solid;
+    height: 200px;
+}
+.footer{
+    margin-left: 10%;
+    margin-right: 10%;
+    border-top: solid 1px black;
+    height: 200px;background: #fff;
+}

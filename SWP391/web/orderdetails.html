@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Online shopping system</title>
+
+        <!--bootstrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link href="css/styleorderslist.css" rel="stylesheet"/>
+        <!--font-awesome-->
+        <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header class="header">
+            <div><a href="saledashboard.html">Sale Dashboard</a> > <a href="orderslist.html">Orders List</a> > Order Details</div>
+        </header>
+        <div class="wrapper container">
+            <div class="row">
+                <aside class="left-side col-md-3">
+                    <div class="order-info">
+                        <div class="flex flex-column">
+                            <div class="order-fields">Order ID</div>
+                            <div class="order-fields">Customer's fullname</div>
+                            <div class="flex"><div class="order-fields" style="width: 100px;">email</div><div class="order-fields" style="width: 100px;">mobile</div></div>
+
+                            <div class="order-fields">order date</div>
+                            <div class="order-fields">sale date</div>
+                            <div class="order-fields">status</div>
+                        </div>
+                    </div>
+                    <div class="customer-info">
+                        <div class="flex flex-column">
+                            <div class="order-fields">Full name</div>
+                            <div class="order-fields">Gender</div>
+                            <div class="flex"><div class="order-fields" style="width: 100px;">email</div><div class="order-fields" style="width: 100px;">mobile</div></div>
+
+                            <div class="order-fields">Address</div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div style="flex: 1;"><button >Save change</button></div>
+                        
+                        <div>Assign</div>
+                    </div>
+                </aside>
+                <aside class="right-side col-md-9">
+                    <section class="content">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Thumbnail</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Unit price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Total cost</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><img src="#" style="width: 64px; height: 64px;"></th>
+                                    <td>Product 1</td>
+                                    <td>Category1</td>
+                                    <td>$9999</td>
+                                    <td>3</td>
+                                    <td>$29997</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><img src="#" style="width: 64px; height: 64px;"></th>
+                                    <td>Product 1</td>
+                                    <td>Category1</td>
+                                    <td>$9999</td>
+                                    <td>3</td>
+                                    <td>$29997</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><img src="#" style="width: 64px; height: 64px;"></th>
+                                    <td>Product 1</td>
+                                    <td>Category1</td>
+                                    <td>$9999</td>
+                                    <td>3</td>
+                                    <td>$29997</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><img src="#" style="width: 64px; height: 64px;"></th>
+                                    <td>Product 1</td>
+                                    <td>Category1</td>
+                                    <td>$9999</td>
+                                    <td>3</td>
+                                    <td>$29997</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><img src="#" style="width: 64px; height: 64px;"></th>
+                                    <td>Product 1</td>
+                                    <td>Category1</td>
+                                    <td>$9999</td>
+                                    <td>3</td>
+                                    <td>$29997</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><img src="#" style="width: 64px; height: 64px;"></th>
+                                    <td>Product 1</td>
+                                    <td>Category1</td>
+                                    <td>$9999</td>
+                                    <td>3</td>
+                                    <td>$29997</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </section>
+                </aside>
+            </div>
+
+
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    </body>
+</html>
