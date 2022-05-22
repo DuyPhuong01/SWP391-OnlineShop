@@ -1,7 +1,6 @@
 
 package controller.product;
 
-import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -9,10 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Product;
 
-@WebServlet(name = "ProductServlet", urlPatterns = {"/product"})
-public class ProductServlet extends HttpServlet {
+@WebServlet(name = "ProductsListServlet", urlPatterns = {"/productslist"})
+public class ProductsListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,10 +29,10 @@ public class ProductServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductServlet</title>");
+            out.println("<title>Servlet ProductListServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProductListServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -47,22 +45,12 @@ public class ProductServlet extends HttpServlet {
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occursz
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String productid_raw = request.getParameter("id");
-        try{
-            int productId = Integer.parseInt(productid_raw);
-            DAO d = new DAO();
-            Product p = d.getProductById(productId);
-            request.setAttribute("product", p);
-            request.getRequestDispatcher("productdetails.jsp").forward(request, response);
-        } catch (NumberFormatException e){
-            System.out.println(e);
-        }
+        request.getRequestDispatcher("productslist.jsp").forward(request, response);
     }
 
     /**

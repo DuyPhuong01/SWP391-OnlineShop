@@ -19,117 +19,119 @@
                 <c:import url="navbar.jsp"></c:import>
                 <!-- end navbar -->
             </div>
-            <div class="row container">
-                <!-- sider -->
-                <div class="col-3">
-                    <div class="sider">
-                        <!-- sider -->
-                        <c:import url="sider.jsp"></c:import>
-                        <!-- end sider -->
+            <div class="container">
+                <div class="row">
+                    <!-- sider -->
+                    <div class="col-3">
+                        <div class="sider">
+                            <!-- sider -->
+                            <c:import url="sider.jsp"></c:import>
+                            <!-- end sider -->
+                        </div>
                     </div>
-                </div>
-                <!-- content -->
-                <div class="col-9">
-                    <!-- order information -->
-                    <div class="content order-information-container">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Order Information</h5>
-                                        <table>
-                                            <tr>
-                                                <td>ID:</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Order Date:</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total Cost:</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Status:</td>
-                                                <td></td>
-                                            </tr>
-                                        </table>
+                    <!-- content -->
+                    <div class="col-9">
+                        <!-- order information -->
+                        <div class="content order-information-container">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Order Information</h5>
+                                            <table>
+                                                <tr>
+                                                    <td>ID:</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Order Date:</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total Cost:</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Status:</td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Receiver Information</h5>
-                                        <table>
-                                            <tr>
-                                                <td>Fullname:</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gender:</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Email:</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mobile:</td>
-                                                <td></td>
-                                            </tr>
-                                        </table>
+                                <div class="col-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Receiver Information</h5>
+                                            <table>
+                                                <tr>
+                                                    <td>Fullname:</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Gender:</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Email:</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mobile:</td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- order details -->
-                    <div class="content order-details">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td><img src="images/product-image.jpg" alt=""></td>
-                                    <td>
-                                        <h5>Product Name</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">Category</h6>
-                                        <p>123.000</p>
-                                    </td>
-                                    <td>
-                                        <p>1</p>
-                                    </td>
-                                    <td>
-                                        <p>123.000</p>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-outline-primary">Rebuy</button>
-                                        <button type="button" class="btn btn-outline-primary">Feedbacks</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><img src="images/product-image.jpg" alt=""></td>
-                                    <td>
-                                        <h5>Product Name</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">Category</h6>
-                                        <p>123.000</p>
-                                    </td>
-                                    <td>
-                                        <p>1</p>
-                                    </td>
-                                    <td>
-                                        <p>123.000</p>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-outline-primary">Rebuy</button>
-                                        <button type="button" class="btn btn-outline-primary">Feedbacks</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div>
-                            <button type="button" class="btn btn-outline-danger">Cancel</button>
-                            <button type="button" class="btn btn-outline-primary">Update</button>
+                        <!-- order details -->
+                        <div class="content order-details">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td><img src="images/product-image.jpg" alt=""></td>
+                                        <td>
+                                            <h5>Product Name</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">Category</h6>
+                                            <p>123.000</p>
+                                        </td>
+                                        <td>
+                                            <p>1</p>
+                                        </td>
+                                        <td>
+                                            <p>123.000</p>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary">Rebuy</button>
+                                            <button type="button" class="btn btn-outline-primary">Feedbacks</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="images/product-image.jpg" alt=""></td>
+                                        <td>
+                                            <h5>Product Name</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">Category</h6>
+                                            <p>123.000</p>
+                                        </td>
+                                        <td>
+                                            <p>1</p>
+                                        </td>
+                                        <td>
+                                            <p>123.000</p>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary">Rebuy</button>
+                                            <button type="button" class="btn btn-outline-primary">Feedbacks</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <button type="button" class="btn btn-outline-danger">Cancel</button>
+                                <button type="button" class="btn btn-outline-primary">Update</button>
+                            </div>
                         </div>
                     </div>
                 </div>

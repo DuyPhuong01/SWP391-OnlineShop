@@ -19,47 +19,49 @@
                 <c:import url="navbar.jsp"></c:import>
                 <!-- end navbar -->
             </div>
-            <div class="row container">
-                <div class="col-3">
-                    <div class="sider">
-                        <!-- sider -->
-                        <c:import url="sider.jsp"></c:import>
-                        <!-- end sider -->
+            <div class="container-lg">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="sider">
+                            <!-- sider -->
+                            <c:import url="sider.jsp"></c:import>
+                            <!-- end sider -->
+                        </div>
                     </div>
-                </div>
-                <div class="col-9">
-                    <div class="content">
-                        <table class="orders-list table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Order Date</th>
-                                    <th>Product</th>
-                                    <th>Total cost</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                                <tr>
-                                    <td><span>1</span>
-                                        <div><a href="orderinformation.jsp">details</a></div>
-                                    </td>
-                                    <td>01/01/2022</td>
-                                    <td>Product name</td>
-                                    <td>123.000</td>
-                                    <td>delivered</td>
-                                </tr>
-                                <tr>
-                                    <td><span>2</span>
-                                        <div><a href="orderinformation.jsp">details</a></div>
-                                    </td>
-                                    <td>01/01/2022</td>
-                                    <td>Product name</td>
-                                    <td>123.000</td>
-                                    <td>delivered</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-9">
+                        <div class="content">
+                            <table class="orders-list table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Order Date</th>
+                                        <th>Product</th>
+                                        <th>Total cost</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    <tr>
+                                        <td><span>1</span>
+                                            <div><a href="orderinformation.jsp">details</a></div>
+                                        </td>
+                                        <td>01/01/2022</td>
+                                        <td>Product name</td>
+                                        <td>123.000</td>
+                                        <td>delivered</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>2</span>
+                                            <div><a href="orderinformation.jsp">details</a></div>
+                                        </td>
+                                        <td>01/01/2022</td>
+                                        <td>Product name</td>
+                                        <td>123.000</td>
+                                        <td>delivered</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -14,10 +14,6 @@ html {
 }
 
 body {
-    background-color: transparent;
-}
-
-html {
     background-color: var(--background-secondary-color);
 }
 
@@ -30,10 +26,6 @@ img {
     width: 100%;
     background-color: var(--background-primary-color);
     margin-bottom: 30px;
-}
-
-.container {
-    margin: auto;
 }
 
 .sidebar,
@@ -81,6 +73,7 @@ img {
     margin-bottom: 15px;
 }
 
-.product-list-container>* {
-    margin-bottom: 15px;
+.footer {
+    height: 200px;
+    background: var(--background-primary-color);
 }

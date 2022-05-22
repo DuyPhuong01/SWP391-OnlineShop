@@ -29,22 +29,22 @@
         </div>
     </div>
     <div class="lastest-product-container row">
-        <div class="lastest-product col-4">
+        <div class="lastest-product col-4 mb-3">
             <img src="images/product-image.jpg" alt="lastest-product">
         </div>
-        <div class="lastest-product col-4">
+        <div class="lastest-product col-4 mb-3">
             <img src="images/product-image.jpg" alt="lastest-product">
         </div>
-        <div class="lastest-product col-4">
+        <div class="lastest-product col-4 mb-3">
             <img src="images/product-image.jpg" alt="lastest-product">
         </div>
-        <div class="lastest-product col-4">
+        <div class="lastest-product col-4 mb-3">
             <img src="images/product-image.jpg" alt="lastest-product">
         </div>
-        <div class="lastest-product col-4">
+        <div class="lastest-product col-4 mb-3">
             <img src="images/product-image.jpg" alt="lastest-product">
         </div>
-        <div class="lastest-product col-4">
+        <div class="lastest-product col-4 mb-3">
             <img src="images/product-image.jpg" alt="lastest-product">
         </div>
     </div>

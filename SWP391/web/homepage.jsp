@@ -10,7 +10,8 @@
 
             <!--bootstrap-->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-            <link href="css/stylehomepage.css" rel="stylesheet" />
+            <link rel="stylesheet" href="css/style.css">
+            <link rel="stylesheet" href="css/stylehomepage.css">
             <!--font-awesome-->
             <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
         </head>
@@ -19,178 +20,96 @@
             <div class="header">
                 <c:import url="navbar.jsp"></c:import>
             </div>
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="..." class="d-block w-100" alt="...">
+            <div class="container-lg">
+                <div id="carouselExampleCaptions" class="carousel slide mb-3" data-bs-ride="false">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
                     </div>
-                    <div class="carousel-item">
-                        <img src="..." class="d-block w-100" alt="...">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="images/bg.jpg" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>First slide title</h5>
+                                <p>Some representative placeholder content for the first slide.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="images/bg.jpg" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Second slide title</h5>
+                                <p>Some representative placeholder content for the second slide.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="images/bg.jpg" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Third slide title</h5>
+                                <p>Some representative placeholder content for the third slide.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                        <img src="..." class="d-block w-100" alt="...">
-                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-            </div>
-
-            <div class="container main-content">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="left-sidebar">
-                            <div class="flex flex-column">
-                                <h2>Latest post</h2>
-                                <div class="latest-post">
-
-                                </div>
-                                <div class="latest-post">
-
-                                </div>
-                                <div class="latest-post">
-
-                                </div>
-                                <div class="latest-post">
-
-                                </div>
-                                <div class="static-link">
-                                    static contact/link
-                                </div>
-                            </div>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <div class="sider">
+                            <!-- sider -->
+                            <c:import url="sider.jsp"></c:import>
+                            <!-- end sider -->
                         </div>
                     </div>
-                    <div class="col-md-9 padding-right">
-                        <h2>Hot posts</h2>
-                        <div class="hot-post row">
-                            <div class="col-md-3">
-                                <div class="hot-post-container">
-                                    <div>
-                                        <img src="images/270105127_358685858926273_6618429533065317218_n.png" style="width: 100%; height: 100%;">
+                    <div class="col-9">
+                        <div class="content">
+                            <div class="hot-post row mb-3">
+                                <a href="#">
+                                    <h2>Hot posts</h2>
+                                </a>
+                                <c:forEach begin="0" end="3">
+                                    <div class="col-3">
+                                        <div class="card">
+                                            <img src="images/270105127_358685858926273_6618429533065317218_n.png" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Post title</h5>
+                                                <p class="card-text">Post brief-info</p>
+                                                <a href="#" class="btn btn-outline-primary">Go somewhere</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <a href="product?product_id=${requestScope.firstProduct.product_id}">${requestScope.firstProduct.title}</a>
+                                </c:forEach>
+                            </div>
+                            <div class="feature-item row">
+                                <a href="productslist">
+                                    <h2>Feature items</h2>
+                                </a>
+                                <c:forEach begin="0" end="3">
+                                    <div class="col-3 mb-3">
+                                        <div class="card">
+                                            <img src="images/270105127_358685858926273_6618429533065317218_n.png" class="card-img-top">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${requestScope.firstProduct.title}</h5>
+                                                <h6 class="card-subtitle mb-2 text-muted"><span class="text-decoration-line-through">${requestScope.firstProduct.original_price}</span> 123.000</h6>
+                                                <p class="card-text">Product description</p>
+                                                <a href="product?product_id=${requestScope.firstProduct.product_id}" type="button" class="btn btn-outline-primary">Details</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        ${requestScope.firstProduct.original_price}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="hot-post-container">
-                                    post#2
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="hot-post-container">
-                                    post#3
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="hot-post-container">
-                                    post#4
-                                </div>
-                            </div>
-                        </div>
-                        <div class="feature-item row">
-                            <h2><a href="productslist.jsp">Feature items</a></h2>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                        </div>
-                        <div class="feature-item row">
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                        </div>
-                        <div class="feature-item row">
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                        </div>
-                        <div class="feature-item row">
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
-                            </div>
-                            <div class="item col-md-3">
-                                <div class="item-container">
-                                    item #1
-                                </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="footer">
-                Footer
+                <c:import url="footer.jsp"></c:import>
             </div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
         </body>

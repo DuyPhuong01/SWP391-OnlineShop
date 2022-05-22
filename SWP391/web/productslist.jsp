@@ -19,60 +19,31 @@
                 <c:import url="navbar.jsp"></c:import>
                 <!-- end navbar -->
             </div>
-            <div class="row container">
-                <div class="col-3">
-                    <div class="sider">
-                        <!-- sider -->
-                        <c:import url="sider.jsp"></c:import>
-                        <!-- end sider -->
+            <div class="container-lg">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="sider">
+                            <!-- sider -->
+                            <c:import url="sider.jsp"></c:import>
+                            <!-- end sider -->
+                        </div>
                     </div>
-                </div>
-                <div class="col-9">
-                    <div class="content">
-                        <div class="row product-list-container">
-                            <div class="col-4">
-                                <div class="card">
-                                    <img src="images/product-image.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><a href="productdetails.jsp">Product Name</a></h5>
-                                        <h6 class="card-subtitle mb-2 text-muted"><span class="text-decoration-line-through">123.000</span> 123.000</h6>
-                                        <p class="card-text">Product description</p>
-                                        <button type="button" class="btn btn-outline-primary">Buy & Feedback</button>
+                    <div class="col-9">
+                        <div class="content">
+                            <div class="row product-list-container">
+                                <c:forEach begin="0" end="5">
+                                    <div class="col-4 mb-3">
+                                        <div class="card">
+                                            <a href="product?id=1"><img src="images/product-image.jpg" class="card-img-top" alt="..."></a>
+                                            <div class="card-body">
+                                                <h5 class="card-title">Product Name</h5>
+                                                <h6 class="card-subtitle mb-2 text-muted"><span class="text-decoration-line-through">123.000</span> 123.000</h6>
+                                                <p class="card-text">Product description</p>
+                                                <button type="button" class="btn btn-outline-primary">Buy & Feedback</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="card">
-                                    <img src="images/product-image.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><a href="productdetails.jsp">Product Name</a></h5>
-                                        <h6 class="card-subtitle mb-2 text-muted"><span class="text-decoration-line-through">123.000</span> 123.000</h6>
-                                        <p class="card-text">Product description</p>
-                                        <button type="button" class="btn btn-outline-primary">Buy & Feedback</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="card">
-                                    <img src="images/product-image.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Product Name</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted"><span class="text-decoration-line-through">123.000</span> 123.000</h6>
-                                        <p class="card-text">Product description</p>
-                                        <button type="button" class="btn btn-outline-primary">Buy & Feedback</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="card">
-                                    <img src="images/product-image.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Product Name</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted"><span class="text-decoration-line-through">123.000</span> 123.000</h6>
-                                        <p class="card-text">Product description</p>
-                                        <button type="button" class="btn btn-outline-primary">Buy & Feedback</button>
-                                    </div>
-                                </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
