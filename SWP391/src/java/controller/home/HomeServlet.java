@@ -60,8 +60,9 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAO d = new DAO();
-        Product p = d.getFirstProduct();
+        DAO dao = new DAO();
+        Product p = dao.getFirstProduct();
+        request.setAttribute("sliderslist", dao.getSliders());
         request.setAttribute("firstProduct", p);
         request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }

@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="model.Slider"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <!doctype html>
@@ -23,32 +25,26 @@
             <div class="container-lg">
                 <div id="carouselExampleCaptions" class="carousel slide mb-3" data-bs-ride="false">
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <%
+                            int index = 0;
+                        %>
+                        <c:forEach var="slider" items="${requestScope.sliderslist}">
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= index %>" aria-current="true" aria-label="Slide <%= index+1 %>"></button>
+                            <%
+                                index++;
+                            %>
+                        </c:forEach>
                     </div>
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="images/bg.jpg" class="d-block w-100" alt="...">
+                    <c:forEach var="slider" items="${requestScope.sliderslist}">
+                        <div class="carousel-item">
+                            <a href="${slider.url}"><img src="images/${slider.imagePath}" class="d-block w-100 rounded" alt="..."></a>
                             <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide title</h5>
+                                <h5>${slider.title}</h5>
                                 <p>Some representative placeholder content for the first slide.</p>
                             </div>
                         </div>
-                        <div class="carousel-item">
-                            <img src="images/bg.jpg" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Second slide title</h5>
-                                <p>Some representative placeholder content for the second slide.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="images/bg.jpg" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Third slide title</h5>
-                                <p>Some representative placeholder content for the third slide.</p>
-                            </div>
-                        </div>
+                    </c:forEach>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -112,6 +108,7 @@
                 <c:import url="footer.jsp"></c:import>
             </div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+            <script src="js/carousel.js"></script>
         </body>
 
         </html>
