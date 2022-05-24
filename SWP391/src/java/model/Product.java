@@ -17,13 +17,15 @@ public class Product {
     private double original_price;
     private double sale_price;
     private String product_details;
-    private String status;
     private boolean featured;
+    private String status;
 
     public Product() {
     }
 
-    public Product(int product_id, String title, int category_id, int unit_in_stock, double original_price, double sale_price, String product_details, String status, boolean featured) {
+    public Product(int product_id, String title, int category_id, 
+            int unit_in_stock, double original_price, double sale_price, 
+            String product_details, boolean featured, String status) {
         this.product_id = product_id;
         this.title = title;
         this.category_id = category_id;
@@ -91,19 +93,19 @@ public class Product {
         this.product_details = product_details;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public boolean isFeatured() {
         return featured;
     }
 
     public void setFeatured(boolean featured) {
         this.featured = featured;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
