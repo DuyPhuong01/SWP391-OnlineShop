@@ -117,7 +117,6 @@ CREATE TABLE [posts] (
   [post_id] int primary key identity(1,1),
   [user_id] int,
   [title] nvarchar(511),
-  [author] nvarchar(255),
   [updated_date] datetime,
   [category_id] int,
   [post_details] ntext,
