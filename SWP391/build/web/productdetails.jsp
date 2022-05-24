@@ -30,24 +30,27 @@
                     </div>
                     <div class="col-9">
                         <div class="content">
+                        <c:set var="prodct" value="${requestScope.product}"></c:set>
                             <div class="row product-details-container">
-                                <div class="col-12">
+                                <div class="col-6">
                                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                                         <div class="carousel-indicators">
-                                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                            <%
+                                                int index = 0;
+                                            %>
+                                            <c:forEach var="product_image" items="${product.images}">
+                                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= index %>" aria-current="true" aria-label="Slide <%= index+1 %>"></button>
+                                                <%
+                                                    index++;
+                                                %>
+                                            </c:forEach>
                                         </div>
                                         <div class="carousel-inner">
-                                            <div class="carousel-item active">
-                                                <img src="images/270105127_358685858926273_6618429533065317218_n.png" class="d-block w-100" alt="...">
-                                            </div>
+                                        <c:forEach var="product_image" items="${product.images}">
                                             <div class="carousel-item">
-                                                <img src="images/270105127_358685858926273_6618429533065317218_n.png" class="d-block w-100" alt="...">
+                                                <img src="${product_image.path}" class="d-block w-100" alt="${product_image.description}">
                                             </div>
-                                            <div class="carousel-item">
-                                                <img src="images/270105127_358685858926273_6618429533065317218_n.png" class="d-block w-100" alt="...">
-                                            </div>
+                                        </c:forEach>
                                         </div>
                                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -59,14 +62,14 @@
                             </button>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-6">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h3 class="card-title">${requestScope.product.title}</h3>
-                                            <h6 class="card-subtitle mb-2 text-muted">Category: ${requestScope.product.category_id}</h6>
-                                            <h4 class="card-subtitle mb-2"><span class="text-decoration-line-through">${requestScope.product.original_price}</span> ${requestScope.product.sale_price}</h4>
-                                            <p class="card-text">Product description</p>
-                                            <button type="button" class="btn btn-outline-primary">Add to Cart</button>
+                                            <h3 class="card-title">${product.title}</h3>
+                                            <h6 class="card-subtitle mb-2 text-muted">Category: ${product.category.category_name}</h6>
+                                            <h4 class="card-subtitle mb-2"><span class="text-decoration-line-through">${product.original_price}</span> ${product.sale_price}</h4>
+                                            <p class="card-text">${product.product_details}</p>
+                                            <a href="addtocart?product_id=${product.product_id}" class="btn btn-outline-primary">Add to Cart</a>
                                         </div>
                                     </div>
                                 </div>
@@ -77,5 +80,6 @@
             </div>
         </body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <script src="js/carousel.js"></script>
 
         </html>

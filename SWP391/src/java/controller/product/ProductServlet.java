@@ -1,7 +1,7 @@
 
 package controller.product;
 
-import dal.DAO;
+import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -52,13 +52,12 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        ProductDAO product_dao = new ProductDAO();
         String productid_raw = request.getParameter("id");
+        
         try{
             int productId = Integer.parseInt(productid_raw);
-            DAO d = new DAO();
-            Product p = d.getProductById(productId);
-            request.setAttribute("product", p);
+            request.setAttribute("product", product_dao.getProductById(productId));
             request.getRequestDispatcher("productdetails.jsp").forward(request, response);
         } catch (NumberFormatException e){
             System.out.println(e);

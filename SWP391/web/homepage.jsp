@@ -28,7 +28,7 @@
                         <%
                             int index = 0;
                         %>
-                        <c:forEach var="slider" items="${requestScope.sliderslist}">
+                        <c:forEach var="slider" items="${requestScope.slidersList}">
                             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= index %>" aria-current="true" aria-label="Slide <%= index+1 %>"></button>
                             <%
                                 index++;
@@ -36,9 +36,9 @@
                         </c:forEach>
                     </div>
                     <div class="carousel-inner">
-                    <c:forEach var="slider" items="${requestScope.sliderslist}">
+                    <c:forEach var="slider" items="${requestScope.slidersList}">
                         <div class="carousel-item">
-                            <a href="${slider.url}"><img src="images/${slider.imagePath}" class="d-block w-100 rounded" alt="..."></a>
+                            <a href="${slider.url}"><img src="${slider.imagePath}" class="d-block w-100 rounded" alt="${slider.title}"></a>
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>${slider.title}</h5>
                                 <p>Some representative placeholder content for the first slide.</p>
@@ -58,47 +58,43 @@
                 <div class="row mb-3">
                     <div class="col-3">
                         <div class="sider">
-                            <!-- sider -->
                             <c:import url="sider.jsp"></c:import>
-                            <!-- end sider -->
                         </div>
                     </div>
                     <div class="col-9">
                         <div class="content">
                             <div class="hot-post row mb-3">
-                                <a href="#">
-                                    <h2>Hot posts</h2>
-                                </a>
-                                <c:forEach begin="0" end="3">
+                                <h2>Hot posts</h2>
+                                <c:forEach var="post" items="${requestScope.hotPostsList}">
+                                    <div class="col-4">
+                                        <div class="card">
+                                            <img src="${post.thumbnail}" class="card-img-top" alt="${post.title}">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${post.title}</h5>
+                                                <p class="card-text">${post.post_details}</p>
+                                                <a href="post?id=${post.post_id}" class="btn btn-outline-primary">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                                <a href="postslist">View all posts</a>
+                            </div>
+                            <div class="feature-item row mb-3">
+                                <h2>Feature items</h2>
+                                <c:forEach var="product" items="${requestScope.activeProductsList}">
                                     <div class="col-3">
                                         <div class="card">
-                                            <img src="images/270105127_358685858926273_6618429533065317218_n.png" class="card-img-top" alt="...">
+                                            <img src="${product.images.get(0).path}" class="card-img-top">
                                             <div class="card-body">
-                                                <h5 class="card-title">Post title</h5>
-                                                <p class="card-text">Post brief-info</p>
-                                                <a href="#" class="btn btn-outline-primary">Go somewhere</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                            <div class="feature-item row">
-                                <a href="productslist">
-                                    <h2>Feature items</h2>
-                                </a>
-                                <c:forEach begin="0" end="3">
-                                    <div class="col-3 mb-3">
-                                        <div class="card">
-                                            <img src="images/270105127_358685858926273_6618429533065317218_n.png" class="card-img-top">
-                                            <div class="card-body">
-                                                <h5 class="card-title">${requestScope.firstProduct.title}</h5>
-                                                <h6 class="card-subtitle mb-2 text-muted"><span class="text-decoration-line-through">${requestScope.firstProduct.original_price}</span> 123.000</h6>
+                                                <h5 class="card-title">${product.title}</h5>
+                                                <h6 class="card-subtitle mb-2 text-muted"><span class="text-decoration-line-through">${product.original_price}</span> ${product.sale_price}</h6>
                                                 <p class="card-text">Product description</p>
-                                                <a href="product?product_id=${requestScope.firstProduct.product_id}" type="button" class="btn btn-outline-primary">Details</a>
+                                                <a href="product?id=${product.product_id}" type="button" class="btn btn-outline-primary">Details</a>
                                             </div>
                                         </div>
                                     </div>
                                 </c:forEach>
+                                <a href="productslist">View all Products</a>
                             </div>
                         </div>
                     </div>

@@ -5,7 +5,9 @@
  */
 package controller.home;
 
-import dal.DAO;
+import dal.PostDAO;
+import dal.ProductDAO;
+import dal.SliderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -60,10 +62,12 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAO dao = new DAO();
-        Product p = dao.getFirstProduct();
-        request.setAttribute("sliderslist", dao.getSliders());
-        request.setAttribute("firstProduct", p);
+        ProductDAO product_dao = new ProductDAO();
+        SliderDAO slider_dao = new SliderDAO();
+        PostDAO post_dao = new PostDAO();
+        request.setAttribute("slidersList", slider_dao.getSliders());
+        request.setAttribute("hotPostsList", post_dao.getHotActivePosts(3));
+        request.setAttribute("activeProductsList", product_dao.getActiveProducts());
         request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }
 
