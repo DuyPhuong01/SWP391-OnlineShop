@@ -12,9 +12,13 @@ package model;
 public class Product {
     private int product_id;
     private String title;
-    private int category_id, unit_in_stock;
-    private double original_price, sale_price;
-    private String product_details, status;
+    private int category_id;
+    private int unit_in_stock;
+    private double original_price;
+    private double sale_price;
+    private String product_details;
+    private boolean status;
+    private boolean featured;
 
     public Product() {
     }
