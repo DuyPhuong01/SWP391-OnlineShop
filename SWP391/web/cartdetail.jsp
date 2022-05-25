@@ -1,0 +1,118 @@
+<%-- 
+    Document   : cartdetail
+    Created on : May 25, 2022, 2:28:15 AM
+    Author     : win
+--%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.rtl.min.css" integrity="sha384-dc2NSrAXbAkjrdm9IYrX10fQq9SDG6Vjz7nQVKdKcJl3pC+k37e7qJR5MVSCS+wR" crossorigin="anonymous">
+
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="css/stylecartdetails.css" />
+    </head>
+   <body>
+       <c:set var="o" value="${requestScope.cart}" />
+       <c:set var="tt" value="0" />
+    <div class="shopping-cart">
+        <div class="px-4 px-lg-0">
+
+            <div class="pb-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+
+                            <!-- Shopping cart table -->
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="border-0 bg-lightt">
+                                                <div class="p-2 px-3 text-uppercase">Sản Phẩm</div>
+                                            </th>
+                                            <th scope="col" class="border-0 bg-lightt">
+                                                <div class="py-2 text-uppercase">Đơn Giá</div>
+                                            </th>
+                                            <th scope="col" class="border-0 bg-lightt">
+                                                <div class="py-2 text-uppercase">Số Lượng</div>
+                                            </th>
+                                            <th scope="col" class="border-0 bg-lightt">
+                                                <div class="py-2 text-uppercase">Xóa</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${o.items}" var="i">
+                                        <tr>
+                                            
+                                            <th scope="row">
+                                                <div class="p-2">
+                                                    <img src="${i.product.thumbnail}" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                                    <div class="ml-3 d-inline-block align-middle">
+                                                        <h5 class="mb-0"> <a href="detail?pid=${i.product.product_id}" class="text-dark d-inline-block">${i.product.title}</a></h5><span class="text-muted font-weight-normal font-italic"></span>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <td class="align-middle"><strong>${i.product.sale_price}₫</strong></td>
+                                            <td class="align-middle">
+                                                <a href="process?num=-1&id=${i.product.product_id}"><button class="btnSub">-</button></a> 
+                                                <strong>${i.quantity}</strong>
+                                                <a href="process?num=1&id=${i.product.product_id}"><button class="btnAdd">+</button></a>
+                                            </td>
+                                            <td class="align-middle"><a href="#" class="text-dark">
+                                                    <form action="process" method="post">
+                                                        <input type="hidden" name="id" value="${i.product.product_id}"/>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                       
+                                                    </form>
+                                                    
+                                                </a>
+                                            </td>
+                                        </tr> 
+                                    </c:forEach>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End -->
+                        <section class="home-sp">
+                            <div class="page-trang table">
+                                <a href="#"></a>
+                                <a href="#"></a>
+                            </div>
+                        </section>
+                        
+                    </div>
+                </div>
+
+                <div class="row py-5 p-4 bg-white rounded shadow-sm">
+                    <div class="col-lg-3">
+
+                    </div>
+                    <div class="col-lg-6">
+                                <div class="bg-lightt rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thành tiền</div>
+                                <div class="p-4">
+                                    <ul class="list-unstyled mb-4">
+                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tổng tiền hàng</strong><strong></strong><h5 class="font-weight-bold">${o.totalMoney}đ</h5></li>
+                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Phí vận chuyển</strong><strong>Free ship</strong></li>
+                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">VAT</strong><strong></strong></li>
+                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tổng thanh toán</strong>
+                                            <h5 class="font-weight-bold">${o.totalMoney}đ</h5>
+                                        </li>
+                                    </ul>
+                                        <a href="checkout"  class="btn btn-dark rounded-pill py-2 btn-block">Mua hàng</a>
+                                        <a href="productslist" class="btn btn-layer rounded-pill py-2 btn-block">Click to continue Shopping</a>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="js/script.js"></script>
+</body>
+</html>

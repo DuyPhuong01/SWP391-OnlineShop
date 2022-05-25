@@ -85,4 +85,10 @@ public class CategoryDAO extends DBContext {
         }
         return list;
     }
+    
+     //search category name by category id
+    public String getCategoryNameByID(int id){
+        ProductCategory productCategory = getProductCategory(id);
+        return productCategory.getCategory_name();
+    }     
 }

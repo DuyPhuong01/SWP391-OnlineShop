@@ -32,51 +32,76 @@
                         <div class="content">
                         <c:set var="prodct" value="${requestScope.product}"></c:set>
                             <div class="row product-details-container">
-                                <div class="col-6">
+                                <div class="col-12 images-product">
                                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                                         <div class="carousel-indicators">
-                                        <%
-                                            int index = 0;
-                                        %>
-                                        <c:forEach var="product_image" items="${product.images}">
-                                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= index%>" aria-current="true" aria-label="Slide <%= index + 1%>"></button>
-                                            <%
-                                                index++;
-                                            %>
-                                        </c:forEach>
-                                    </div>
-                                    <div class="carousel-inner">
-                                        <c:forEach var="product_image" items="${product.images}">
+                                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <img src="${product.thumbnail}" class="d-block w-100" alt="...">
+                                            </div>
                                             <div class="carousel-item">
-                                                <img src="${product_image.path}" class="d-block w-100" alt="${product_image.description}">
+                                                <img src="${product.thumbnail}" class="d-block w-100" alt="...">
                                             </div>
-                                        </c:forEach>
+                                            <div class="carousel-item">
+                                                <img src="${product.thumbnail}" class="d-block w-100" alt="...">
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
                                     </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
                                 </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h3 class="card-title">${product.title}</h3>
-                                        <h6 class="card-subtitle mb-2 text-muted">Category: ${product.category.category_name}</h6>
-                                        <h4 class="card-subtitle mb-2"><span class="text-decoration-line-through">${product.original_price}</span> ${product.sale_price}</h4>
-                                        <form action="addtocart">
-                                            <input type="text" name="product_id" value="${product.product_id}" hidden="true">
-                                            <div class="input-group mb-2">
-                                                <label class="input-group-text" for="typeNumber">Quantity</label>
-                                                <input type="number" id="typeNumber" name="quantity" class="form-control" value="1" min="1" />
+                                <div class="col-12">
+                                    <div class="card body-content_product">
+                                        <div class="card-body">
+                                            <form name="f" action="" method="post">
+                                                
+                                           
+                                            <h3 class="card-title">${requestScope.product.title}</h3>
+                                            <div class="box box1">
+                                                <div class="box1-category">
+                                                     <h6 class="card-subtitle mb-2 text-muted">Category: ${requestScope.product.category}</h6>
+                                               </div>
+                                              
+                                                
                                             </div>
-                                            <input class="btn btn-outline-primary" type="submit" value="Add to Cart">
-                                        </form>
-                                        <a href="addtocart?product_id="></a>
+                                               <div class="box box2">
+                                                    <div class="box2-e1">
+                                                          <h4 class="card-subtitle mb-2"><span class="text-decoration-line-through">${requestScope.product.original_price}
+                                                         </span> ${requestScope.product.sale_price}</h4>
+                                                      </div>
+                                                   
+                                              </div>
+                                                     
+                                              <div class="box box3 col-12">
+                                                  <div class="box3-e1 col-3">
+                                                     <h6 class="card-subtitle text-muted">Số lượng sản phẩm</h6>
+                                                  </div>
+                                                  <div class="box3-e2 col-8">
+                                                      <div class="box3-e2-1">
+                                                          <!--<input type="button" value="-" />-->
+                                                          <input type="number" name="num" value="1" />
+                                                          <!--<input type="button"  value="+" />-->
+                                                          <h6 style="margin-left: 10px; margin-top: 4px;" class="card-subtitle text-muted">Sản phẩm có sẵn:${requestScope.product.unit_in_stock}</h6>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                                      <div class="box box4">
+                                                          <div class="box4-e1">
+                                                              <button type="button" onclick=" buy('${requestScope.product.product_id}')" class="btn btn-outline-primary">Add to Cart</button>
+                                                          </div>
+                                                      </div>
+                                            </form>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -89,9 +114,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script src="js/carousel.js"></script>
-
-</html>
+        </body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <script src="js/form.js"></script>
+        </html>
