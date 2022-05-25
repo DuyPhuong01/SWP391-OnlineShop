@@ -26,8 +26,13 @@ img {
     width: 100%;
     background-color: var(--background-primary-color);
     margin-bottom: 30px;
+    position: fixed;
+    z-index: 100;
+    top: 0;
 }
-
+.header+div{
+    margin-top: 100px;
+}
 .sidebar,
 .sider,
 .content {
