@@ -91,41 +91,14 @@ public class ProductDAO extends DBContext {
         }
         return list;
     }
-    public List<Product> getActiveProducts() {
+    public List<Product> getNewestActiveProducts(int numberOfProduct) {
         CategoryDAO category_dao = new CategoryDAO();
         List<Product> list = new ArrayList<>();
-        String sql = "select * from products where featured=1";
+        String sql = "select * from products where featured=1 order by updated_date desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                int product_id = rs.getInt("product_id");
-                Product product = new Product(product_id, 
-                        rs.getString("title"),
-                        getProductImages(product_id),
-                        category_dao.getProductCategory(rs.getInt("category_id")), 
-                        rs.getInt("unit_in_stock"), 
-                        rs.getDouble("original_price"), 
-                        rs.getDouble("sale_price"), 
-                        rs.getString("product_details"), null,
-                        rs.getBoolean("featured"),
-                        rs.getInt("status")
-                );
-                list.add(product);
-            }
-        } catch (SQLException sqle) {
-            System.out.println(sqle);
-        }
-        return list;
-    }
-    public List<Product> getLastActiveProducts() {
-        CategoryDAO category_dao = new CategoryDAO();
-        List<Product> list = new ArrayList<>();
-        String sql = "select * from products where featured=1 order by product_id desc";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
+            while (rs.next() && numberOfProduct-->0) {
                 int product_id = rs.getInt("product_id");
                 Product product = new Product(product_id, 
                         rs.getString("title"),

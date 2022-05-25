@@ -15,7 +15,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Product;
 
 /**
  *
@@ -67,7 +66,7 @@ public class HomeServlet extends HttpServlet {
         PostDAO post_dao = new PostDAO();
         request.setAttribute("slidersList", slider_dao.getSliders());
         request.setAttribute("hotPostsList", post_dao.getHotActivePosts(3));
-        request.setAttribute("activeProductsList", product_dao.getActiveProducts());
+        request.setAttribute("activeProductsList", product_dao.getNewestActiveProducts(8));
         request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }
 

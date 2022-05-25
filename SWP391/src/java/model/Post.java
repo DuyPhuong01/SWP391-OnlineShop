@@ -10,14 +10,14 @@ public class Post {
     private String thumbnail;
     private String title;
     private Timestamp updated_date;
-    private int category_id;
+    private ProductCategory category_id;
     private String post_details;
     private boolean featured;
 
     public Post() {
     }
 
-    public Post(int post_id, int user_id, String thumbnail, String title, Timestamp updated_date, int category_id, String post_details, boolean featured) {
+    public Post(int post_id, int user_id, String thumbnail, String title, Timestamp updated_date, ProductCategory category_id, String post_details, boolean featured) {
         this.post_id = post_id;
         this.user_id = user_id;
         this.thumbnail = thumbnail;
@@ -68,11 +68,11 @@ public class Post {
         this.updated_date = updated_date;
     }
 
-    public int getCategory_id() {
+    public ProductCategory getCategory_id() {
         return category_id;
     }
 
-    public void setCategory_id(int category_id) {
+    public void setCategory_id(ProductCategory category_id) {
         this.category_id = category_id;
     }
 

@@ -22,7 +22,8 @@
         </div>
     </div>
     <div class="lastest-product-container row">
-        <c:forEach var="product" items="<%= product_dao.getLastActiveProducts() %>">
+        <h5>Lastest products</h5>
+        <c:forEach var="product" items="<%= product_dao.getNewestActiveProducts(6) %>">
             <div class="lastest-product col-4 mb-3">
                 <div class="card">
                     <a href="product?id=${product.product_id}">
