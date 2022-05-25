@@ -88,9 +88,9 @@
                                                   </div>
                                                   <div class="box3-e2 col-8">
                                                       <div class="box3-e2-1">
-                                                          <input type="button" value="-" />
+                                                          <!--<input type="button" value="-" />-->
                                                           <input type="number" name="num" value="1" />
-                                                          <input type="button" value="+" />
+                                                          <!--<input type="button"  value="+" />-->
                                                           <h6 style="margin-left: 10px; margin-top: 4px;" class="card-subtitle text-muted">Sản phẩm có sẵn:${requestScope.product.unit_in_stock}</h6>
                                                       </div>
                                                   </div>

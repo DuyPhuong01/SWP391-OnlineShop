@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Cart;
 import model.Customer;
+import model.Item;
 import model.Product;
 
 /**
@@ -64,11 +65,10 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         ProductDAO productDAO=new ProductDAO();
+       ProductDAO productDAO=new ProductDAO();
         List<Product> allproduct = productDAO.getAll();
         Cookie[] arr=request.getCookies();  //get cookie in browsing
         String txt="";
-        
         if(arr!=null){//exist cookie
             for (Cookie cookie : arr) {
                 if(cookie.getName().equals("cart"))//cookie name cart
@@ -77,8 +77,14 @@ public class CheckoutServlet extends HttpServlet {
                 }
             }
         }
-      Customer a=new Customer(2, "Bùi Anh Dũng", "Đại Học FPT-Hà Nội", "DungBAHE150633@gmail.com");
+        System.out.println("---txt geted:"+txt);
         Cart cart=new Cart(txt, allproduct);
+        
+        System.out.println("-----my cart");
+        for (Item item : cart.getItems()) {
+            System.out.println(item);
+        }
+      Customer a=new Customer(2, "Bùi Anh Dũng", "Đại Học FPT-Hà Nội", "DungBAHE150633@gmail.com");
         request.setAttribute("cart", cart);
         request.setAttribute("cus", a);
         request.getRequestDispatcher("cartcontact.jsp").forward(request, response);
@@ -102,7 +108,7 @@ public class CheckoutServlet extends HttpServlet {
         String txt="";
         
         if(arr!=null){//exist cookie
-            for (Cookie cookie : arr) {
+            for(Cookie cookie : arr) {
                 if(cookie.getName().equals("cart"))//cookie name cart
                 {
                     txt+=cookie.getValue();

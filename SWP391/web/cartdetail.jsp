@@ -104,7 +104,7 @@
                                             <h5 class="font-weight-bold">${o.totalMoney}đ</h5>
                                         </li>
                                     </ul>
-                                        <a href="checkout" onclick="myFunction()" class="btn btn-dark rounded-pill py-2 btn-block">Mua hàng</a>
+                                        <a href="checkout"  class="btn btn-dark rounded-pill py-2 btn-block">Mua hàng</a>
                                         <a href="productslist" class="btn btn-layer rounded-pill py-2 btn-block">Click to continue Shopping</a>
                                 </div>
                     </div>

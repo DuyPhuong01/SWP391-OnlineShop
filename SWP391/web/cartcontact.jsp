@@ -3,7 +3,7 @@
     Created on : May 25, 2022, 7:09:48 PM
     Author     : win
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,16 +18,16 @@
             />
     </head>
        <body>
+        <div class="container">
              <c:set var="o" value="${requestScope.cart}" />
              <c:set var="tt" value="0" />
-        <div class="container">
             <div class="row">
                 <div class="col">
                     <h1>Cart contacts</h1>
 
                     <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="cartdetail.html">Cart Details</a></li>
+                            <li class="breadcrumb-item"><a href="showcart">Cart Details</a></li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 Cart Contacts
                             </li>
@@ -102,23 +102,16 @@
                     </div>
 
                     <ul class="list-group list-group-flush">
+                        <c:forEach items="${o.items}" var="i">
                         <li class="list-group-item">
-                            <div class="shadow-sm p-3 mb-5 bg-body rounded">List Items</div>
-
-                            <div class="row">
-                                <div class="col"></div>
-                                <div class="col"></div>
-                                <div class="col"></div>
-                            </div>
-                         <c:forEach items="${o.items}" var="i">
                             <div class="row">
                                 <div class="col"><img src="${i.product.thumbnail}" alt="" width="70" class="img-fluid rounded shadow-sm"></div>
                                 <div class="col">${i.product.title}</div>
                                 <div class="col">${i.quantity}</div>
                                 <div class="col d-flex justify-content-end">${i.quantity*i.price}</div>
                             </div>
-                          </foreach>
                         </li>
+                        </c:forEach>
 
                         <li class="list-group-item">
                             <div class="row">
@@ -133,7 +126,7 @@
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col">Total</div>
-                                <div class="d-flex justify-content-end">-20000đ</div>
+                                <div class="d-flex justify-content-end">${o.totalMoney-20000}đ</div>
                             </div>
                         </li>
                     </ul>

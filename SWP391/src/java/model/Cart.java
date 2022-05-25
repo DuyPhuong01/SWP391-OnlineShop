@@ -45,7 +45,7 @@ public class Cart {
     }
     public void addItem(Item t){
         try {
-            
+            System.out.println("-----add item"+t);
         if(getItemById(t.getProduct().getProduct_id())!=null){
             Item item = getItemById(t.getProduct().getProduct_id());
             System.out.println("item exist:"+item);

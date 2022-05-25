@@ -146,13 +146,23 @@ public class ProcessServlet extends HttpServlet {
         String out="";
         String id=request.getParameter("id");
         String[] ids=txt.split(",");//contain all id of item in cart
-        for (int i = 0; i <ids.length ; i++) {//get all element item
+//        for (int i = 0; i <ids.length ; i++) {//get all element item
+//            String[] s=ids[i].split(":");
+//            if(!s[0].equals(id)){//not item need delete
+//                if(out.isEmpty()){ //out have not item
+//                    out=ids[i];
+//                }else{
+//                    txt+=","+ids[i];
+//                }
+//            }
+//        }
+        for (int i = 0; i < ids.length; i++) {//get all element item
             String[] s=ids[i].split(":");
             if(!s[0].equals(id)){//not item need delete
-                if(out.isEmpty()){ //out have not item
+                if(out.isEmpty()){//out have not item
                     out=ids[i];
                 }else{
-                    txt+=","+ids[i];
+                    out+=","+ids[i];
                 }
             }
         }
