@@ -77,7 +77,7 @@
                                         </div>
                                     </div>
                                 </c:forEach>
-                                <a href="postslist">View all posts</a>
+                                <a href="blogslist">View all Blogs</a>
                             </div>
                             <div class="feature-item row mb-3">
                                 <h2>Feature items</h2>

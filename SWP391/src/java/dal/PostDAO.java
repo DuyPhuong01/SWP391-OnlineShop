@@ -10,6 +10,7 @@ import model.Post;
 
 public class PostDAO extends DBContext {
     public List<Post> getActivePosts() {
+        CategoryDAO category_dao = new CategoryDAO();
         List<Post> list = new ArrayList<>();
         String sql = "select * from posts where featured=1";
         try {
@@ -21,7 +22,7 @@ public class PostDAO extends DBContext {
                         rs.getString("thumbnail"),
                         rs.getString("title"),
                         rs.getTimestamp("updated_date"), 
-                        rs.getInt("category_id"), 
+                        category_dao.getPostCategory(rs.getInt("category_id")), 
                         rs.getString("post_details"),
                         rs.getBoolean("featured")
                 );
@@ -33,6 +34,7 @@ public class PostDAO extends DBContext {
         return list;
     }
     public List<Post> getHotActivePosts(int numberOfPost) {
+        CategoryDAO category_dao = new CategoryDAO();
         List<Post> list = new ArrayList<>();
         String sql = "select * from posts where featured=1 order by updated_date desc";
         try {
@@ -44,7 +46,7 @@ public class PostDAO extends DBContext {
                         rs.getString("thumbnail"), 
                         rs.getString("title"), 
                         rs.getTimestamp("updated_date"), 
-                        rs.getInt("category_id"), 
+                        category_dao.getPostCategory(rs.getInt("category_id")), 
                         rs.getString("post_details"),
                         rs.getBoolean("featured")
                 );

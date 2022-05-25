@@ -3,11 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.home;
+package controller.post;
 
-import dal.PostDAO;
-import dal.ProductDAO;
-import dal.SliderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Admin
+ * @author Duy Phuong
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "BlogsListServlet", urlPatterns = {"/blogslist"})
+public class BlogsListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +37,10 @@ public class HomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeServlet</title>");            
+            out.println("<title>Servlet BlogsListServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BlogsListServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,13 +58,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDAO product_dao = new ProductDAO();
-        SliderDAO slider_dao = new SliderDAO();
-        PostDAO post_dao = new PostDAO();
-        request.setAttribute("slidersList", slider_dao.getSliders());
-        request.setAttribute("hotPostsList", post_dao.getHotActivePosts(3));
-        request.setAttribute("activeProductsList", product_dao.getNewestActiveProducts(8));
-        request.getRequestDispatcher("homepage.jsp").forward(request, response);
+        request.getRequestDispatcher("blogslist.jsp").forward(request, response);
     }
 
     /**

@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-size: 18px;
     transition: .2s;
+    scroll-behavior: smooth;
 }
 
 html {
@@ -26,6 +27,13 @@ img {
     width: 100%;
     background-color: var(--background-primary-color);
     margin-bottom: 30px;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+}
+
+.header+div {
+    margin-top: 100px;
 }
 
 .sidebar,
@@ -34,6 +42,11 @@ img {
     background-color: var(--background-primary-color);
     padding: 15px;
     border-radius: 10px;
+}
+
+.sider {
+    position: sticky;
+    top: 100px;
 }
 
 .sider>* {
