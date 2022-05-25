@@ -18,9 +18,9 @@ and open the template in the editor.
 
 
 .overlay { /* ===================================================================== */
-    position: absolute;
-    top: 0;
-    bottom: 3;
+    position: fixed;
+    top: 1;
+    bottom: 5;
     left: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.8);
@@ -337,4 +337,5 @@ form .btn input[type="submit"] {
 
 .btn {
     --bs-btn-padding-y: 0;
+    --bs-btn-border-width: 0;
 }
