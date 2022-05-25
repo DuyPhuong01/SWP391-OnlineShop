@@ -15,7 +15,6 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
 
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_forEach_var_items;
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_import_url_nobody;
-  private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_forEach_end_begin;
 
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
 
@@ -26,13 +25,11 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
   public void _jspInit() {
     _jspx_tagPool_c_forEach_var_items = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _jspx_tagPool_c_import_url_nobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
-    _jspx_tagPool_c_forEach_end_begin = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
   }
 
   public void _jspDestroy() {
     _jspx_tagPool_c_forEach_var_items.release();
     _jspx_tagPool_c_import_url_nobody.release();
-    _jspx_tagPool_c_forEach_end_begin.release();
   }
 
   public void _jspService(HttpServletRequest request, HttpServletResponse response)
@@ -100,7 +97,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_th_c_forEach_0.setPageContext(_jspx_page_context);
       _jspx_th_c_forEach_0.setParent(null);
       _jspx_th_c_forEach_0.setVar("slider");
-      _jspx_th_c_forEach_0.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.sliderslist}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+      _jspx_th_c_forEach_0.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.slidersList}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
       int[] _jspx_push_body_count_c_forEach_0 = new int[] { 0 };
       try {
         int _jspx_eval_c_forEach_0 = _jspx_th_c_forEach_0.doStartTag();
@@ -154,33 +151,29 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                <div class=\"row mb-3\">\r\n");
       out.write("                    <div class=\"col-3\">\r\n");
       out.write("                        <div class=\"sider\">\r\n");
-      out.write("                            <!-- sider -->\r\n");
       out.write("                            ");
       if (_jspx_meth_c_import_1(_jspx_page_context))
         return;
       out.write("\r\n");
-      out.write("                            <!-- end sider -->\r\n");
       out.write("                        </div>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <div class=\"col-9\">\r\n");
       out.write("                        <div class=\"content\">\r\n");
       out.write("                            <div class=\"hot-post row mb-3\">\r\n");
-      out.write("                                <a href=\"#\">\r\n");
-      out.write("                                    <h2>Hot posts</h2>\r\n");
-      out.write("                                </a>\r\n");
+      out.write("                                <h2>Hot posts</h2>\r\n");
       out.write("                                ");
       if (_jspx_meth_c_forEach_2(_jspx_page_context))
         return;
       out.write("\r\n");
+      out.write("                                <a href=\"postslist\">View all posts</a>\r\n");
       out.write("                            </div>\r\n");
-      out.write("                            <div class=\"feature-item row\">\r\n");
-      out.write("                                <a href=\"productslist\">\r\n");
-      out.write("                                    <h2>Feature items</h2>\r\n");
-      out.write("                                </a>\r\n");
+      out.write("                            <div class=\"feature-item row mb-3\">\r\n");
+      out.write("                                <h2>Feature items</h2>\r\n");
       out.write("                                ");
       if (_jspx_meth_c_forEach_3(_jspx_page_context))
         return;
       out.write("\r\n");
+      out.write("                                <a href=\"productslist\">View all Products</a>\r\n");
       out.write("                            </div>\r\n");
       out.write("                        </div>\r\n");
       out.write("                    </div>\r\n");
@@ -245,7 +238,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_c_forEach_1.setPageContext(_jspx_page_context);
     _jspx_th_c_forEach_1.setParent(null);
     _jspx_th_c_forEach_1.setVar("slider");
-    _jspx_th_c_forEach_1.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.sliderslist}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_forEach_1.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.slidersList}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
     int[] _jspx_push_body_count_c_forEach_1 = new int[] { 0 };
     try {
       int _jspx_eval_c_forEach_1 = _jspx_th_c_forEach_1.doStartTag();
@@ -255,9 +248,11 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("                        <div class=\"carousel-item\">\r\n");
           out.write("                            <a href=\"");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${slider.url}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-          out.write("\"><img src=\"images/");
+          out.write("\"><img src=\"");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${slider.imagePath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-          out.write("\" class=\"d-block w-100 rounded\" alt=\"...\"></a>\r\n");
+          out.write("\" class=\"d-block w-100 rounded\" alt=\"");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${slider.title}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\"></a>\r\n");
           out.write("                            <div class=\"carousel-caption d-none d-md-block\">\r\n");
           out.write("                                <h5>");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${slider.title}", java.lang.String.class, (PageContext)_jspx_page_context, null));
@@ -316,24 +311,34 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:forEach
-    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_2 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_end_begin.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
+    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_2 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
     _jspx_th_c_forEach_2.setPageContext(_jspx_page_context);
     _jspx_th_c_forEach_2.setParent(null);
-    _jspx_th_c_forEach_2.setBegin(0);
-    _jspx_th_c_forEach_2.setEnd(3);
+    _jspx_th_c_forEach_2.setVar("post");
+    _jspx_th_c_forEach_2.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.hotPostsList}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
     int[] _jspx_push_body_count_c_forEach_2 = new int[] { 0 };
     try {
       int _jspx_eval_c_forEach_2 = _jspx_th_c_forEach_2.doStartTag();
       if (_jspx_eval_c_forEach_2 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
         do {
           out.write("\r\n");
-          out.write("                                    <div class=\"col-3\">\r\n");
+          out.write("                                    <div class=\"col-4\">\r\n");
           out.write("                                        <div class=\"card\">\r\n");
-          out.write("                                            <img src=\"images/270105127_358685858926273_6618429533065317218_n.png\" class=\"card-img-top\" alt=\"...\">\r\n");
+          out.write("                                            <img src=\"");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${post.thumbnail}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\" class=\"card-img-top\" alt=\"");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${post.title}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\">\r\n");
           out.write("                                            <div class=\"card-body\">\r\n");
-          out.write("                                                <h5 class=\"card-title\">Post title</h5>\r\n");
-          out.write("                                                <p class=\"card-text\">Post brief-info</p>\r\n");
-          out.write("                                                <a href=\"#\" class=\"btn btn-outline-primary\">Go somewhere</a>\r\n");
+          out.write("                                                <h5 class=\"card-title\">");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${post.title}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</h5>\r\n");
+          out.write("                                                <p class=\"card-text\">");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${post.post_details}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</p>\r\n");
+          out.write("                                                <a href=\"post?id=");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${post.post_id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\" class=\"btn btn-outline-primary\">View</a>\r\n");
           out.write("                                            </div>\r\n");
           out.write("                                        </div>\r\n");
           out.write("                                    </div>\r\n");
@@ -352,7 +357,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_th_c_forEach_2.doCatch(_jspx_exception);
     } finally {
       _jspx_th_c_forEach_2.doFinally();
-      _jspx_tagPool_c_forEach_end_begin.reuse(_jspx_th_c_forEach_2);
+      _jspx_tagPool_c_forEach_var_items.reuse(_jspx_th_c_forEach_2);
     }
     return false;
   }
@@ -362,30 +367,34 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:forEach
-    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_3 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_end_begin.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
+    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_3 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
     _jspx_th_c_forEach_3.setPageContext(_jspx_page_context);
     _jspx_th_c_forEach_3.setParent(null);
-    _jspx_th_c_forEach_3.setBegin(0);
-    _jspx_th_c_forEach_3.setEnd(3);
+    _jspx_th_c_forEach_3.setVar("product");
+    _jspx_th_c_forEach_3.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.activeProductsList}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
     int[] _jspx_push_body_count_c_forEach_3 = new int[] { 0 };
     try {
       int _jspx_eval_c_forEach_3 = _jspx_th_c_forEach_3.doStartTag();
       if (_jspx_eval_c_forEach_3 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
         do {
           out.write("\r\n");
-          out.write("                                    <div class=\"col-3 mb-3\">\r\n");
+          out.write("                                    <div class=\"col-3\">\r\n");
           out.write("                                        <div class=\"card\">\r\n");
-          out.write("                                            <img src=\"images/270105127_358685858926273_6618429533065317218_n.png\" class=\"card-img-top\">\r\n");
+          out.write("                                            <img src=\"");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${product.images.get(0).path}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\" class=\"card-img-top\">\r\n");
           out.write("                                            <div class=\"card-body\">\r\n");
           out.write("                                                <h5 class=\"card-title\">");
-          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.firstProduct.title}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${product.title}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("</h5>\r\n");
           out.write("                                                <h6 class=\"card-subtitle mb-2 text-muted\"><span class=\"text-decoration-line-through\">");
-          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.firstProduct.original_price}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-          out.write("</span> 123.000</h6>\r\n");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${product.original_price}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</span> ");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${product.sale_price}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</h6>\r\n");
           out.write("                                                <p class=\"card-text\">Product description</p>\r\n");
-          out.write("                                                <a href=\"product?product_id=");
-          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.firstProduct.product_id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("                                                <a href=\"product?id=");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${product.product_id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("\" type=\"button\" class=\"btn btn-outline-primary\">Details</a>\r\n");
           out.write("                                            </div>\r\n");
           out.write("                                        </div>\r\n");
@@ -405,7 +414,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_th_c_forEach_3.doCatch(_jspx_exception);
     } finally {
       _jspx_th_c_forEach_3.doFinally();
-      _jspx_tagPool_c_forEach_end_begin.reuse(_jspx_th_c_forEach_3);
+      _jspx_tagPool_c_forEach_var_items.reuse(_jspx_th_c_forEach_3);
     }
     return false;
   }
