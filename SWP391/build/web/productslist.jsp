@@ -20,6 +20,9 @@
                 <!-- end navbar -->
             </div>
             <div class="container-lg">
+                <li class="nav-item">
+                    <a class="nav-link" href="showcart">My Cart(${requestScope.size})</a>
+                 </li>
                 <div class="row">
                     <div class="col-3">
                         <div class="sider">
@@ -31,14 +34,14 @@
                     <div class="col-9">
                         <div class="content">
                             <div class="row product-list-container">
-                                <c:forEach begin="0" end="5">
+                            <c:forEach items="${listP}" var="p">
                                     <div class="col-4 mb-3">
                                         <div class="card">
-                                            <a href="product?id=1"><img src="images/product-image.jpg" class="card-img-top" alt="..."></a>
+                                            <a href="product?id=${p.product_id}"><img src="${p.thumbnail}" class="card-img-top" alt="..."></a>
                                             <div class="card-body">
-                                                <h5 class="card-title">Product Name</h5>
-                                                <h6 class="card-subtitle mb-2 text-muted"><span class="text-decoration-line-through">123.000</span> 123.000</h6>
-                                                <p class="card-text">Product description</p>
+                                                <h5 class="card-title">${p.title}</h5>
+                                                <h6 class="card-subtitle mb-2 text-muted"><span class="text-decoration-line-through">${p.original_price}</span>${p.sale_price}</h6>
+                                                <p class="card-text">${p.product_details}</p>
                                                 <button type="button" class="btn btn-outline-primary">Buy & Feedback</button>
                                             </div>
                                         </div>

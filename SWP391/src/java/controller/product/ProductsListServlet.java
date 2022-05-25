@@ -1,13 +1,19 @@
 
 package controller.product;
 
+import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Cart;
+import model.Item;
+import model.Product;
 
 @WebServlet(name = "ProductsListServlet", urlPatterns = {"/productslist"})
 public class ProductsListServlet extends HttpServlet {
@@ -26,15 +32,30 @@ public class ProductsListServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProductListServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProductListServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+           ProductDAO productDAO=new ProductDAO();
+        List<Product> allproduct = productDAO.getAll();
+        Cookie[] arr=request.getCookies();  //get cookie in browsing
+        String txt="";
+        
+        if(arr!=null){//exist cookie
+            for (Cookie cookie : arr) {
+                if(cookie.getName().equals("cart"))//cookie name cart
+                {
+                    txt+=cookie.getValue();
+                }
+            }
+        }
+        Cart cart=new Cart(txt, allproduct);
+        int quantityItem;//quantity item selected
+        List<Item>listItem=cart.getItems();
+        if(listItem!=null){//exist cart
+            quantityItem=listItem.size();
+        }else{
+            quantityItem=0;
+        }
+        request.setAttribute("size", quantityItem);
+        request.setAttribute("listP", allproduct);
+        request.getRequestDispatcher("productslist.jsp").forward(request, response);
         }
     }
 
@@ -50,7 +71,7 @@ public class ProductsListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("productslist.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

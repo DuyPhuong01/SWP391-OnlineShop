@@ -13,25 +13,28 @@ public class Product {
     private int product_id;
     private String title;
     private int category_id;
+    private String thumbnail;
     private int unit_in_stock;
     private double original_price;
     private double sale_price;
     private String product_details;
-    private boolean status;
+    private  int status;
     private boolean featured;
 
     public Product() {
     }
 
-    public Product(int product_id, String title, int category_id, int unit_in_stock, double original_price, double sale_price, String product_details, String status) {
+    public Product(int product_id, String title, int category_id, String thumbnail, int unit_in_stock, double original_price, double sale_price, String product_details, int status, boolean featured) {
         this.product_id = product_id;
         this.title = title;
         this.category_id = category_id;
+        this.thumbnail = thumbnail;
         this.unit_in_stock = unit_in_stock;
         this.original_price = original_price;
         this.sale_price = sale_price;
         this.product_details = product_details;
         this.status = status;
+        this.featured = featured;
     }
 
     public int getProduct_id() {
@@ -56,6 +59,14 @@ public class Product {
 
     public void setCategory_id(int category_id) {
         this.category_id = category_id;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public int getUnit_in_stock() {
@@ -90,12 +101,26 @@ public class Product {
         this.product_details = product_details;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
+
+    public boolean isFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" + "product_id=" + product_id + ", title=" + title + ", category_id=" + category_id + ", thumbnail=" + thumbnail + ", unit_in_stock=" + unit_in_stock + ", original_price=" + original_price + ", sale_price=" + sale_price + ", product_details=" + product_details + ", status=" + status + ", featured=" + featured + '}';
+    }
     
+
 }

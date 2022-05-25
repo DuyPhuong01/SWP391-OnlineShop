@@ -2,6 +2,7 @@
 package controller.product;
 
 import dal.DAO;
+import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -56,9 +57,9 @@ public class ProductServlet extends HttpServlet {
         String productid_raw = request.getParameter("id");
         try{
             int productId = Integer.parseInt(productid_raw);
-            DAO d = new DAO();
-            Product p = d.getProductById(productId);
-            request.setAttribute("product", p);
+            ProductDAO productDao=new ProductDAO();
+            Product product = productDao.getProductById(productId); //search a product
+            request.setAttribute("product", product);
             request.getRequestDispatcher("productdetails.jsp").forward(request, response);
         } catch (NumberFormatException e){
             System.out.println(e);
