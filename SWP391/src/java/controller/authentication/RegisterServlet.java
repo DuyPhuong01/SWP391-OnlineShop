@@ -36,7 +36,7 @@ public class RegisterServlet extends HttpServlet {
         String re_pass = request.getParameter("repass");
         if (!pass.equals(re_pass)) {
             request.setAttribute("signmess", "Mật khẩu không trùng khớp!");
-            request.getRequestDispatcher("Loginform.jsp").forward(request, response);
+            request.getRequestDispatcher("loginregister.jsp").forward(request, response);
         } else {
             AccountDAO dao = new AccountDAO();
             Account a = dao.checkAccountExist(user);
@@ -44,11 +44,10 @@ public class RegisterServlet extends HttpServlet {
                 //dc signup
                 dao.singup(user, pass);
                 response.getWriter().println("Register successful!");
-
             } else {
                 //day ve trang login.jsp
                 request.setAttribute("signmess", "Tài khoản đã tồn tại!");
-                request.getRequestDispatcher("Loginform.jsp").forward(request, response);
+                request.getRequestDispatcher("loginregister.jsp").forward(request, response);
             }
         }
     }
