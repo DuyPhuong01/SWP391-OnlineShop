@@ -11,12 +11,13 @@ package model;
  */
 public class ProductCategory {
     private int category_id;
-    private String category_name, description, status;
-
+    private String category_name, description;
+    private int status;
+    
     public ProductCategory() {
     }
 
-    public ProductCategory(int category_id, String category_name, String description, String status) {
+    public ProductCategory(int category_id, String category_name, String description, int status) {
         this.category_id = category_id;
         this.category_name = category_name;
         this.description = description;
@@ -47,11 +48,11 @@ public class ProductCategory {
         this.description = description;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
     

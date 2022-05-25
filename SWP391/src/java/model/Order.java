@@ -24,10 +24,45 @@ public class Order {
    private boolean gender;
    private String ship_mobile;
    private String ship_email; 
-
+   private int status;
+   private double total_price;
+   
     public Order() {
     }
 
+    public Order(int order_id, int user_id, Timestamp order_Date, Timestamp require_date, Timestamp shipped_Date, int ship_via, double freign, String ship_name, String ship_address, boolean gender, String ship_mobile, String ship_email, int status, double total_price) {
+        this.order_id = order_id;
+        this.user_id = user_id;
+        this.order_Date = order_Date;
+        this.require_date = require_date;
+        this.shipped_Date = shipped_Date;
+        this.ship_via = ship_via;
+        this.freign = freign;
+        this.ship_name = ship_name;
+        this.ship_address = ship_address;
+        this.gender = gender;
+        this.ship_mobile = ship_mobile;
+        this.ship_email = ship_email;
+        this.status = status;
+        this.total_price = total_price;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public double getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(double total_price) {
+        this.total_price = total_price;
+    }
+    
     public int getOrder_id() {
         return order_id;
     }

@@ -1,7 +1,6 @@
 
 package controller.product;
 
-import dal.DAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;

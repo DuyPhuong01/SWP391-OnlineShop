@@ -5,6 +5,10 @@
  */
 package model;
 
+import dal.CategoryDAO;
+import dal.ProductDAO;
+import java.sql.Timestamp;
+
 /**
  *
  * @author Admin
@@ -13,29 +17,33 @@ public class Product {
     private int product_id;
     private String title;
     private int category_id;
-    private String thumbnail;
     private int unit_in_stock;
+    private Timestamp updated_date;
     private double original_price;
     private double sale_price;
     private String product_details;
-    private  int status;
     private boolean featured;
+    private  int status;
 
+    
+   
     public Product() {
     }
 
-    public Product(int product_id, String title, int category_id, String thumbnail, int unit_in_stock, double original_price, double sale_price, String product_details, int status, boolean featured) {
+    public Product(int product_id, String title, int category_id, int unit_in_stock, Timestamp updated_date, double original_price, double sale_price, String product_details, boolean featured, int status) {
         this.product_id = product_id;
         this.title = title;
         this.category_id = category_id;
-        this.thumbnail = thumbnail;
         this.unit_in_stock = unit_in_stock;
+        this.updated_date = updated_date;
         this.original_price = original_price;
         this.sale_price = sale_price;
         this.product_details = product_details;
-        this.status = status;
         this.featured = featured;
+        this.status = status;
     }
+
+   
 
     public int getProduct_id() {
         return product_id;
@@ -61,20 +69,32 @@ public class Product {
         this.category_id = category_id;
     }
 
+        //get thumbnail
     public String getThumbnail() {
+       ProductDAO productDAO=new ProductDAO();
+        String thumbnail = productDAO.getThumbnailByID(product_id);//get thumbnail
         return thumbnail;
     }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+        //get category
+    public String getCategory() {
+        CategoryDAO categoryDAO=new CategoryDAO();
+        String categoryNameByID = categoryDAO.getCategoryNameByID(category_id); //search
+        return categoryNameByID;
     }
-
     public int getUnit_in_stock() {
         return unit_in_stock;
     }
 
     public void setUnit_in_stock(int unit_in_stock) {
         this.unit_in_stock = unit_in_stock;
+    }
+
+    public Timestamp getUpdated_date() {
+        return updated_date;
+    }
+
+    public void setUpdated_date(Timestamp updated_date) {
+        this.updated_date = updated_date;
     }
 
     public double getOriginal_price() {
@@ -101,14 +121,6 @@ public class Product {
         this.product_details = product_details;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     public boolean isFeatured() {
         return featured;
     }
@@ -117,10 +129,24 @@ public class Product {
         this.featured = featured;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+
     @Override
     public String toString() {
-        return "Product{" + "product_id=" + product_id + ", title=" + title + ", category_id=" + category_id + ", thumbnail=" + thumbnail + ", unit_in_stock=" + unit_in_stock + ", original_price=" + original_price + ", sale_price=" + sale_price + ", product_details=" + product_details + ", status=" + status + ", featured=" + featured + '}';
+        return "Product{" + "product_id=" + product_id + ", title=" + title + ", category_id=" + category_id + ", unit_in_stock=" + unit_in_stock + ", updated_date=" + updated_date + ", original_price=" + original_price + ", sale_price=" + sale_price + ", product_details=" + product_details + ", featured=" + featured + ", status=" + status + '}';
     }
+    
+    
+    
+
+    
     
 
 }

@@ -69,7 +69,7 @@
                                             <h3 class="card-title">${requestScope.product.title}</h3>
                                             <div class="box box1">
                                                 <div class="box1-category">
-                                                     <h6 class="card-subtitle mb-2 text-muted">Category: ${requestScope.product.category_id}</h6>
+                                                     <h6 class="card-subtitle mb-2 text-muted">Category: ${requestScope.product.category}</h6>
                                                </div>
                                               
                                                 
