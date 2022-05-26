@@ -11,11 +11,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.Cart;
 import model.Customer;
 import model.Item;
@@ -25,6 +25,7 @@ import model.Product;
  *
  * @author win
  */
+@WebServlet(name = "CheckoutServlet", urlPatterns = {"/checkout"})
 public class CheckoutServlet extends HttpServlet {
 
     /**
@@ -66,7 +67,7 @@ public class CheckoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        ProductDAO productDAO=new ProductDAO();
-        List<Product> allproduct = productDAO.getAll();
+        List<Product> allproduct = productDAO.getAllProducts();
         Cookie[] arr=request.getCookies();  //get cookie in browsing
         String txt="";
         if(arr!=null){//exist cookie
@@ -103,7 +104,7 @@ public class CheckoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
           ProductDAO productDAO=new ProductDAO();
-        List<Product> allproduct = productDAO.getAll();
+        List<Product> allproduct = productDAO.getAllProducts();
         Cookie[] arr=request.getCookies();  //get cookie in browsing
         String txt="";
         

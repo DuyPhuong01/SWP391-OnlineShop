@@ -101,26 +101,6 @@ public class ProductDAO extends DBContext {
 
     public Product getProductById(int id) {
         CategoryDAO category_dao = new CategoryDAO();
-    //Get All product
-    public List<Product> getAll() {
-        List<Product> listProduct = new ArrayList<>(); //contain all product
-        String sql = "select * from products";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) { //have next element
-                Product product = new Product(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getInt(4),rs.getTimestamp(5),rs.getDouble(6),
-                        rs.getDouble(7), rs.getString(8), rs.getBoolean(9), rs.getInt(10));
-                listProduct.add(product);//add item to list
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return listProduct;
-    }
-
-    //get product by id
-    public Product getProductById(int id) {
         String sql = "select * from products where product_id = ?";
 
         try {
@@ -229,29 +209,5 @@ public class ProductDAO extends DBContext {
         ProductDAO pd = new ProductDAO();
 
         System.out.println(pd.getLastActiveProducts(6).get(0).getTitle());
-    
-    //get thumbnail
-    public String getThumbnailByID(int id){
-        String sql = "select top 1 url from products p,product_images pi\n" +
-        "where pi.product_id=p.product_id\n" +
-        "and p.product_id=?";
-            String thumbnail = null;
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {//have item
-                
-                thumbnail=rs.getString("url");
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return thumbnail;
-    }
-    
-    
-    public static void main(String[] args) {
-        ProductDAO p=new ProductDAO();
     }
 }

@@ -7,15 +7,11 @@ import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
 import model.ProductCategory;
-import model.Cart;
-import model.Item;
-import model.Product;
 
 @WebServlet(name = "ProductsListServlet", urlPatterns = {"/productslist"})
 public class ProductsListServlet extends HttpServlet {
@@ -43,30 +39,6 @@ public class ProductsListServlet extends HttpServlet {
             out.println("<h1>Servlet ProductListServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-           ProductDAO productDAO=new ProductDAO();
-        List<Product> allproduct = productDAO.getAll();
-        Cookie[] arr=request.getCookies();  //get cookie in browsing
-        String txt="";
-        
-        if(arr!=null){//exist cookie
-            for (Cookie cookie : arr) {
-                if(cookie.getName().equals("cart"))//cookie name cart
-                {
-                    txt+=cookie.getValue();
-                }
-            }
-        }
-        Cart cart=new Cart(txt, allproduct);
-        int quantityItem;//quantity item selected
-        List<Item>listItem=cart.getItems();
-        if(listItem!=null){//exist cart
-            quantityItem=listItem.size();
-        }else{
-            quantityItem=0;
-        }
-        request.setAttribute("size", quantityItem);
-        request.setAttribute("listP", allproduct);
-        request.getRequestDispatcher("productslist.jsp").forward(request, response);
         }
     }
 
@@ -184,7 +156,6 @@ public class ProductsListServlet extends HttpServlet {
             }
             return false;
         }
-        processRequest(request, response);
     }
 
     /**

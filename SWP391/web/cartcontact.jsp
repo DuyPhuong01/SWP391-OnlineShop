@@ -40,11 +40,11 @@
                     <form class="row g-3" id="checkout" action="checkout" method="post">
                         <div class="col-md-12">
                             <label for="inputEmail4" class="form-label">Name</label>
-                            <input type="email" value="${requestScope.cus.full_name}" class="form-control" id="inputEmail4" />
+                            <input type="text" value="${requestScope.cus.full_name}" class="form-control" id="inputEmail4" />
                         </div>
                         <div class="col-md-6">
                             <label for="inputEmail4" class="form-label">Email</label>
-                            <input type="${requestScope.cus.email}" class="form-control" id="inputEmail4" />
+                            <input type="mail" value="${requestScope.cus.email}" class="form-control" id="inputEmail4" />
                         </div>
                         <div class="col-md-6">
                             <label for="inputPassword4" class="form-label"
@@ -91,7 +91,7 @@
                                 <button class="btn btn-primary me-md-2" type="button" onclick="window.location.href='showcart'">
                                     Back to cart
                                 </button>
-                                <button class="btn btn-primary" type="submit" onclick=""><a href="" style="color: #fff; text-decoration: none;">Order now</a></button>
+                                <button class="btn btn-primary" type="submit">Order now</button>
                             </div>
                         </div>
                     </form>
@@ -105,7 +105,7 @@
                         <c:forEach items="${o.items}" var="i">
                         <li class="list-group-item">
                             <div class="row">
-                                <div class="col"><img src="${i.product.thumbnail}" alt="" width="70" class="img-fluid rounded shadow-sm"></div>
+                                <div class="col"><img src="${i.product.images.get(0).path}" alt="" width="70" class="img-fluid rounded shadow-sm"></div>
                                 <div class="col">${i.product.title}</div>
                                 <div class="col">${i.quantity}</div>
                                 <div class="col d-flex justify-content-end">${i.quantity*i.price}</div>

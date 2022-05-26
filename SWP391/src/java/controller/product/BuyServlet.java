@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import model.Product;
  *
  * @author win
  */
+@WebServlet(name = "BuyServlet", urlPatterns = {"/buy"})
 public class BuyServlet extends HttpServlet {
 
     /**
@@ -76,7 +78,7 @@ public class BuyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             ProductDAO productDAO=new ProductDAO();
-        List<Product> allproduct = productDAO.getAll();
+        List<Product> allproduct = productDAO.getAllProducts();
         Cookie[] arr=request.getCookies();  //get cookie in browsing
         String txt="";
         if(arr!=null){//exist cookie
@@ -89,7 +91,7 @@ public class BuyServlet extends HttpServlet {
                 }
             }
         }
-        String num=request.getParameter("num");
+        String num=request.getParameter("quantity");
         String id=request.getParameter("id");
         if(txt.isEmpty()){ //cart empty
             txt=id+":"+num;

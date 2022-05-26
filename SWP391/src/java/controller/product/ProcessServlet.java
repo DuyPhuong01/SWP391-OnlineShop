@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import model.Product;
  *
  * @author win
  */
+@WebServlet(name = "ProcessServlet", urlPatterns = {"/process"})
 public class ProcessServlet extends HttpServlet {
 
     /**
@@ -63,7 +65,7 @@ public class ProcessServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          ProductDAO productDAO=new ProductDAO();
-        List<Product> allproduct = productDAO.getAll();
+        List<Product> allproduct = productDAO.getAllProducts();
         Cookie[] arr=request.getCookies();  //get cookie in browsing
         String txt="";
         if(arr!=null){//exist cookie
@@ -130,7 +132,7 @@ public class ProcessServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ProductDAO productDAO=new ProductDAO();
-        List<Product> allproduct = productDAO.getAll();
+        List<Product> allproduct = productDAO.getAllProducts();
         Cookie[] arr=request.getCookies();  //get cookie in browsing
         String txt="";
         if(arr!=null){//exist cookie

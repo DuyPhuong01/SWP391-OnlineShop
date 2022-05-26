@@ -10,6 +10,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cart details</title>
          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.rtl.min.css" integrity="sha384-dc2NSrAXbAkjrdm9IYrX10fQq9SDG6Vjz7nQVKdKcJl3pC+k37e7qJR5MVSCS+wR" crossorigin="anonymous">
 
     <!-- ===== CSS ===== -->
@@ -51,7 +53,7 @@
                                             
                                             <th scope="row">
                                                 <div class="p-2">
-                                                    <img src="${i.product.thumbnail}" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                                    <img src="${i.product.images.get(0).path}" alt="" width="70" class="img-fluid rounded shadow-sm">
                                                     <div class="ml-3 d-inline-block align-middle">
                                                         <h5 class="mb-0"> <a href="detail?pid=${i.product.product_id}" class="text-dark d-inline-block">${i.product.title}</a></h5><span class="text-muted font-weight-normal font-italic"></span>
                                                     </div>
