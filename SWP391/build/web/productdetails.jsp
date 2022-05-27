@@ -68,8 +68,8 @@
                                         <h3 class="card-title">${product.title}</h3>
                                         <h6 class="card-subtitle mb-2 text-muted">Category: ${product.category.category_name}</h6>
                                         <h4 class="card-subtitle mb-2"><span class="text-decoration-line-through">${product.original_price}</span> ${product.sale_price}</h4>
-                                        <form action="addtocart">
-                                            <input type="text" name="product_id" value="${product.product_id}" hidden="true">
+                                        <form action="buy" method="post">
+                                            <input type="text" name="id" value="${product.product_id}" hidden="true">
                                             <div class="input-group mb-2">
                                                 <label class="input-group-text" for="typeNumber">Quantity</label>
                                                 <input type="number" id="typeNumber" name="quantity" class="form-control" value="1" min="1" />

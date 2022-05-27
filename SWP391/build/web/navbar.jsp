@@ -36,7 +36,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-outline-primary" href="cartdetails">
+                            <a class="btn btn-outline-primary" href="showcart">
                                 My Carts
                                 <span class="badge text-bg-secondary">4</span>
                             </a>

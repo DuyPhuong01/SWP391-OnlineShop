@@ -17,6 +17,7 @@ public class Product {
     private List<ProductImage> images;
     private ProductCategory category;
     private int unit_in_stock;
+    private String updated_date;
     private double original_price;
     private double sale_price;
     private String product_details;
@@ -27,12 +28,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(int product_id, String title, List<ProductImage> images, ProductCategory category, int unit_in_stock, double original_price, double sale_price, String product_details, List<Feedback> feedbacks, boolean featured, int status) {
+    public Product(int product_id, String title, List<ProductImage> images, ProductCategory category, int unit_in_stock, String updated_date, double original_price, double sale_price, String product_details, List<Feedback> feedbacks, boolean featured, int status) {
         this.product_id = product_id;
         this.title = title;
         this.images = images;
         this.category = category;
         this.unit_in_stock = unit_in_stock;
+        this.updated_date = updated_date;
         this.original_price = original_price;
         this.sale_price = sale_price;
         this.product_details = product_details;
@@ -79,6 +81,14 @@ public class Product {
 
     public void setUnit_in_stock(int unit_in_stock) {
         this.unit_in_stock = unit_in_stock;
+    }
+
+    public String getUpdated_date() {
+        return updated_date;
+    }
+
+    public void setUpdated_date(String updated_date) {
+        this.updated_date = updated_date;
     }
 
     public double getOriginal_price() {
@@ -128,4 +138,6 @@ public class Product {
     public void setStatus(int status) {
         this.status = status;
     }
+
+
 }
