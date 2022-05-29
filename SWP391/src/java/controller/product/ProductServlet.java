@@ -52,13 +52,12 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        ProductDAO product_dao = new ProductDAO();
         String productid_raw = request.getParameter("id");
+        
         try{
             int productId = Integer.parseInt(productid_raw);
-            ProductDAO productDao=new ProductDAO();
-            Product product = productDao.getProductById(productId); //search a product
-            request.setAttribute("product", product);
+            request.setAttribute("product", product_dao.getProductById(productId));
             request.getRequestDispatcher("productdetails.jsp").forward(request, response);
         } catch (NumberFormatException e){
             System.out.println(e);

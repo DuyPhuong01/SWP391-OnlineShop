@@ -1,8 +1,4 @@
-<%-- 
-    Document   : cartcontact
-    Created on : May 25, 2022, 7:09:48 PM
-    Author     : win
---%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,137 +8,163 @@
         <title>Cart Contacts</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style1.css"/>
     </head>
-       <body>
-        <div class="container">
-             <c:set var="o" value="${requestScope.cart}" />
-             <c:set var="tt" value="0" />
-            <div class="row">
-                <div class="col">
-                    <h1>Cart contacts</h1>
+    <body>
+        <c:set var="o" value="${requestScope.cart}" />
+        <c:set var="tt" value="0" />
+        <div class="header">
+            <c:import url="navbar.jsp"></c:import>
+            </div>
+            <div class="container-lg mb-5">
+                <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="showcart" class="text-decoration-none text-muted">Cart Details</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Cart Contacts
+                        </li>
+                    </ol>
+                </nav>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="sider">
+                        <c:import url="sider.jsp"></c:import>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 content shadow-sm mb-3">
+                            <div class="text-center">
+                                <h3 class="pb-3 text-uppercase font-weight-bold">Thông tin giỏ hàng</h3>
+                            </div>
+                            <form class="row g-3" id="checkout" action="checkout" method="post">
+                                <div class="col-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Tên đầy đủ</span>
+                                        <input type="text" class="form-control" name="name"
+                                               value="${requestScope.cus.full_name}" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Điện thoại</span>
+                                    <input type="tel" class="form-control" placeholder="+84" name="phone" value="${requestScope.cus.phone}"
+                                           aria-label="tel" aria-describedby="basic-addon1" required>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Email</span>
+                                    <input type="mail" class="form-control" placeholder="email" name="email" value="${requestScope.cus.email}"
+                                           aria-label="email" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Thành phố</span>
+                                    <input type="text" class="form-control" placeholder="city" name="city" value="${requestScope.cus.city}"
+                                           aria-label="city" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Giới tính</span>
+                                    <select name="gender" id="inputState" class="form-select" required>
+                                    <option selected disabled hidden>Choose...</option>
+                                    <option value="1"<c:if test="${requestScope.cus.gender}">selected</c:if> >Nam</option>
+                                    <option  value="0"<c:if test="${!requestScope.cus.gender}">selected</c:if>>Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Địa chỉ</span>
+                                    <input type="text" class="form-control" placeholder="Address"
+                                           name="address"
+                                            value="${requestScope.cus.address}"
+                                           aria-label="address" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                           <div class="mb-3">
+                            <label for="note" class="form-label">Ghi chú</label>
+                            <textarea class="form-control" id="note" form="checkout" name="note" rows="3"></textarea>
+                          </div>        
+<!--                            <div>
+                                Already have an account? <a href="login">Login</a><br />
+                            </div>-->
+                            <div class="col-12">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a class="btn" href="showcart">Trở về giỏ hàng</a>
+                                    <button class="btn btn-outline-primary" type="submit">Đặt Hàng ngay</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
-                    <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="showcart">Cart Details</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">
-                                Cart Contacts
+                    <div class="p-3 content shadow-sm mb-3">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                        <th colspan="2">ID</th>
+                                        <th colspan="2">Sản phẩm</th>
+                                                <th colspan="1">
+                                                    <div class="price-cart-contact">
+                                                        Đơn giá
+                                                    </div>
+                                            </th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-end">Total Cost</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <c:forEach items="${o.items}" var="i">
+                                    <tr>
+                                        <td colspan="1" style="width: 10%">
+                                            <p class="mb-0 product-id-cart-contact" style="font-size: 18px">
+                                                 ${i.product.product_id}
+                                            </p>
+                                        </td>
+                                        <td colspan="2" style="width: 10%">
+                                            <img src="${i.product.images.get(0).path}" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                        </td>
+                                        <td class="align-middle">
+                                            <a href="product?id=${i.product.product_id}" class="text-decoration-none text-muted"><p class="mb-0 product-title">${i.product.title}</p></a>
+                                        </td>
+                                        <td class="align-middle">
+                                              <b class="d-flex justify-content-center">
+                                                <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price}" type="currency" currencySymbol="đ"/></c:if>
+                                                <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price}" type="currency" currencySymbol="đ" /></c:if>
+                                            </b>
+                                        </td>
+                                        <td class="align-middle">
+                                            <p class="text-center mb-0">${i.quantity}</p>
+                                        </td>
+                                        <td class="align-middle">
+                                            <p class="text-end mb-0">
+                                                <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price*i.quantity}" type="currency" currencySymbol="đ"/></c:if>
+                                                <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price*i.quantity}" type="currency" currencySymbol="đ" /></c:if>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                        <ul class="list-unstyled mb-4">
+                            <li class="d-flex justify-content-between py-3 border-bottom">Tạm tính
+                                <span><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>
                             </li>
-                        </ol>
-                    </nav>
-                    <div>
-                        Shipment Details<br />
-                        Do not have account? <a href="#">Register</a><br />
+                            <li class="d-flex justify-content-between py-3 border-bottom">Phí vận chuyển
+                                <span>Free ship</span>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 border-bottom">Tổng Tiền
+                                <h5 class="font-weight-bold"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></h5>
+                            </li>
+                        </ul>
                     </div>
-                    <form class="row g-3" id="checkout" action="checkout" method="post">
-                        <div class="col-md-12">
-                            <label for="inputEmail4" class="form-label">Name</label>
-                            <input type="email" value="${requestScope.cus.full_name}" class="form-control" id="inputEmail4" />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">Email</label>
-                            <input type="${requestScope.cus.email}" class="form-control" id="inputEmail4" />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputPassword4" class="form-label"
-                                   >Phone</label
-                            >
-                            <input type="password"  placeholder="0783332391" class="form-control" id="inputPassword4" />
-                        </div>
-                        <div class="col-12">
-                            <label for="inputAddress" class="form-label">Address</label>
-                            <input
-                                type="text"
-                                value="${requestScope.cus.address}"
-                                class="form-control"
-                                id="inputAddress"
-                                placeholder="1234 Main St"
-                                />
-                        </div>
-                        <div class="col-12">
-                            <label for="inputAddress2" class="form-label">Address 2</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="inputAddress2"
-                                placeholder="Apartment, studio, or floor"
-                                />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputCity" class="form-label">City</label>
-                            <input type="text" class="form-control" id="inputCity" />
-                        </div>
-                        <div class="col-md-4">
-                            <label for="inputState" class="form-label">State</label>
-                            <select id="inputState" class="form-select">
-                                <option selected>Choose...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <label for="inputZip" class="form-label">Zip</label>
-                            <input type="text" class="form-control" id="inputZip" />
-                        </div>
-                        <div class="col-12">
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button class="btn btn-primary me-md-2" type="button" onclick="window.location.href='showcart'">
-                                    Back to cart
-                                </button>
-                                <button class="btn btn-primary" type="submit" onclick=""><a href="" style="color: #fff; text-decoration: none;">Order now</a></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col">
-                    <div class="ratio" style="--bs-aspect-ratio: 10%">
-                        <div></div>
-                    </div>
-
-                    <ul class="list-group list-group-flush">
-                        <c:forEach items="${o.items}" var="i">
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col"><img src="${i.product.thumbnail}" alt="" width="70" class="img-fluid rounded shadow-sm"></div>
-                                <div class="col">${i.product.title}</div>
-                                <div class="col">${i.quantity}</div>
-                                <div class="col d-flex justify-content-end">${i.quantity*i.price}</div>
-                            </div>
-                        </li>
-                        </c:forEach>
-
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col">Cash</div>
-                                <div class="d-flex justify-content-end">${o.totalMoney}đ</div>
-                            </div>
-                            <div class="row">
-                                <div class="col">Transport fee</div>
-                                <div class="d-flex justify-content-end">20000đ</div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col">Total</div>
-                                <div class="d-flex justify-content-end">${o.totalMoney-20000}đ</div>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
-        <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
-            integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
-            integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
-            crossorigin="anonymous"
-        ></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     </body>
 </html>

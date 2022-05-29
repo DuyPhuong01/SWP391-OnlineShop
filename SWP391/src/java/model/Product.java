@@ -5,9 +5,7 @@
  */
 package model;
 
-import dal.CategoryDAO;
-import dal.ProductDAO;
-import java.sql.Timestamp;
+import java.util.List;
 
 /**
  *
@@ -16,34 +14,34 @@ import java.sql.Timestamp;
 public class Product {
     private int product_id;
     private String title;
-    private int category_id;
+    private List<ProductImage> images;
+    private ProductCategory category;
     private int unit_in_stock;
-    private Timestamp updated_date;
+    private String updated_date;
     private double original_price;
     private double sale_price;
     private String product_details;
+    private List<Feedback> feedbacks;
     private boolean featured;
-    private  int status;
+    private int status;
 
-    
-   
     public Product() {
     }
 
-    public Product(int product_id, String title, int category_id, int unit_in_stock, Timestamp updated_date, double original_price, double sale_price, String product_details, boolean featured, int status) {
+    public Product(int product_id, String title, List<ProductImage> images, ProductCategory category, int unit_in_stock, String updated_date, double original_price, double sale_price, String product_details, List<Feedback> feedbacks, boolean featured, int status) {
         this.product_id = product_id;
         this.title = title;
-        this.category_id = category_id;
+        this.images = images;
+        this.category = category;
         this.unit_in_stock = unit_in_stock;
         this.updated_date = updated_date;
         this.original_price = original_price;
         this.sale_price = sale_price;
         this.product_details = product_details;
+        this.feedbacks = feedbacks;
         this.featured = featured;
         this.status = status;
     }
-
-   
 
     public int getProduct_id() {
         return product_id;
@@ -61,26 +59,22 @@ public class Product {
         this.title = title;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public List<ProductImage> getImages() {
+        return images;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setImages(List<ProductImage> images) {
+        this.images = images;
     }
 
-        //get thumbnail
-    public String getThumbnail() {
-       ProductDAO productDAO=new ProductDAO();
-        String thumbnail = productDAO.getThumbnailByID(product_id);//get thumbnail
-        return thumbnail;
+    public ProductCategory getCategory() {
+        return category;
     }
-        //get category
-    public String getCategory() {
-        CategoryDAO categoryDAO=new CategoryDAO();
-        String categoryNameByID = categoryDAO.getCategoryNameByID(category_id); //search
-        return categoryNameByID;
+
+    public void setCategory(ProductCategory category) {
+        this.category = category;
     }
+
     public int getUnit_in_stock() {
         return unit_in_stock;
     }
@@ -89,11 +83,11 @@ public class Product {
         this.unit_in_stock = unit_in_stock;
     }
 
-    public Timestamp getUpdated_date() {
+    public String getUpdated_date() {
         return updated_date;
     }
 
-    public void setUpdated_date(Timestamp updated_date) {
+    public void setUpdated_date(String updated_date) {
         this.updated_date = updated_date;
     }
 
@@ -121,6 +115,14 @@ public class Product {
         this.product_details = product_details;
     }
 
+    public List<Feedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(List<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
+    }
+
     public boolean isFeatured() {
         return featured;
     }
@@ -137,16 +139,5 @@ public class Product {
         this.status = status;
     }
 
-
-    @Override
-    public String toString() {
-        return "Product{" + "product_id=" + product_id + ", title=" + title + ", category_id=" + category_id + ", unit_in_stock=" + unit_in_stock + ", updated_date=" + updated_date + ", original_price=" + original_price + ", sale_price=" + sale_price + ", product_details=" + product_details + ", featured=" + featured + ", status=" + status + '}';
-    }
-    
-    
-    
-
-    
-    
 
 }

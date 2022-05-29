@@ -11,49 +11,96 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Product;
+import model.ProductImage;
 
 /**
  *
- * @author win
+ * @author Admin
  */
-public class ProductDAO extends DBContext{
-        //Get First Product
-    public Product getFirstProduct() {
-        String sql = "select * from products";
+public class ProductDAO extends DBContext {
+
+    public List<Product> getAllProducts() {
+        CategoryDAO category_dao = new CategoryDAO();
+        List<Product> productList = new ArrayList<>();
+        String sql = "select * from products order by updated_date desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                Product product = new Product(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getInt(4),rs.getTimestamp(5),rs.getDouble(6),
-                        rs.getDouble(7), rs.getString(8), rs.getBoolean(9), rs.getInt(10));
-                return product;
+            while (rs.next()) {
+                int product_id = rs.getInt("product_id");
+                Product product = new Product(product_id,
+                        rs.getString("title"),
+                        getProductImages(product_id),
+                        category_dao.getProductCategory(rs.getInt("category_id")),
+                        rs.getInt("unit_in_stock"),
+                        rs.getString("updated_date"),
+                        rs.getDouble("original_price"),
+                        rs.getDouble("sale_price"),
+                        rs.getString("product_details"), null,
+                        rs.getBoolean("featured"),
+                        rs.getInt("status")
+                );
+                productList.add(product);
             }
+            return productList;
         } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
     }
 
-    //Get All product
-    public List<Product> getAll() {
-        List<Product> listProduct = new ArrayList<>(); //contain all product
-        String sql = "select * from products";
+    public List<Product> getAllProducts(int[] categories, String key) {
+//        select * from products where title like '%%' and category_id in (1, 2)
+        CategoryDAO category_dao = new CategoryDAO();
+        List<Product> productList = new ArrayList<>();
+        String sql = "select * from products ";
+        sql += "where title like '%" + key + "%' ";
+        if (categories != null) {
+            sql += "and category_id in (";
+            for (int i = 0; i < categories.length; i++) {
+                sql += categories[i] + ",";
+            }
+            if (sql.endsWith(",")) {
+                sql = sql.substring(0, sql.length() - 1);
+            }
+            sql += ")";
+        }
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) { //have next element
-                Product product = new Product(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getInt(4),rs.getTimestamp(5),rs.getDouble(6),
-                        rs.getDouble(7), rs.getString(8), rs.getBoolean(9), rs.getInt(10));
-                listProduct.add(product);//add item to list
+            while (rs.next()) {
+                int product_id = rs.getInt("product_id");
+                Product product = new Product(product_id,
+                        rs.getString("title"),
+                        getProductImages(product_id),
+                        category_dao.getProductCategory(rs.getInt("category_id")),
+                        rs.getInt("unit_in_stock"),
+                        rs.getString("updated_date"),
+                        rs.getDouble("original_price"),
+                        rs.getDouble("sale_price"),
+                        rs.getString("product_details"), null,
+                        rs.getBoolean("featured"),
+                        rs.getInt("status")
+                );
+                productList.add(product);
             }
+            return productList;
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return listProduct;
+        return null;
     }
 
-    //get product by id
+    public List<Product> getListByPage(List<Product> list, int start, int end) {
+        ArrayList<Product> arr = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            arr.add(list.get(i));
+        }
+        return arr;
+    }
+
     public Product getProductById(int id) {
+        CategoryDAO category_dao = new CategoryDAO();
         String sql = "select * from products where product_id = ?";
 
         try {
@@ -61,8 +108,19 @@ public class ProductDAO extends DBContext{
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                 Product product = new Product(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getInt(4),rs.getTimestamp(5),rs.getDouble(6),
-                        rs.getDouble(7), rs.getString(8), rs.getBoolean(9), rs.getInt(10));
+                int product_id = rs.getInt("product_id");
+                Product product = new Product(product_id,
+                        rs.getString("title"),
+                        getProductImages(product_id),
+                        category_dao.getProductCategory(rs.getInt("category_id")),
+                        rs.getInt("unit_in_stock"),
+                        rs.getString("updated_date"),
+                        rs.getDouble("original_price"),
+                        rs.getDouble("sale_price"),
+                        rs.getString("product_details"), null,
+                        rs.getBoolean("featured"),
+                        rs.getInt("status")
+                );
                 return product;
             }
         } catch (SQLException sqle) {
@@ -70,29 +128,86 @@ public class ProductDAO extends DBContext{
         }
         return null;
     }
-    
-    //get thumbnail
-    public String getThumbnailByID(int id){
-        String sql = "select top 1 url from products p,product_images pi\n" +
-        "where pi.product_id=p.product_id\n" +
-        "and p.product_id=?";
-            String thumbnail = null;
+
+    public List<ProductImage> getProductImages(int product_id) {
+        List<ProductImage> list = new ArrayList<>();
+        String sql = "select * from product_images where product_id=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, id);
+            st.setInt(1, product_id);
             ResultSet rs = st.executeQuery();
-            if (rs.next()) {//have item
-                
-                thumbnail=rs.getString("url");
+            while (rs.next()) {
+                ProductImage productiamge = new ProductImage(rs.getInt("image_id"),
+                        rs.getString("url"),
+                        rs.getString("description")
+                );
+                list.add(productiamge);
             }
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
         }
-        return thumbnail;
+        return list;
     }
-    
-    
+    public List<Product> getNewestActiveProducts(int numberOfProduct) {
+        CategoryDAO category_dao = new CategoryDAO();
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from products where featured=1 order by updated_date desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next() && numberOfProduct-->0) {
+                int product_id = rs.getInt("product_id");
+                Product product = new Product(product_id,
+                        rs.getString("title"),
+                        getProductImages(product_id),
+                        category_dao.getProductCategory(rs.getInt("category_id")),
+                        rs.getInt("unit_in_stock"),
+                        rs.getString("updated_date"),
+                        rs.getDouble("original_price"),
+                        rs.getDouble("sale_price"),
+                        rs.getString("product_details"), null,
+                        rs.getBoolean("featured"),
+                        rs.getInt("status")
+                );
+                list.add(product);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return list;
+    }
+    public List<Product> getLastActiveProducts(int number) {
+        CategoryDAO category_dao = new CategoryDAO();
+        List<Product> list = new ArrayList<>();
+        String sql = "select top "+number+" * from products where featured=1 order by product_id desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int product_id = rs.getInt("product_id");
+                Product product = new Product(product_id,
+                        rs.getString("title"),
+                        getProductImages(product_id),
+                        category_dao.getProductCategory(rs.getInt("category_id")),
+                        rs.getInt("unit_in_stock"),
+                        rs.getString("updated_date"),
+                        rs.getDouble("original_price"),
+                        rs.getDouble("sale_price"),
+                        rs.getString("product_details"), null,
+                        rs.getBoolean("featured"),
+                        rs.getInt("status")
+                );
+                list.add(product);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
-        ProductDAO p=new ProductDAO();
+        ProductDAO pd = new ProductDAO();
+
+        System.out.println(pd.getLastActiveProducts(6).get(0).getTitle());
     }
 }

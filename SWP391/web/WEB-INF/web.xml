@@ -1,36 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>BuyServlet</servlet-name>
-        <servlet-class>controller.product.BuyServlet</servlet-class>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>controller.authentication.LoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ShowCartServlet</servlet-name>
-        <servlet-class>controller.product.ShowCartServlet</servlet-class>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>controller.authentication.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProcessServlet</servlet-name>
-        <servlet-class>controller.product.ProcessServlet</servlet-class>
+        <servlet-name>Buy1Servlet</servlet-name>
+        <servlet-class>controller.product.Buy1Servlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CheckoutServlet</servlet-name>
-        <servlet-class>controller.product.CheckoutServlet</servlet-class>
+        <servlet-name>ShowCart1</servlet-name>
+        <servlet-class>controller.product.ShowCart1</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Process1Servlet</servlet-name>
+        <servlet-class>controller.product.Process1Servlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>BuyServlet</servlet-name>
-        <url-pattern>/buy</url-pattern>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ShowCartServlet</servlet-name>
-        <url-pattern>/showcart</url-pattern>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProcessServlet</servlet-name>
-        <url-pattern>/process</url-pattern>
+        <servlet-name>Buy1Servlet</servlet-name>
+        <url-pattern>/buy1</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CheckoutServlet</servlet-name>
-        <url-pattern>/checkout</url-pattern>
+        <servlet-name>ShowCart1</servlet-name>
+        <url-pattern>/showcart1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Process1Servlet</servlet-name>
+        <url-pattern>/process1</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
