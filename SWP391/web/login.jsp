@@ -18,11 +18,10 @@
 
     </head>
     <body>
-        <a href="#divOne"><button type="button">Login Form</button></a>
 
         <div class="overlay" id="divOne">
             <div class="wrapper">
-                <a class="close" href="#">&times;</a>
+                <a class="close" href="#a">&times;</a>
                 <div class="title-text">
                     <c:if test="${requestScope.signmess == null}">
                         <div class="title login">Login Form</div>

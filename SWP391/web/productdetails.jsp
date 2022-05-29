@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -29,9 +30,9 @@
                         </div>
                     </div>
                     <div class="col-9">
-                        <div class="content">
+                        <div class="p-3 bg-white rounded shadow-sm">
                         <c:set var="prodct" value="${requestScope.product}"></c:set>
-                            <div class="row product-details-container">
+                            <div class="row product-details-container mb-3">
                                 <div class="col-6">
                                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                                         <div class="carousel-indicators">
@@ -65,9 +66,15 @@
                             <div class="col-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h3 class="card-title">${product.title}</h3>
-                                        <h6 class="card-subtitle mb-2 text-muted">Category: ${product.category.category_name}</h6>
-                                        <h4 class="card-subtitle mb-2"><span class="text-decoration-line-through">${product.original_price}</span> ${product.sale_price}</h4>
+                                        <h5 class="card-title">${product.title}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">Category: <a href="productlist?category=${product.category.category_id}">${product.category.category_name}</a></h6>
+                                        <div class="mb-2 ms-3">
+                                            <c:if test="${product.sale_price != 0}">
+                                                <span class="text-decoration-line-through"><fmt:formatNumber value="${product.original_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></span>
+                                                <h4 style="color: red;"> <fmt:formatNumber value="${product.sale_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h4>
+                                            </c:if>
+                                            <c:if test="${product.sale_price == 0}"><h4><fmt:formatNumber value="${product.original_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h4></c:if>
+                                        </div>
                                         <form action="buy" method="post">
                                             <input type="text" name="id" value="${product.product_id}" hidden="true">
                                             <div class="input-group mb-2">
@@ -93,5 +100,4 @@
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="js/carousel.js"></script>
-
 </html>

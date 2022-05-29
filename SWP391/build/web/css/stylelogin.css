@@ -1,26 +1,8 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : May 25, 2022, 7:57:30 PM
-    Author     : tretr
-*/
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-
-.overlay { /* ===================================================================== */
+.overlay {
+    /* ===================================================================== */
     position: fixed;
-    top: 1;
-    bottom: 5;
+    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.8);
@@ -28,20 +10,25 @@ and open the template in the editor.
     visibility: hidden;
     opacity: 0;
 }
-.overlay:target {/* ===================================================================== */
+
+.overlay:target {
+    /* ===================================================================== */
     visibility: visible;
     opacity: 1;
 }
-.wrapper {/* ===================================================================== */
+
+#divOne .wrapper {
+    /* ===================================================================== */
     margin: 70px auto;
     padding: 20px;
     background: #ffffff;
     border-radius: 5px;
-    
     position: relative;
     transition: all 5s ease-in-out;
 }
-.wrapper .close {/* ===================================================================== */
+
+#divOne .wrapper .close {
+    /* ===================================================================== */
     position: absolute;
     top: 20px;
     right: 30px;
@@ -51,16 +38,10 @@ and open the template in the editor.
     text-decoration: none;
     color: #000;
 }
-.wrapper .close:hover {/* ===================================================================== */
-    color: #4070f4;
-}
 
-html, body {
-    display: grid;
-    height: 100%;
-    width: 100%;
-    place-items: center;
-    background: -webkit-linear-gradient(left, #4070f4, #6280e6);
+#divOne .wrapper .close:hover {
+    /* ===================================================================== */
+    color: #4070f4;
 }
 
 ::selection {
@@ -68,7 +49,7 @@ html, body {
     color: #fff;
 }
 
-.wrapper {
+#divOne .wrapper {
     overflow: hidden;
     max-width: 450px;
     background: #fff;
@@ -77,12 +58,12 @@ html, body {
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
 }
 
-.wrapper .title-text {
+#divOne .wrapper .title-text {
     display: flex;
     width: 200%;
 }
 
-.wrapper .title {
+#divOne .wrapper .title {
     width: 50%;
     font-size: 35px;
     font-weight: 600;
@@ -90,7 +71,7 @@ html, body {
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.wrapper .slide-controls {
+#divOne .wrapper .slide-controls {
     position: relative;
     display: flex;
     height: 50px;
@@ -102,10 +83,11 @@ html, body {
     border-radius: 5px;
 }
 
-.wrapper .slide-controls input[type="radio"] {
+#divOne .wrapper .slide-controls input[type="radio"] {
     display: none;
 }
-.slide-controls .slide {
+
+#divOne .slide-controls .slide {
     height: 100%;
     width: 100%;
     color: #fff;
@@ -118,11 +100,11 @@ html, body {
     transition: all 0.6s ease;
 }
 
-.slide-controls label.signup {
+#divOne .slide-controls label.signup {
     color: #000;
 }
 
-.slide-controls .slider-tab {
+#divOne .slide-controls .slider-tab {
     position: absolute;
     height: 100%;
     width: 50%;
@@ -133,53 +115,51 @@ html, body {
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-
-
-#signup:checked~.slider-tab {
+#divOne #signup:checked~.slider-tab {
     left: 50%;
 }
 
-#signup:checked~label.signup {
+#divOne #signup:checked~label.signup {
     color: #fff;
     cursor: default;
     user-select: none;
 }
 
-#signup:checked~label.login {
+#divOne #signup:checked~label.login {
     color: #000;
 }
 
-#login:checked~label.signup {
+#divOne #login:checked~label.signup {
     color: #000;
 }
 
-#login:checked~label.login {
+#divOne #login:checked~label.login {
     cursor: default;
     user-select: none;
 }
 
-.wrapper .form-container {
+#divOne .wrapper .form-container {
     width: 100%;
     overflow: hidden;
 }
 
-.form-container .form-inner {
+#divOne .form-container .form-inner {
     display: flex;
     width: 200%;
 }
 
-.form-container .form-inner form {
+#divOne .form-container .form-inner form {
     width: 50%;
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.form-inner form .field {
+#divOne .form-inner form .field {
     height: 50px;
     width: 100%;
     margin-top: 20px;
 }
 
-.form-inner form .field input {
+#divOne .form-inner form .field input {
     height: 100%;
     width: 100%;
     outline: none;
@@ -191,41 +171,41 @@ html, body {
     transition: all 0.3s ease;
 }
 
-.form-inner form .field input:focus {
+#divOne .form-inner form .field input:focus {
     border-color: #6280e6;
     /* box-shadow: inset 0 0 3px #fb6aae; */
 }
 
-.form-inner form .field input::placeholder {
+#divOne .form-inner form .field input::placeholder {
     color: #999;
     transition: all 0.3s ease;
 }
 
-form .field input:focus::placeholder {
+#divOne form .field input:focus::placeholder {
     color: #b3b3b3;
 }
 
-.form-inner form .pass-link {
+#divOne .form-inner form .pass-link {
     margin-top: 5px;
 }
 
-.form-inner form .signup-link {
+#divOne .form-inner form .signup-link {
     text-align: center;
     margin-top: 30px;
 }
 
-.form-inner form .pass-link a,
-.form-inner form .signup-link a {
+#divOne .form-inner form .pass-link a,
+#divOne .form-inner form .signup-link a {
     color: #0069fc;
     text-decoration: none;
 }
 
-.form-inner form .pass-link a:hover,
-.form-inner form .signup-link a:hover {
+#divOne .form-inner form .pass-link a:hover,
+#divOne .form-inner form .signup-link a:hover {
     text-decoration: underline;
 }
 
-form .btn {
+#divOne form .btn {
     height: 50px;
     width: 100%;
     border-radius: 5px;
@@ -233,7 +213,7 @@ form .btn {
     overflow: hidden;
 }
 
-form .btn .btn-layer {
+#divOne form .btn .btn-layer {
     height: 100%;
     width: 300%;
     position: absolute;
@@ -244,11 +224,11 @@ form .btn .btn-layer {
     ;
 }
 
-form .btn:hover .btn-layer {
+#divOne form .btn:hover .btn-layer {
     left: 0;
 }
 
-form .btn input[type="submit"] {
+#divOne form .btn input[type="submit"] {
     height: 100%;
     width: 100%;
     z-index: 1;
@@ -263,15 +243,15 @@ form .btn input[type="submit"] {
     cursor: pointer;
 }
 
-.form-inner .login .input-box,
-.form-inner .signup .input-box {
+#divOne .form-inner .login .input-box,
+#divOne .form-inner .signup .input-box {
     position: relative;
     height: 50px;
     margin-bottom: 10px;
 }
 
-.form-inner .login .input-box input,
-.form-inner .signup .input-box input {
+#divOne .form-inner .login .input-box input,
+#divOne .form-inner .signup .input-box input {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -282,13 +262,13 @@ form .btn input[type="submit"] {
     transition: all 0.2s linear;
 }
 
-.form-inner .login .input-box input:is(:focus, :valid),
-.form-inner .signup .input-box input:is(:focus, :valid) {
+#divOne .form-inner .login .input-box input:is(:focus, :valid),
+#divOne .form-inner .signup .input-box input:is(:focus, :valid) {
     border-color: #4070f4;
 }
 
-.form-inner .login .input-box :is(label, i),
-.form-inner .signup .input-box :is(label, i) {
+#divOne .form-inner .login .input-box :is(label, i),
+#divOne .form-inner .signup .input-box :is(label, i) {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -296,16 +276,16 @@ form .btn input[type="submit"] {
     transition: all 0.2s linear;
 }
 
-.form-inner .login .input-box label, 
-.form-inner .signup .input-box label {
+#divOne .form-inner .login .input-box label,
+#divOne .form-inner .signup .input-box label {
     left: 15px;
     pointer-events: none;
     font-size: 16px;
     font-weight: 400;
 }
 
-.form-inner .login .input-box input:is(:focus, :valid)~label, 
-.form-inner .signup .input-box input:is(:focus, :valid)~label {
+#divOne .form-inner .login .input-box input:is(:focus, :valid)~label,
+#divOne .form-inner .signup .input-box input:is(:focus, :valid)~label {
     color: #4070f4;
     top: 0;
     font-size: 12px;
@@ -313,29 +293,29 @@ form .btn input[type="submit"] {
     background-color: #fff;
 }
 
-.form-inner .login .input-box i,
-.form-inner .signup .input-box i{
+#divOne .form-inner .login .input-box i,
+#divOne .form-inner .signup .input-box i {
     right: 15px;
     cursor: pointer;
     font-size: 20px;
 }
 
-.form-inner .login .input-box input:is(:focus, :valid)~i, 
-.form-inner .signup .input-box input:is(:focus, :valid)~i {
+#divOne .form-inner .login .input-box input:is(:focus, :valid)~i,
+#divOne .form-inner .signup .input-box input:is(:focus, :valid)~i {
     color: #4070f4;
 }
 
-.text-danger {
+#divOne .text-danger {
     color: #dc3545!important;
     font-size: 14px;
 }
 
-.text-danger p{
+#divOne .text-danger p {
     color: #dc3545!important;
     font-size: 14px;
-}       
+}
 
-.btn {
+#divOne .btn {
     --bs-btn-padding-y: 0;
     --bs-btn-border-width: 0;
 }
