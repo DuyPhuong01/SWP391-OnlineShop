@@ -6,9 +6,9 @@
                         <h3 class="footer-title">About us</h3>
                         Death is like the wind, always by my side!
                         <ul class="footer-links">
-                            <li><a href=""><i class="fa-solid fa-location-dot"></i>Khu Công nghệ cao Hòa Lạc, Km29, Đại lộ Thăng Long, H. Thạch Thất, Tp. Hà Nội</a></li>
-                            <li><a href=""><i class="fa-solid fa-phone"></i>+0123456789</a></li>
-                            <li><a href=""><i class="fa-solid fa-envelope"></i>SE1611-NET - Group 2</a></li>
+                            <li><a href=""><i class="fa-solid fa-location-dot" style="margin-right: 5px;"></i>Khu Công nghệ cao Hòa Lạc, Km29, Đại lộ Thăng Long, H. Thạch Thất, Tp. Hà Nội</a></li>
+                            <li><a href=""><i class="fa-solid fa-phone" style="margin-right: 5px;"></i>+0123456789</a></li>
+                            <li><a href=""><i class="fa-solid fa-envelope" style="margin-right: 5px;"></i>SE1611-NET - Group 2</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3">
