@@ -20,7 +20,8 @@ public class AccountDAO extends DBContext {
 
     public Account getAccountByUsernamePassword(String username, String password) {
         try {
-            String sql = "SELECT *"
+            String sql = "SELECT [username]\n"
+                    + "      ,[password]\n"
                     + "  FROM [accounts]\n"
                     + "  WHERE [username] = ? AND [password] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -28,10 +29,8 @@ public class AccountDAO extends DBContext {
             stm.setString(2, password);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                Account account = new Account(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"), 
-                        rs.getString("full_name"), rs.getInt("role_id"), rs.getBoolean("gender"), rs.getString("email"),
-                        rs.getString("city"), rs.getString("country"), rs.getString("address"), rs.getString("phone"),
-                        rs.getString("image_url"), rs.getBoolean("featured"));
+                Account account = new Account();
+                account.setUsername(username);
                 return account;
             }
         } catch (SQLException ex) {
@@ -69,5 +68,4 @@ public class AccountDAO extends DBContext {
         } catch (Exception e) {
         }
     }
-   
 }

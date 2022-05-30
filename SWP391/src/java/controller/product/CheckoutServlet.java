@@ -9,7 +9,6 @@ import dal.OrderDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,10 +16,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Account;
 import model.Cart;
-import model.Guest;
+import model.Customer;
 import model.Item;
 import model.Product;
 
@@ -31,30 +28,15 @@ import model.Product;
 @WebServlet(name = "CheckoutServlet", urlPatterns = {"/checkout"})
 public class CheckoutServlet extends HttpServlet {
 
-    /*separate carts other this cart*/
-    public static String removeCartCookieContent(String txt, int user_id) {
-        String detailCart = "";
-        String[] splitField = txt.split("<"); //split cookie into cart
-        List<String> listCart = new ArrayList<>();
-        for (String splitField1 : splitField) {//split each cart into id>item:quantity
-            String[] field = splitField1.split(">");
-            for (String field1 : field) { //add each cart conresspond id into id and cart detail
-                listCart.add(field1);
-            }
-        }
-
-        for (int i = 0; i < listCart.size(); i++) {
-            if (i % 2 == 1) {//cart id
-                if (Integer.parseInt(listCart.get(i)) != user_id) {// cart  other user_id 
-                    detailCart += "<" + listCart.get(i) + ">";
-                    detailCart += listCart.get(i + 1);
-                }
-            }
-        }
-
-        return detailCart;
-    }
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -63,7 +45,7 @@ public class CheckoutServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CheckoutServlet</title>");
+            out.println("<title>Servlet CheckoutServlet</title>");            
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CheckoutServlet at " + request.getContextPath() + "</h1>");
@@ -84,33 +66,28 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");
-        HttpSession session = request.getSession(true);
-        Account account = (Account) session.getAttribute("account");
-        int userID;
-        if (account == null) { //role:guest
-            userID = -1;
-            account = new Account();
-        } else {  //role:user
-            userID = account.getUser_id();
-        }
-        ProductDAO productDAO = new ProductDAO();
+       ProductDAO productDAO=new ProductDAO();
         List<Product> allproduct = productDAO.getAllProducts();
-        Cookie[] arr = request.getCookies();  //get cookie in browsing
-        String cookieContent = "";
-        if (arr != null) {//exist cookie
+        Cookie[] arr=request.getCookies();  //get cookie in browsing
+        String txt="";
+        if(arr!=null){//exist cookie
             for (Cookie cookie : arr) {
-                if (cookie.getName().equals("cart"))//cookie name cart
+                if(cookie.getName().equals("cart"))//cookie name cart
                 {
-                    cookieContent += cookie.getValue();
+                    txt+=cookie.getValue();
                 }
             }
         }
-        Cart cart;
-        cart = new Cart(cookieContent, allproduct, userID);
+        System.out.println("---txt geted:"+txt);
+        Cart cart=new Cart(txt, allproduct);
+        
+        System.out.println("-----my cart");
+        for (Item item : cart.getItems()) {
+            System.out.println(item);
+        }
+      Customer a=new Customer(2, "Bùi Anh Dũng", "Đại Học FPT-Hà Nội", "DungBAHE150633@gmail.com");
         request.setAttribute("cart", cart);
-        request.setAttribute("cus", account);
+        request.setAttribute("cus", a);
         request.getRequestDispatcher("cartcontact.jsp").forward(request, response);
 //        processRequest(request, response);
     }
@@ -126,73 +103,32 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");
-        HttpSession session = request.getSession(true);
-        Account account = (Account) session.getAttribute("account");
-        int userID;
-        if (account == null) { //role:guest
-            userID = -1;
-            account = new Account();
-        } else {  //role:user
-            userID = account.getUser_id();
-        }
-        ProductDAO productDAO = new ProductDAO();
+          ProductDAO productDAO=new ProductDAO();
         List<Product> allproduct = productDAO.getAllProducts();
-        Cookie[] arr = request.getCookies();  //get cookie in browsing
-        String cookieContent = "";
-        //convert cart content from cookie
-        if (arr != null) {//exist cookie
-            for (Cookie cookie : arr) {
-                if (cookie.getName().equals("cart"))//cookie name cart matched
+        Cookie[] arr=request.getCookies();  //get cookie in browsing
+        String txt="";
+        
+        if(arr!=null){//exist cookie
+            for(Cookie cookie : arr) {
+                if(cookie.getName().equals("cart"))//cookie name cart
                 {
-                    cookieContent += cookie.getValue();
-                    cookie.setMaxAge(0);//remove cookie
-                    response.addCookie(cookie);
+                    txt+=cookie.getValue();
                 }
             }
         }
-        Cart cart;
-        cart = new Cart(cookieContent, allproduct, userID);
-        //get information form
-        try {
-            String name = request.getParameter("name");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            String address = request.getParameter("address");
-            String city = request.getParameter("city");
-            int gender_raw = Integer.parseInt(request.getParameter("gender"));
-            boolean gender;
-            if(gender_raw==0){
-                gender=false;
-            }else{
-                gender=true;
-            }
-            String note = request.getParameter("note");
-            if(userID!=-1){ //role:user
-            Account customer = new Account();
-            customer.setUser_id(userID);
-            customer.setFull_name(name);
-            customer.setEmail(email);
-            customer.setPhone(phone);
-            customer.setAddress(address);
-            customer.setCity(city);
-            customer.setGender(gender);
-            /*remove cart after add  order*/
-            OrderDAO oderDAO = new OrderDAO();
-            oderDAO.addOrderUser(customer, cart, note);
-            }else{
-               Guest guest=new Guest(name, gender, email, phone, address, city);
-               OrderDAO oderDAO = new OrderDAO();
-            oderDAO.addOrderGuest(guest, cart, note);
-            }
-            String newContentCart = removeCartCookieContent(cookieContent, userID);
-            Cookie c = new Cookie("cart", newContentCart);
-            response.addCookie(c);
-            response.sendRedirect("productslist");
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        Cart cart=new Cart(txt, allproduct);
+//        HttpSession session=request.getSession();
+//        Customer a=(Customer)session.getAttribute("account");
+          
+                //DEMO
+        OrderDAO oderDAO=new OrderDAO();
+        Customer a=new Customer(2, "Bùi Anh Dũng", "Đại Học FPT-Hà Nội", "DungBAHE150633@gmail.com");
+        oderDAO.addOrder(a, cart);//add order
+        Cookie c=new Cookie("cart", "");//reset cart after order
+        c.setMaxAge(0);
+        response.addCookie(c);
+        request.getRequestDispatcher("productslist").forward(request, response);
+        
     }
 
     /**

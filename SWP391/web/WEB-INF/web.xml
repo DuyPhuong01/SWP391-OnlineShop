@@ -15,16 +15,6 @@
     <servlet>
         <servlet-name>ProductFeedbackServlet</servlet-name>
         <servlet-class>controller.product.ProductFeedbackServlet</servlet-class>
-        <servlet-name>Buy1Servlet</servlet-name>
-        <servlet-class>controller.product.Buy1Servlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ShowCart1</servlet-name>
-        <servlet-class>controller.product.ShowCart1</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Process1Servlet</servlet-name>
-        <servlet-class>controller.product.Process1Servlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -41,16 +31,6 @@
     <servlet-mapping>
         <servlet-name>ProductFeedbackServlet</servlet-name>
         <url-pattern>/feedback</url-pattern>
-        <servlet-name>Buy1Servlet</servlet-name>
-        <url-pattern>/buy1</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ShowCart1</servlet-name>
-        <url-pattern>/showcart1</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Process1Servlet</servlet-name>
-        <url-pattern>/process1</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

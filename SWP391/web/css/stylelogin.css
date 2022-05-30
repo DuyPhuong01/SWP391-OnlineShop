@@ -1,5 +1,24 @@
+<<<<<<< HEAD
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 25, 2022, 7:57:30 PM
+    Author     : tretr
+*/
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+body{
+    background-color: #F0F2F5;
+}
+
+.overlay-login { /* ===================================================================== */
+=======
 .overlay {
     /* ===================================================================== */
+>>>>>>> phuongnldhe150657
     position: fixed;
     top: 0;
     bottom: 0;
@@ -10,6 +29,13 @@
     visibility: hidden;
     opacity: 0;
 }
+<<<<<<< HEAD
+.overlay-login:target {/* ===================================================================== */
+    visibility: visible;
+    opacity: 1;
+}
+.wrapper-login {/* ===================================================================== */
+=======
 
 .overlay:target {
     /* ===================================================================== */
@@ -19,16 +45,25 @@
 
 #divOne .wrapper {
     /* ===================================================================== */
+>>>>>>> phuongnldhe150657
     margin: 70px auto;
     padding: 20px;
     background: #ffffff;
     border-radius: 5px;
+<<<<<<< HEAD
+    
+    position: relative;
+    transition: all 5s ease-in-out;
+}
+.wrapper-login .close {/* ===================================================================== */
+=======
     position: relative;
     transition: all 5s ease-in-out;
 }
 
 #divOne .wrapper .close {
     /* ===================================================================== */
+>>>>>>> phuongnldhe150657
     position: absolute;
     top: 20px;
     right: 30px;
@@ -38,6 +73,13 @@
     text-decoration: none;
     color: #000;
 }
+<<<<<<< HEAD
+.wrapper-login .close:hover {/* ===================================================================== */
+    color: #4070f4;
+}
+
+.wrapper-login {
+=======
 
 #divOne .wrapper .close:hover {
     /* ===================================================================== */
@@ -50,6 +92,7 @@
 }
 
 #divOne .wrapper {
+>>>>>>> phuongnldhe150657
     overflow: hidden;
     max-width: 450px;
     background: #fff;
@@ -58,12 +101,20 @@
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
 }
 
+<<<<<<< HEAD
+.wrapper-login .title-text-login {
+=======
 #divOne .wrapper .title-text {
+>>>>>>> phuongnldhe150657
     display: flex;
     width: 200%;
 }
 
+<<<<<<< HEAD
+.wrapper-login .title {
+=======
 #divOne .wrapper .title {
+>>>>>>> phuongnldhe150657
     width: 50%;
     font-size: 35px;
     font-weight: 600;
@@ -71,7 +122,11 @@
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+<<<<<<< HEAD
+.wrapper-login .slide-controls {
+=======
 #divOne .wrapper .slide-controls {
+>>>>>>> phuongnldhe150657
     position: relative;
     display: flex;
     height: 50px;
@@ -83,11 +138,18 @@
     border-radius: 5px;
 }
 
+<<<<<<< HEAD
+.wrapper-login .slide-controls input[type="radio"] {
+    display: none;
+}
+.slide-controls .slide {
+=======
 #divOne .wrapper .slide-controls input[type="radio"] {
     display: none;
 }
 
 #divOne .slide-controls .slide {
+>>>>>>> phuongnldhe150657
     height: 100%;
     width: 100%;
     color: #fff;
@@ -100,11 +162,19 @@
     transition: all 0.6s ease;
 }
 
+<<<<<<< HEAD
+.slide-controls label.signup {
+    color: #000;
+}
+
+.slide-controls .slider-tab {
+=======
 #divOne .slide-controls label.signup {
     color: #000;
 }
 
 #divOne .slide-controls .slider-tab {
+>>>>>>> phuongnldhe150657
     position: absolute;
     height: 100%;
     width: 50%;
@@ -115,16 +185,37 @@
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+<<<<<<< HEAD
+
+
+#signup:checked~.slider-tab {
+    left: 50%;
+}
+
+#signup:checked~label.signup {
+=======
 #divOne #signup:checked~.slider-tab {
     left: 50%;
 }
 
 #divOne #signup:checked~label.signup {
+>>>>>>> phuongnldhe150657
     color: #fff;
     cursor: default;
     user-select: none;
 }
 
+<<<<<<< HEAD
+#signup:checked~label.login {
+    color: #000;
+}
+
+#login:checked~label.signup {
+    color: #000;
+}
+
+#login:checked~label.login {
+=======
 #divOne #signup:checked~label.login {
     color: #000;
 }
@@ -134,32 +225,53 @@
 }
 
 #divOne #login:checked~label.login {
+>>>>>>> phuongnldhe150657
     cursor: default;
     user-select: none;
 }
 
+<<<<<<< HEAD
+.wrapper-login .form-container {
+=======
 #divOne .wrapper .form-container {
+>>>>>>> phuongnldhe150657
     width: 100%;
     overflow: hidden;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-container .form-inner {
+=======
 #divOne .form-container .form-inner {
+>>>>>>> phuongnldhe150657
     display: flex;
     width: 200%;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-container .form-inner form {
+=======
 #divOne .form-container .form-inner form {
+>>>>>>> phuongnldhe150657
     width: 50%;
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner form .field {
+=======
 #divOne .form-inner form .field {
+>>>>>>> phuongnldhe150657
     height: 50px;
     width: 100%;
     margin-top: 20px;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner form .field input {
+=======
 #divOne .form-inner form .field input {
+>>>>>>> phuongnldhe150657
     height: 100%;
     width: 100%;
     outline: none;
@@ -171,16 +283,35 @@
     transition: all 0.3s ease;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner form .field input:focus {
+=======
 #divOne .form-inner form .field input:focus {
+>>>>>>> phuongnldhe150657
     border-color: #6280e6;
     /* box-shadow: inset 0 0 3px #fb6aae; */
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner form .field input::placeholder {
+=======
 #divOne .form-inner form .field input::placeholder {
+>>>>>>> phuongnldhe150657
     color: #999;
     transition: all 0.3s ease;
 }
 
+<<<<<<< HEAD
+.overlay-login form .field input:focus::placeholder {
+    color: #b3b3b3;
+}
+
+.overlay-login .form-inner form .pass-link {
+    margin-top: 5px;
+}
+
+.overlay-login .form-inner form .signup-link {
+=======
 #divOne form .field input:focus::placeholder {
     color: #b3b3b3;
 }
@@ -190,22 +321,37 @@
 }
 
 #divOne .form-inner form .signup-link {
+>>>>>>> phuongnldhe150657
     text-align: center;
     margin-top: 30px;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner form .pass-link a,
+.overlay-login .form-inner form .signup-link a {
+=======
 #divOne .form-inner form .pass-link a,
 #divOne .form-inner form .signup-link a {
+>>>>>>> phuongnldhe150657
     color: #0069fc;
     text-decoration: none;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner form .pass-link a:hover,
+.overlay-login .form-inner form .signup-link a:hover {
+    text-decoration: underline;
+}
+
+.overlay-login form .btn {
+=======
 #divOne .form-inner form .pass-link a:hover,
 #divOne .form-inner form .signup-link a:hover {
     text-decoration: underline;
 }
 
 #divOne form .btn {
+>>>>>>> phuongnldhe150657
     height: 50px;
     width: 100%;
     border-radius: 5px;
@@ -213,7 +359,11 @@
     overflow: hidden;
 }
 
+<<<<<<< HEAD
+.overlay-login form .btn .btn-layer {
+=======
 #divOne form .btn .btn-layer {
+>>>>>>> phuongnldhe150657
     height: 100%;
     width: 300%;
     position: absolute;
@@ -224,11 +374,19 @@
     ;
 }
 
+<<<<<<< HEAD
+.overlay-login form .btn:hover .btn-layer {
+    left: 0;
+}
+
+.overlay-login form .btn input[type="submit"] {
+=======
 #divOne form .btn:hover .btn-layer {
     left: 0;
 }
 
 #divOne form .btn input[type="submit"] {
+>>>>>>> phuongnldhe150657
     height: 100%;
     width: 100%;
     z-index: 1;
@@ -243,15 +401,25 @@
     cursor: pointer;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner .login .input-box,
+.overlay-login .form-inner .signup .input-box {
+=======
 #divOne .form-inner .login .input-box,
 #divOne .form-inner .signup .input-box {
+>>>>>>> phuongnldhe150657
     position: relative;
     height: 50px;
     margin-bottom: 10px;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner .login .input-box input,
+.overlay-login .form-inner .signup .input-box input {
+=======
 #divOne .form-inner .login .input-box input,
 #divOne .form-inner .signup .input-box input {
+>>>>>>> phuongnldhe150657
     position: absolute;
     height: 100%;
     width: 100%;
@@ -262,6 +430,15 @@
     transition: all 0.2s linear;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner .login .input-box input:is(:focus, :valid),
+.overlay-login .form-inner .signup .input-box input:is(:focus, :valid) {
+    border-color: #4070f4;
+}
+
+.overlay-login .form-inner .login .input-box :is(label, i),
+.overlay-login .form-inner .signup .input-box :is(label, i) {
+=======
 #divOne .form-inner .login .input-box input:is(:focus, :valid),
 #divOne .form-inner .signup .input-box input:is(:focus, :valid) {
     border-color: #4070f4;
@@ -269,6 +446,7 @@
 
 #divOne .form-inner .login .input-box :is(label, i),
 #divOne .form-inner .signup .input-box :is(label, i) {
+>>>>>>> phuongnldhe150657
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -276,16 +454,26 @@
     transition: all 0.2s linear;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner .login .input-box label, 
+.overlay-login .form-inner .signup .input-box label {
+=======
 #divOne .form-inner .login .input-box label,
 #divOne .form-inner .signup .input-box label {
+>>>>>>> phuongnldhe150657
     left: 15px;
     pointer-events: none;
     font-size: 16px;
     font-weight: 400;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner .login .input-box input:is(:focus, :valid)~label, 
+.overlay-login .form-inner .signup .input-box input:is(:focus, :valid)~label {
+=======
 #divOne .form-inner .login .input-box input:is(:focus, :valid)~label,
 #divOne .form-inner .signup .input-box input:is(:focus, :valid)~label {
+>>>>>>> phuongnldhe150657
     color: #4070f4;
     top: 0;
     font-size: 12px;
@@ -293,29 +481,52 @@
     background-color: #fff;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner .login .input-box i,
+.overlay-login .form-inner .signup .input-box i{
+=======
 #divOne .form-inner .login .input-box i,
 #divOne .form-inner .signup .input-box i {
+>>>>>>> phuongnldhe150657
     right: 15px;
     cursor: pointer;
     font-size: 20px;
 }
 
+<<<<<<< HEAD
+.overlay-login .form-inner .login .input-box input:is(:focus, :valid)~i, 
+.overlay-login .form-inner .signup .input-box input:is(:focus, :valid)~i {
+    color: #4070f4;
+}
+
+.overlay-login .text-danger {
+=======
 #divOne .form-inner .login .input-box input:is(:focus, :valid)~i,
 #divOne .form-inner .signup .input-box input:is(:focus, :valid)~i {
     color: #4070f4;
 }
 
 #divOne .text-danger {
+>>>>>>> phuongnldhe150657
     color: #dc3545!important;
     font-size: 14px;
 }
 
+<<<<<<< HEAD
+.overlay-login .text-danger p{
+    color: #dc3545!important;
+    font-size: 14px;
+}       
+
+.overlay-login .btn {
+=======
 #divOne .text-danger p {
     color: #dc3545!important;
     font-size: 14px;
 }
 
 #divOne .btn {
+>>>>>>> phuongnldhe150657
     --bs-btn-padding-y: 0;
     --bs-btn-border-width: 0;
 }

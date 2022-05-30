@@ -1,10 +1,13 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller.product;
 
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,14 +15,25 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Account;
 import model.Cart;
 import model.Product;
 
+/**
+ *
+ * @author win
+ */
 @WebServlet(name = "BuyServlet", urlPatterns = {"/buy"})
 public class BuyServlet extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -28,103 +42,77 @@ public class BuyServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Buy1Servlet</title>");
+            out.println("<title>Servlet BuyServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Buy1Servlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BuyServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
-    //Handle content assign item in correct cart
-    public static String handleCookieContent(String txt, int user_id, String id, String num) {
-        String detailCart = "";
-        String[] splitField = txt.split("<"); //split cookie into cart
-        List<String> listCart = new ArrayList<>();
-        for (String splitField1 : splitField) {//split each cart into id>item:quantity
-            String[] field = splitField1.split(">");
-            for (String field1 : field) { //add each cart conresspond id into id and cart detail
-                listCart.add(field1);
-            }
-        }
-        boolean matched = false;
-        for (int i = 0; i < listCart.size(); i++) {
-            if (i % 2 == 1) {   //contain user_id 
-                if (Integer.parseInt(listCart.get(i)) == user_id) { // cart match user_id conresponding
-                    matched = true;
-                    String cartDetail = listCart.get(i + 1);    //content cart detail user conrestponding
-                    if (cartDetail.isEmpty()) { //cart empty
-                        detailCart = "<" + user_id + ">" + id + ":" + num; //a script cookie like <user_id>id:quantity
-                    } else {
-                        detailCart += "<" + listCart.get(i) + ">";
-                        detailCart += listCart.get(i + 1);
-                        detailCart = detailCart + "," + id + ":" + num;
-                    }
-                } else {//other id
-                    detailCart += "<" + listCart.get(i) + ">";
-                    detailCart += listCart.get(i + 1);
-                }
-
-            }
-
-        }
-        if (matched == false) {//not has cart in cookie
-            detailCart += "<" + user_id + ">";
-            detailCart = detailCart + id + ":" + num;
-        }
-        return detailCart;
-    }
-
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");
-        HttpSession session = request.getSession(true);
-        Account account = (Account) session.getAttribute("account");
-        int userID;
-        if (account == null) { //role:guest
-            userID = -1;
-        } else {  //role:user
-            userID = account.getUser_id();
-        }
-        ProductDAO productDAO = new ProductDAO();
+            ProductDAO productDAO=new ProductDAO();
         List<Product> allproduct = productDAO.getAllProducts();
-        Cookie[] arr = request.getCookies();  //get cookie in browsing
-        String cookieContent = "";
-        //convert cart content from cookie
-        if (arr != null) {//exist cookie
+        Cookie[] arr=request.getCookies();  //get cookie in browsing
+        String txt="";
+        if(arr!=null){//exist cookie
             for (Cookie cookie : arr) {
-                if (cookie.getName().equals("cart"))//cookie name cart matched
+                if(cookie.getName().equals("cart"))//cookie name cart
                 {
-                    cookieContent += cookie.getValue();
-                    cookie.setMaxAge(0);//remove cookie
+                    txt+=cookie.getValue();
+                    cookie.setMaxAge(0);//remove
                     response.addCookie(cookie);
                 }
             }
         }
-        String newCookieContent;
-        String num = request.getParameter("quantity");
-        String id = request.getParameter("id");
-        newCookieContent = handleCookieContent(cookieContent, userID, id, num);
-        //add cart content to cookie
-        Cookie c = new Cookie ("cart", newCookieContent);
-        c.setMaxAge(20*365 * 24 * 60 * 60);//COOKIE exist 20 year
+        String num=request.getParameter("quantity");
+        String id=request.getParameter("id");
+        if(txt.isEmpty()){ //cart empty
+            txt=id+":"+num;
+        }else{
+            txt=txt+","+id+":"+num;
+        }
+        Cookie c=new Cookie("cart", txt);
+        c.setMaxAge(2*24*60*60);//COOKIE exist 2 day
         response.addCookie(c);
         response.sendRedirect("showcart");
-
+//        request.getRequestDispatcher("productslist").forward(request, response);
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
 
 }
