@@ -69,6 +69,8 @@ public final class feedback_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor\" crossorigin=\"anonymous\">\n");
       out.write("        <link rel=\"stylesheet\" href=\"css/style.css\">\n");
       out.write("        <link rel=\"stylesheet\" href=\"css/stylehomepage.css\">\n");
+      out.write("        <!-- ===== Boxicons CSS ===== -->\n");
+      out.write("        <link href=\"https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css\" rel=\"stylesheet\"/>\n");
       out.write("        <!--font-awesome-->\n");
       out.write("        <script src=\"https://kit.fontawesome.com/3c84cb624f.js\" crossorigin=\"anonymous\"></script>\n");
       out.write("        <style>\n");
@@ -122,10 +124,11 @@ public final class feedback_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        </div>\n");
       out.write("                    </div>\n");
       out.write("                    <div class=\"col-9\">\n");
+      out.write("\n");
       out.write("                        <div class=\"content\">\n");
-      out.write("                            <form>\n");
-      out.write("                                <input type=\"hidden\" name=\"userId\" value=\"\">\n");
-      out.write("                                <input type=\"hidden\" name=\"productId\" value=\"\">\n");
+      out.write("                            <form action=\"feedback\" method=\"POST\">\n");
+      out.write("                                <input type=\"hidden\" name=\"userId\" value=\"#\">\n");
+      out.write("                                <input type=\"hidden\" name=\"productId\" value=\"#\">\n");
       out.write("                                <div class=\"mb-3\">\n");
       out.write("                                    <label for=\"exampleFormControlInput1\" class=\"form-label\">Full name</label>\n");
       out.write("                                    <input type=\"text\" name=\"name\" class=\"form-control\" id=\"exampleFormControlInput1\">\n");
@@ -168,7 +171,7 @@ public final class feedback_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                </div>\n");
       out.write("                                <div class=\"mb-3\">\n");
       out.write("                                    <label for=\"formFileMultiple\" class=\"form-label\">Upload image</label>\n");
-      out.write("                                    <input class=\"form-control\" type=\"file\" id=\"formFileMultiple\" multiple>\n");
+      out.write("                                    <input class=\"form-control\" type=\"file\" name=\"file\" id=\"formFileMultiple\" multiple>\n");
       out.write("                                </div>\n");
       out.write("                                <div class=\"mb-3\">\n");
       out.write("                                    <label for=\"exampleFormControlTextarea1\" class=\"form-label\">Feedback</label>\n");
@@ -178,7 +181,7 @@ public final class feedback_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                    <button class=\"btn btn-primary\" type=\"submit\">Submit</button>\n");
       out.write("                                </div>\n");
       out.write("                            </form>\n");
-      out.write("                        </div>\n");
+      out.write("                        </div>  \n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
