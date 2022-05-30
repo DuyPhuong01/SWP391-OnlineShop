@@ -28,11 +28,11 @@
             <div class="container-lg">
                 <div class="row">
                     <div class="col-3">
-                        <c:import url="sider.jsp"></c:import>
+                    <c:import url="sider.jsp"></c:import>
                     </div>
                     <!--product list-->
                     <div class="col-9">
-                        <div class="content">
+                        <div class="p-3 bg-white rounded shadow-sm">
                             <div class="sort-bar flex">
                                 <div class="flex" style="flex: 1;">
                                     <div class="sort-title">
@@ -82,7 +82,7 @@
                                                 <input type="text" name="id" value="${i.product_id}" hidden="true">
                                                 <input type="number" name="quantity" value="1" hidden="true">
                                                 <button type="submit" class="btn btn-outline-primary">Buy</button>
-                                                <button type="button" class="btn btn-outline-primary"><a href="feedback?id=${i.product_id}">Feedback</a></button>
+                                                <a href="feedback?id=${i.product_id}" class="btn btn-outline-primary">Feedback</a>
                                             </form>
                                         </div>
                                     </div>
@@ -102,11 +102,11 @@
         <!--end footer-->
     </body>
     <script src="js/productssearchfunction.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>-->
 
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+                                            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                                            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>
 </html>

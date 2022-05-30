@@ -34,7 +34,7 @@
                         <li class="nav-item align-items-center">
                             <form action="showcart" method="GET">
                                 <button type="submit" class="btn btn-primary position-relative">
-                                    <i class='bx bx-cart-alt align-items-center'></i>
+                                    <i class="fa-solid fa-cart-shopping"></i>
                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: #807d7d; color: #ffffff;">
                                         4
                                         <span class="visually-hidden">Product in cart</span>
@@ -43,8 +43,6 @@
                             </form>
 
                         </li>
-                        <li><a class="dropdown-item" href="changepassword">Change password</a></li>
-                        <li><a class="dropdown-item" href="logout">Log out</a></li>
                     </ul>
             </c:if>
             <c:if test="${sessionScope.account != null }">  
@@ -66,7 +64,7 @@
                     <li class="nav-item align-items-center">
                         <form action="showcart" method="GET">
                             <button type="submit" class="btn btn-primary position-relative">
-                                <i class='bx bx-cart-alt align-items-center'></i>
+                                <i class="fa-solid fa-cart-shopping"></i>
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: #807d7d; color: #ffffff;">
                                     4
                                     <span class="visually-hidden">Product in cart</span>
@@ -79,3 +77,4 @@
         </div>
     </div>
 </nav>
+<script src="https://kit.fontawesome.com/0e3f31cc48.js" crossorigin="anonymous"></script>

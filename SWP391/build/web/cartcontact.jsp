@@ -28,10 +28,12 @@
                 </nav>
                 <div class="row">
                     <div class="col-3">
+                        <div class="sider">
                         <c:import url="sider.jsp"></c:import>
+                        </div>
                     </div>
                     <div class="col">
-                        <div class="p-3 bg-white rounded shadow-sm mb-3">
+                        <div class="p-3 content shadow-sm mb-3">
                             <div class="text-center">
                                 <h3 class="pb-3 text-uppercase font-weight-bold">Cart Contact</h3>
                             </div>

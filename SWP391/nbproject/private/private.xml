@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/summer2022-se1611-g2/SWP391/src/java/controller/product/ProductsListServlet.java</file>
+            <file>file:/C:/Users/win/Desktop/SWP391/SWP391/src/java/controller/product/ProcessServlet.java</file>
+            <file>file:/C:/Users/win/Desktop/SWP391/SWP391/web/cartcontact.jsp</file>
+            <file>file:/C:/Users/win/Desktop/SWP391/SWP391/web/cartdetail.jsp</file>
+            <file>file:/C:/Users/win/Desktop/SWP391/SWP391/src/java/controller/product/CheckoutServlet.java</file>
+            <file>file:/C:/Users/win/Desktop/SWP391/SWP391/src/java/controller/home/HomeServlet.java</file>
+            <file>file:/C:/Users/win/Desktop/SWP391/SWP391/src/java/model/Guest.java</file>
         </group>
     </open-files>
 </project-private>

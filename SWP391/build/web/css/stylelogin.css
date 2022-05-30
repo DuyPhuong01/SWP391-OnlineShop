@@ -1,5 +1,19 @@
-.overlay {
-    /* ===================================================================== */
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 25, 2022, 7:57:30 PM
+    Author     : tretr
+*/
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+body{
+    background-color: #F0F2F5;
+}
+
+.overlay-login { /* ===================================================================== */
     position: fixed;
     top: 0;
     bottom: 0;
@@ -10,25 +24,20 @@
     visibility: hidden;
     opacity: 0;
 }
-
-.overlay:target {
-    /* ===================================================================== */
+.overlay-login:target {/* ===================================================================== */
     visibility: visible;
     opacity: 1;
 }
-
-#divOne .wrapper {
-    /* ===================================================================== */
+.wrapper-login {/* ===================================================================== */
     margin: 70px auto;
     padding: 20px;
     background: #ffffff;
     border-radius: 5px;
+    
     position: relative;
     transition: all 5s ease-in-out;
 }
-
-#divOne .wrapper .close {
-    /* ===================================================================== */
+.wrapper-login .close {/* ===================================================================== */
     position: absolute;
     top: 20px;
     right: 30px;
@@ -38,18 +47,11 @@
     text-decoration: none;
     color: #000;
 }
-
-#divOne .wrapper .close:hover {
-    /* ===================================================================== */
+.wrapper-login .close:hover {/* ===================================================================== */
     color: #4070f4;
 }
 
-::selection {
-    background: #3998c3b6;
-    color: #fff;
-}
-
-#divOne .wrapper {
+.wrapper-login {
     overflow: hidden;
     max-width: 450px;
     background: #fff;
@@ -58,12 +60,12 @@
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
 }
 
-#divOne .wrapper .title-text {
+.wrapper-login .title-text-login {
     display: flex;
     width: 200%;
 }
 
-#divOne .wrapper .title {
+.wrapper-login .title {
     width: 50%;
     font-size: 35px;
     font-weight: 600;
@@ -71,7 +73,7 @@
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-#divOne .wrapper .slide-controls {
+.wrapper-login .slide-controls {
     position: relative;
     display: flex;
     height: 50px;
@@ -83,11 +85,10 @@
     border-radius: 5px;
 }
 
-#divOne .wrapper .slide-controls input[type="radio"] {
+.wrapper-login .slide-controls input[type="radio"] {
     display: none;
 }
-
-#divOne .slide-controls .slide {
+.slide-controls .slide {
     height: 100%;
     width: 100%;
     color: #fff;
@@ -100,11 +101,11 @@
     transition: all 0.6s ease;
 }
 
-#divOne .slide-controls label.signup {
+.slide-controls label.signup {
     color: #000;
 }
 
-#divOne .slide-controls .slider-tab {
+.slide-controls .slider-tab {
     position: absolute;
     height: 100%;
     width: 50%;
@@ -115,51 +116,53 @@
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-#divOne #signup:checked~.slider-tab {
+
+
+#signup:checked~.slider-tab {
     left: 50%;
 }
 
-#divOne #signup:checked~label.signup {
+#signup:checked~label.signup {
     color: #fff;
     cursor: default;
     user-select: none;
 }
 
-#divOne #signup:checked~label.login {
+#signup:checked~label.login {
     color: #000;
 }
 
-#divOne #login:checked~label.signup {
+#login:checked~label.signup {
     color: #000;
 }
 
-#divOne #login:checked~label.login {
+#login:checked~label.login {
     cursor: default;
     user-select: none;
 }
 
-#divOne .wrapper .form-container {
+.wrapper-login .form-container {
     width: 100%;
     overflow: hidden;
 }
 
-#divOne .form-container .form-inner {
+.overlay-login .form-container .form-inner {
     display: flex;
     width: 200%;
 }
 
-#divOne .form-container .form-inner form {
+.overlay-login .form-container .form-inner form {
     width: 50%;
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-#divOne .form-inner form .field {
+.overlay-login .form-inner form .field {
     height: 50px;
     width: 100%;
     margin-top: 20px;
 }
 
-#divOne .form-inner form .field input {
+.overlay-login .form-inner form .field input {
     height: 100%;
     width: 100%;
     outline: none;
@@ -171,41 +174,41 @@
     transition: all 0.3s ease;
 }
 
-#divOne .form-inner form .field input:focus {
+.overlay-login .form-inner form .field input:focus {
     border-color: #6280e6;
     /* box-shadow: inset 0 0 3px #fb6aae; */
 }
 
-#divOne .form-inner form .field input::placeholder {
+.overlay-login .form-inner form .field input::placeholder {
     color: #999;
     transition: all 0.3s ease;
 }
 
-#divOne form .field input:focus::placeholder {
+.overlay-login form .field input:focus::placeholder {
     color: #b3b3b3;
 }
 
-#divOne .form-inner form .pass-link {
+.overlay-login .form-inner form .pass-link {
     margin-top: 5px;
 }
 
-#divOne .form-inner form .signup-link {
+.overlay-login .form-inner form .signup-link {
     text-align: center;
     margin-top: 30px;
 }
 
-#divOne .form-inner form .pass-link a,
-#divOne .form-inner form .signup-link a {
+.overlay-login .form-inner form .pass-link a,
+.overlay-login .form-inner form .signup-link a {
     color: #0069fc;
     text-decoration: none;
 }
 
-#divOne .form-inner form .pass-link a:hover,
-#divOne .form-inner form .signup-link a:hover {
+.overlay-login .form-inner form .pass-link a:hover,
+.overlay-login .form-inner form .signup-link a:hover {
     text-decoration: underline;
 }
 
-#divOne form .btn {
+.overlay-login form .btn {
     height: 50px;
     width: 100%;
     border-radius: 5px;
@@ -213,7 +216,7 @@
     overflow: hidden;
 }
 
-#divOne form .btn .btn-layer {
+.overlay-login form .btn .btn-layer {
     height: 100%;
     width: 300%;
     position: absolute;
@@ -224,11 +227,11 @@
     ;
 }
 
-#divOne form .btn:hover .btn-layer {
+.overlay-login form .btn:hover .btn-layer {
     left: 0;
 }
 
-#divOne form .btn input[type="submit"] {
+.overlay-login form .btn input[type="submit"] {
     height: 100%;
     width: 100%;
     z-index: 1;
@@ -243,15 +246,15 @@
     cursor: pointer;
 }
 
-#divOne .form-inner .login .input-box,
-#divOne .form-inner .signup .input-box {
+.overlay-login .form-inner .login .input-box,
+.overlay-login .form-inner .signup .input-box {
     position: relative;
     height: 50px;
     margin-bottom: 10px;
 }
 
-#divOne .form-inner .login .input-box input,
-#divOne .form-inner .signup .input-box input {
+.overlay-login .form-inner .login .input-box input,
+.overlay-login .form-inner .signup .input-box input {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -262,13 +265,13 @@
     transition: all 0.2s linear;
 }
 
-#divOne .form-inner .login .input-box input:is(:focus, :valid),
-#divOne .form-inner .signup .input-box input:is(:focus, :valid) {
+.overlay-login .form-inner .login .input-box input:is(:focus, :valid),
+.overlay-login .form-inner .signup .input-box input:is(:focus, :valid) {
     border-color: #4070f4;
 }
 
-#divOne .form-inner .login .input-box :is(label, i),
-#divOne .form-inner .signup .input-box :is(label, i) {
+.overlay-login .form-inner .login .input-box :is(label, i),
+.overlay-login .form-inner .signup .input-box :is(label, i) {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -276,16 +279,16 @@
     transition: all 0.2s linear;
 }
 
-#divOne .form-inner .login .input-box label,
-#divOne .form-inner .signup .input-box label {
+.overlay-login .form-inner .login .input-box label, 
+.overlay-login .form-inner .signup .input-box label {
     left: 15px;
     pointer-events: none;
     font-size: 16px;
     font-weight: 400;
 }
 
-#divOne .form-inner .login .input-box input:is(:focus, :valid)~label,
-#divOne .form-inner .signup .input-box input:is(:focus, :valid)~label {
+.overlay-login .form-inner .login .input-box input:is(:focus, :valid)~label, 
+.overlay-login .form-inner .signup .input-box input:is(:focus, :valid)~label {
     color: #4070f4;
     top: 0;
     font-size: 12px;
@@ -293,29 +296,29 @@
     background-color: #fff;
 }
 
-#divOne .form-inner .login .input-box i,
-#divOne .form-inner .signup .input-box i {
+.overlay-login .form-inner .login .input-box i,
+.overlay-login .form-inner .signup .input-box i{
     right: 15px;
     cursor: pointer;
     font-size: 20px;
 }
 
-#divOne .form-inner .login .input-box input:is(:focus, :valid)~i,
-#divOne .form-inner .signup .input-box input:is(:focus, :valid)~i {
+.overlay-login .form-inner .login .input-box input:is(:focus, :valid)~i, 
+.overlay-login .form-inner .signup .input-box input:is(:focus, :valid)~i {
     color: #4070f4;
 }
 
-#divOne .text-danger {
+.overlay-login .text-danger {
     color: #dc3545!important;
     font-size: 14px;
 }
 
-#divOne .text-danger p {
+.overlay-login .text-danger p{
     color: #dc3545!important;
     font-size: 14px;
-}
+}       
 
-#divOne .btn {
+.overlay-login .btn {
     --bs-btn-padding-y: 0;
     --bs-btn-border-width: 0;
 }

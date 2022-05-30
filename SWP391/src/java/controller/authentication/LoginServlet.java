@@ -92,7 +92,8 @@ public class LoginServlet extends HttpServlet {
         if(account != null) {   
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
-            response.getWriter().println("login successful!");
+//            response.getWriter().println("login successful!");
+            response.sendRedirect("home");
         }
         else
         {

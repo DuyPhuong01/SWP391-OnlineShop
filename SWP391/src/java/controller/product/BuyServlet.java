@@ -18,10 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 import model.Cart;
 import model.Product;
 
+<<<<<<< Updated upstream
 /**
  *
  * @author win
  */
+=======
+
+>>>>>>> Stashed changes
 @WebServlet(name = "BuyServlet", urlPatterns = {"/buy"})
 public class BuyServlet extends HttpServlet {
 

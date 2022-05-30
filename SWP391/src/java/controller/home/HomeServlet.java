@@ -67,6 +67,8 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("slidersList", slider_dao.getSliders());
         request.setAttribute("hotPostsList", post_dao.getHotActivePosts(3));
         request.setAttribute("activeProductsList", product_dao.getNewestActiveProducts(8));
+        request.setAttribute("pageNumber", "1");
+        request.setAttribute("orderOption", "newest");
         request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }
 

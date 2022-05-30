@@ -7,6 +7,7 @@
         CategoryDAO category_dao = new CategoryDAO();
         ProductDAO product_dao = new ProductDAO();
     %>
+    <form method="post" action="productslist" id="productSearchForm">
     <div class="search-container mb-3">
         <input id="productSeachKey" class="form-control" type="text" placeholder="Search Product" aria-label="default input example" name="key" id="productSeachKey" value="${requestScope.key}">
     </div>
