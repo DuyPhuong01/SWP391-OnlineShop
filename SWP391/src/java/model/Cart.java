@@ -128,7 +128,13 @@ public class Cart {
                                     int id = Integer.parseInt(atr[0]);
                                     int quantity = Integer.parseInt(atr[1]);
                                     Product p = getProductById(id, list);
-                                    Item t = new Item(p, quantity, p.getSale_price());
+                                    double itemPrice;
+                                    if(p.getSale_price()==0){ //net have sale price
+                                        itemPrice=p.getOriginal_price();
+                                    }else{
+                                        itemPrice=p.getSale_price();
+                                    }
+                                    Item t = new Item(p, quantity,itemPrice);
                                     addItem(t);//add item to cart
                                 }
 

@@ -100,3 +100,10 @@ img {
 .price-cart-contact{
     margin-left: 30px;
 }
+tr{
+    position: relative;
+}
+.addmore-item{
+    position: absolute;
+    bottom: 10px;
+}

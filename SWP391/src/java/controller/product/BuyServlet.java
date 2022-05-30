@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller.product;
 
 import dal.ProductDAO;
@@ -21,10 +17,7 @@ import model.Account;
 import model.Cart;
 import model.Product;
 
-/**
- *
- * @author win
- */
+
 @WebServlet(name = "BuyServlet", urlPatterns = {"/buy"})
 public class BuyServlet extends HttpServlet {
 
@@ -123,8 +116,8 @@ public class BuyServlet extends HttpServlet {
         String id = request.getParameter("id");
         newCookieContent = handleCookieContent(cookieContent, userID, id, num);
         //add cart content to cookie
-        Cookie c = new Cookie("cart", newCookieContent);
-        c.setMaxAge(2 * 24 * 60 * 60);//COOKIE exist 2 day
+        Cookie c = new Cookie ("cart", newCookieContent);
+        c.setMaxAge(20*365 * 24 * 60 * 60);//COOKIE exist 20 year
         response.addCookie(c);
         response.sendRedirect("showcart");
 
@@ -133,6 +126,6 @@ public class BuyServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>ld>
+    }
 
 }

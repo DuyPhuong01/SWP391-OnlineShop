@@ -35,19 +35,19 @@
                     <div class="col">
                         <div class="p-3 content shadow-sm mb-3">
                             <div class="text-center">
-                                <h3 class="pb-3 text-uppercase font-weight-bold">Thông tin giỏ hàng</h3>
+                                <h3 class="pb-3 text-uppercase font-weight-bold">Cart Contact</h3>
                             </div>
                             <form class="row g-3" id="checkout" action="checkout" method="post">
                                 <div class="col-6">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Tên đầy đủ</span>
+                                        <span class="input-group-text" id="basic-addon1">Full name*</span>
                                         <input type="text" class="form-control" name="name"
                                                value="${requestScope.cus.full_name}" aria-describedby="basic-addon1" required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Điện thoại</span>
+                                    <span class="input-group-text" id="basic-addon1">Phone</span>
                                     <input type="tel" class="form-control" placeholder="+84" name="phone" value="${requestScope.cus.phone}"
                                            aria-label="tel" aria-describedby="basic-addon1" required>
                                     
@@ -62,24 +62,24 @@
                             </div>
                             <div class="col-4">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Thành phố</span>
+                                    <span class="input-group-text" id="basic-addon1">City</span>
                                     <input type="text" class="form-control" placeholder="city" name="city" value="${requestScope.cus.city}"
                                            aria-label="city" aria-describedby="basic-addon1" required>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Giới tính</span>
+                                    <span class="input-group-text" id="basic-addon1">Gender</span>
                                     <select name="gender" id="inputState" class="form-select" required>
                                     <option selected disabled hidden>Choose...</option>
-                                    <option value="1"<c:if test="${requestScope.cus.gender}">selected</c:if> >Nam</option>
-                                    <option  value="0"<c:if test="${!requestScope.cus.gender}">selected</c:if>>Nữ</option>
+                                    <option value="1"<c:if test="${requestScope.cus.gender}">selected</c:if> >Male</option>
+                                    <option  value="0"<c:if test="${!requestScope.cus.gender}">selected</c:if>>Female</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-8">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Địa chỉ</span>
+                                    <span class="input-group-text" id="basic-addon1">Address</span>
                                     <input type="text" class="form-control" placeholder="Address"
                                            name="address"
                                             value="${requestScope.cus.address}"
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                            <div class="mb-3">
-                            <label for="note" class="form-label">Ghi chú</label>
+                            <label for="note" class="form-label">Note</label>
                             <textarea class="form-control" id="note" form="checkout" name="note" rows="3"></textarea>
                           </div>        
 <!--                            <div>
@@ -95,8 +95,8 @@
                             </div>-->
                             <div class="col-12">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <a class="btn" href="showcart">Trở về giỏ hàng</a>
-                                    <button class="btn btn-outline-primary" type="submit">Đặt Hàng ngay</button>
+                                    <a class="btn" href="showcart">Back to cart</a>
+                                    <button class="btn btn-outline-primary" type="submit">Order Now</button>
                                 </div>
                             </div>
                         </form>
@@ -107,10 +107,10 @@
                             <thead>
                                 <tr>
                                         <th colspan="2">ID</th>
-                                        <th colspan="2">Sản phẩm</th>
+                                        <th colspan="2">Product</th>
                                                 <th colspan="1">
                                                     <div class="price-cart-contact">
-                                                        Đơn giá
+                                                        Price
                                                     </div>
                                             </th>
                                     <th class="text-center">Quantity</th>
@@ -151,13 +151,13 @@
                             </tbody>
                         </table>
                         <ul class="list-unstyled mb-4">
-                            <li class="d-flex justify-content-between py-3 border-bottom">Tạm tính
+                            <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
                                 <span><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>
                             </li>
-                            <li class="d-flex justify-content-between py-3 border-bottom">Phí vận chuyển
+                            <li class="d-flex justify-content-between py-3 border-bottom">Shopping Fee
                                 <span>Free ship</span>
                             </li>
-                            <li class="d-flex justify-content-between py-3 border-bottom">Tổng Tiền
+                            <li class="d-flex justify-content-between py-3 border-bottom">Total Cost
                                 <h5 class="font-weight-bold"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></h5>
                             </li>
                         </ul>

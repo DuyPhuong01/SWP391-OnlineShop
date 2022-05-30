@@ -73,8 +73,10 @@
                                             <div class="input-group mb-2">
                                                 <label class="input-group-text" for="typeNumber">Quantity</label>
                                                 <input type="number" id="typeNumber" name="quantity" class="form-control" value="1" min="1" />
+
                                             </div>
                                             <input class="btn btn-outline-primary" type="submit" value="Add to Cart">
+
                                         </form>
                                         <a href="addtocart?product_id="></a>
                                     </div>

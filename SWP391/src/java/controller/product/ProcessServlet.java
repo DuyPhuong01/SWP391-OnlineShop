@@ -155,7 +155,7 @@ public class ProcessServlet extends HttpServlet {
             System.out.println(e);
         }
         Cookie c = new Cookie("cart", newContentCookie);
-        c.setMaxAge(2 * 24 * 60 * 60);//set cookie in 2 day
+        c.setMaxAge(20*365 * 24 * 60 * 60);//set cookie in 20 year
         response.addCookie(c);
         request.setAttribute("cart", cart);
         request.getRequestDispatcher("cartdetail.jsp").forward(request, response);
@@ -202,7 +202,7 @@ public class ProcessServlet extends HttpServlet {
             System.out.println(e);
         }
         Cookie c = new Cookie("cart", newContentCookie);
-        c.setMaxAge(2 * 24 * 60 * 60);//set cookie in 2 day
+        c.setMaxAge(20*365 * 24 * 60 * 60);//set cookie in 20 year
         response.addCookie(c);
         request.setAttribute("cart", cart);
         request.getRequestDispatcher("cartdetail.jsp").forward(request, response);
