@@ -88,7 +88,9 @@ body {
 .container .row {
     color: #1b1b1b;
 }
-
+.table-responsive{
+    font-size: 13px;
+}
 .table-responsive .table thead tr {
     border-spacing: 2px;
 }
@@ -132,4 +134,13 @@ body {
 
 .table-title .row .col-sm-6 btn-success {
     color: var(--text-color);
+}
+ a{
+    text-decoration: none;
+}
+.title-item a{
+   text-decoration: none;
+}
+.title-item{
+    font-size: 13px;
 }

@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Cart details</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/style1.css" />
     </head>
 
     <body>
@@ -32,20 +32,30 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr class="text-center">
+                                        
+                                        <th>ID</th>
                                         <th>Product</th>
                                         <th>Price</th>
                                         <th>Quantity</th>
-                                        <th>Total Cost</th>
+                                        <th>Total cost</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
                                 <c:forEach items="${o.items}" var="i">
-                                    <tr>
-                                        <td class="w-25">
-                                            <img src="${i.product.images.get(0).path}" alt="" width="70" class="img-fluid rounded shadow-sm">
-                                            <div class="text-center">
-                                                <a href="product?id=${i.product.product_id}" class="text-decoration-none text-muted"><h5 class="product-title">${i.product.title}</h5></a>
+                                    <tr style="height: 160px">
+                                        <td class="align-middle w-5">
+                                            <p class="mb-0 product-id-cart-contact" style="font-size: 18px">
+                                                 ${i.product.product_id}
+                                            </p>
+                                        </td>
+                                        <td class="align-middle w-25">
+                                            <div class="row">
+                                                <div class="col-3 my-auto">
+                                                    <img src="${i.product.images.get(0).path}" alt="" class="img-fluid rounded" style="cursor: pointer"/>
+                                                </div>
+                                                    <a href="product?id=${i.product.product_id}" class="text-decoration-none text-muted col-9"><h5 style="font-size:18px " 
+                                                        class="product-title">${i.product.title}</h5></a>
                                             </div>
                                         </td>
                                         <td class="align-middle">
@@ -56,10 +66,15 @@
                                         </td>
                                         <td class="align-middle">
                                             <div class="d-flex justify-content-center">
-                                                <div>
+                                                <div class="change-item">
                                                     <a class="btn btn-outline-success" href="process?num=-1&id=${i.product.product_id}">-</a>
                                                     <b>${i.quantity}</b>
                                                     <a class="btn btn-outline-success" href="process?num=1&id=${i.product.product_id}">+</a>
+                                                    <div class="addmore-item">
+                                                        <span style="color: #6b615f"><c:if test="${i.product.unit_in_stock==i.quantity}">
+                                                            You got maximum product</span>
+                                                        </c:if>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </td>
@@ -90,22 +105,21 @@
                     </div>
                     <div class="p-3 bg-white rounded shadow-sm">
                         <div class="text-center">
-                            <h3 class="pb-3 text-uppercase font-weight-bold">Total Bill</h3>
+                            <h3 class="pb-3 text-uppercase font-weight-bold">Cart detail</h3>
                         </div>
                         <div class="p-4">
                             <ul class="list-unstyled mb-4">
-                                <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Sub Total</b>
+                                <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Sub total</b>
                                     <h5 class="font-weight-bold"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></h5>
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Shipping fee</b><b>Free ship</b></li>
-                                <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">VAT</b><b></b></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Total</b>
                                     <h5 class="font-weight-bold"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></h5>
                                 </li>
                             </ul>
                             <div class="d-flex justify-content-end">
-                                <a href="productslist" class="btn">Click to continue Shopping</a>
-                                <a href="checkout" class="btn btn-outline-primary ms-3">Mua hàng</a>
+                                <a href="productslist" class="btn">Click to continue shopping</a>
+                                <a href="checkout" class="btn btn-outline-primary ms-3">Order Now</a>
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,7 @@ package model;
  * @author win
  */
 public class Item {
+
     private Product product;
     private int quantity;
     private double price;
@@ -42,20 +43,14 @@ public class Item {
     public double getPrice() {
         return price;
     }
+
     //all price in a bill
-    public double getAllprice(){
-        return price*quantity;
+    public double getAllprice() {
+        return price * quantity;
     }
+
     public void setPrice(double price) {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "Item{" + "product=" + product + ", quantity=" + quantity + ", price=" + price + '}';
-    }
-
-    
-    
-    
 }
