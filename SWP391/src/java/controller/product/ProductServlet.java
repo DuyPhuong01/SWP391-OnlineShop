@@ -58,6 +58,8 @@ public class ProductServlet extends HttpServlet {
         try{
             int productId = Integer.parseInt(productid_raw);
             request.setAttribute("product", product_dao.getProductById(productId));
+            request.setAttribute("pageNumber", 1);
+            request.setAttribute("orderOption", "newest");
             request.getRequestDispatcher("productdetails.jsp").forward(request, response);
         } catch (NumberFormatException e){
             System.out.println(e);

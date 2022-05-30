@@ -65,6 +65,53 @@ public class ProductDAO extends DBContext {
             }
             sql += ")";
         }
+        sql += " order by updated_date desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int product_id = rs.getInt("product_id");
+                Product product = new Product(product_id,
+                        rs.getString("title"),
+                        getProductImages(product_id),
+                        category_dao.getProductCategory(rs.getInt("category_id")),
+                        rs.getInt("unit_in_stock"),
+                        rs.getString("updated_date"),
+                        rs.getDouble("original_price"),
+                        rs.getDouble("sale_price"),
+                        rs.getString("product_details"), null,
+                        rs.getBoolean("featured"),
+                        rs.getInt("status")
+                );
+                productList.add(product);
+            }
+            return productList;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public List<Product> getAllProducts(int[] categories, String key, String orderOption) {
+//        select * from products where title like '%%' and category_id in (1, 2)
+        CategoryDAO category_dao = new CategoryDAO();
+        List<Product> productList = new ArrayList<>();
+        String sql = "select * from products ";
+        sql += "where title like '%" + key + "%' ";
+        if (categories != null) {
+            sql += "and category_id in (";
+            for (int i = 0; i < categories.length; i++) {
+                sql += categories[i] + ",";
+            }
+            if (sql.endsWith(",")) {
+                sql = sql.substring(0, sql.length() - 1);
+            }
+            sql += ")";
+        }
+        if(orderOption.equals("newest")){
+            sql += " order by updated_date desc";
+        } else {
+            sql += " order by updated_date asc";
+        }
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -207,7 +254,7 @@ public class ProductDAO extends DBContext {
 
     public static void main(String[] args) {
         ProductDAO pd = new ProductDAO();
-
-        System.out.println(pd.getLastActiveProducts(6).get(0).getTitle());
+        int arr[] = {1, 2, 3, 4};
+        System.out.println(pd.getAllProducts(arr, "", "a").get(6).getTitle());
     }
 }
