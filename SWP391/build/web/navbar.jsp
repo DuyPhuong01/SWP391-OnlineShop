@@ -20,7 +20,7 @@
                 </li>
             </ul>
             <form class="d-flex" action="productslist" role="search">
-                <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" name="key" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-primary" type="submit">Search</button>
             </form>
             <ul class="navbar-nav mb-2 mb-lg-0">
