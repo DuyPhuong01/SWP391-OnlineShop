@@ -251,10 +251,4 @@ public class ProductDAO extends DBContext {
         }
         return list;
     }
-
-    public static void main(String[] args) {
-        ProductDAO pd = new ProductDAO();
-        int arr[] = {1, 2, 3, 4};
-        System.out.println(pd.getAllProducts(arr, "", "a").get(6).getTitle());
-    }
 }

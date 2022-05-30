@@ -18,10 +18,10 @@
         <link rel="stylesheet" href="css/stylelogin.css" />
     </head>
     <body>
-        <div class="overlay-login" id="divOne">
-            <div class="wrapper-login">
-                <a class="close" href="#">&times;</a>
-                <div class="title-text-login">
+        <div class="overlay" id="divOne">
+            <div class="wrapper">
+                <a class="close" href="#a">&times;</a>
+                <div class="title-text">
                     <c:if test="${requestScope.signmess == null}">
                         <div class="title login">Login Form</div>
                     </c:if>

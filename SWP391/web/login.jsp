@@ -20,7 +20,7 @@
     <body>
         <div class="overlay-login" id="divOne">
             <div class="wrapper-login">
-                <a class="close" href="#">&times;</a>
+                <a class="close" href="#a">&times;</a>
                 <div class="title-text-login">
                     <c:if test="${requestScope.signmess == null}">
                         <div class="title login">Login Form</div>

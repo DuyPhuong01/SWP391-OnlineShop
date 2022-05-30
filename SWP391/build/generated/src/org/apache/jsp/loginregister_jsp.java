@@ -272,8 +272,13 @@ public final class loginregister_jsp extends org.apache.jasper.runtime.HttpJspBa
     int _jspx_eval_c_if_0 = _jspx_th_c_if_0.doStartTag();
     if (_jspx_eval_c_if_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
+<<<<<<< HEAD
         out.write("\r\n");
         out.write("                        <div class=\"title login\">Login Form</div>\r\n");
+=======
+        out.write("\n");
+        out.write("                        <div class=\"title login\">Login Form</div>\n");
+>>>>>>> phuongnldhe150657
         out.write("                    ");
         int evalDoAfterBody = _jspx_th_c_if_0.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
@@ -300,8 +305,13 @@ public final class loginregister_jsp extends org.apache.jasper.runtime.HttpJspBa
     int _jspx_eval_c_if_1 = _jspx_th_c_if_1.doStartTag();
     if (_jspx_eval_c_if_1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
+<<<<<<< HEAD
         out.write("\r\n");
         out.write("                        <div class=\"title login\" style=\"margin-left: -50%;\">Login Form</div>\r\n");
+=======
+        out.write("\n");
+        out.write("                        <div class=\"title login\" style=\"margin-left: -50%;\">Login Form</div>\n");
+>>>>>>> phuongnldhe150657
         out.write("                    ");
         int evalDoAfterBody = _jspx_th_c_if_1.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
@@ -328,9 +338,15 @@ public final class loginregister_jsp extends org.apache.jasper.runtime.HttpJspBa
     int _jspx_eval_c_if_2 = _jspx_th_c_if_2.doStartTag();
     if (_jspx_eval_c_if_2 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
+<<<<<<< HEAD
         out.write("\r\n");
         out.write("                            <input type=\"radio\" name=\"slide\" id=\"login\" checked />\r\n");
         out.write("                            <input type=\"radio\" name=\"slide\" id=\"signup\" />\r\n");
+=======
+        out.write("\n");
+        out.write("                            <input type=\"radio\" name=\"slide\" id=\"login\" checked />\n");
+        out.write("                            <input type=\"radio\" name=\"slide\" id=\"signup\" />\n");
+>>>>>>> phuongnldhe150657
         out.write("                        ");
         int evalDoAfterBody = _jspx_th_c_if_2.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
@@ -357,9 +373,15 @@ public final class loginregister_jsp extends org.apache.jasper.runtime.HttpJspBa
     int _jspx_eval_c_if_3 = _jspx_th_c_if_3.doStartTag();
     if (_jspx_eval_c_if_3 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
+<<<<<<< HEAD
         out.write("\r\n");
         out.write("                            <input type=\"radio\" name=\"slide\" id=\"login\"  />\r\n");
         out.write("                            <input type=\"radio\" name=\"slide\" id=\"signup\" checked/>\r\n");
+=======
+        out.write("\n");
+        out.write("                            <input type=\"radio\" name=\"slide\" id=\"login\"  />\n");
+        out.write("                            <input type=\"radio\" name=\"slide\" id=\"signup\" checked/>\n");
+>>>>>>> phuongnldhe150657
         out.write("                        ");
         int evalDoAfterBody = _jspx_th_c_if_3.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
@@ -386,8 +408,13 @@ public final class loginregister_jsp extends org.apache.jasper.runtime.HttpJspBa
     int _jspx_eval_c_if_4 = _jspx_th_c_if_4.doStartTag();
     if (_jspx_eval_c_if_4 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
+<<<<<<< HEAD
         out.write("\r\n");
         out.write("                            <form action=\"login\" class=\"login\" method=\"post\">\r\n");
+=======
+        out.write("\n");
+        out.write("                            <form action=\"login\" class=\"login\" method=\"post\">\n");
+>>>>>>> phuongnldhe150657
         out.write("                            ");
         int evalDoAfterBody = _jspx_th_c_if_4.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
@@ -414,8 +441,13 @@ public final class loginregister_jsp extends org.apache.jasper.runtime.HttpJspBa
     int _jspx_eval_c_if_5 = _jspx_th_c_if_5.doStartTag();
     if (_jspx_eval_c_if_5 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
+<<<<<<< HEAD
         out.write("\r\n");
         out.write("                                <form action=\"login\" class=\"login\" method=\"post\" style=\"margin-left: -50%;\">   \r\n");
+=======
+        out.write("\n");
+        out.write("                                <form action=\"login\" class=\"login\" method=\"post\" style=\"margin-left: -50%;\">   \n");
+>>>>>>> phuongnldhe150657
         out.write("                                ");
         int evalDoAfterBody = _jspx_th_c_if_5.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)

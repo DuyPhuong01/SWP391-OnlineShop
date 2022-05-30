@@ -74,7 +74,6 @@ public class ProductsListServlet extends HttpServlet {
         final int NUMBER_ITEMS_PER_PAGE = 8;
 
         try {
-
             //assign pageNumber = 1 if it null, otherwise parse
             if (pageNumberRaw == null) {
                 pageNumber = 1;
@@ -82,14 +81,12 @@ public class ProductsListServlet extends HttpServlet {
                 pageNumber = Integer.parseInt(pageNumberRaw);
 
             }
-
             //get number of page 
             if (allProductList.size() % NUMBER_ITEMS_PER_PAGE == 0) {
                 numberPage = allProductList.size() / NUMBER_ITEMS_PER_PAGE;
             } else {
                 numberPage = allProductList.size() / NUMBER_ITEMS_PER_PAGE + 1;
             }
-
             //get start and end position in the list of all product
             int start, end;
             start = (pageNumber - 1) * NUMBER_ITEMS_PER_PAGE;
@@ -114,7 +111,6 @@ public class ProductsListServlet extends HttpServlet {
         }
 
     }
-
     //check whether or not category_id contain in array 
     private boolean isCheck(int category, int[] checkedCategories) {
         if (checkedCategories == null) {

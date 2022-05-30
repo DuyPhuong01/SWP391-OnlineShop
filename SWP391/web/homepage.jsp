@@ -2,6 +2,7 @@
 <%@page import="model.Slider"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="en">
 
@@ -60,18 +61,18 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <div class="row mb-3">
+            <div class="row">
                 <div class="col-3">
-                    <div class="sider">
-                        <c:import url="sider.jsp"></c:import>
-                        </div>
+                    <c:import url="sider.jsp"></c:import>
                     </div>
                     <div class="col-9">
-                        <div class="content">
+                        <div class="p-3 bg-white rounded shadow-sm">
                             <div class="hot-post row mb-3">
-                                <h2>Hot posts</h2>
+                                <div class="text-center">
+                                    <h3 class="pb-3 text-uppercase font-weight-bold">Hot posts</h3>
+                                </div>
                             <c:forEach var="post" items="${requestScope.hotPostsList}">
-                                <div class="col-4">
+                                <div class="col-4 mb-3">
                                     <div class="card">
                                         <img src="${post.thumbnail}" class="card-img-top" alt="${post.title}">
                                         <div class="card-body">
@@ -82,34 +83,53 @@
                                     </div>
                                 </div>
                             </c:forEach>
-                            <a href="blogslist">View all Blogs</a>
+                            <div class="d-flex justify-content-end">
+                                <a href="blogslist">View all Blogs</a>
+                            </div>
                         </div>
                         <div class="feature-item row mb-3">
-                            <h2>Feature items</h2>
+                            <div class="text-center">
+                                <h3 class="pb-3 text-uppercase font-weight-bold">Feature items</h3>
+                            </div>
                             <c:forEach var="product" items="${requestScope.activeProductsList}">
-                                <div class="col-3">
-                                    <div class="card">
-                                        <img src="${product.images.get(0).path}" class="card-img-top">
+                                <div class="col-3 mb-3">
+                                    <div class="card product-card">
+                                        <a href="product?id=${product.product_id}">
+                                            <img src="${product.images.get(0).path}" class="card-img-top">
+                                        </a>
                                         <div class="card-body">
-                                            <h5 class="card-title">${product.title}</h5>
-                                            <h6 class="card-subtitle mb-2 text-muted"><span class="text-decoration-line-through">${product.original_price}</span> ${product.sale_price}</h6>
-                                            <p class="card-text">Product description</p>
+                                                <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.title}">
+                                                <h6 class="card-title product-title">${product.title}</h6>
+                                            </a>
+                                            <h6 class="card-subtitle mb-2 text-muted">
+                                                <c:if test="${product.sale_price != 0}">
+                                                    <span class="text-decoration-line-through"><fmt:formatNumber value="${product.original_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></span>
+                                                    <span style="color: red;"> <fmt:formatNumber value="${product.sale_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></span></c:if>
+                                                <c:if test="${product.sale_price == 0}"><span><fmt:formatNumber value="${product.original_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></span></c:if>
+                                                </h6>
+                                                <p class="brief-infor">${product.product_details}</p>
                                             <a href="product?id=${product.product_id}" type="button" class="btn btn-outline-primary">Details</a>
                                         </div>
                                     </div>
                                 </div>
                             </c:forEach>
-                            <a href="productslist">View all Products</a>
+                            <div class="d-flex justify-content-end">
+                                <a href="productslist">View all Products</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <c:import url="footer.jsp"></c:import>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-        <script src="js/carousel.js"></script>
+        <c:import url="footer.jsp"></c:import>
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="js/carousel.js"></script>
+
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
 
 </html>

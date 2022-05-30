@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-9">
                         <div class="content">
-                            <table class="orders-list table">
+                            <table class="orders-list table table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>

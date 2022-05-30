@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,15 +7,20 @@
     font-size: 18px;
     transition: .2s;
     scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif;
 }
-
+:root{
+    --bs-border-radius: .5rem;
+}
 html {
     --theme-primary-color: #E15246;
     --background-primary-color: #FFFFFF;
     --background-secondary-color: #F0F2F5;
     --background-tertiary-color: #F2F2F2;
 }
-
+.card{
+    --bs-card-spacer-x: .5rem;    
+}
 body {
     background-color: var(--background-secondary-color);
 }
@@ -21,6 +28,11 @@ body {
 table,
 img {
     width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
 .header {
@@ -36,22 +48,10 @@ img {
     margin-top: 100px;
 }
 
-.sidebar,
-.sider,
-.content {
+.sidebar {
     background-color: var(--background-primary-color);
     padding: 15px;
     border-radius: 10px;
-}
-
-.sider {
-    position: sticky;
-    top: 100px;
-}
-
-.sider>* {
-    padding-top: 15px;
-    padding-bottom: 15px;
 }
 
 .order-information,
@@ -75,18 +75,20 @@ img {
     flex-direction: column;
 }
 
-.center {
-    display: flex;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-}
-
 .dashboard>*>* {
     margin-bottom: 15px;
 }
 
-.footer {
-    height: 200px;
-    background: var(--background-primary-color);
+.brief-infor,
+.product-title {
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.brief-infor {
+    -webkit-line-clamp: 3;
 }

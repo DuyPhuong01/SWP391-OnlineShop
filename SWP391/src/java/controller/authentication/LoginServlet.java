@@ -89,8 +89,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("pass");
         AccountDAO db = new AccountDAO();
         Account account = db.getAccountByUsernamePassword(username, password);
-        if(account != null)
-        {   
+        if(account != null) {   
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
             response.getWriter().println("login successful!");
