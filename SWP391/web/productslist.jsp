@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="css/styleproductlist.css">
         <link rel="stylesheet" href="css/stylefooter.css">
 
+        <!--font-awesome-->
+        <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
 
     <body>
@@ -32,14 +34,44 @@
                             <!-- end sider -->
                         </div>
                     </div>
-                    <!--product list-->
                     <div class="col-9">
                         <div class="content">
+                            <div class="sort-bar flex">
+                                <div class="flex" style="flex: 1;">
+                                    <div class="sort-title">
+                                        Sort by
+                                    </div>
+                                    <div class="sort-option">
+                                        <select name="orderOption" id="order-by" onchange="searchProductByChangeOrderOption()">
+                                            <option value="newest" ${requestScope.orderOption eq "newest"?"selected":""}/> Newest 
+                                        <option value="oldest" ${requestScope.orderOption eq "oldest"?"selected":""}/> Oldest 
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="flex sort-bar-paging" style="margin-right: 20px;">
+                                <div style="margin-right: 20px;">
+                                    <span>${requestScope.pageNumber}</span>
+                                    <span> / </span>
+                                    <span>${requestScope.numberPage}</span>
+                                </div>
+                                <!--pagination-->
+                                <nav aria-label="Page navigation example" class="paging">
+                                    <ul class="pagination">           
+                                        <li class="page-item"><button <c:if test="${requestScope.pageNumber == 1}">disabled</c:if> onclick="nextProductPage(${requestScope.pageNumber - 1});"><i class="fa-solid fa-less-than"></i></button></li>
+                                        <li class="page-item"><button <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if> onclick="nextProductPage(${requestScope.pageNumber + 1});"><i class="fa-solid fa-greater-than"></i></button></li>
+                                        </ul>
+
+                                    </nav>
+                                    <!--end pagination-->
+                                </div>
+
+                            </div>
+                            <!--product list-->
                             <div class="row product-list-container">
                             <c:forEach items="${requestScope.productListByPage}" var="i">
                                 <div class="col-3 product-container">
                                     <div class="card">
-                                        <a href="product?id=${i.product_id}"><img src="${i.images.get(0).path}" class="card-img-top" alt="..."></a>
+                                        <a href="product?id=${i.product_id}" class="product-thumbnail"><img src="${i.images.get(0).path}" class="card-img-top" alt="..."></a>
                                         <div class="card-body">
                                             <h5 class="card-title">${i.title}</h5>
                                             <h6 class="card-subtitle mb-2 text-muted">
@@ -47,41 +79,20 @@
                                                 <c:if test="${i.sale_price == 0}"><span><fmt:formatNumber value="${i.original_price}" type="currency" currencySymbol="đ" /></span></c:if>
                                                 </h6>
                                                 <p class="card-text">${i.product_details}</p>
-                                                <form action="buy" method="post">
-                                                    <input type="text" name="id" value="${i.product_id}" hidden="true">
-                                                    <input type="number" name="quantity" value="1" hidden="true">
-                                                    <button type="submit" class="btn btn-outline-primary">Buy</button>
-                                                    <button type="button" class="btn btn-outline-primary">Feedback</button>
-                                                </form>
+                                            <form action="buy" method="post">
+                                                <input type="text" name="id" value="${i.product_id}" hidden="true">
+                                                <input type="number" name="quantity" value="1" hidden="true">
+                                                <button type="submit" class="btn btn-outline-primary">Buy</button>
+                                                <button type="button" class="btn btn-outline-primary"><a href="feedback?id=${i.product_id}">Feedback</a></button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </c:forEach>
                         </div>
-                        <!--pagination-->
-                        <nav aria-label="Page navigation example" class="paging">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="productslist?page=${requestScope.pageNumber-1}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="productslist?page=${requestScope.pageNumber-1}">${requestScope.pageNumber-1}</a></li>
-                                <li class="page-item"><a class="page-link" href="productslist?page=${requestScope.pageNumber}">${requestScope.pageNumber}</a></li>
-                                <li class="page-item"><a class="page-link" href="productslist?page=${requestScope.pageNumber+1}">${requestScope.pageNumber+1}</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="productslist?page=${requestScope.pageNumber+1}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                </li>
-                            </ul>
-                        </nav>
-                        <!--end pagination-->
+                        <!--end product list-->
                     </div>
                 </div>
-                <!--end product list-->
             </div>
         </div>
         <!--footer-->
