@@ -28,9 +28,7 @@
                 </nav>
                 <div class="row">
                     <div class="col-3">
-                        <div class="sider">
                         <c:import url="sider.jsp"></c:import>
-                        </div>
                     </div>
                     <div class="col">
                         <div class="p-3 content shadow-sm mb-3">

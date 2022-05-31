@@ -21,14 +21,12 @@
             <div class="container-lg mb-5">
                 <div class="row">
                     <div class="col-3">
-                        <div class="sider">
                         <c:import url="sider.jsp"></c:import>
-                        </div>
                     </div>
                     <div class="col-9">
                         <div class="p-3 bg-white rounded shadow-sm mb-3">
                             <div class="text-center">
-                                <h3 class="pb-3 text-uppercase font-weight-bold">Cart</h3>
+                                <h3 class="pb-3 text-uppercase font-weight-bold">My Cart</h3>
                             </div>
                             <!-- Shopping cart table -->
                             <table class="table table-hover">
@@ -45,25 +43,26 @@
                                 </thead>
                                 <tbody class="table-group-divider">
                                 <c:forEach items="${o.items}" var="i">
-                                    <tr style="height: 160px">
-                                        <td class="align-middle w-5">
-                                            <p class="mb-0 product-id-cart-contact" style="font-size: 18px">
+                                    <tr style="height: 100px">
+                                        <td class="align-middle">
+                                            <p class="mb-0 product-id-cart-contact">
                                                  ${i.product.product_id}
                                             </p>
                                         </td>
-                                        <td class="align-middle w-25">
+                                        <td class="align-middle" style="width: 30%">
                                             <div class="row">
-                                                <div class="col-3 my-auto">
+                                                <div class="col-5 my-auto">
                                                     <img src="${i.product.images.get(0).path}" alt="" class="img-fluid rounded" style="cursor: pointer"/>
                                                 </div>
-                                                    <a href="product?id=${i.product.product_id}" class="text-decoration-none text-muted col-9"><h5 style="font-size:18px " 
-                                                        class="product-title">${i.product.title}</h5></a>
+                                                    <a href="product?id=${i.product.product_id}" class="text-decoration-none text-muted col" style="align-self: center">
+                                                    <b class="product-title">${i.product.title}</b>
+                                                </a>
                                             </div>
                                         </td>
                                         <td class="align-middle">
                                             <b class="d-flex justify-content-center">
-                                                <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price}" type="currency" currencySymbol="đ"/></c:if>
-                                                <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price}" type="currency" currencySymbol="đ" /></c:if>
+                                                <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></c:if>
+                                                <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></c:if>
                                             </b>
                                         </td>
                                         <td class="align-middle">
@@ -82,8 +81,8 @@
                                         </td>
                                         <td class="align-middle">
                                             <b class="d-flex justify-content-center">
-                                                <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price*i.quantity}" type="currency" currencySymbol="đ"/></c:if>
-                                                <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price*i.quantity}" type="currency" currencySymbol="đ" /></c:if>
+                                                <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price*i.quantity}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></c:if>
+                                                <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price*i.quantity}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></c:if>
                                             </b>
                                         </td>
                                         <td class="align-middle">
@@ -112,11 +111,11 @@
                         <div class="p-4">
                             <ul class="list-unstyled mb-4">
                                 <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Sub total</b>
-                                    <h5 class="font-weight-bold"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></h5>
+                                    <h5 class="font-weight-bold"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Shipping fee</b><b>Free ship</b></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Total</b>
-                                    <h5 class="font-weight-bold"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></h5>
+                                    <h5 class="font-weight-bold"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
                                 </li>
                             </ul>
                             <div class="d-flex justify-content-end">

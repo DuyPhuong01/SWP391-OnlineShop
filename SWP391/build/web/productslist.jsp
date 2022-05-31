@@ -33,35 +33,23 @@
                     <!--product list-->
                     <div class="col-9">
                         <div class="p-3 bg-white rounded shadow-sm">
-                            <div class="sort-bar flex">
-                                <div class="flex" style="flex: 1;">
-                                    <div class="sort-title">
-                                        Sort by
-                                    </div>
-                                    <div class="sort-option">
-                                        <select name="orderOption" id="order-by" onchange="searchProductByChangeOrderOption()">
-                                            <option value="newest" ${requestScope.orderOption eq "newest"?"selected":""}/> Newest 
-                                        <option value="oldest" ${requestScope.orderOption eq "oldest"?"selected":""}/> Oldest 
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="flex sort-bar-paging" style="margin-right: 20px;">
-                                <div style="margin-right: 20px;">
-                                    <span>${requestScope.pageNumber}</span>
-                                    <span> / </span>
-                                    <span>${requestScope.numberPage}</span>
+                            <div class="p-2 bg-light rounded d-flex justify-content-between">
+                                <div class="input-group w-25 mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Sort by</span>
+                                    <select class="form-control" name="orderOption" id="order-by" onchange="searchProductByChangeOrderOption()"  aria-describedby="basic-addon1">
+                                        <option value="newest" ${requestScope.orderOption eq "newest"?"selected":""}/> Newest 
+                                    <option value="oldest" ${requestScope.orderOption eq "oldest"?"selected":""}/> Oldest 
+                                </select>
                                 </div>
                                 <!--pagination-->
-                                <nav aria-label="Page navigation example" class="paging">
-                                    <ul class="pagination">           
-                                        <li class="page-item"><button <c:if test="${requestScope.pageNumber == 1}">disabled</c:if> onclick="nextProductPage(${requestScope.pageNumber - 1});"><i class="fa-solid fa-less-than"></i></button></li>
-                                        <li class="page-item"><button <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if> onclick="nextProductPage(${requestScope.pageNumber + 1});"><i class="fa-solid fa-greater-than"></i></button></li>
-                                        </ul>
-
-                                    </nav>
-                                    <!--end pagination-->
-                                </div>
-
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item"><button class="page-link" <c:if test="${requestScope.pageNumber == 1}">disabled</c:if> onclick="nextProductPage(${requestScope.pageNumber - 1});"><i class="fa-solid fa-less-than"></i></button></li>
+                                        <li class="page-item"><a class="page-link" href="#">${requestScope.pageNumber} / ${requestScope.numberPage}</a></li>
+                                        <li class="page-item"><button class="page-link" <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if> onclick="nextProductPage(${requestScope.pageNumber + 1});"><i class="fa-solid fa-greater-than"></i></button></li>
+                                    </ul>
+                                </nav>
+                                <!--end pagination-->
                             </div>
                             <!--product list-->
                             <div class="row product-list-container">
@@ -102,11 +90,11 @@
         <!--end footer-->
     </body>
     <script src="js/productssearchfunction.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script>
-                                            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-                                            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>
 </html>

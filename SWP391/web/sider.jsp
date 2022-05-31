@@ -54,11 +54,4 @@
         <span class="bg-light rounded-pill py-1 px-2">phone: +0123456789</span>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 <script src="js/productssearchfunction.js"></script>
-
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-<script>
-    const tooltipSiderTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipSiderList = [...tooltipSiderTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-</script>
