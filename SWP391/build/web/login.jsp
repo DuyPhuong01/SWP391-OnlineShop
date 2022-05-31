@@ -18,10 +18,10 @@
         <link rel="stylesheet" href="css/stylelogin.css" />
     </head>
     <body>
-        <div class="overlay" id="divOne">
-            <div class="wrapper">
+        <div class="overlay-login" id="divOne">
+            <div class="wrapper-login">
                 <a class="close" href="#a">&times;</a>
-                <div class="title-text">
+                <div class="title-text-login">
                     <c:if test="${requestScope.signmess == null}">
                         <div class="title login">Login Form</div>
                     </c:if>
@@ -80,18 +80,22 @@
                                     <input name="fullname" type="text" spellcheck="false" required />
                                     <label for="">Fullname</label>
                                 </div>
-                                <div >
-                                    Gender 
-                                    <input type="radio" name="gender" value="0">Male
-                                    <input type="radio" name="gender" value="1">Female
+                                <div style="margin-bottom: 10px;">
+                                    Gender   
+                                    <input type="radio" name="gender" value="0"> Male
+                                    <input type="radio" name="gender" value="1"> Female
                                 </div>
                                 <div class="input-box">
                                     <input name="address" type="text" spellcheck="false" required />
                                     <label for="">Address</label>
                                 </div>
                                 <div class="input-box">
-                                    <input name="user" type="text" spellcheck="false" required />
+                                    <input name="mail" type="text" spellcheck="false" required />
                                     <label for="">Email</label>
+                                </div>
+                                <div class="input-box">
+                                    <input name="user" type="text" spellcheck="false" required />
+                                    <label for="">Username</label>
                                 </div>
                                 <div class="input-box">
                                     <input class="p-input1" name="pass" type="password" spellcheck="false" required />

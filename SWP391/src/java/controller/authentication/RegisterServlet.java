@@ -43,7 +43,7 @@ public class RegisterServlet extends HttpServlet {
             if (a == null) {
                 //dc signup
                 dao.singup(user, pass);
-                response.getWriter().println("Register successful!");
+                response.sendRedirect("home");
             } else {
                 //day ve trang login.jsp
                 request.setAttribute("signmess", "Tài khoản đã tồn tại!");

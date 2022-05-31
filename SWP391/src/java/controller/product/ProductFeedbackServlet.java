@@ -5,6 +5,7 @@
  */
 package controller.product;
 
+import dal.FeedbackDAO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,7 +13,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Random;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +28,9 @@ import model.Product;
  *
  * @author tretr
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
+        maxFileSize = 1024 * 1024 * 50,
+        maxRequestSize = 1024 * 1024 * 50)
 public class ProductFeedbackServlet extends HttpServlet {
 
     /**
@@ -65,7 +71,8 @@ public class ProductFeedbackServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        response.sendRedirect("feedback.jsp");
     }
 
     /**
@@ -80,6 +87,7 @@ public class ProductFeedbackServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        FeedbackDAO fdb = new FeedbackDAO();
         response.setContentType("text/html;charset=UTF-8");
         String userId = request.getParameter("userId");
         String productId = request.getParameter("productId");
@@ -89,12 +97,20 @@ public class ProductFeedbackServlet extends HttpServlet {
         String email = request.getParameter("email");
         String rate = request.getParameter("rate");
         String feedback = request.getParameter("feedback");
-
+        
+        
+        if (productId.equals("")) {
+            
+        }
         // Create path components to save the file
         final String path = getFolderUploadPath();
         final Part filePart = request.getPart("file");
-        final String fileName = getFileName(filePart);
-
+        String fileName = getFileName(filePart);
+        if(!fileName.equals("")){
+            Random r = new Random();
+        while(fdb.checkImageExist(fileName)){
+            fileName=r.nextInt(10)+fileName;
+        }
         OutputStream out = null;
         InputStream filecontent = null;
         final PrintWriter writer = response.getWriter();
@@ -132,7 +148,7 @@ public class ProductFeedbackServlet extends HttpServlet {
             }
         }
         Account a = new Account();
-        
+        a.setUser_id(Integer.parseInt(userId));
         Product p = new Product();
         p.setProduct_id(Integer.parseInt(productId));
         Feedback f = new Feedback();
@@ -144,8 +160,28 @@ public class ProductFeedbackServlet extends HttpServlet {
         f.setEmail(email);
         f.setRate(Integer.parseInt(rate));
         f.setFeedback(feedback);
-        f.setFileName(fileName);
+        f.setFileName("images\\feedback-images\\"+fileName);
+        fdb.insertFeedback(f);
+        } else {
+       
         
+        Account a = new Account();
+        a.setUser_id(Integer.parseInt(userId));
+        Product p = new Product();
+        p.setProduct_id(Integer.parseInt(productId));
+        Feedback f = new Feedback();
+        f.setAccount(a);
+        f.setProduct(p);
+        f.setFullName(name);
+        f.setPhoneNum(phone);
+        f.setGender(Boolean.parseBoolean(gender));
+        f.setEmail(email);
+        f.setRate(Integer.parseInt(rate));
+        f.setFeedback(feedback);
+        f.setFileName("");
+        fdb.insertFeedback(f);
+        }
+        response.sendRedirect("home");
     }
 
     private String getFileName(final Part part) {
@@ -159,13 +195,12 @@ public class ProductFeedbackServlet extends HttpServlet {
     }
 
     public String getFolderUploadPath() {
-        String path = getServletContext().getRealPath("/") + "images";
-        String path2 = getServletContext().getRealPath("/").replace("\\build", "");
+        String path = getServletContext().getRealPath("/").replace("\\build", "") + "images/feedback-images";
         File folderUpload = new File(path);
         if (!folderUpload.exists()) {
             folderUpload.mkdirs();
         }
-        return path2;
+        return path;
     }
 
     /**

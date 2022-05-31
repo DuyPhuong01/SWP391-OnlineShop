@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -18,13 +14,6 @@ body{
 }
 
 .overlay-login { /* ===================================================================== */
-<<<<<<< Updated upstream
-=======
-.overlay {
-    /* ===================================================================== */
->>>>>>> phuongnldhe150657
-=======
->>>>>>> Stashed changes
     position: fixed;
     top: 0;
     bottom: 0;
@@ -35,57 +24,20 @@ body{
     visibility: hidden;
     opacity: 0;
 }
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login:target {/* ===================================================================== */
     visibility: visible;
     opacity: 1;
 }
 .wrapper-login {/* ===================================================================== */
-=======
-
-.overlay:target {
-    /* ===================================================================== */
-    visibility: visible;
-    opacity: 1;
-}
-
-#divOne .wrapper {
-    /* ===================================================================== */
->>>>>>> phuongnldhe150657
-=======
-.overlay-login:target {/* ===================================================================== */
-    visibility: visible;
-    opacity: 1;
-}
-.wrapper-login {/* ===================================================================== */
->>>>>>> Stashed changes
     margin: 70px auto;
     padding: 20px;
     background: #ffffff;
     border-radius: 5px;
-<<<<<<< Updated upstream
-<<<<<<< HEAD
     
     position: relative;
     transition: all 5s ease-in-out;
 }
 .wrapper-login .close {/* ===================================================================== */
-=======
-    position: relative;
-    transition: all 5s ease-in-out;
-}
-
-#divOne .wrapper .close {
-    /* ===================================================================== */
->>>>>>> phuongnldhe150657
-=======
-    
-    position: relative;
-    transition: all 5s ease-in-out;
-}
-.wrapper-login .close {/* ===================================================================== */
->>>>>>> Stashed changes
     position: absolute;
     top: 20px;
     right: 30px;
@@ -95,34 +47,11 @@ body{
     text-decoration: none;
     color: #000;
 }
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .wrapper-login .close:hover {/* ===================================================================== */
     color: #4070f4;
 }
 
 .wrapper-login {
-=======
-
-#divOne .wrapper .close:hover {
-    /* ===================================================================== */
-    color: #4070f4;
-}
-
-::selection {
-    background: #3998c3b6;
-    color: #fff;
-}
-
-#divOne .wrapper {
->>>>>>> phuongnldhe150657
-=======
-.wrapper-login .close:hover {/* ===================================================================== */
-    color: #4070f4;
-}
-
-.wrapper-login {
->>>>>>> Stashed changes
     overflow: hidden;
     max-width: 450px;
     background: #fff;
@@ -131,28 +60,12 @@ body{
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .wrapper-login .title-text-login {
-=======
-#divOne .wrapper .title-text {
->>>>>>> phuongnldhe150657
-=======
-.wrapper-login .title-text-login {
->>>>>>> Stashed changes
     display: flex;
     width: 200%;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .wrapper-login .title {
-=======
-#divOne .wrapper .title {
->>>>>>> phuongnldhe150657
-=======
-.wrapper-login .title {
->>>>>>> Stashed changes
     width: 50%;
     font-size: 35px;
     font-weight: 600;
@@ -160,15 +73,7 @@ body{
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .wrapper-login .slide-controls {
-=======
-#divOne .wrapper .slide-controls {
->>>>>>> phuongnldhe150657
-=======
-.wrapper-login .slide-controls {
->>>>>>> Stashed changes
     position: relative;
     display: flex;
     height: 50px;
@@ -180,25 +85,10 @@ body{
     border-radius: 5px;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .wrapper-login .slide-controls input[type="radio"] {
     display: none;
 }
 .slide-controls .slide {
-=======
-#divOne .wrapper .slide-controls input[type="radio"] {
-    display: none;
-}
-
-#divOne .slide-controls .slide {
->>>>>>> phuongnldhe150657
-=======
-.wrapper-login .slide-controls input[type="radio"] {
-    display: none;
-}
-.slide-controls .slide {
->>>>>>> Stashed changes
     height: 100%;
     width: 100%;
     color: #fff;
@@ -211,27 +101,11 @@ body{
     transition: all 0.6s ease;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .slide-controls label.signup {
     color: #000;
 }
 
 .slide-controls .slider-tab {
-=======
-#divOne .slide-controls label.signup {
-    color: #000;
-}
-
-#divOne .slide-controls .slider-tab {
->>>>>>> phuongnldhe150657
-=======
-.slide-controls label.signup {
-    color: #000;
-}
-
-.slide-controls .slider-tab {
->>>>>>> Stashed changes
     position: absolute;
     height: 100%;
     width: 50%;
@@ -242,8 +116,6 @@ body{
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 
 
 #signup:checked~.slider-tab {
@@ -251,29 +123,11 @@ body{
 }
 
 #signup:checked~label.signup {
-=======
-#divOne #signup:checked~.slider-tab {
-    left: 50%;
-}
-
-#divOne #signup:checked~label.signup {
->>>>>>> phuongnldhe150657
-=======
-
-
-#signup:checked~.slider-tab {
-    left: 50%;
-}
-
-#signup:checked~label.signup {
->>>>>>> Stashed changes
     color: #fff;
     cursor: default;
     user-select: none;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 #signup:checked~label.login {
     color: #000;
 }
@@ -283,90 +137,32 @@ body{
 }
 
 #login:checked~label.login {
-=======
-#divOne #signup:checked~label.login {
-=======
-#signup:checked~label.login {
->>>>>>> Stashed changes
-    color: #000;
-}
-
-#login:checked~label.signup {
-    color: #000;
-}
-
-<<<<<<< Updated upstream
-#divOne #login:checked~label.login {
->>>>>>> phuongnldhe150657
-=======
-#login:checked~label.login {
->>>>>>> Stashed changes
     cursor: default;
     user-select: none;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .wrapper-login .form-container {
-=======
-#divOne .wrapper .form-container {
->>>>>>> phuongnldhe150657
-=======
-.wrapper-login .form-container {
->>>>>>> Stashed changes
     width: 100%;
     overflow: hidden;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-container .form-inner {
-=======
-#divOne .form-container .form-inner {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-container .form-inner {
->>>>>>> Stashed changes
     display: flex;
     width: 200%;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-container .form-inner form {
-=======
-#divOne .form-container .form-inner form {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-container .form-inner form {
->>>>>>> Stashed changes
     width: 50%;
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner form .field {
-=======
-#divOne .form-inner form .field {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner form .field {
->>>>>>> Stashed changes
     height: 50px;
     width: 100%;
     margin-top: 20px;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner form .field input {
-=======
-#divOne .form-inner form .field input {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner form .field input {
->>>>>>> Stashed changes
     height: 100%;
     width: 100%;
     outline: none;
@@ -378,34 +174,16 @@ body{
     transition: all 0.3s ease;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner form .field input:focus {
-=======
-#divOne .form-inner form .field input:focus {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner form .field input:focus {
->>>>>>> Stashed changes
     border-color: #6280e6;
     /* box-shadow: inset 0 0 3px #fb6aae; */
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner form .field input::placeholder {
-=======
-#divOne .form-inner form .field input::placeholder {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner form .field input::placeholder {
->>>>>>> Stashed changes
     color: #999;
     transition: all 0.3s ease;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login form .field input:focus::placeholder {
     color: #b3b3b3;
 }
@@ -415,68 +193,22 @@ body{
 }
 
 .overlay-login .form-inner form .signup-link {
-=======
-#divOne form .field input:focus::placeholder {
-=======
-.overlay-login form .field input:focus::placeholder {
->>>>>>> Stashed changes
-    color: #b3b3b3;
-}
-
-.overlay-login .form-inner form .pass-link {
-    margin-top: 5px;
-}
-
-<<<<<<< Updated upstream
-#divOne .form-inner form .signup-link {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner form .signup-link {
->>>>>>> Stashed changes
     text-align: center;
     margin-top: 30px;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner form .pass-link a,
 .overlay-login .form-inner form .signup-link a {
-=======
-#divOne .form-inner form .pass-link a,
-#divOne .form-inner form .signup-link a {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner form .pass-link a,
-.overlay-login .form-inner form .signup-link a {
->>>>>>> Stashed changes
     color: #0069fc;
     text-decoration: none;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner form .pass-link a:hover,
 .overlay-login .form-inner form .signup-link a:hover {
     text-decoration: underline;
 }
 
 .overlay-login form .btn {
-=======
-#divOne .form-inner form .pass-link a:hover,
-#divOne .form-inner form .signup-link a:hover {
-    text-decoration: underline;
-}
-
-#divOne form .btn {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner form .pass-link a:hover,
-.overlay-login .form-inner form .signup-link a:hover {
-    text-decoration: underline;
-}
-
-.overlay-login form .btn {
->>>>>>> Stashed changes
     height: 50px;
     width: 100%;
     border-radius: 5px;
@@ -484,15 +216,7 @@ body{
     overflow: hidden;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login form .btn .btn-layer {
-=======
-#divOne form .btn .btn-layer {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login form .btn .btn-layer {
->>>>>>> Stashed changes
     height: 100%;
     width: 300%;
     position: absolute;
@@ -503,27 +227,11 @@ body{
     ;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login form .btn:hover .btn-layer {
     left: 0;
 }
 
 .overlay-login form .btn input[type="submit"] {
-=======
-#divOne form .btn:hover .btn-layer {
-    left: 0;
-}
-
-#divOne form .btn input[type="submit"] {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login form .btn:hover .btn-layer {
-    left: 0;
-}
-
-.overlay-login form .btn input[type="submit"] {
->>>>>>> Stashed changes
     height: 100%;
     width: 100%;
     z-index: 1;
@@ -538,35 +246,15 @@ body{
     cursor: pointer;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner .login .input-box,
 .overlay-login .form-inner .signup .input-box {
-=======
-#divOne .form-inner .login .input-box,
-#divOne .form-inner .signup .input-box {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner .login .input-box,
-.overlay-login .form-inner .signup .input-box {
->>>>>>> Stashed changes
     position: relative;
     height: 50px;
     margin-bottom: 10px;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner .login .input-box input,
 .overlay-login .form-inner .signup .input-box input {
-=======
-#divOne .form-inner .login .input-box input,
-#divOne .form-inner .signup .input-box input {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner .login .input-box input,
-.overlay-login .form-inner .signup .input-box input {
->>>>>>> Stashed changes
     position: absolute;
     height: 100%;
     width: 100%;
@@ -577,8 +265,6 @@ body{
     transition: all 0.2s linear;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner .login .input-box input:is(:focus, :valid),
 .overlay-login .form-inner .signup .input-box input:is(:focus, :valid) {
     border-color: #4070f4;
@@ -586,24 +272,6 @@ body{
 
 .overlay-login .form-inner .login .input-box :is(label, i),
 .overlay-login .form-inner .signup .input-box :is(label, i) {
-=======
-#divOne .form-inner .login .input-box input:is(:focus, :valid),
-#divOne .form-inner .signup .input-box input:is(:focus, :valid) {
-    border-color: #4070f4;
-}
-
-#divOne .form-inner .login .input-box :is(label, i),
-#divOne .form-inner .signup .input-box :is(label, i) {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner .login .input-box input:is(:focus, :valid),
-.overlay-login .form-inner .signup .input-box input:is(:focus, :valid) {
-    border-color: #4070f4;
-}
-
-.overlay-login .form-inner .login .input-box :is(label, i),
-.overlay-login .form-inner .signup .input-box :is(label, i) {
->>>>>>> Stashed changes
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -611,36 +279,16 @@ body{
     transition: all 0.2s linear;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner .login .input-box label, 
 .overlay-login .form-inner .signup .input-box label {
-=======
-#divOne .form-inner .login .input-box label,
-#divOne .form-inner .signup .input-box label {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner .login .input-box label, 
-.overlay-login .form-inner .signup .input-box label {
->>>>>>> Stashed changes
     left: 15px;
     pointer-events: none;
     font-size: 16px;
     font-weight: 400;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner .login .input-box input:is(:focus, :valid)~label, 
 .overlay-login .form-inner .signup .input-box input:is(:focus, :valid)~label {
-=======
-#divOne .form-inner .login .input-box input:is(:focus, :valid)~label,
-#divOne .form-inner .signup .input-box input:is(:focus, :valid)~label {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner .login .input-box input:is(:focus, :valid)~label, 
-.overlay-login .form-inner .signup .input-box input:is(:focus, :valid)~label {
->>>>>>> Stashed changes
     color: #4070f4;
     top: 0;
     font-size: 12px;
@@ -648,74 +296,29 @@ body{
     background-color: #fff;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner .login .input-box i,
 .overlay-login .form-inner .signup .input-box i{
-=======
-#divOne .form-inner .login .input-box i,
-#divOne .form-inner .signup .input-box i {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner .login .input-box i,
-.overlay-login .form-inner .signup .input-box i{
->>>>>>> Stashed changes
     right: 15px;
     cursor: pointer;
     font-size: 20px;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .form-inner .login .input-box input:is(:focus, :valid)~i, 
 .overlay-login .form-inner .signup .input-box input:is(:focus, :valid)~i {
     color: #4070f4;
 }
 
 .overlay-login .text-danger {
-=======
-#divOne .form-inner .login .input-box input:is(:focus, :valid)~i,
-#divOne .form-inner .signup .input-box input:is(:focus, :valid)~i {
-    color: #4070f4;
-}
-
-#divOne .text-danger {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .form-inner .login .input-box input:is(:focus, :valid)~i, 
-.overlay-login .form-inner .signup .input-box input:is(:focus, :valid)~i {
-    color: #4070f4;
-}
-
-.overlay-login .text-danger {
->>>>>>> Stashed changes
     color: #dc3545!important;
     font-size: 14px;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 .overlay-login .text-danger p{
     color: #dc3545!important;
     font-size: 14px;
 }       
 
 .overlay-login .btn {
-=======
-#divOne .text-danger p {
-=======
-.overlay-login .text-danger p{
->>>>>>> Stashed changes
-    color: #dc3545!important;
-    font-size: 14px;
-}       
-
-<<<<<<< Updated upstream
-#divOne .btn {
->>>>>>> phuongnldhe150657
-=======
-.overlay-login .btn {
->>>>>>> Stashed changes
     --bs-btn-padding-y: 0;
     --bs-btn-border-width: 0;
 }
