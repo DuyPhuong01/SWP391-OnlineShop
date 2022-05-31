@@ -18,8 +18,7 @@ import model.Account;
  */
 public class AccountDAO extends DBContext {
 
-   
-       public Account getAccountByUsernamePassword(String username, String password) {
+    public Account getAccountByUsernamePassword(String username, String password) {
         try {
             String sql = "SELECT [username]\n"
                     + "      ,[password]\n"
