@@ -12,6 +12,7 @@
         <!-- CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
+        
     </head>
 
     <body>
@@ -81,7 +82,17 @@
                                                 <label class="input-group-text" for="typeNumber">Quantity</label>
                                                 <input type="number" id="typeNumber" name="quantity" class="form-control" value="1" min="1" />
                                             </div>
-                                            <input class="btn btn-outline-primary" type="submit" value="Add to Cart">
+                                            <c:if test="${product.unit_in_stock==0}">
+                                                <input  readonly disabled=""
+                                                        class="btn btn-outline-primary" type="button" value="Add to Cart">
+                                                <div>
+                                                    <span style="color: red">Out of stock</span>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${product.unit_in_stock!=0}">
+                                            <input class="btn btn-outline-primary" type="submit" value="Add to Cart"
+                                                   oninput="">
+                                            </c:if>
                                         </form>
                                         <a href="addtocart?product_id="></a>
                                     </div>
@@ -100,4 +111,5 @@
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="js/carousel.js"></script>
+    <script > </script>
 </html>

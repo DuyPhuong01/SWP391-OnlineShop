@@ -88,6 +88,20 @@ public class BuyServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
+            ProductDAO productDAO = new ProductDAO();
+        String num = request.getParameter("quantity");
+        String id = request.getParameter("id");
+           //if product sold redirect product details 
+        try {
+        Product product = productDAO.getProductById(Integer.parseInt(id));
+            System.out.println(product.getUnit_in_stock());
+        if(product.getUnit_in_stock()==0){//unit in stock of product=0
+           response.sendRedirect("product?id="+id);
+           return;
+        }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         HttpSession session = request.getSession(true);
         Account account = (Account) session.getAttribute("account");
         int userID;
@@ -96,7 +110,6 @@ public class BuyServlet extends HttpServlet {
         } else {  //role:user
             userID = account.getUser_id();
         }
-        ProductDAO productDAO = new ProductDAO();
         List<Product> allproduct = productDAO.getAllProducts();
         Cookie[] arr = request.getCookies();  //get cookie in browsing
         String cookieContent = "";
@@ -112,8 +125,6 @@ public class BuyServlet extends HttpServlet {
             }
         }
         String newCookieContent;
-        String num = request.getParameter("quantity");
-        String id = request.getParameter("id");
         newCookieContent = handleCookieContent(cookieContent, userID, id, num);
         //add cart content to cookie
         Cookie c = new Cookie ("cart", newCookieContent);
