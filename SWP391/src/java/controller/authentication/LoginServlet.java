@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
+            out.println("<title>Servlet LoginServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
@@ -61,15 +61,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        Cookie arr[] = request.getCookies();
-        for (Cookie o : arr) {
-            if (o.getName().equals("userC")) {
-                request.setAttribute("username", o.getValue());
-            }
-            if (o.getName().equals("passC")) {
-                request.setAttribute("password", o.getValue());
-            }
-        }
+
         request.getRequestDispatcher("loginregister.jsp").forward(request, response);
     }
 
@@ -87,17 +79,36 @@ public class LoginServlet extends HttpServlet {
 //        processRequest(request, response);
         String username = request.getParameter("user");
         String password = request.getParameter("pass");
+        String remember = request.getParameter("remember");
         AccountDAO db = new AccountDAO();
         Account account = db.getAccountByUsernamePassword(username, password);
-        if(account != null) {   
-            HttpSession session = request.getSession();
-            session.setAttribute("account", account);
-//            response.getWriter().println("login successful!");
-            response.sendRedirect("home");
-        }
-        else
-        {
-            response.getWriter().println("login failed");
+        if (account != null) {
+            if (remember != null) {
+                //luu account len tren cookie
+                Cookie u = new Cookie("userC", username);
+                Cookie p = new Cookie("passC", password);
+                Cookie r = new Cookie("rememC", remember);
+
+                if (remember == null) {
+                    u.setMaxAge(0);
+                    p.setMaxAge(0);
+                    r.setMaxAge(0);
+                } else {
+                    u.setMaxAge(3600 * 24 * 30);
+                    p.setMaxAge(3600 * 24 * 30);
+                    r.setMaxAge(3600 * 24 * 30);
+                }
+                response.addCookie(u);//luu u va p len tren chrome
+                response.addCookie(p);
+                response.addCookie(r);
+                HttpSession session = request.getSession();
+                session.setAttribute("account", account);
+                response.sendRedirect("home");
+            }
+
+        } else {
+            request.setAttribute("mess", "Username hoặc password không đúng!");
+            request.getRequestDispatcher("home").forward(request, response);
         }
     }
 

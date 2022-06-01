@@ -53,16 +53,16 @@
                                 </c:if>
                                 <p class="text-danger">${requestScope.mess}</p>
                                 <div class="input-box">
-                                    <input name="user" type="text" spellcheck="false" required />
+                                    <input name="user" type="text" value="${cookie.userC.value}" spellcheck="false" required />
                                     <label for="">Email</label>
                                 </div>
                                 <div class="input-box">
-                                    <input class="p-input" name="pass" type="password" spellcheck="false" required />
+                                    <input class="p-input" name="pass" value="${cookie.passC.value}" type="password" spellcheck="false" required />
                                     <label for="">Password</label>
                                     <i class="uil uil-eye-slash toggle"></i>
                                 </div>
                                 <div class="pass-link">
-                                    <input name="remember" type="checkbox" class="form-check-input" id="checkBoxRemember"/>
+                                    <input name="remember" type="checkbox" class="form-check-input" id="checkBoxRemember" ${cookie.rememC.value eq "on" ? "checked" : ""} value="on"/>
                                     <label class="form-check-label" for="checkBoxRemember">Remember me</label>
                                 </div>
                                 <div class="field btn">

@@ -72,7 +72,9 @@ public class ProductFeedbackServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        response.sendRedirect("feedback.jsp");
+        String productId = request.getParameter("id");
+        request.setAttribute("productId", productId);
+        request.getRequestDispatcher("feedback_1.jsp").forward(request, response);
     }
 
     /**
@@ -89,64 +91,57 @@ public class ProductFeedbackServlet extends HttpServlet {
 //        processRequest(request, response);
         FeedbackDAO fdb = new FeedbackDAO();
         response.setContentType("text/html;charset=UTF-8");
+
         String userId = request.getParameter("userId");
         String productId = request.getParameter("productId");
+
         String name = request.getParameter("name");
         String phone = request.getParameter("phone");
         String gender = request.getParameter("gender");
         String email = request.getParameter("email");
+        
         String rate = request.getParameter("rate");
         String feedback = request.getParameter("feedback");
-        
-        
-        if (productId.equals("")) {
-            
-        }
+        if(userId==null || productId.equals("")) userId="0";
+        if(productId==null || productId.equals("")) productId="0";
         // Create path components to save the file
         final String path = getFolderUploadPath();
         final Part filePart = request.getPart("file");
         String fileName = getFileName(filePart);
-        if(!fileName.equals("")){
-            Random r = new Random();
-        while(fdb.checkImageExist(fileName)){
-            fileName=r.nextInt(10)+fileName;
-        }
-        OutputStream out = null;
-        InputStream filecontent = null;
-        final PrintWriter writer = response.getWriter();
+        Random r = new Random();
 
-        try {
-            File f = new File(path + File.separator + fileName);
-            System.out.println(path + File.separator + fileName);
-            if (f.exists()) {
-                writer.println("File " + fileName + " already exist at " + path);
-            } else {
-                out = new FileOutputStream(f);
-                filecontent = filePart.getInputStream();
+        if (!fileName.equals("")) {
+            while (fdb.checkImageExist(fileName) || fdb.checkImageGeneralExist(fileName)) {
+                fileName = r.nextInt(10) + fileName;
+            }
+            fileName = "images\\feedback-images\\" + fileName;
+            OutputStream out = null;
+            InputStream filecontent = null;
+            final PrintWriter writer = response.getWriter();
 
-                int read = 0;
-                final byte[] bytes = new byte[1024];
+            try {
+                File f = new File(path + fileName);
+                System.out.println(path + fileName);
+                if (f.exists()) {
+                    writer.println("File " + fileName + " already exist at " + path);
+                } else {
+                    out = new FileOutputStream(f);
+                    filecontent = filePart.getInputStream();
 
-                while ((read = filecontent.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
+                    int read = 0;
+                    final byte[] bytes = new byte[1024];
+
+                    while ((read = filecontent.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
                 }
-                response.sendRedirect("home");
-            }
-        } catch (FileNotFoundException fne) {
-            writer.println("<br/> ERROR: " + fne.getMessage());
-        } catch (Exception e) {
-            System.out.println(e);
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-            if (filecontent != null) {
-                filecontent.close();
-            }
-            if (writer != null) {
-                writer.close();
+            } catch (FileNotFoundException fne) {
+                writer.println("<br/> ERROR: " + fne.getMessage());
+            } catch (Exception e) {
+                System.out.println(e);
             }
         }
+           
         Account a = new Account();
         a.setUser_id(Integer.parseInt(userId));
         Product p = new Product();
@@ -160,26 +155,11 @@ public class ProductFeedbackServlet extends HttpServlet {
         f.setEmail(email);
         f.setRate(Integer.parseInt(rate));
         f.setFeedback(feedback);
-        f.setFileName("images\\feedback-images\\"+fileName);
-        fdb.insertFeedback(f);
+        f.setFileName(fileName);
+        if (!productId.equals("0")) {
+            fdb.insertFeedback(f);
         } else {
-       
-        
-        Account a = new Account();
-        a.setUser_id(Integer.parseInt(userId));
-        Product p = new Product();
-        p.setProduct_id(Integer.parseInt(productId));
-        Feedback f = new Feedback();
-        f.setAccount(a);
-        f.setProduct(p);
-        f.setFullName(name);
-        f.setPhoneNum(phone);
-        f.setGender(Boolean.parseBoolean(gender));
-        f.setEmail(email);
-        f.setRate(Integer.parseInt(rate));
-        f.setFeedback(feedback);
-        f.setFileName("");
-        fdb.insertFeedback(f);
+            fdb.insertGeneralFeedback(f);
         }
         response.sendRedirect("home");
     }
@@ -195,7 +175,7 @@ public class ProductFeedbackServlet extends HttpServlet {
     }
 
     public String getFolderUploadPath() {
-        String path = getServletContext().getRealPath("/").replace("\\build", "") + "images/feedback-images";
+        String path = getServletContext().getRealPath("/").replace("\\build", "");
         File folderUpload = new File(path);
         if (!folderUpload.exists()) {
             folderUpload.mkdirs();

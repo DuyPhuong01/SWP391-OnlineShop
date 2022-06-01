@@ -16,7 +16,7 @@
                     <a class="nav-link" href="blogslist">Blogs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="feedback">Feedbacks</a>
+                    <a class="nav-link" href="feedback?choice=0">Feedbacks</a>
                 </li>
             </ul>
             <form class="d-flex" action="productslist" role="search">
