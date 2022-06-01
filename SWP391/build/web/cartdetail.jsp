@@ -8,8 +8,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Cart details</title>
+        <!--CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style1.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <!--font-awesome-->
+        <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
 
     <body>
@@ -71,7 +74,7 @@
                                                 <div class="change-item">
                                                     <a class="btn btn-outline-success" href="process?num=-1&id=${i.product.product_id}">-</a>
                                                     <b>${i.quantity}</b>
-                                                    <a class="btn btn-outline-success" href="process?num=1&id=${i.product.product_id}">+</a>
+                                                    <a class="btn btn-outline-success" <c:if test="${i.product.unit_in_stock!=i.quantity}">href="process?num=1&id=${i.product.product_id}"</c:if>>+</a>
                                                     <div class="addmore-item">
                                                         <span style="color: #6b615f"><c:if test="${i.product.unit_in_stock==i.quantity}">
                                                             You got maximum product</span>
@@ -136,7 +139,13 @@
                 </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-        <script src="js/script.js"></script>
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+        
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
 </html>

@@ -29,7 +29,7 @@
             <c:import url="navbar.jsp"></c:import>
             </div>
             <div class="container-lg">
-                <div id="carouselExampleCaptions" class="carousel slide mb-3" data-bs-ride="false">
+                <div id="carouselExampleCaptions" class="carousel slide mb-3" data-bs-ride="true">
                     <div class="carousel-indicators">
                     <%
                         int index = 0;
@@ -41,10 +41,10 @@
                         %>
                     </c:forEach>
                 </div>
-                <div class="carousel-inner">
+                <div class="carousel-inner rounded">
                     <c:forEach var="slider" items="${requestScope.slidersList}">
                         <div class="carousel-item">
-                            <a href="${slider.url}"><img src="${slider.imagePath}" class="d-block w-100 rounded" alt="${slider.title}"></a>
+                            <a href="${slider.url}"><img src="${slider.imagePath}" class="d-block w-100" alt="${slider.title}"></a>
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>${slider.title}</h5>
                                 <p>Some representative placeholder content for the first slide.</p>

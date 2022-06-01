@@ -92,3 +92,16 @@ a {
 .brief-infor {
     -webkit-line-clamp: 3;
 }
+.note-item{
+    height: 100px;
+}
+.price-cart-contact{
+    margin-left: 30px;
+}
+tr{
+    position: relative;
+}
+.addmore-item{
+    position: absolute;
+    bottom: 10px;
+}

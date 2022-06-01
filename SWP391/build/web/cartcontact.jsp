@@ -8,8 +8,11 @@
         <title>Cart Contacts</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!--CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style1.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <!--font-awesome-->
+        <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <c:set var="o" value="${requestScope.cart}" />
@@ -31,7 +34,7 @@
                         <c:import url="sider.jsp"></c:import>
                     </div>
                     <div class="col">
-                        <div class="p-3 content shadow-sm mb-3">
+                        <div class="p-3 bg-white rounded shadow-sm mb-3">
                             <div class="text-center">
                                 <h3 class="pb-3 text-uppercase font-weight-bold">Cart Contact</h3>
                             </div>
@@ -100,40 +103,36 @@
                         </form>
                     </div>
 
-                    <div class="p-3 content shadow-sm mb-3">
+                    <div class="p-3 bg-white rounded shadow-sm">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                        <th colspan="2">ID</th>
+                                        <th >ID</th>
                                         <th colspan="2">Product</th>
-                                                <th colspan="1">
-                                                    <div class="price-cart-contact">
-                                                        Price
-                                                    </div>
-                                            </th>
-                                    <th class="text-center">Quantity</th>
-                                    <th class="text-end">Total Cost</th>
+                                            <th class="text-center">Price</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-end">Total Cost</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
                                 <c:forEach items="${o.items}" var="i">
                                     <tr>
-                                        <td colspan="1" style="width: 10%">
-                                            <p class="mb-0 product-id-cart-contact" style="font-size: 18px">
+                                        <td class="align-middle">
+                                            <p class="mb-0 product-id-cart-contact">
                                                  ${i.product.product_id}
                                             </p>
                                         </td>
-                                        <td colspan="2" style="width: 10%">
-                                            <img src="${i.product.images.get(0).path}" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                        <td style="width: 10%">
+                                            <img src="${i.product.images.get(0).path}" alt="" width="10%" class="img-fluid rounded shadow-sm">
                                         </td>
                                         <td class="align-middle">
                                             <a href="product?id=${i.product.product_id}" class="text-decoration-none text-muted"><p class="mb-0 product-title">${i.product.title}</p></a>
                                         </td>
                                         <td class="align-middle">
-                                              <b class="d-flex justify-content-center">
+                                            <span class="d-flex justify-content-center">
                                                 <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price}" type="currency" currencySymbol="đ"/></c:if>
                                                 <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price}" type="currency" currencySymbol="đ" /></c:if>
-                                            </b>
+                                            </span  >
                                         </td>
                                         <td class="align-middle">
                                             <p class="text-center mb-0">${i.quantity}</p>
@@ -163,6 +162,12 @@
                 </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
 </html>

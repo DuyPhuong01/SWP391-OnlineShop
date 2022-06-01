@@ -12,7 +12,8 @@
         <!-- CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
-        
+        <!--font-awesome-->
+        <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
 
     <body>
@@ -35,7 +36,7 @@
                         <c:set var="prodct" value="${requestScope.product}"></c:set>
                             <div class="row product-details-container mb-3">
                                 <div class="col-6">
-                                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
                                         <div class="carousel-indicators">
                                         <%
                                             int index = 0;
@@ -47,7 +48,7 @@
                                             %>
                                         </c:forEach>
                                     </div>
-                                    <div class="carousel-inner">
+                                    <div class="carousel-inner rounded">
                                         <c:forEach var="product_image" items="${product.images}">
                                             <div class="carousel-item">
                                                 <img src="${product_image.path}" class="d-block w-100" alt="${product_image.description}">
@@ -78,23 +79,17 @@
                                         </div>
                                         <form action="buy" method="post">
                                             <input type="text" name="id" value="${product.product_id}" hidden="true">
-                                            <div class="input-group mb-2">
+                                            <div class="input-group">
                                                 <label class="input-group-text" for="typeNumber">Quantity</label>
-                                                <input type="number" id="typeNumber" name="quantity" class="form-control" value="1" min="1" />
+                                                <c:if test="${product.unit_in_stock==0}">
+                                                    <input style="color: red" type="text" class="form-control" value="Out of stock" readonly disabled/>
+                                                </c:if>
+                                                <c:if test="${product.unit_in_stock!=0}">
+                                                    <input type="number" id="typeNumber" name="quantity" class="form-control" value="1" min="1" max="${product.unit_in_stock}" />
+                                                </c:if>
                                             </div>
-                                            <c:if test="${product.unit_in_stock==0}">
-                                                <input  readonly disabled=""
-                                                        class="btn btn-outline-primary" type="button" value="Add to Cart">
-                                                <div>
-                                                    <span style="color: red">Out of stock</span>
-                                                </div>
-                                            </c:if>
-                                            <c:if test="${product.unit_in_stock!=0}">
-                                            <input class="btn btn-outline-primary" type="submit" value="Add to Cart"
-                                                   oninput="">
-                                            </c:if>
+                                            <input <c:if test="${product.unit_in_stock==0}">readonly disabled</c:if> class="btn btn-outline-primary mt-3" type="submit" value="Add to Cart">
                                         </form>
-                                        <a href="addtocart?product_id="></a>
                                     </div>
                                 </div>
                             </div>
@@ -111,5 +106,10 @@
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="js/carousel.js"></script>
-    <script > </script>
+    
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
 </html>
