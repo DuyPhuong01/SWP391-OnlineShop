@@ -109,8 +109,12 @@ public class ProductDAO extends DBContext {
         }
         if(orderOption.equals("newest")){
             sql += " order by updated_date desc";
-        } else {
+        } else if(orderOption.equals("oldest")){
             sql += " order by updated_date asc";
+        } else if(orderOption.equals("lowestPrice")){
+            sql += " order by original_price asc";
+        } else {
+            sql += " order by original_price desc";
         }
         try {
             PreparedStatement st = connection.prepareStatement(sql);
