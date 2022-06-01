@@ -41,7 +41,32 @@ public class FeedbackDAO extends DBContext {
             stm.setBoolean(7, f.isGender());
             stm.setString(8, f.getEmail());
             stm.setString(9, f.getFileName());
-            ResultSet rs = stm.executeQuery();
+            stm.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    public void insertGeneralFeedback(Feedback f) {
+        String sql = "INSERT INTO [general_feedbacks]\n"
+                + "           ([star]\n"
+                + "           ,[feedbacks_content]\n"
+                + "           ,[full_name]\n"
+                + "           ,[phone]\n"
+                + "           ,[gender]\n"
+                + "           ,[email]\n"
+                + "           ,[image_url])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            
+            stm.setFloat(1, f.getRate());
+            stm.setString(2, f.getFeedback());
+            stm.setString(3, f.getFullName());
+            stm.setString(4, f.getPhoneNum());
+            stm.setBoolean(5, f.isGender());
+            stm.setString(6, f.getEmail());
+            stm.setString(7, f.getFileName());
+            stm.executeUpdate();
         } catch (Exception e) {
         }
     }
@@ -49,6 +74,21 @@ public class FeedbackDAO extends DBContext {
     public boolean  checkImageExist(String img) {
         String sql = "SELECT [image_url]\n"
                 + "  FROM [product_feedbacks]\n"
+                + "  WHERE [image_url] = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, "images\\feedback-images\\"+img);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+        }
+        return false;
+    }
+    public boolean  checkImageGeneralExist(String img) {
+        String sql = "SELECT [image_url]\n"
+                + "  FROM [general_feedbacks]\n"
                 + "  WHERE [image_url] = ?";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);

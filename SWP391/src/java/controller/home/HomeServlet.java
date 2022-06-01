@@ -69,6 +69,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("activeProductsList", product_dao.getNewestActiveProducts(8));
         request.setAttribute("pageNumber", "1");
         request.setAttribute("orderOption", "newest");
+        request.setAttribute("mess", request.getParameter("mess"));
         request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }
 

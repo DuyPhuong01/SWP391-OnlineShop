@@ -94,9 +94,7 @@
             </div>
         </div>
         <!--footer-->
-        <div class="footer">
             <c:import url="footer.jsp"></c:import>
-        </div>      
         <!--end footer-->
     </body>
     <script src="js/productssearchfunction.js"></script>
