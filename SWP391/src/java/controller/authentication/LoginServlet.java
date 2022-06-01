@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
 
-        request.getRequestDispatcher("loginregister.jsp").forward(request, response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /**
@@ -108,7 +108,8 @@ public class LoginServlet extends HttpServlet {
 
         } else {
             request.setAttribute("mess", "Username hoặc password không đúng!");
-            request.getRequestDispatcher("home").forward(request, response);
+//            request.getRequestDispatcher("home#divOne").forward(request, response);
+            response.sendRedirect("home?mess=Username+or+password+is+incorrect#divOne");
         }
     }
 

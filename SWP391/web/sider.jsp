@@ -11,7 +11,7 @@
     <div class="search-container mb-3">
         <input id="productSeachKey" class="form-control" type="text" placeholder="Search Product" aria-label="default input example" name="key" id="productSeachKey" value="${requestScope.key}">
     </div>
-    <div class="categories-list-container mb-2">
+    <div class="categories-list-container">
         <div class="text-center">
             <h5 class="mb-0 font-weight-bold">Categories</h5>
         </div>
@@ -29,11 +29,11 @@
         </div>
     </div>
     <div class="hidden-input">
-        <input type="hidden" value="${requestScope.pageNumber}" name="page" id="page"/>
-        <input type="hidden" value="${requestScope.orderOption}" name="orderOption" id="order-option"/>
+        <input type="hidden" value="<c:if test="${requestScope.pageNumber != null}">${requestScope.pageNumber}</c:if><c:if test="${requestScope.pageNumber == null}">1</c:if>" name="page" id="page"/>
+        <input type="hidden" value="<c:if test="${requestScope.orderOption != null}">${requestScope.orderOption}</c:if><c:if test="${requestScope.orderOption == null}">newest</c:if>" name="orderOption" id="order-option"/>
     </div>
-    <div class="submit-button">
-        <button class="btn btn-primary" type="subbmit">Search</button>
+    <div class="submit-button mb-3">
+        <button class="btn btn-light w-100" type="subbmit">Search</button>
     </div>
 </form>
     <div class="lastest-product-container row mb-3">

@@ -15,7 +15,7 @@ import model.ProductCategory;
 
 @WebServlet(name = "ProductsListServlet", urlPatterns = {"/productslist"})
 public class ProductsListServlet extends HttpServlet {
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -65,7 +65,6 @@ public class ProductsListServlet extends HttpServlet {
 
         List<Product> latestProduct = productDAO.getLastActiveProducts(NUMBER_OF_LATEST_PRODUCT); //get latest product
 
-//        List<Product> allProductList = productDAO.getAllProducts(categories, key); //get all product that have specified category and contain key
         List<Product> allProductList = productDAO.getAllProducts(); //get all product that have specified category and contain key
 
         //pagination
@@ -136,6 +135,8 @@ public class ProductsListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
 //        get search key
         String key = request.getParameter("key");
         
@@ -157,7 +158,7 @@ public class ProductsListServlet extends HttpServlet {
             key = "";
         }
 
-//        get order option
+//        get order option, assign orderOption = newest neu null
         String orderOption = request.getParameter("orderOption");
         if (orderOption == null) {
             orderOption = "newest";

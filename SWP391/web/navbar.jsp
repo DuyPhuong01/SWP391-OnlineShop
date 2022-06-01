@@ -16,40 +16,26 @@
                     <a class="nav-link" href="blogslist">Blogs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="feedback?choice=0">Feedbacks</a>
+                    <a class="nav-link" href="feedback">Feedbacks</a>
                 </li>
             </ul>
             <form class="d-flex" action="productslist" role="search">
                 <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-primary" type="submit">Search</button>
             </form>
-            <c:if test="${sessionScope.account == null}">
-                <ul class="navbar-nav mb-2 mb-lg-0" style="padding-top: 5px;">
-
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <c:if test="${sessionScope.account == null}">
                     <li class="nav-item dropdown me-2">
-                        <a class="btn btn-outline-primary" href="#divOne" class="first-button">Login</a>
-                        <c:import url="login.jsp"></c:import>
-                        </li>
-
-                        <li class="nav-item align-items-center">
-                            <form action="showcart" method="GET">
-                                <button type="submit" class="btn btn-primary position-relative">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: #807d7d; color: #ffffff;">
-                                        4
-                                        <span class="visually-hidden">Product in cart</span>
-                                    </span>
-                                </button>
-                            </form>
-
-                        </li>
-                    </ul>
-            </c:if>
-            <c:if test="${sessionScope.account != null }">  
-                <ul class="navbar-nav mb-2 mb-lg-0" style="padding-top: 5px;">
-                    <img src="images/account-images/acc.png" class="img-thumbnail" style="width: 50px;height: 50px; border-radius: 50%;">
+                        <a class="nav-link" href="#divOne" class="first-button">Login</a>
+                    </li>
+                    </c:if>
+                    <c:if test="${sessionScope.account != null }">
+                    
                     <li class="nav-item dropdown me-2">
-                        <div class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">My Account</div>
+                        <div class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="images/account-images/acc.png" class="img-thumbnail" style="width: 40px;height: 40px; border-radius: 50%; margin: -0.5rem 0">
+                            My Account
+                        </div>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="userprofile">Profile</a></li>
                             <li><a class="dropdown-item" href="myorders">My Orders</a></li>
@@ -60,21 +46,13 @@
                             <li><a class="dropdown-item" href="logout">Log out</a></li>
                         </ul>
                     </li>
+                    </c:if>
 
                     <li class="nav-item align-items-center">
-                        <form action="showcart" method="GET">
-                            <button type="submit" class="btn btn-primary position-relative">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: #807d7d; color: #ffffff;">
-                                    4
-                                    <span class="visually-hidden">Product in cart</span>
-                                </span>
-                            </button>
-                        </form>
+                        <a href="showcart" class="btn btn-outline-primary position-relative"><i class="fa-solid fa-cart-shopping me-1"></i>My Cart</a>
                     </li>
                 </ul>
-            </c:if>
         </div>
     </div>
 </nav>
-<script src="https://kit.fontawesome.com/0e3f31cc48.js" crossorigin="anonymous"></script>
+<c:import url="login.jsp"></c:import>

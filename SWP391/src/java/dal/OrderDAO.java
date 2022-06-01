@@ -7,12 +7,9 @@ package dal;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import javax.mail.internet.MailDateFormat;
 import model.Account;
 import model.Cart;
-import model.Customer;
 import model.Guest;
 import model.Item;
 
@@ -131,5 +128,4 @@ public class OrderDAO extends DBContext{
               System.out.println(e);
         }
     }
- 
 }

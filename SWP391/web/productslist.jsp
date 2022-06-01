@@ -34,19 +34,21 @@
                     <div class="col-9">
                         <div class="p-3 bg-white rounded shadow-sm">
                             <div class="p-2 bg-light rounded d-flex justify-content-between">
-                                <div class="input-group w-25 mb-3">
+                                <div class="input-group w-25">
                                     <span class="input-group-text" id="basic-addon1">Sort by</span>
                                     <select class="form-control" name="orderOption" id="order-by" onchange="searchProductByChangeOrderOption()"  aria-describedby="basic-addon1">
                                         <option value="newest" ${requestScope.orderOption eq "newest"?"selected":""}/> Newest 
                                     <option value="oldest" ${requestScope.orderOption eq "oldest"?"selected":""}/> Oldest 
+                                    <option value="lowestPrice" ${requestScope.orderOption eq "lowestPrice"?"selected":""}/> Lowest Price 
+                                    <option value="highestPrice" ${requestScope.orderOption eq "highestPrice"?"selected":""}/> Highest Price 
                                 </select>
-                                </div>
-                                <!--pagination-->
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item"><button class="page-link" <c:if test="${requestScope.pageNumber == 1}">disabled</c:if> onclick="nextProductPage(${requestScope.pageNumber - 1});"><i class="fa-solid fa-less-than"></i></button></li>
-                                        <li class="page-item"><a class="page-link" href="#">${requestScope.pageNumber} / ${requestScope.numberPage}</a></li>
-                                        <li class="page-item"><button class="page-link" <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if> onclick="nextProductPage(${requestScope.pageNumber + 1});"><i class="fa-solid fa-greater-than"></i></button></li>
+                            </div>
+                            <!--pagination-->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" style="margin-bottom: 0;">
+                                    <li class="page-item"><button class="page-link" <c:if test="${requestScope.pageNumber == 1}">disabled</c:if> onclick="nextProductPage(${requestScope.pageNumber - 1});"><i class="fa-solid fa-less-than"></i></button></li>
+                                    <li class="page-item"><a class="page-link" href="#">${requestScope.pageNumber} / ${requestScope.numberPage}</a></li>
+                                    <li class="page-item"><button class="page-link" <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if> onclick="nextProductPage(${requestScope.pageNumber + 1});"><i class="fa-solid fa-greater-than"></i></button></li>
                                     </ul>
                                 </nav>
                                 <!--end pagination-->
@@ -55,8 +57,14 @@
                             <div class="row product-list-container">
                             <c:forEach items="${requestScope.productListByPage}" var="i">
                                 <div class="col-3 product-container">
-                                    <div class="card">
-                                        <a href="product?id=${i.product_id}" class="product-thumbnail"><img src="${i.images.get(0).path}" class="card-img-top" alt="..."></a>
+                                    <div class="card" onmouseover="displayProductAction(this);" onmouseout="HideProductAction(this);">
+                                        <c:if test="${i.unit_in_stock == 0}">
+                                            <div class="out-stocks">
+                                                SOLD OUT
+                                            </div>
+                                        </c:if>
+
+                                        <a href="product?id=${i.product_id}" class="product-thumbnail"><img src="${i.images.get(0).path}" class="card-img-top" alt="..." id="product-thumbnail" onmouseover="zoomIn(this);" onmouseout="zoomOut(this);"></a>
                                         <div class="card-body">
                                             <a href="product?id=${i.product_id}" data-bs-toggle="tooltip" title="${i.title}">
                                                 <h6 class="card-title product-title font-weight-bold">${i.title}</h6>
@@ -66,11 +74,13 @@
                                                 <c:if test="${i.sale_price == 0}"><span><fmt:formatNumber value="${i.original_price}" type="currency" currencySymbol="đ" /></span></c:if>
                                                 </h6>
                                                 <p class="card-text">${i.product_details}</p>
+                                        </div>
+                                        <div class="buy-form-container">
                                             <form action="buy" method="post">
                                                 <input type="text" name="id" value="${i.product_id}" hidden="true">
                                                 <input type="number" name="quantity" value="1" hidden="true">
-                                                <button type="submit" class="btn btn-outline-primary">Buy</button>
-                                                <a href="feedback?id=${i.product_id}" class="btn btn-outline-primary">Feedback</a>
+                                                <button type="submit" class="btn buy-product-button" <c:if test="${i.unit_in_stock == 0}">disabled</c:if>>Buy</button>
+                                                <a href="feedback?id=${i.product_id}" class="btn feedback-product-button">Feedback</a>
                                             </form>
                                         </div>
                                     </div>
@@ -84,9 +94,7 @@
             </div>
         </div>
         <!--footer-->
-        <div class="footer">
             <c:import url="footer.jsp"></c:import>
-        </div>      
         <!--end footer-->
     </body>
     <script src="js/productssearchfunction.js"></script>
@@ -94,7 +102,8 @@
 
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+                                            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                                            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>
+    <script src="js/productanimation.js"></script>
 </html>

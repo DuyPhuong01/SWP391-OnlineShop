@@ -8,8 +8,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Cart details</title>
+        <!--CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style1.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <!--font-awesome-->
+        <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
 
     <body>
@@ -43,6 +46,7 @@
                                 </thead>
                                 <tbody class="table-group-divider">
                                 <c:forEach items="${o.items}" var="i">
+                                    
                                     <tr style="height: 100px">
                                         <td class="align-middle">
                                             <p class="mb-0 product-id-cart-contact">
@@ -70,20 +74,21 @@
                                                 <div class="change-item">
                                                     <a class="btn btn-outline-success" href="process?num=-1&id=${i.product.product_id}">-</a>
                                                     <b>${i.quantity}</b>
-                                                    <a class="btn btn-outline-success" href="process?num=1&id=${i.product.product_id}">+</a>
+                                                    <a class="btn btn-outline-success" <c:if test="${i.product.unit_in_stock!=i.quantity}">href="process?num=1&id=${i.product.product_id}"</c:if>>+</a>
                                                     <div class="addmore-item">
                                                         <span style="color: #6b615f"><c:if test="${i.product.unit_in_stock==i.quantity}">
                                                             You got maximum product</span>
                                                         </c:if>
-                                                    </div>
+                                                    </div>  
                                                 </div>
                                             </div>
                                         </td>
+                                        <!--format number of price-->
                                         <td class="align-middle">
-                                            <b class="d-flex justify-content-center">
+                                            <b class="d-flex justify-content-center" style="color: red;">
                                                 <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price*i.quantity}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></c:if>
                                                 <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price*i.quantity}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></c:if>
-                                            </b>
+                                            </b> 
                                         </td>
                                         <td class="align-middle">
                                             <form action="process" method="post" class="d-flex justify-content-center">
@@ -111,23 +116,36 @@
                         <div class="p-4">
                             <ul class="list-unstyled mb-4">
                                 <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Sub total</b>
-                                    <h5 class="font-weight-bold"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
+                                    <h5 class="font-weight-bold" style="color: red;"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Shipping fee</b><b>Free ship</b></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Total</b>
-                                    <h5 class="font-weight-bold"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
+                                    <h5 class="font-weight-bold" style="color: red;"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
                                 </li>
                             </ul>
                             <div class="d-flex justify-content-end">
+                                    <!--Disable order now function when cart empty-->
                                 <a href="productslist" class="btn">Click to continue shopping</a>
-                                <a href="checkout" class="btn btn-outline-primary ms-3">Order Now</a>
+                                   <c:if test="${requestScope.cart.items.size()!=0}">
+                                        <a href="checkout" class="btn btn-outline-primary ms-3">Order Now</a>
+                                   </c:if>
+                                   <c:if test="${requestScope.cart.items.size()==0}">
+                                        <button class="btn btn-outline-primary ms-3" disabled>Order Now</button>
+                                   </c:if>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-        <script src="js/script.js"></script>
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+        
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
 </html>
