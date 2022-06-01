@@ -29,8 +29,8 @@
         </div>
     </div>
     <div class="hidden-input">
-        <input type="hidden" value="${requestScope.pageNumber}" name="page" id="page"/>
-        <input type="hidden" value="${requestScope.orderOption}" name="orderOption" id="order-option"/>
+        <input type="hidden" value="<c:if test="${requestScope.pageNumber != null}">${requestScope.pageNumber}</c:if><c:if test="${requestScope.pageNumber == null}">1</c:if>" name="page" id="page"/>
+        <input type="hidden" value="<c:if test="${requestScope.orderOption != null}">${requestScope.orderOption}</c:if><c:if test="${requestScope.orderOption == null}">newest</c:if>" name="orderOption" id="order-option"/>
     </div>
     <div class="submit-button">
         <button class="btn btn-primary" type="subbmit">Search</button>
