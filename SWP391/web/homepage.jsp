@@ -91,15 +91,15 @@
                             <div class="text-center">
                                 <h3 class="pb-3 text-uppercase font-weight-bold">Feature items</h3>
                             </div>
-                            <c:forEach var="product" items="${requestScope.activeProductsList}">
+                            <c:forEach var="product" items="${requestScope.productsList}">
                                 <div class="col-3 mb-3">
                                     <div class="card product-card">
                                         <a href="product?id=${product.product_id}">
-                                            <img src="${product.images.get(0).path}" class="card-img-top">
+                                            <img src="${product.thumbnail}" class="card-img-top">
                                         </a>
                                         <div class="card-body">
-                                                <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.title}">
-                                                <h6 class="card-title product-title">${product.title}</h6>
+                                                <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.name}">
+                                                <h6 class="card-title product-title">${product.name}</h6>
                                             </a>
                                             <h6 class="card-subtitle mb-2 text-muted">
                                                 <c:if test="${product.sale_price != 0}">
@@ -107,7 +107,7 @@
                                                     <span style="color: red;"> <fmt:formatNumber value="${product.sale_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></span></c:if>
                                                 <c:if test="${product.sale_price == 0}"><span><fmt:formatNumber value="${product.original_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></span></c:if>
                                                 </h6>
-                                                <p class="brief-infor">${product.product_details}</p>
+                                                <p class="brief-infor">${product.briefInfor}</p>
                                             <a href="product?id=${product.product_id}" type="button" class="btn btn-outline-primary">Details</a>
                                         </div>
                                     </div>

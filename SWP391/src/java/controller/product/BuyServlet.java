@@ -93,7 +93,7 @@ public class BuyServlet extends HttpServlet {
         String id = request.getParameter("id");
            //if product sold redirect product details 
         try {
-        Product product = productDAO.getProductById(Integer.parseInt(id));
+        Product product = productDAO.getProduct(Integer.parseInt(id));
             System.out.println(product.getUnit_in_stock());
         if(product.getUnit_in_stock()==0){//unit in stock of product=0
            response.sendRedirect("product?id="+id);

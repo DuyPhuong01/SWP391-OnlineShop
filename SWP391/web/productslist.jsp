@@ -64,16 +64,16 @@
                                             </div>
                                         </c:if>
 
-                                        <a href="product?id=${i.product_id}" class="product-thumbnail"><img src="${i.images.get(0).path}" class="card-img-top" alt="..." id="product-thumbnail" onmouseover="zoomIn(this);" onmouseout="zoomOut(this);"></a>
+                                        <a href="product?id=${i.product_id}" class="product-thumbnail"><img src="${i.thumbnail}" class="card-img-top" alt="..." id="product-thumbnail" onmouseover="zoomIn(this);" onmouseout="zoomOut(this);"></a>
                                         <div class="card-body">
-                                            <a href="product?id=${i.product_id}" data-bs-toggle="tooltip" title="${i.title}">
-                                                <h6 class="card-title product-title font-weight-bold">${i.title}</h6>
+                                            <a href="product?id=${i.product_id}" data-bs-toggle="tooltip" title="${i.name}">
+                                                <h6 class="card-title product-title font-weight-bold">${i.name}</h6>
                                             </a>
                                             <h6 class="card-subtitle mb-2 text-muted">
                                                 <c:if test="${i.sale_price != 0}"><span class="text-decoration-line-through"><fmt:formatNumber value="${i.original_price}" type="currency" currencySymbol="đ"/></span> <span style="color: red;"> <fmt:formatNumber value="${i.sale_price}" type="currency" currencySymbol="đ"/></span></c:if>
                                                 <c:if test="${i.sale_price == 0}"><span><fmt:formatNumber value="${i.original_price}" type="currency" currencySymbol="đ" /></span></c:if>
                                                 </h6>
-                                                <p class="card-text">${i.product_details}</p>
+                                                <p class="card-text">${i.briefInfor}</p>
                                         </div>
                                         <div class="buy-form-container">
                                             <form action="buy" method="post">

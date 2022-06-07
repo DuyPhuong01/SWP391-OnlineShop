@@ -36,20 +36,20 @@
         <button class="btn btn-light w-100" type="subbmit">Search</button>
     </div>
 </form>
-    <div class="lastest-product-container row mb-3">
+<!--    <div class="lastest-product-container row mb-3">
         <div class="p-2 text-center">
             <h5 class="mb-0 font-weight-bold">Latest Product</h5>
         </div>
         <c:forEach var="product" items="<%= product_dao.getLastActiveProducts(6)%>">
             <div class="lastest-product col-4 mb-3">
                 <div class="card">
-                    <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.title}">
+                    <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.name}">
                         <img src="${product.images.get(0).path}" class="card-img-top" alt="${product.images.get(0).description}">
                     </a>
                 </div>
             </div>
         </c:forEach>
-    </div>
+    </div>-->
     <div class="static-contact-container col-12 d-flex justify-content-center">
         <span class="bg-light rounded-pill py-1 px-2">phone: +0123456789</span>
     </div>

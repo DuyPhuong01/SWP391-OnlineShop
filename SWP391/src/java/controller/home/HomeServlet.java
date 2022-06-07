@@ -66,7 +66,7 @@ public class HomeServlet extends HttpServlet {
         PostDAO post_dao = new PostDAO();
         request.setAttribute("slidersList", slider_dao.getSliders());
         request.setAttribute("hotPostsList", post_dao.getHotActivePosts(3));
-        request.setAttribute("activeProductsList", product_dao.getNewestActiveProducts(8));
+        request.setAttribute("productsList", product_dao.getProducts(8, true));
         request.setAttribute("pageNumber", "1");
         request.setAttribute("orderOption", "newest");
         request.setAttribute("mess", request.getParameter("mess"));

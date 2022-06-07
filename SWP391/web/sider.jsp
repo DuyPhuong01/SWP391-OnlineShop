@@ -43,8 +43,8 @@
         <c:forEach var="product" items="<%= product_dao.getLastActiveProducts(6)%>">
             <div class="lastest-product col-4 mb-3">
                 <div class="card">
-                    <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.title}">
-                        <img src="${product.images.get(0).path}" class="card-img-top" alt="${product.images.get(0).description}">
+                    <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.name}">
+                        <img src="${product.thumbnail}" class="card-img-top" alt="${product.images.get(0).description}">
                     </a>
                 </div>
             </div>
