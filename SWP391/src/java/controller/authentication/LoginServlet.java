@@ -83,7 +83,6 @@ public class LoginServlet extends HttpServlet {
         AccountDAO db = new AccountDAO();
         Account account = db.getAccountByUsernamePassword(username, password);
         if (account != null) {
-            if (remember != null) {
                 //luu account len tren cookie
                 Cookie u = new Cookie("userC", username);
                 Cookie p = new Cookie("passC", password);
@@ -104,7 +103,7 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("account", account);
                 response.sendRedirect("home");
-            }
+            
 
         } else {
             request.setAttribute("mess", "Username hoặc password không đúng!");
