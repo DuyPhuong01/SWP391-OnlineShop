@@ -66,7 +66,7 @@
                             <div class="col-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">${product.name} ${product.briefInfor} (${product.model})</h5>
+                                        <h5 class="card-title">${product.name} ${product.briefInfor} <c:if test="${product.model!=null}">(${product.model})</c:if></h5>
                                         <h6 class="card-subtitle mb-2 text-muted">Category: 
                                             <a href="productlist?category=${product.subCategory.category.category_id}">${product.subCategory.category.category_name}</a>
                                             <span> ,</span>
@@ -115,29 +115,8 @@
                                 </a>
                                 <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
                                     <hr class="mt-0">
-                                    <div class="card-body">
-                                        <table class="table table-striped">
-                                            <tbody>
-                                                <c:forEach items="${requestScope.specifications}" var="spec">
-                                                    <tr>
-                                                        <td>
-                                                            <div class="my-2">
-                                                            <c:forEach items="${spec.get(0)}" var="f">
-                                                                <span>${f}</span>
-                                                            </c:forEach>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <ul class="list-unstyled my-2">
-                                                            <c:forEach items="${spec.get(1)}" var="s">
-                                                                <li>${s}</li>
-                                                            </c:forEach>
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </tbody>
-                                        </table>
+                                    <div class="card-body product-specification">
+                                        <c:if test="${requestScope.isExit}"><c:import url="file/product_details/product_${product.product_id}.html" charEncoding="UTF-8"></c:import></c:if>
                                     </div>
                                 </div>
                             </div>

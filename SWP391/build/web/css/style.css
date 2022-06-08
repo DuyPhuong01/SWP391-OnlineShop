@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -9,18 +8,22 @@
     scroll-behavior: smooth;
     font-family: 'Poppins', sans-serif;
 }
-:root{
+
+:root {
     --bs-border-radius: .5rem;
 }
+
 html {
     --theme-primary-color: #E15246;
     --background-primary-color: #FFFFFF;
     --background-secondary-color: #F0F2F5;
     --background-tertiary-color: #F2F2F2;
 }
-.card{
-    --bs-card-spacer-x: .5rem;    
+
+.card {
+    --bs-card-spacer-x: .5rem;
 }
+
 body {
     background-color: var(--background-secondary-color);
 }
@@ -89,19 +92,28 @@ a {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
 }
+
 .brief-infor {
     -webkit-line-clamp: 3;
 }
-.note-item{
+
+.note-item {
     height: 100px;
 }
-.price-cart-contact{
+
+.price-cart-contact {
     margin-left: 30px;
 }
-tr{
+
+tr {
     position: relative;
 }
-.addmore-item{
+
+.addmore-item {
     position: absolute;
     bottom: 10px;
+}
+
+.product-specification table tr td:first-child {
+    width: 30%;
 }
