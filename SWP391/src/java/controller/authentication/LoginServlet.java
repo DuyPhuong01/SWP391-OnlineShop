@@ -83,28 +83,26 @@ public class LoginServlet extends HttpServlet {
         AccountDAO db = new AccountDAO();
         Account account = db.getAccountByUsernamePassword(username, password);
         if (account != null) {
-                //luu account len tren cookie
-                Cookie u = new Cookie("userC", username);
-                Cookie p = new Cookie("passC", password);
-                Cookie r = new Cookie("rememC", remember);
+            //luu account len tren cookie
+            Cookie u = new Cookie("userC", username);
+            Cookie p = new Cookie("passC", password);
+            Cookie r = new Cookie("rememC", remember);
 
-                if (remember == null) {
-                    u.setMaxAge(0);
-                    p.setMaxAge(0);
-                    r.setMaxAge(0);
-                } else {
-                    u.setMaxAge(3600 * 24 * 30);
-                    p.setMaxAge(3600 * 24 * 30);
-                    r.setMaxAge(3600 * 24 * 30);
-                }
-                response.addCookie(u);//luu u va p len tren chrome
-                response.addCookie(p);
-                response.addCookie(r);
-                HttpSession session = request.getSession();
-                session.setAttribute("account", account);
-                response.sendRedirect("home");
-            
-
+            if (remember == null) {
+                u.setMaxAge(0);
+                p.setMaxAge(0);
+                r.setMaxAge(0);
+            } else {
+                u.setMaxAge(3600 * 24 * 30);
+                p.setMaxAge(3600 * 24 * 30);
+                r.setMaxAge(3600 * 24 * 30);
+            }
+            response.addCookie(u);//luu u va p len tren chrome
+            response.addCookie(p);
+            response.addCookie(r);
+            HttpSession session = request.getSession();
+            session.setAttribute("account", account);
+            response.sendRedirect("home");
         } else {
             request.setAttribute("mess", "Username hoặc password không đúng!");
 //            request.getRequestDispatcher("home#divOne").forward(request, response);

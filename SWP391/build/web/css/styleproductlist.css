@@ -68,3 +68,13 @@ h6.card-subtitle.mb-2.text-muted {
     background: #000000e0;
     font-weight: 450;
 }
+.buy-product-button:hover, .feedback-product-button:hover{
+    background: #fff;
+    color: #000;
+}
+.flex{
+    display: flex;
+}
+.flex .breadcrumb-item-product{
+    margin-right: 10px;
+}

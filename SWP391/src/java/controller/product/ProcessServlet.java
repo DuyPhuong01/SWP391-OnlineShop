@@ -83,7 +83,7 @@ public class ProcessServlet extends HttpServlet {
     /*get update cart*/
     public static Cart getUpdateCart(Cart cart, ProductDAO productDAO, int productID, int num) {
         try {
-            Product p = productDAO.getProductById(productID);
+            Product p = productDAO.getProduct(productID);
             int numStore = p.getUnit_in_stock();
             if (num == -1 && (cart.getQuantityById(productID) <= 1)) {// -1 item and item in cart <=1--> delete
                 cart.removeItem(productID);
@@ -103,7 +103,7 @@ public class ProcessServlet extends HttpServlet {
 
     public static Cart deleteItem(Cart cart, ProductDAO productDAO, int productID) {
         try {
-            Product p = productDAO.getProductById(productID);
+            Product p = productDAO.getProduct(productID);
             cart.removeItem(productID);
         } catch (Exception e) {
             System.out.println(e);

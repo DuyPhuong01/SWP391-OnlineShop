@@ -24,3 +24,6 @@ function nextProductPage(pageNumber){
     document.getElementById('page').value = pageNumber;
     document.getElementById('productSearchForm').submit();
 }
+function autoCollapse(){
+    document.getElementById('category-active').click();
+}

@@ -2,8 +2,10 @@ package controller.product;
 
 import dal.CategoryDAO;
 import dal.ProductDAO;
+import dal.SubCategoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,10 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
 import model.ProductCategory;
+import model.SubCategory;
 
 @WebServlet(name = "ProductsListServlet", urlPatterns = {"/productslist"})
 public class ProductsListServlet extends HttpServlet {
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -57,16 +60,37 @@ public class ProductsListServlet extends HttpServlet {
 
         CategoryDAO categoryDAO = new CategoryDAO();
         ProductDAO productDAO = new ProductDAO();
+        SubCategoryDAO subCategoryDAO = new SubCategoryDAO();
 
-//        get the product category list
-        List<ProductCategory> productCategoriesList = categoryDAO.getProductCategory();
+        //get subCategory List
+        List<SubCategory> subCategoryList; //khoi tao list chua subcategory
 
-        final int NUMBER_OF_LATEST_PRODUCT = 6;//CONSTANT that specified the number of latest product to be taken
+        //chuyen category hoac subcategory thanh List chua subcategory tuong ung        
+        if (request.getParameter("categoryId") != null || request.getParameter("subCategoryId") != null) {
+            if (request.getParameter("categoryId") != null) {
+                int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+                subCategoryList = subCategoryDAO.getSubCategoryByCategoryId(categoryId);
+                request.setAttribute("categoryId", categoryDAO.getProductCategory(categoryId));
+            } else {
+                subCategoryList = new ArrayList<>();
 
-        List<Product> latestProduct = productDAO.getLastActiveProducts(NUMBER_OF_LATEST_PRODUCT); //get latest product
+                int subCategoryId = Integer.parseInt(request.getParameter("subCategoryId"));
+                SubCategory subCategory = subCategoryDAO.getSubCategoryById(subCategoryId);
+                subCategoryList.add(subCategory);
+                ProductCategory category = categoryDAO.getProductCategoryBySubCategory(subCategoryId);
+                request.setAttribute("categoryIdParent", category);
+                request.setAttribute("subCategoryId", subCategory);
 
-        List<Product> allProductList = productDAO.getAllProducts(); //get all product that have specified category and contain key
+            }
+            //set subcategoryList = null neu khong co parameter categoryid hoac subcategoryid
+        } else {
+            subCategoryList = null;
+        }
 
+        //get total number
+        int productCount = productDAO.countProducts(subCategoryList, "");
+        
+        
         //pagination
         String pageNumberRaw = request.getParameter("page");
         int pageNumber, numberPage;
@@ -81,27 +105,24 @@ public class ProductsListServlet extends HttpServlet {
 
             }
             //get number of page 
-            if (allProductList.size() % NUMBER_ITEMS_PER_PAGE == 0) {
-                numberPage = allProductList.size() / NUMBER_ITEMS_PER_PAGE;
+            if (productCount % NUMBER_ITEMS_PER_PAGE == 0) {
+                numberPage = productCount / NUMBER_ITEMS_PER_PAGE;
             } else {
-                numberPage = allProductList.size() / NUMBER_ITEMS_PER_PAGE + 1;
+                numberPage = productCount / NUMBER_ITEMS_PER_PAGE + 1;
             }
             //get start and end position in the list of all product
             int start, end;
             start = (pageNumber - 1) * NUMBER_ITEMS_PER_PAGE;
-            end = Math.min(pageNumber * NUMBER_ITEMS_PER_PAGE, allProductList.size());
+            end = Math.min(pageNumber * NUMBER_ITEMS_PER_PAGE, productCount);
 
-            //get product by page
-            List<Product> productListByPage = productDAO.getListByPage(allProductList, start, end);
+//            get product by page with key = "", orderOption = newest
+            List<Product> productListByPage = productDAO.getProductsByRange(subCategoryList, "", "newest", start + 1, end);
 
-//            request.setAttribute("key", key);
+
             request.setAttribute("pageNumber", pageNumber);
             request.setAttribute("numberPage", numberPage);
-            request.setAttribute("productCategoriesList", productCategoriesList);
-//            request.setAttribute("checked", checked);
             request.setAttribute("productListByPage", productListByPage);
-            request.setAttribute("latestProduct", latestProduct);
-            request.setAttribute("orderOption", "newest");
+
 
 //            forward to jsp
             request.getRequestDispatcher("productslist.jsp").forward(request, response);
@@ -110,19 +131,7 @@ public class ProductsListServlet extends HttpServlet {
         }
 
     }
-    //check whether or not category_id contain in array 
-    private boolean isCheck(int category, int[] checkedCategories) {
-        if (checkedCategories == null) {
-            return false;
-        } else {
-            for (int i = 0; i < checkedCategories.length; i++) {
-                if (category == checkedCategories[i]) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
+
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -139,18 +148,27 @@ public class ProductsListServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
 //        get search key
         String key = request.getParameter("key");
-        
-        String[] categoriesRaw = request.getParameterValues("category");
-        int[] categories;
 
-//        convert array of category to int
-        if (categoriesRaw == null) {
-            categories = null;
-        } else {
-            categories = new int[categoriesRaw.length];
-            for (int i = 0; i < categories.length; i++) {
-                categories[i] = Integer.parseInt(categoriesRaw[i]);
+        CategoryDAO categoryDAO = new CategoryDAO();
+        SubCategoryDAO subCategoryDAO = new SubCategoryDAO();
+        List<SubCategory> subCategoryList;
+        if (request.getParameter("categoryId") != null || request.getParameter("subCategoryId") != null) {
+            if (request.getParameter("categoryId") != null) {
+                subCategoryList = subCategoryDAO.getSubCategoryByCategoryId(Integer.parseInt(request.getParameter("categoryId")));
+                request.setAttribute("categoryId", request.getParameter("categoryId"));
+            } else {
+                subCategoryList = new ArrayList<>();
+
+                int subCategoryId = Integer.parseInt(request.getParameter("subCategoryId"));
+                SubCategory subCategory = subCategoryDAO.getSubCategoryById(subCategoryId);
+                subCategoryList.add(subCategory);
+                ProductCategory category = categoryDAO.getProductCategoryBySubCategory(subCategoryId);
+
+                request.setAttribute("categoryIdParent", category);
+                request.setAttribute("subCategoryId", subCategory);
             }
+        } else {
+            subCategoryList = null;
         }
 
 //        assign key is empty if it is null
@@ -164,27 +182,9 @@ public class ProductsListServlet extends HttpServlet {
             orderOption = "newest";
         }
 
-        CategoryDAO categoryDAO = new CategoryDAO();
         ProductDAO productDAO = new ProductDAO();
 
-//        get the product category list
-        List<ProductCategory> productCategoriesList = categoryDAO.getProductCategory();
-
-        final int NUMBER_OF_LATEST_PRODUCT = 6;//CONSTANT that specified the number of latest product to be taken
-
-        List<Product> latestProduct = productDAO.getLastActiveProducts(NUMBER_OF_LATEST_PRODUCT); //get latest product
-
-        List<Product> allProductList = productDAO.getAllProducts(categories, key, orderOption); //get all product that have specified category and contain key
-
-//        check category that be checked by user
-        boolean checked[] = new boolean[productCategoriesList.size()];
-        for (int i = 0; i < checked.length; i++) {
-            if (isCheck(productCategoriesList.get(i).getCategory_id(), categories)) {
-                checked[i] = true;
-            } else {
-                checked[i] = false;
-            }
-        }
+        int productCount = productDAO.countProducts(subCategoryList, key);
 
         //pagination
         String pageNumberRaw = request.getParameter("page");
@@ -202,10 +202,10 @@ public class ProductsListServlet extends HttpServlet {
             }
 
             //get number of page 
-            if (allProductList.size() % NUMBER_ITEMS_PER_PAGE == 0) {
-                numberPage = allProductList.size() / NUMBER_ITEMS_PER_PAGE;
+            if (productCount % NUMBER_ITEMS_PER_PAGE == 0) {
+                numberPage = productCount / NUMBER_ITEMS_PER_PAGE;
             } else {
-                numberPage = allProductList.size() / NUMBER_ITEMS_PER_PAGE + 1;
+                numberPage = productCount / NUMBER_ITEMS_PER_PAGE + 1;
             }
 
             if (pageNumber > numberPage) {
@@ -215,20 +215,16 @@ public class ProductsListServlet extends HttpServlet {
             //get start and end position in the list of all product
             int start, end;
             start = (pageNumber - 1) * NUMBER_ITEMS_PER_PAGE;
-            end = Math.min(pageNumber * NUMBER_ITEMS_PER_PAGE, allProductList.size());
+            end = Math.min(pageNumber * NUMBER_ITEMS_PER_PAGE, productCount);
 
             //get product by page
-            List<Product> productListByPage = productDAO.getListByPage(allProductList, start, end);
+            List<Product> productListByPage = productDAO.getProductsByRange(subCategoryList, key, orderOption, start + 1, end);
 
-            
 //            set attributes
             request.setAttribute("key", key);
             request.setAttribute("pageNumber", pageNumber);
             request.setAttribute("numberPage", numberPage);
-            request.setAttribute("productCategoriesList", productCategoriesList);
-            request.setAttribute("checked", checked);
             request.setAttribute("productListByPage", productListByPage);
-            request.setAttribute("latestProduct", latestProduct);
             request.setAttribute("orderOption", orderOption);
 //            forward to jsp
             request.getRequestDispatcher("productslist.jsp").forward(request, response);
