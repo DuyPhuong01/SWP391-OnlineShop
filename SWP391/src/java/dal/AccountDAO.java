@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.Email;
 
 /**
  *
@@ -32,7 +33,7 @@ public class AccountDAO extends DBContext {
                 Account account = new Account(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"),
                         rs.getString("full_name"), rs.getInt("role_id"), rs.getBoolean("gender"), rs.getString("email"),
                         rs.getString("city"), rs.getString("country"), rs.getString("address"), rs.getString("phone"),
-                        rs.getString("image_url"), rs.getBoolean("featured"),rs.getString("hash"),rs.getInt("active"));
+                        rs.getString("image_url"), rs.getBoolean("featured"), rs.getString("hash"), rs.getInt("active"));
                 return account;
             }
         } catch (SQLException ex) {
@@ -64,7 +65,7 @@ public class AccountDAO extends DBContext {
             stm.setString(1, mail);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                return  new Account(rs.getInt(1), rs.getString(2), rs.getString(3));
+                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3));
             }
         } catch (SQLException e) {
         }
@@ -97,8 +98,31 @@ public class AccountDAO extends DBContext {
             int i = stm.executeUpdate();
             if (i != 0) {
                 //send Email
-                SendingEmail se = new SendingEmail(acc.getEmail(), acc.getMyHash());
-                se.sendEmail();
+                Email e = new Email();
+                String subject = "Acctive Accout.";
+                String message = "<!DOCTYPE html>\n"
+                        + "<html lang=\"en\">\n"
+                        + "\n"
+                        + "<head>\n"
+                        + "</head>\n"
+                        + "\n"
+                        + "<body>\n"
+                        + "    <h3 style=\"color: blue;\">Acctive Accout to continue</h3>\n"
+                        + "    <div>Click the link below to active your account </div>\n"
+                        + "    <a href=\"" + "http://localhost:8080/swp/activate?key1=" + acc.getEmail() + "&key2=" + acc.getMyHash() + "\">Active Account</a>\n"
+                        + "    <h3 style=\"color: blue;\">Thank you very much!</h3>\n"
+                        + "\n"
+                        + "</body>\n"
+                        + "\n"
+                        + "</html>";
+                e.setFrom("toanpvhe150958@fpt.edu.vn");
+                e.setFromPassword("daicatoan123");
+                e.setTo(acc.getEmail());
+                e.setSubject(subject);
+                e.setContent(message);
+
+                SendingEmail se = new SendingEmail();
+                se.sendEmail(e);
                 return "Success";
             }
         } catch (Exception e) {

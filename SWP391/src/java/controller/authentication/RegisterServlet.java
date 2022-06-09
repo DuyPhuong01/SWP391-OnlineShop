@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.Email;
 
 /**
  *
@@ -80,23 +81,7 @@ public class RegisterServlet extends HttpServlet {
             a.setPassword(getMd5(pass));
             //dc signup
             String str = dao.singup(a);
-            String subject = "Acctive Accout.";
-            String message = "<!DOCTYPE html>\n"
-                + "<html lang=\"en\">\n"
-                + "\n"
-                + "<head>\n"
-                + "</head>\n"
-                + "\n"
-                + "<body>\n"
-                + "    <h3 style=\"color: blue;\">Acctive Accout to continue</h3>\n"
-                + "    <div>Click the link below to active your account </div>\n"
-                + "    <a href=\""+"http://localhost:8080/swp/activate?key1=" + a.getEmail() + "&key2=" + a.getMyHash()+"\">Active Account</a>\n"
-                + "    <h3 style=\"color: blue;\">Thank you very much!</h3>\n"
-                + "\n"
-                + "</body>\n"
-                + "\n"
-                + "</html>";
-            SendingEmail.send(a.getEmail(), subject, message, "toanpv224@gmail.com", "anhtoan123");
+            
             if (str.equals("Success")) {
                 request.setAttribute("verify", "http://localhost:8080/swp/activate?key1=" + a.getEmail() + "&key2=" + a.getMyHash());
                 request.getRequestDispatcher("verify.jsp").forward(request, response);
