@@ -218,8 +218,8 @@ function Down(e,productID){
     error.style='display:none';
     var old_quantity=quantity.innerHTML;
     if(quantity.innerHTML=='1'){
-       
         parent.remove();
+        upDateTotal();
     }else{
     quantity.innerHTML=old_quantity-'1';
     UpdateSubTotal(parent,quantity.innerHTML);
@@ -266,7 +266,6 @@ function Up(e,productID,max){
 function Delete(e,productID){
   
    parent=e.parentElement.parentElement;
-     console.log(parent);
      parent.remove();
      upDateTotal();
     $.ajax({
