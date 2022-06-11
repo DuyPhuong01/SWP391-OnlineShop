@@ -133,3 +133,6 @@ body {
 .table-title .row .col-sm-6 btn-success {
     color: var(--text-color);
 }
+.addmore-item{
+    display: none;
+}

@@ -1,0 +1,43 @@
+ul {
+    list-style-type: none;
+}
+.cart-contain{
+    margin-bottom: 16px;
+}
+.simple-btn{
+        border: solid 1px rgb(0 0 0 / 13%);
+}
+.list-payment-method{
+    display: flex;
+    
+}
+.navbar-container{
+    border-bottom:  1px rgb(0 0 0 / 50%);
+    width: 100%;
+    position: relative;
+}
+.main-banking{
+    padding-top: 30px;
+    background: content-box;
+}
+.navbar{
+    align-items: baseline;
+}
+list-payment-method li{
+    position: absolute;
+    bottom: 0px;
+}
+.payment-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.guidline{
+    background-color:rgb(255, 255, 255);
+}
+.price-item{
+    color: red;
+}
+.active-item{
+    background-color:
+}
