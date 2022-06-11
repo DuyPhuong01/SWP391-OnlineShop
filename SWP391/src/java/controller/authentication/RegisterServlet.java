@@ -17,13 +17,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
-import model.Email;
+import service.EmailService;
+import service.EmailServiceIml;
 
 /**
  *
  * @author tretr
  */
 public class RegisterServlet extends HttpServlet {
+
+    private EmailService emailService = new EmailServiceIml();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -80,11 +83,14 @@ public class RegisterServlet extends HttpServlet {
         } else {
             a.setPassword(getMd5(pass));
             //dc signup
+            emailService.sendEmail(getServletContext(), a, "active", "http://localhost:8080/swp/activate?key1=" + a.getEmail() + "&key2=" + a.getMyHash());
+
             String str = dao.singup(a);
-            
+
             if (str.equals("Success")) {
-                request.setAttribute("verify", "http://localhost:8080/swp/activate?key1=" + a.getEmail() + "&key2=" + a.getMyHash());
+                request.setAttribute("mess", "We're happy you're here. Let's check your email address to active your account!");
                 request.getRequestDispatcher("verify.jsp").forward(request, response);
+
             } else {
                 request.setAttribute("signmess", "Register error !");
                 request.getRequestDispatcher("home").forward(request, response);

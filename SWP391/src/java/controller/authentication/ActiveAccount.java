@@ -84,7 +84,8 @@ public class ActiveAccount extends HttpServlet {
                 pst1.setString(2, hash);
                 int i = pst1.executeUpdate();
                 if (i == 1) {
-                    response.sendRedirect("home");
+                    request.setAttribute("mess", "Your account has been activated!");
+                request.getRequestDispatcher("verify.jsp").forward(request, response);
                 } else {
                     response.sendRedirect("home");
                 }

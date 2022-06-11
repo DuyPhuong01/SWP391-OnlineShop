@@ -5,20 +5,23 @@
  */
 package dal;
 
-import controller.authentication.SendingEmail;
+import util.SendingEmailUtil;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import model.Account;
-import model.Email;
+import service.EmailService;
+import service.EmailServiceIml;
 
 /**
  *
  * @author tretr
  */
 public class AccountDAO extends DBContext {
+
 
     public Account getAccountByUsernamePassword(String username, String password) {
         try {
@@ -98,31 +101,6 @@ public class AccountDAO extends DBContext {
             int i = stm.executeUpdate();
             if (i != 0) {
                 //send Email
-                Email e = new Email();
-                String subject = "Acctive Accout.";
-                String message = "<!DOCTYPE html>\n"
-                        + "<html lang=\"en\">\n"
-                        + "\n"
-                        + "<head>\n"
-                        + "</head>\n"
-                        + "\n"
-                        + "<body>\n"
-                        + "    <h3 style=\"color: blue;\">Acctive Accout to continue</h3>\n"
-                        + "    <div>Click the link below to active your account </div>\n"
-                        + "    <a href=\"" + "http://localhost:8080/swp/activate?key1=" + acc.getEmail() + "&key2=" + acc.getMyHash() + "\">Active Account</a>\n"
-                        + "    <h3 style=\"color: blue;\">Thank you very much!</h3>\n"
-                        + "\n"
-                        + "</body>\n"
-                        + "\n"
-                        + "</html>";
-                e.setFrom("toanpvhe150958@fpt.edu.vn");
-                e.setFromPassword("daicatoan123");
-                e.setTo(acc.getEmail());
-                e.setSubject(subject);
-                e.setContent(message);
-
-                SendingEmail se = new SendingEmail();
-                se.sendEmail(e);
                 return "Success";
             }
         } catch (Exception e) {

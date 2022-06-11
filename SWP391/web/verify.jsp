@@ -14,7 +14,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tailwind CSS Simple Email Template Example </title>
+        <title>OnlineShop</title>
         <!--bootstrap-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
     <body>
         <div class="flex items-center justify-center min-h-screen p-5 bg-gray-600 min-w-screen">
             <div class="max-w-xl p-8 text-center text-gray-800 bg-white shadow-xl lg:max-w-3xl rounded-3xl lg:p-12">
-                <h3 class="text-2xl">Thanks for signing up </h3>
+                <h3 class="text-2xl">Thanks for signing up!</h3>
                 <div class="flex justify-center">
                     <svg class="w-32 h-32" viewBox="0 0 50 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -45,11 +45,11 @@
                     </defs>
                     </svg>
                 </div>
-                <p>We're happy you're here. Let's get your email address verified:</p>
+                <p>${requestScope.mess}</p>
                 <div class="mt-4">
 
 
-                    <a href="${requestScope.verify}" class="btn btn-primary" role="button" aria-disabled="true">Active Account</a>
+                    <a href="home" class="btn btn-primary" role="button" aria-disabled="true">Back to Home</a>
 
                 </div>
             </div>
