@@ -136,3 +136,43 @@ body {
 .addmore-item{
     display: none;
 }
+._2REryK {
+    display: flex;
+    flex-direction: column;
+    color: rgba(0,0,0,.8);
+    padding-top: 20px;
+}
+._1uP-hs {
+    background-color: #fffefb;
+    border: 1px solid rgba(224,168,0,.4);
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.625rem;
+    border-radius: 2px;
+}
+svg:not(:root) {
+    overflow: hidden;
+}
+._140gEP {
+    width: unset;
+}
+.shopee-svg-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    position: relative;
+}
+g {
+    fill: none;
+    fill-rule: evenodd;
+    transform: none;
+}
+:not(svg) {
+    transform-origin: 0px 0px;
+}
+._1UxmZa {
+    color: #222;
+    margin-left: 0.5rem;
+}

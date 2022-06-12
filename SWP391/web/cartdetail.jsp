@@ -20,7 +20,7 @@
 
     <body>
         <c:set var="o" value="${requestScope.cart}" />
-        <c:set var="tt" value="0" />
+        <c:set var="freight" value="${100000}" />
         <div class="header">
             <c:import url="navbar.jsp"></c:import>
             </div>
@@ -119,6 +119,7 @@
                         </section>
 
                     </div>
+                   <form action="checkout" method="get">      
                     <div class="p-3 bg-white rounded shadow-sm">
                         <div class="text-center">
                             <h3 class="pb-3 text-uppercase font-weight-bold">Cart detail</h3>
@@ -128,24 +129,33 @@
                                 <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted" >Sub total</b>
                                     <h5 class="font-weight-bold" id="subtotal-final" style="color: red;"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
                                 </li>
-                                <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Shipping fee</b><b>Free ship</b></li>
+                                <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Shipping fee</b> 
+                                     <!--Total price >= 1.000.000 free ship-->
+                                    <c:if test="${o.totalMoney==0||o.totalMoney>=1000000}">
+                                        ${freight=0}
+                                    </c:if>
+                                     <input hidden value="${freight}" name="freight" id="shipfee">
+                                     <h5 class="font-weight-bold" id="freight" style="color: red;"><fmt:formatNumber value="${freight}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
+                                </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Total</b>
-                                    <h5 class="font-weight-bold" id="total-final" style="color: red;"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
+                                    <h5 class="font-weight-bold" id="total-final" style="color: red;"><fmt:formatNumber value="${o.totalMoney+freight}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
                                 </li>
                             </ul>
                             <div class="d-flex justify-content-end">
+                               
                                     <!--Disable order now function when cart empty-->
-                                <a href="productslist" class="btn">Click to continue shopping</a>
+                                   <a href="productslist" class="btn">Click to continue shopping</a>
                                    <c:if test="${requestScope.cart.items.size()!=0}">
-                                        <a href="checkout" class="btn btn-outline-primary ms-3">Order Now</a>
+                                       <button  type="submit"id="submit-cart" class="btn btn-outline-primary ms-3" >Order Now</button>
                                    </c:if>
                                    <c:if test="${requestScope.cart.items.size()==0}">
-                                        <button class="btn btn-outline-primary ms-3" disabled>Order Now</button>
+                                       <button id="submit-cart"  class="btn btn-outline-primary ms-3" disabled="" >Order Now</button>
                                    </c:if>
                             </div>
 
                         </div>
                     </div>
+                      </form>
                 </div>
             </div>
         </div>
@@ -173,6 +183,7 @@
       // update total after add/remove item
  function upDateTotal(){
      var total=0;
+     var submit_cart=document.getElementById("submit-cart");
         for (var i = 0; i < document.querySelectorAll("#items").length; i++) {
                 var row=document.querySelectorAll("#items")[i]
                     subprice=row.getElementsByTagName('input')[0].getAttribute('value');//sub price
@@ -182,8 +193,24 @@
         var dollarUSLocale = Intl.NumberFormat('en-US');
         var total_final=document.getElementById("total-final");
         var subtotal_final=document.getElementById("subtotal-final");
+        var freight=document.getElementById("freight");
+        var shipFee=document.getElementById("shipfee").value;
+        if(total==0||total>1000000){ //order price greater than 1.000.000 --> free ship
+            shipFee=0;
+            document.getElementById("shipfee").value=shipFee;
+        }else{
+            shipFee=100000;
+            document.getElementById("shipfee").value=shipFee;
+        }
+        freight.innerHTML=dollarUSLocale.format(shipFee)+" đ";
         subtotal_final.innerHTML=dollarUSLocale.format(total)+" đ";
+        if(total!=0){
+            
+        total_final.innerHTML=dollarUSLocale.format(total+shipFee)+" đ";
+        }else{
+       
         total_final.innerHTML=dollarUSLocale.format(total)+" đ";
+        }
      }
  
         // Cart details script

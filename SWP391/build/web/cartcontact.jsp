@@ -8,16 +8,14 @@
         <title>Cart Contacts</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!--CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="css/stylecartcontact.css"/>
-        <!--font-awesome-->
-        <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
+        <!--<link rel="stylesheet" href="css/stylecartcontact.css"/>-->
     </head>
     <body>
         <c:set var="o" value="${requestScope.cart}" />
-        <c:set var="tt" value="0" />
+        <c:set var="freight" value="${requestScope.freight}" />
         <div class="header">
             <c:import url="navbar.jsp"></c:import>
             </div>
@@ -32,10 +30,12 @@
                 </nav>
                 <div class="row">
                     <div class="col-3">
+                        <div class="sider">
                         <c:import url="sider.jsp"></c:import>
+                        </div>
                     </div>
                     <div class="col">
-                        <div class="p-3 bg-white rounded shadow-sm mb-3">
+                        <div class="p-3 content shadow-sm mb-3">
                             <div class="text-center">
                                 <h3 class="pb-3 text-uppercase font-weight-bold">Cart Contact</h3>
                             </div>
@@ -95,44 +95,54 @@
 <!--                            <div>
                                 Already have an account? <a href="login">Login</a><br />
                             </div>-->
-                           
+                            <div class="col-12">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a class="btn" href="showcart">Back to cart</a>
+                                    <button class="btn btn-outline-primary" type="submit">Order Now</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
-                    <div class="p-3 bg-white rounded shadow-sm cart-contain">
+                    <div class="p-3 content shadow-sm mb-3">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                        <th >ID</th>
+                                        <th colspan="2">ID</th>
                                         <th colspan="2">Product</th>
-                                            <th class="text-center">Price</th>
-                                        <th class="text-center">Quantity</th>
-                                        <th class="text-end">Sub total</th>
+                                                <th colspan="1">
+                                                    <div class="price-cart-contact">
+                                                        Price
+                                                    </div>
+                                            </th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-end " >Total Cost</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
                                 <c:forEach items="${o.items}" var="i">
                                     <tr>
-                                        <td class="align-middle">
-                                            <p class="mb-0 product-id-cart-contact">
+                                        <td colspan="1" style="width: 10%">
+                                            <p class="mb-0 product-id-cart-contact" style="font-size: 18px">
                                                  ${i.product.product_id}
                                             </p>
                                         </td>
-                                        <td style="width: 10%">
-                                            <img src="${i.product.thumbnail}" alt="" width="10%" class="img-fluid rounded shadow-sm">
+                                        <td colspan="2" style="width: 10%">
+                                            <img src="${i.product.thumbnail}" alt="" width="70" class="img-fluid rounded shadow-sm">
                                         </td>
                                         <td class="align-middle">
                                             <a href="product?id=${i.product.product_id}" class="text-decoration-none text-muted"><p class="mb-0 product-title">${i.product.briefInfor}</p></a>
                                         </td>
                                         <td class="align-middle">
-                                            <span class="d-flex justify-content-center price-item">
+                                              <p class="d-flex justify-content-center ">
                                                 <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price}" type="currency" currencySymbol="đ"/></c:if>
                                                 <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price}" type="currency" currencySymbol="đ" /></c:if>
-                                            </span  >
+                                            </p>
                                         </td>
                                         <td class="align-middle">
                                             <p class="text-center mb-0">${i.quantity}</p>
                                         </td>
-                                        <td class="align-middle">
+                                        <td class="align-middle ">
                                             <p class="text-end mb-0 price-item">
                                                 <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price*i.quantity}" type="currency" currencySymbol="đ"/></c:if>
                                                 <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price*i.quantity}" type="currency" currencySymbol="đ" /></c:if>
@@ -143,63 +153,26 @@
                             </tbody>
                         </table>
                         <ul class="list-unstyled mb-4">
-                            <li class="d-flex justify-content-between py-3 border-bottom">
-                             <div class="payment-container col-12">
-                                <div class="col-12">
-                                 Payment Information
-                                </div>
-                                   <div class="col-12 bg-white rounded shadow-sm main-banking">
-                                <div class=" navbar-container d-flex align-items-baseline">
-                                    <nav class="navbar ">
-                                      <form class="container-fluid justify-content-start  ">
-                                          <!--<h5>Payment Method</h5>--> 
-                                          <ul class="list-payment-method align-items-baseline">
-                                              <li class="list-payment-method method-item">
-                                              <button class=" simple-btn btn btn-outline me-2 ship-price-item  btn-success" type="button">Ship COD</button>
-                                              </li>
-                                              <li>
-                                                  <button class=" simple-btn btn btn-outline me-2 " type="button">Banking Account</button>
-                                              </li>
-                                          </ul>
-                                      </form>
-                                    </nav>
-                                </div>
-                                    <div class="payment-content">
-                                      <div class="col-12">
-                                      <label for="payment" class="form-label" ></label>
-                                      <textarea  readonly   style="background:#ffffff;"
-                                                 class="guidline form-control " id="payment" form="checkout" name="payment" rows="3"></textarea>
-                                    </div> 
-                                    </div>
-                                 </div>
-                                </div>
-                            </li>
                             <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
-                                <span class="price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>
+                                <span><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>
                             </li>
                             <li class="d-flex justify-content-between py-3 border-bottom">Shopping Fee
-                                <span>Free ship</span>
+                             <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
+                                      <span><fmt:formatNumber value="${requestScope.freight}" type="currency" currencySymbol="đ"/></span>
+                            </li>
                             </li>
                             <li class="d-flex justify-content-between py-3 border-bottom">Total Cost
-                                <h5 class="font-weight-bold price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></h5>
+                                <h5 class="font-weight-bold price-item"><fmt:formatNumber value="${o.totalMoney+freight}" type="currency" currencySymbol="đ"/></h5>
                             </li>
                         </ul>
-                             <div class="col-12">
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <a class="btn" href="showcart">Back to cart</a>
-                                    <button class="btn btn-outline-primary" type="submit">Order Now</button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
-                            
-                   
                 </div>
             </div>
         </div>
     </body>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    
+    <script src="js/form.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')

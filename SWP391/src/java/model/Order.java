@@ -14,55 +14,45 @@ import java.sql.Timestamp;
 public class Order {
    private int order_id;
    private int user_id;
-   private Timestamp order_Date;
-   private Timestamp require_date;
-   private Timestamp shipped_Date;
+   private String order_Date;
+   private String require_date;
+   private String shipped_Date;
    private int ship_via;
-   private double freign;
+   private double freight;
    private String ship_name;
    private String ship_address;
-   private boolean gender;
+   private boolean ship_gender;
    private String ship_mobile;
    private String ship_email; 
+   private String ship_city; 
    private int status;
+   private String note;
+   private String payment;
    private double total_price;
    
     public Order() {
     }
 
-    public Order(int order_id, int user_id, Timestamp order_Date, Timestamp require_date, Timestamp shipped_Date, int ship_via, double freign, String ship_name, String ship_address, boolean gender, String ship_mobile, String ship_email, int status, double total_price) {
+    public Order(int order_id, int user_id, String order_Date, String require_date, String shipped_Date, int ship_via, double freight, String ship_name, String ship_address, boolean ship_gender, String ship_mobile, String ship_email, String ship_city, int status, String note, String payment, double total_price) {
         this.order_id = order_id;
         this.user_id = user_id;
         this.order_Date = order_Date;
         this.require_date = require_date;
         this.shipped_Date = shipped_Date;
         this.ship_via = ship_via;
-        this.freign = freign;
+        this.freight = freight;
         this.ship_name = ship_name;
         this.ship_address = ship_address;
-        this.gender = gender;
+        this.ship_gender = ship_gender;
         this.ship_mobile = ship_mobile;
         this.ship_email = ship_email;
+        this.ship_city = ship_city;
         this.status = status;
+        this.note = note;
+        this.payment = payment;
         this.total_price = total_price;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public double getTotal_price() {
-        return total_price;
-    }
-
-    public void setTotal_price(double total_price) {
-        this.total_price = total_price;
-    }
-    
     public int getOrder_id() {
         return order_id;
     }
@@ -79,27 +69,27 @@ public class Order {
         this.user_id = user_id;
     }
 
-    public Timestamp getOrder_Date() {
+    public String getOrder_Date() {
         return order_Date;
     }
 
-    public void setOrder_Date(Timestamp order_Date) {
+    public void setOrder_Date(String order_Date) {
         this.order_Date = order_Date;
     }
 
-    public Timestamp getRequire_date() {
+    public String getRequire_date() {
         return require_date;
     }
 
-    public void setRequire_date(Timestamp require_date) {
+    public void setRequire_date(String require_date) {
         this.require_date = require_date;
     }
 
-    public Timestamp getShipped_Date() {
+    public String getShipped_Date() {
         return shipped_Date;
     }
 
-    public void setShipped_Date(Timestamp shipped_Date) {
+    public void setShipped_Date(String shipped_Date) {
         this.shipped_Date = shipped_Date;
     }
 
@@ -111,12 +101,12 @@ public class Order {
         this.ship_via = ship_via;
     }
 
-    public double getFreign() {
-        return freign;
+    public double getFreight() {
+        return freight;
     }
 
-    public void setFreign(double freign) {
-        this.freign = freign;
+    public void setFreight(double freight) {
+        this.freight = freight;
     }
 
     public String getShip_name() {
@@ -135,12 +125,12 @@ public class Order {
         this.ship_address = ship_address;
     }
 
-    public boolean isGender() {
-        return gender;
+    public boolean isShip_gender() {
+        return ship_gender;
     }
 
-    public void setGender(boolean gender) {
-        this.gender = gender;
+    public void setShip_gender(boolean ship_gender) {
+        this.ship_gender = ship_gender;
     }
 
     public String getShip_mobile() {
@@ -159,9 +149,50 @@ public class Order {
         this.ship_email = ship_email;
     }
 
+    public String getShip_city() {
+        return ship_city;
+    }
+
+    public void setShip_city(String ship_city) {
+        this.ship_city = ship_city;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+
+    public double getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(double total_price) {
+        this.total_price = total_price;
+    }
+
     @Override
     public String toString() {
-        return "Order{" + "order_id=" + order_id + ", user_id=" + user_id + ", order_Date=" + order_Date + ", require_date=" + require_date + ", shipped_Date=" + shipped_Date + ", ship_via=" + ship_via + ", freign=" + freign + ", ship_name=" + ship_name + ", ship_address=" + ship_address + ", gender=" + gender + ", ship_mobile=" + ship_mobile + ", ship_email=" + ship_email + '}';
+        return "Order{" + "order_id=" + order_id + ", user_id=" + user_id + ", order_Date=" + order_Date + ", require_date=" + require_date + ", shipped_Date=" + shipped_Date + ", ship_via=" + ship_via + ", freight=" + freight + ", ship_name=" + ship_name + ", ship_address=" + ship_address + ", ship_gender=" + ship_gender + ", ship_mobile=" + ship_mobile + ", ship_email=" + ship_email + ", ship_city=" + ship_city + ", status=" + status + ", note=" + note + ", payment=" + payment + ", total_price=" + total_price + '}';
     }
+
     
 }

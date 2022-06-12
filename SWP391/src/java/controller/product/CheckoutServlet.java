@@ -20,8 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Cart;
+import model.Customer;
 import model.Guest;
 import model.Item;
+import model.Order;
 import model.Product;
 
 /**
@@ -59,7 +61,6 @@ public class CheckoutServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -99,8 +100,11 @@ public class CheckoutServlet extends HttpServlet {
                 }
             }
         }
+        String freight_raw=request.getParameter("freight");
+        double freight = Double.parseDouble(freight_raw);
         Cart cart;
         cart = new Cart(cookieContent, allproduct, userID);
+        request.setAttribute("freight",freight);
         request.setAttribute("cart", cart);
         request.setAttribute("cus", account);
         request.getRequestDispatcher("cartcontact.jsp").forward(request, response);
@@ -138,6 +142,7 @@ public class CheckoutServlet extends HttpServlet {
             }
         }
         Cart cart;
+        Order order=new Order();
         cart = new Cart(cookieContent, allproduct, userID);
         //get information form
         try {
@@ -155,7 +160,7 @@ public class CheckoutServlet extends HttpServlet {
             }
             String note = request.getParameter("note");
             if(userID!=-1){ //role:user
-            Account customer = new Account();
+                Customer customer = new Customer();
             customer.setUser_id(userID);
             customer.setFull_name(name);
             customer.setEmail(email);
@@ -165,16 +170,18 @@ public class CheckoutServlet extends HttpServlet {
             customer.setGender(gender);
             /*remove cart after add  order*/
             OrderDAO oderDAO = new OrderDAO();
-            oderDAO.addOrderUser(customer, cart, note);
+            order=oderDAO.addOrderUser(customer, cart, note);
             }else{
                Guest guest=new Guest(name, gender, email, phone, address, city);
                OrderDAO oderDAO = new OrderDAO();
-            oderDAO.addOrderGuest(guest, cart, note);
+            order=oderDAO.addOrderGuest(guest, cart, note);
             }
             String newContentCart = removeCartCookieContent(cookieContent, userID);
             Cookie c = new Cookie("cart", newContentCart);
             response.addCookie(c);
-            response.sendRedirect("productslist");
+            request.setAttribute("order",order);
+            request.setAttribute("cart",cart);
+            request.getRequestDispatcher("cartcompletion.jsp").forward(request, response);
         } catch (Exception e) {
             System.out.println(e);
         }

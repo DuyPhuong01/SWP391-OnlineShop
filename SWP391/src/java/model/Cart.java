@@ -13,7 +13,7 @@ import java.util.List;
  * @author win
  */
 public class Cart {
-
+   
     private List<Item> items; //contain items selected
 
     public Cart() {
@@ -137,7 +137,7 @@ public class Cart {
         for (Item item : items) {
             total += (item.getQuantity() * item.getPrice());
         }
-        return total;
+       return total;
     }
 
     /*Get product by id*/
@@ -149,5 +149,12 @@ public class Cart {
         }
         return null;  //can't found product
     }
-
+    /*get shipping fee of cart */
+    public double getFreight(){
+        double totalMoney = getTotalMoney();
+        if(totalMoney==0||totalMoney>=1000000){ //order price >1.000.000
+            return 0;
+        }
+        return 100000;
+    }
 }
