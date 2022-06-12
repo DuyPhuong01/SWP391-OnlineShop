@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <display-name>EmailSendingWebApp</display-name>
- 
     <!-- SMTP settings -->
     <context-param>
         <param-name>host</param-name>
         <param-value>smtp.gmail.com</param-value>
     </context-param>
- 
     <context-param>
         <param-name>port</param-name>
         <param-value>587</param-value>
     </context-param>
- 
     <context-param>
         <param-name>user</param-name>
-        <param-value>email@fpt.edu.vn</param-value>
+        <param-value>toanpvhe150958@fpt.edu.vn</param-value>
     </context-param>
- 
     <context-param>
         <param-name>pass</param-name>
-        <param-value>nhapmatkhauvao day</param-value>
+        <param-value>daicatoan123</param-value>
     </context-param>
- 
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
@@ -74,6 +69,14 @@
         <servlet-name>ActiveAccount</servlet-name>
         <servlet-class>controller.authentication.ActiveAccount</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>controller.authentication.ForgotPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <servlet-class>controller.authentication.ResetPasswordServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -122,10 +125,17 @@
         <servlet-name>ActiveAccount</servlet-name>
         <url-pattern>/activate</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/forgot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <url-pattern>/resetpass</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
 </web-app>

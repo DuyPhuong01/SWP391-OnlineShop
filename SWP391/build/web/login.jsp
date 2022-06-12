@@ -67,7 +67,7 @@
                                         <label class="form-check-label" for="checkBoxRemember">Remember me</label>
                                     </div>
                                     <div>
-                                        <a href="">Fogot Pasword?</a>
+                                        <a href="forgot">Fogot Pasword?</a>
                                     </div>
                                 </div>
                                 <div class="field btn">

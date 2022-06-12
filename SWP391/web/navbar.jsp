@@ -42,7 +42,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="changepassword">Change password</a></li>
+                            <li><a class="dropdown-item" href="#divTwo">Change password</a></li>
                             <li><a class="dropdown-item" href="logout">Log out</a></li>
                         </ul>
                     </li>
@@ -56,3 +56,4 @@
     </div>
 </nav>
 <c:import url="login.jsp"></c:import>
+<c:import url="changepassword.jsp"></c:import>

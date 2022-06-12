@@ -76,7 +76,10 @@ public class ActiveAccount extends HttpServlet {
             stm.setString(1, email);
             stm.setString(2, hash);
             ResultSet rs = stm.executeQuery();
-            if (rs.next()) {
+            if (!rs.next()) {
+                request.setAttribute("mess", "Link is no longer available!");
+                request.getRequestDispatcher("verify.jsp").forward(request, response);
+            } else {
                 PreparedStatement pst1 = con.prepareStatement("UPDATE [accounts]\n"
                         + "   SET [active] = '1'\n"
                         + " WHERE [email] = ? AND [hash] = ?");
@@ -85,7 +88,7 @@ public class ActiveAccount extends HttpServlet {
                 int i = pst1.executeUpdate();
                 if (i == 1) {
                     request.setAttribute("mess", "Your account has been activated!");
-                request.getRequestDispatcher("verify.jsp").forward(request, response);
+                    request.getRequestDispatcher("verify.jsp").forward(request, response);
                 } else {
                     response.sendRedirect("home");
                 }

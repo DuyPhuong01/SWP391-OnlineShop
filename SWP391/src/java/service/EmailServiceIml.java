@@ -32,9 +32,9 @@ public class EmailServiceIml implements EmailService {
             switch (type) {
                 case "active":
                     subject = EMAIL_REGISTER_ACTIVE;
-                    content = "Dear " + recipient.getFull_name() + " your account need to be active!\n"
+                    content = "Dear " + recipient.getFull_name() + " ,your account need to be active!\n"
                             + "Click the link below to active your account:\n"
-                            +  text + "\n"
+                            + text + "\n"
                             + "Thank you very much!\n";
                     break;
                 case "welcome":
@@ -43,7 +43,10 @@ public class EmailServiceIml implements EmailService {
                     break;
                 case "forgot":
                     subject = EMAIL_FORGOT_PASSWORD;
-                    content = "Dear " + recipient.getFull_name() + " , your new password here: " + recipient.getPassword();
+                    content = "Dear " + recipient.getFull_name() + " , we send you the reset password link!\n"
+                            + "Click the link below to come to reset password:\n"
+                            + text + "\n"
+                            + "Thank you very much!\n";
                     break;
                 default:
                     subject = "OnlineShop";
