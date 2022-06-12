@@ -22,7 +22,6 @@ import service.EmailServiceIml;
  */
 public class AccountDAO extends DBContext {
 
-
     public Account getAccountByUsernamePassword(String username, String password) {
         try {
             String sql = "SELECT *"
@@ -31,6 +30,27 @@ public class AccountDAO extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, password);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Account account = new Account(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"),
+                        rs.getString("full_name"), rs.getInt("role_id"), rs.getBoolean("gender"), rs.getString("email"),
+                        rs.getString("city"), rs.getString("country"), rs.getString("address"), rs.getString("phone"),
+                        rs.getString("image_url"), rs.getBoolean("featured"), rs.getString("hash"), rs.getInt("active"));
+                return account;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Account getAccountByEmail(String email) {
+        try {
+            String sql = "SELECT *"
+                    + "  FROM [accounts]\n"
+                    + "  WHERE [email] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, email);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 Account account = new Account(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"),
@@ -108,10 +128,50 @@ public class AccountDAO extends DBContext {
         return "Success";
     }
 
+    public void updateHashCode(Account acc) {
+        String sql = "UPDATE [accounts]\n"
+                + "   SET [hash] = ?\n"
+                + " WHERE [email] = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, acc.getMyHash());
+            stm.setString(2, acc.getEmail());
+            ResultSet rs = stm.executeQuery();
+        } catch (SQLException e) {
+        }
+    }
+
+    public void updateFeatured(Account acc, String text) {
+        String sql = "UPDATE [accounts]\n"
+                + "   SET [featured] = ?\n"
+                + " WHERE [email] = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, text);
+            stm.setString(2, acc.getEmail());
+            ResultSet rs = stm.executeQuery();
+        } catch (SQLException e) {
+        }
+    }
+    
+    public void updatePassword(String mail, String pass) {
+        String sql = "UPDATE [accounts]\n"
+                + "   SET [password] = ?\n"
+                + " WHERE [email] = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, pass);
+            stm.setString(2, mail);
+            ResultSet rs = stm.executeQuery();
+        } catch (SQLException e) {
+        }
+    }
+
     public static void main(String[] args) {
         AccountDAO adb = new AccountDAO();
         Account a = new Account(7, "toanpv123", "123", "pham toan", 0, true, "123@123", "hanoi", "vn", "hd - hn", "09999999", "tt", true);
         adb.singup(a);
         System.out.println(a.getEmail());
     }
+
 }

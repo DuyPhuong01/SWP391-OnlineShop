@@ -10,16 +10,17 @@ package model;
  * @author tretr
  */
 public class Account {
+
     private int user_id;
     private String username;
     private String password;
     private String full_name;
     private int role_id;
     private boolean gender;
-    private String  email;
-    private String  city;
-    private String  country;
-    private String  address;
+    private String email;
+    private String city;
+    private String country;
+    private String address;
     private String phone;
     private String image_url;
     private boolean feature;
@@ -62,9 +63,7 @@ public class Account {
         this.myHash = myHash;
         this.active = active;
     }
-    
-    
-    
+
     public Account(int user_id, String username, String password) {
         this.user_id = user_id;
         this.username = username;
@@ -82,6 +81,7 @@ public class Account {
     public String getUsername() {
         return username;
     }
+
     public int getUser_id() {
         return user_id;
     }
@@ -89,8 +89,7 @@ public class Account {
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
-    
-    
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -190,6 +189,5 @@ public class Account {
     public void setActive(int active) {
         this.active = active;
     }
-    
-    
+
 }

@@ -27,9 +27,10 @@ public class FeedbackDAO extends DBContext {
                 + "           ,[phone]\n"
                 + "           ,[gender]\n"
                 + "           ,[email]\n"
-                + "           ,[image_url])\n"
+                + "           ,[image_url]\n"
+                + "           ,[feedback_date])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?,?,?)";
+                + "           (?,?,?,?,?,?,?,?,?,GETDATE())";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, f.getAccount().getUser_id());
@@ -53,9 +54,10 @@ public class FeedbackDAO extends DBContext {
                 + "           ,[phone]\n"
                 + "           ,[gender]\n"
                 + "           ,[email]\n"
-                + "           ,[image_url])\n"
+                + "           ,[image_url]\n"
+                + "           ,[feedback_date])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?)";
+                + "           (?,?,?,?,?,?,?,GETDATE())";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             

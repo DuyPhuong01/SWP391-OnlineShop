@@ -86,10 +86,9 @@ public class RegisterServlet extends HttpServlet {
             emailService.sendEmail(getServletContext(), a, "active", "http://localhost:8080/swp/activate?key1=" + a.getEmail() + "&key2=" + a.getMyHash());
 
             String str = dao.singup(a);
-
+ 
             if (str.equals("Success")) {
-                request.setAttribute("mess", "We're happy you're here. Let's check your email address to active your account!");
-                request.getRequestDispatcher("verify.jsp").forward(request, response);
+                 
 
             } else {
                 request.setAttribute("signmess", "Register error !");

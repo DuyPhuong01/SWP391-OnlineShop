@@ -24,7 +24,13 @@
     <body>
         <div class="flex items-center justify-center min-h-screen p-5 bg-gray-600 min-w-screen">
             <div class="max-w-xl p-8 text-center text-gray-800 bg-white shadow-xl lg:max-w-3xl rounded-3xl lg:p-12">
-                <h3 class="text-2xl">Thanks for signing up!</h3>
+                <h3 class="text-2xl">
+                    <c:if test="${requestScope.title !=null}">
+                        ${requestScope.title}
+                    </c:if>
+                    <c:if test="${requestScope.title ==null}">
+                        Thanks for signing up!
+                    </c:if></h3>
                 <div class="flex justify-center">
                     <svg class="w-32 h-32" viewBox="0 0 50 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
