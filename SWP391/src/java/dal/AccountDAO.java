@@ -166,7 +166,20 @@ public class AccountDAO extends DBContext {
         } catch (SQLException e) {
         }
     }
-
+    
+        public int getTotalCustomers() {
+        String sql = "select count(user_id) from accounts";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return 0;
+    }
     public static void main(String[] args) {
         AccountDAO adb = new AccountDAO();
         Account a = new Account(7, "toanpv123", "123", "pham toan", 0, true, "123@123", "hanoi", "vn", "hd - hn", "09999999", "tt", true);

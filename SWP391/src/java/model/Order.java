@@ -5,31 +5,34 @@
  */
 package model;
 
-import java.sql.Timestamp;
+import java.util.List;
 
 /**
  *
  * @author win
  */
 public class Order {
-   private int order_id;
-   private int user_id;
-   private String order_Date;
-   private String require_date;
-   private String shipped_Date;
-   private int ship_via;
-   private double freight;
-   private String ship_name;
-   private String ship_address;
-   private boolean ship_gender;
-   private String ship_mobile;
-   private String ship_email; 
-   private String ship_city; 
-   private int status;
-   private String note;
-   private String payment;
-   private double total_price;
-   
+
+    private int order_id;
+    private int user_id;
+    private String order_Date;
+    private String require_date;
+    private String shipped_Date;
+    private int ship_via;
+    private double freight;
+    private String ship_name;
+    private String ship_address;
+    private boolean ship_gender;
+    private String ship_mobile;
+    private String ship_email;
+    private String ship_city;
+    private int status;
+    private String note;
+    private String payment;
+    private double total_price;
+
+    private List<OrderDetail> orderDetailList;
+
     public Order() {
     }
 
@@ -189,10 +192,17 @@ public class Order {
         this.total_price = total_price;
     }
 
+    public List<OrderDetail> getOrderDetailList() {
+        return orderDetailList;
+    }
+
+    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
+        this.orderDetailList = orderDetailList;
+    }
+
     @Override
     public String toString() {
         return "Order{" + "order_id=" + order_id + ", user_id=" + user_id + ", order_Date=" + order_Date + ", require_date=" + require_date + ", shipped_Date=" + shipped_Date + ", ship_via=" + ship_via + ", freight=" + freight + ", ship_name=" + ship_name + ", ship_address=" + ship_address + ", ship_gender=" + ship_gender + ", ship_mobile=" + ship_mobile + ", ship_email=" + ship_email + ", ship_city=" + ship_city + ", status=" + status + ", note=" + note + ", payment=" + payment + ", total_price=" + total_price + '}';
     }
 
-    
 }

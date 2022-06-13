@@ -307,5 +307,30 @@ public class ProductDAO extends DBContext {
         return list;
     }
     
- 
+     public void UpdateQuantity(Product product, int quantity) {
+        String sql = "update products\n"
+                + "set unit_in_stock = unit_in_stock + ? where product_id = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, quantity);
+            st.setInt(2, product.getProduct_id());
+            st.executeUpdate();
+        }catch(SQLException e){
+            
+        }
+    }
+
+    public int getTotalProducts() {
+        String sql = "select count(product_id) from products";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return 0;
+    }
 }

@@ -11,13 +11,14 @@ package model;
  */
 public class OrderDetail {
     private int order_id;
-    private int product_id;
+    private Product product;
     private int quantity;
     private double price;
+    private ProductCategory category;
 
-    public OrderDetail(int order_id, int product_id, int quantity, double price) {
+    public OrderDetail(int order_id, Product product_id, int quantity, double price) {
         this.order_id = order_id;
-        this.product_id = product_id;
+        this.product = product_id;
         this.quantity = quantity;
         this.price = price;
     }
@@ -30,13 +31,15 @@ public class OrderDetail {
         this.order_id = order_id;
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public void setProduct(Product product) {
+        this.product = product;
     }
+
+
 
     public int getQuantity() {
         return quantity;
@@ -54,9 +57,18 @@ public class OrderDetail {
         this.price = price;
     }
 
+    public ProductCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ProductCategory category) {
+        this.category = category;
+    }
+
+    
     @Override
     public String toString() {
-        return "OrderDetail{" + "order_id=" + order_id + ", product_id=" + product_id + ", quantity=" + quantity + ", price=" + price + '}';
+        return "OrderDetail{" + "order_id=" + order_id + ", product_id=" + product + ", quantity=" + quantity + ", price=" + price + '}';
     }
     
     

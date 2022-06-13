@@ -5,6 +5,7 @@
  */
 package controller.product;
 
+import dal.OrderDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Cart;
+import model.Order;
 import model.Product;
 
 /**
@@ -72,14 +74,32 @@ public class ShowCartServlet extends HttpServlet {
         Cart cart;
         cart = new Cart(cookieContent, allproduct, userID);
         request.setAttribute("cart", cart);
-        
+
         request.getRequestDispatcher("cartdetail.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        Account acocunt = (Account) session.getAttribute("account");
+        OrderDAO orderDAO = new OrderDAO();
+        String orderId_raw = request.getParameter("orderId");
+        int orderId;
+        try {
+            orderId = Integer.parseInt(orderId_raw);
+            Order myOrder = orderDAO.getOrderByUserIdAndOrderId(acocunt.getUser_id(), orderId);
+            if (myOrder == null) {
+                PrintWriter out = response.getWriter();
+                out.println("access denied");
+            } else {
+                request.setAttribute("order", myOrder);
+                request.getRequestDispatcher("updateorders.jsp").forward(request, response);
+            }
+
+        } catch (IOException | NumberFormatException e) {
+
+        }
     }
 
     @Override

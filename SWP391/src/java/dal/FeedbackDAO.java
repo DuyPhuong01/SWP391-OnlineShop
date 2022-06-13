@@ -103,4 +103,30 @@ public class FeedbackDAO extends DBContext {
         }
         return false;
     }
+            public int getTotalFeedbacks(String startDate, String endDate) {
+        String sql = "select count(user_id) from accounts";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return 0;
+    }
+        public int getNumberFeedbacksByDays(String date) {
+        String sql = "select count(user_id) from accounts";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return 0;
+    }
 }
