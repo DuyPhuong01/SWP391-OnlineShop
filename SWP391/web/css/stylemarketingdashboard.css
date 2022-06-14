@@ -45,6 +45,18 @@
 .user-panel .info{
     align-items: center;
 }
+.user-panel{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.pull-left.image {
+    margin-left: 5%;
+}
+.pull-left.info {
+    align-items: center;
+    display: flex;
+    margin-left: 10px;
+}
 .sidebar-menu{
     color: white;
 }
@@ -88,7 +100,6 @@
 .trends-of-new-customer{
     margin-top: 20px;
     background: #fff;
-    height: 500px;
 }
 
 .add-button button{
@@ -180,4 +191,106 @@
     height: 150px;
     margin-left: 20%;
     margin-top: 20px;
+}
+.logo{
+    color:  #fff;
+    text-decoration: none;
+}
+.sidebar-menu span, .sidebar-menu i{
+    color: #fff;
+}
+.sidebar-menu{
+    padding-left: 0;
+    margin-top: 30px;
+}
+.sidebar-menu li{
+    align-items: center;
+    padding-left: 10%;
+    display: flex;
+}
+
+.sidebar-menu li:hover{
+    background: #425164;
+}
+.icon{
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    line-height: 60px;
+    text-align: center;
+    font-size: 30px;
+    background: #eee;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    float: left;
+    margin-right: 10px;
+    color: #fff;
+}
+.infor{
+    font-size: 12px;
+    padding-top: 2px;
+}
+.infor span{
+    display: block;
+    font-size: 24px;
+    font-weight: 600;
+}
+.bg-green{
+    background: green;
+}
+.bg-red{
+    background: red;
+}
+.bg-yellow{
+    background: yellow;
+}
+.bg-lightblue{
+    background: lightblue;
+}
+.trends-of-new-customer h2{
+    margin: 20px;
+    flex: 1;
+}
+.trends-of-new-customer div{
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+.trends-of-new-customer input{
+    margin-left: 10px;
+    border-radius: 5px;
+}
+.trends-of-new-customer button{
+    width: 35px;
+    height: 35px;
+    border: none;
+    width: 35px;
+    background: #425164;
+    border-left: 1px solid #283744;
+    color: #fff;
+}
+.sidebar-form-container input{
+    height: 35px;
+    width: 165px;
+    margin-left: 10px;
+    height: 35px;
+    border: none;
+    color: #fff;
+    background: #425164;
+    padding-left: 10px;
+}
+.sidebar-form-container button{
+    width: 35px;
+    height: 35px;
+    border: none;
+    width: 35px;
+    background: #425164;
+    border-left: 1px solid #283744;
+    color: #fff;
+}
+.chart-wrapper{
+    background: #fff;
+}
+.left-side{
+    height: 1000px;
 }

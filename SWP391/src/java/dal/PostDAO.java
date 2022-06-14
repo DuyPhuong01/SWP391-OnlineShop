@@ -1,4 +1,3 @@
-
 package dal;
 
 import java.sql.PreparedStatement;
@@ -9,6 +8,7 @@ import java.util.List;
 import model.Post;
 
 public class PostDAO extends DBContext {
+
     public List<Post> getActivePosts() {
         CategoryDAO category_dao = new CategoryDAO();
         List<Post> list = new ArrayList<>();
@@ -18,11 +18,11 @@ public class PostDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Post post = new Post(rs.getInt("post_id"),
-                        rs.getInt("user_id"), 
+                        rs.getInt("user_id"),
                         rs.getString("thumbnail"),
                         rs.getString("title"),
-                        rs.getTimestamp("updated_date"), 
-                        category_dao.getPostCategory(rs.getInt("category_id")), 
+                        rs.getTimestamp("updated_date"),
+                        category_dao.getPostCategory(rs.getInt("category_id")),
                         rs.getString("post_details"),
                         rs.getBoolean("featured")
                 );
@@ -33,6 +33,7 @@ public class PostDAO extends DBContext {
         }
         return list;
     }
+
     public List<Post> getHotActivePosts(int numberOfPost) {
         CategoryDAO category_dao = new CategoryDAO();
         List<Post> list = new ArrayList<>();
@@ -40,13 +41,13 @@ public class PostDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while (rs.next()&&(numberOfPost--)>0) {
+            while (rs.next() && (numberOfPost--) > 0) {
                 Post post = new Post(rs.getInt("post_id"),
-                        rs.getInt("user_id"), 
-                        rs.getString("thumbnail"), 
-                        rs.getString("title"), 
-                        rs.getTimestamp("updated_date"), 
-                        category_dao.getPostCategory(rs.getInt("category_id")), 
+                        rs.getInt("user_id"),
+                        rs.getString("thumbnail"),
+                        rs.getString("title"),
+                        rs.getTimestamp("updated_date"),
+                        category_dao.getPostCategory(rs.getInt("category_id")),
                         rs.getString("post_details"),
                         rs.getBoolean("featured")
                 );
@@ -56,5 +57,19 @@ public class PostDAO extends DBContext {
             System.out.println(sqle);
         }
         return list;
+    }
+
+    public int getTotalPosts() {
+        String sql = "select count(post_id) from posts";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return 0;
     }
 }

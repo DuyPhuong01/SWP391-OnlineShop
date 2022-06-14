@@ -46,6 +46,7 @@ public class FeedbackDAO extends DBContext {
         } catch (Exception e) {
         }
     }
+
     public void insertGeneralFeedback(Feedback f) {
         String sql = "INSERT INTO [general_feedbacks]\n"
                 + "           ([star]\n"
@@ -60,7 +61,7 @@ public class FeedbackDAO extends DBContext {
                 + "           (?,?,?,?,?,?,?,GETDATE())";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
-            
+
             stm.setFloat(1, f.getRate());
             stm.setString(2, f.getFeedback());
             stm.setString(3, f.getFullName());
@@ -73,13 +74,13 @@ public class FeedbackDAO extends DBContext {
         }
     }
 
-    public boolean  checkImageExist(String img) {
+    public boolean checkImageExist(String img) {
         String sql = "SELECT [image_url]\n"
                 + "  FROM [product_feedbacks]\n"
                 + "  WHERE [image_url] = ?";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, "images\\feedback-images\\"+img);
+            stm.setString(1, "images\\feedback-images\\" + img);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 return true;
@@ -88,13 +89,14 @@ public class FeedbackDAO extends DBContext {
         }
         return false;
     }
-    public boolean  checkImageGeneralExist(String img) {
+
+    public boolean checkImageGeneralExist(String img) {
         String sql = "SELECT [image_url]\n"
                 + "  FROM [general_feedbacks]\n"
                 + "  WHERE [image_url] = ?";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, "images\\feedback-images\\"+img);
+            stm.setString(1, "images\\feedback-images\\" + img);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 return true;
@@ -103,7 +105,8 @@ public class FeedbackDAO extends DBContext {
         }
         return false;
     }
-            public int getTotalFeedbacks(String startDate, String endDate) {
+
+    public int getTotalFeedbacks(String startDate, String endDate) {
         String sql = "select count(user_id) from accounts";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -116,7 +119,35 @@ public class FeedbackDAO extends DBContext {
         }
         return 0;
     }
-        public int getNumberFeedbacksByDays(String date) {
+
+    public int getTotalGeneralFeedbacks() {
+        String sql = "select count(*) from general_feedbacks ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return 0;
+    }
+    public int getTotalProductFeedbacks() {
+        String sql = "select count(*) from product_feedbacks";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return 0;
+    }
+
+    public int getNumberFeedbacksByDays(String date) {
         String sql = "select count(user_id) from accounts";
         try {
             PreparedStatement st = connection.prepareStatement(sql);

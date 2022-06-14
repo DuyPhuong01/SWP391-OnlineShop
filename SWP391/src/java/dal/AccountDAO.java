@@ -9,6 +9,8 @@ import util.SendingEmailUtil;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -180,11 +182,25 @@ public class AccountDAO extends DBContext {
         }
         return 0;
     }
+        public int getNumberOfRegisteredCustomerByDay(LocalDate start) {
+        String sql = "select COUNT(user_id) from accounts where registered_date between ? and ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, start.toString());
+            st.setString(2, start.plusDays(1).toString());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return 0;
+    }
     public static void main(String[] args) {
         AccountDAO adb = new AccountDAO();
-        Account a = new Account(7, "toanpv123", "123", "pham toan", 0, true, "123@123", "hanoi", "vn", "hd - hn", "09999999", "tt", true);
-        adb.singup(a);
-        System.out.println(a.getEmail());
+        LocalDate start = LocalDate.parse("2022-06-12",DateTimeFormatter.ISO_LOCAL_DATE );
+        System.out.println(adb.getNumberOfRegisteredCustomerByDay(start));
     }
 
 }

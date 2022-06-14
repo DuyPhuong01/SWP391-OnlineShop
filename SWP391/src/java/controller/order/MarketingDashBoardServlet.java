@@ -5,6 +5,10 @@
  */
 package controller.order;
 
+import dal.AccountDAO;
+import dal.FeedbackDAO;
+import dal.PostDAO;
+import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -15,6 +19,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
+import util.DateTimeUtil;
 
 /**
  *
@@ -39,7 +46,7 @@ public class MarketingDashBoardServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MarketingDashBoardServlet</title>");            
+            out.println("<title>Servlet MarketingDashBoardServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet MarketingDashBoardServlet at " + request.getContextPath() + "</h1>");
@@ -60,19 +67,60 @@ public class MarketingDashBoardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        if (startDate == null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = new Date();
-            String end = LocalDate.parse(sdf.format(date), DateTimeFormatter.ISO_LOCAL_DATE).plusDays(1).toString();
-            String start = LocalDate.parse(sdf.format(date), DateTimeFormatter.ISO_LOCAL_DATE).minusDays(6).toString();
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        if (account != null) {
+            //khai bao doi tuong cac lop data access object
+            PostDAO postDAO = new PostDAO();
+            FeedbackDAO feedbackDAO = new FeedbackDAO();
+            ProductDAO productDAO = new ProductDAO();
+            AccountDAO accountDAO = new AccountDAO();
 
+            //khoi tao cac bien va gan gia tri
+            int totalPosts, totalGeneralFeedbacks, totalProductFeedbacks, totalProducts, totalAccounts;
+            totalPosts = postDAO.getTotalPosts();
+            totalAccounts = accountDAO.getTotalCustomers();
+            totalGeneralFeedbacks = feedbackDAO.getTotalGeneralFeedbacks();
+            totalProductFeedbacks = feedbackDAO.getTotalProductFeedbacks();
+            totalProducts = productDAO.getTotalProducts();
+
+            String startDate = request.getParameter("startDate");
+            String endDate = request.getParameter("endDate");
+            LocalDate start, end;
+            if (startDate == null) {
+                start = DateTimeUtil.getStartDateDefault();
+                end = DateTimeUtil.getEndDateDefault();
+                System.out.println(start);
+                System.out.println(end);
+            } else {
+                start = DateTimeUtil.getStartDate(startDate);
+                end = DateTimeUtil.getEndDate(endDate);
+            }
+
+            String getNumberOfCustomerByDay = "";
+            for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
+                getNumberOfCustomerByDay += accountDAO.getNumberOfRegisteredCustomerByDay(i) + ";";
+            }
+
+            getNumberOfCustomerByDay = getNumberOfCustomerByDay.substring(0, getNumberOfCustomerByDay.length() - 1);
+            String getDates = DateTimeUtil.getStringOfDateItems(start, end);
+
+            request.setAttribute("startDate", start);
+            request.setAttribute("endDate", end.minusDays(1));
+//        set attribute
+            request.setAttribute("dates", getDates);
+            request.setAttribute("customers", getNumberOfCustomerByDay);
+
+            request.setAttribute("totalPosts", totalPosts);
+            request.setAttribute("totalAccounts", totalAccounts);
+//        request.setAttribute("totalGeneralFeedbacks", totalGeneralFeedbacks);
+            request.setAttribute("totalProducts", totalProducts);
+            request.setAttribute("totalFeedbacks", totalProductFeedbacks + totalGeneralFeedbacks);
+            request.getRequestDispatcher("marketingdashboard.jsp").forward(request, response);
+        } else {
+            PrintWriter out = response.getWriter();
+            out.println("access denied");
         }
-        String a = "1;2;3;4;5;6";
-//        int[] a = {1, 2, 3, 4};
-        request.setAttribute("a", a);
-        request.getRequestDispatcher("marketingdashboard.jsp").forward(request, response);
     }
 
     /**
