@@ -37,7 +37,13 @@ a {
     text-decoration: none;
     color: black;
 }
-
+.cursor-pointer,
+.link{
+    cursor: pointer;
+}
+.link:hover {
+    color: var(--bs-link-color);
+}
 .header {
     width: 100%;
     background-color: var(--background-primary-color);
@@ -116,4 +122,88 @@ tr {
 
 .product-specification table tr td:first-child {
     width: 30%;
+}
+
+#sidebar i {
+    font-size: 2rem;
+}
+
+#sidebar {
+    height: calc(100vh - 3rem);
+    position: sticky;
+    top: 1.5rem;
+}
+
+.sticky-0{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.form-check-input {
+  clear: left;
+}
+
+.form-switch.form-switch-sm {
+  margin-bottom: 0.5rem; /* JUST FOR STYLING PURPOSE */
+}
+
+.form-switch.form-switch-sm .form-check-input {
+  height: 1rem;
+  width: calc(1rem + 0.75rem);
+  border-radius: 2rem;
+}
+
+.form-switch.form-switch-md {
+  margin-bottom: 1rem; /* JUST FOR STYLING PURPOSE */
+}
+
+.form-switch.form-switch-md .form-check-input {
+  height: 1.5rem;
+  width: calc(2rem + 0.75rem);
+  border-radius: 3rem;
+}
+
+.form-switch.form-switch-lg {
+  margin-bottom: 1.5rem; /* JUST FOR STYLING PURPOSE */
+}
+
+.form-switch.form-switch-lg .form-check-input {
+  height: 2rem;
+  width: calc(3rem + 0.75rem);
+  border-radius: 4rem;
+}
+
+.form-switch.form-switch-xl {
+  margin-bottom: 2rem; /* JUST FOR STYLING PURPOSE */
+}
+
+.form-switch.form-switch-xl .form-check-input {
+  height: 2.5rem;
+  width: calc(4rem + 0.75rem);
+  border-radius: 5rem;
+}
+.images-hover {
+    position: relative;
+}
+.images-hover .mask{
+    position: absolute;
+    opacity: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.images-hover img{
+    border: 1px solid transparent;
+}
+.images-hover img:hover{
+    border-color: black;
+}
+.images-hover .mask:hover,
+.images-hover img:hover+.mask{
+    opacity: 1;
+}
+.modal {
+    background: rgba(0, 0, 0, 0.5);
+    transition: 1s;
 }
