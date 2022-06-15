@@ -33,11 +33,11 @@
                     
                     <li class="nav-item dropdown me-2">
                         <div class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="images/account-images/acc.png" class="img-thumbnail" style="width: 40px;height: 40px; border-radius: 50%; margin: -0.5rem 0">
+                            <img src="${sessionScope.account.getImage_url()}" class="img-thumbnail" style="width: 40px;height: 40px; border-radius: 50%; margin: -0.5rem 0">
                             My Account
                         </div>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="userprofile">Profile</a></li>
+                            <li><a class="dropdown-item" href="#divThree" onclick="Cancel_onclick(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');">Profile</a></li>
                             <li><a class="dropdown-item" href="myorders">My Orders</a></li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -57,3 +57,4 @@
 </nav>
 <c:import url="login.jsp"></c:import>
 <c:import url="changepassword.jsp"></c:import>
+<c:import url="userfrofile.jsp"></c:import>

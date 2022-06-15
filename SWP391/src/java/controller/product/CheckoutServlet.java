@@ -25,6 +25,8 @@ import model.Guest;
 import model.Item;
 import model.Order;
 import model.Product;
+import service.EmailService;
+import service.EmailServiceIml;
 
 /**
  *
@@ -32,7 +34,7 @@ import model.Product;
  */
 @WebServlet(name = "CheckoutServlet", urlPatterns = {"/checkout"})
 public class CheckoutServlet extends HttpServlet {
-
+    private EmailService emailService = new EmailServiceIml();
     /*separate carts other this cart*/
     public static String removeCartCookieContent(String txt, int user_id) {
         String detailCart = "";
@@ -100,11 +102,10 @@ public class CheckoutServlet extends HttpServlet {
                 }
             }
         }
-        String freight_raw=request.getParameter("freight");
-        double freight = Double.parseDouble(freight_raw);
+
         Cart cart;
         cart = new Cart(cookieContent, allproduct, userID);
-        request.setAttribute("freight",freight);
+        request.setAttribute("freight",cart.getFreight());
         request.setAttribute("cart", cart);
         request.setAttribute("cus", account);
         request.getRequestDispatcher("cartcontact.jsp").forward(request, response);
@@ -113,7 +114,7 @@ public class CheckoutServlet extends HttpServlet {
 
    
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
@@ -178,6 +179,7 @@ public class CheckoutServlet extends HttpServlet {
             }
             String newContentCart = removeCartCookieContent(cookieContent, userID);
             Cookie c = new Cookie("cart", newContentCart);
+            emailService.sendEmailComfirmOrder(getServletContext(), name, email, order.getOrder_id());
             response.addCookie(c);
             request.setAttribute("order",order);
             request.setAttribute("cart",cart);

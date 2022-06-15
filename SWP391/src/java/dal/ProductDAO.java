@@ -20,22 +20,6 @@ import model.SubCategory;
  */
 public class ProductDAO extends DBContext {
 
-    private Product filProductInfor(ResultSet rs) throws SQLException {
-        CategoryDAO category_dao = new CategoryDAO();
-        int product_id = rs.getInt("product_id");
-        return new Product(product_id,
-                rs.getString("name"),
-                rs.getString("model"),
-                rs.getString("thumbnail"),
-                rs.getString("brief_infor"),
-                category_dao.getProductSubCategory(rs.getInt("sub_category_id")),
-                rs.getInt("unit_in_stock"),
-                rs.getDouble("original_price"),
-                rs.getDouble("sale_price"),
-                rs.getInt("status")
-        );
-    }
-
     private Product filProductDetails(ResultSet rs) throws SQLException {
         CategoryDAO category_dao = new CategoryDAO();
         int product_id = rs.getInt("product_id");
@@ -63,7 +47,7 @@ public class ProductDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = filProductInfor(rs);
+                Product product = filProductDetails(rs);
                 productList.add(product);
             }
             return productList;
@@ -93,7 +77,7 @@ public class ProductDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = filProductInfor(rs);
+                Product product = filProductDetails(rs);
                 productList.add(product);
             }
             return productList;
@@ -132,7 +116,7 @@ public class ProductDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = filProductInfor(rs);
+                Product product = filProductDetails(rs);
                 productList.add(product);
             }
             return productList;
@@ -168,7 +152,6 @@ public class ProductDAO extends DBContext {
 
     public List<Product> getProductsByRange(List<SubCategory> subCategories, String key, String orderOption, int start, int end) {
 //        select * from (select ROW_NUMBER() over (order by updated_date desc) as Row,* from products where name like '%%' and sub_category_id in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)) all_products where Row between 1 and 22
-        CategoryDAO category_dao = new CategoryDAO();
         List<Product> productList = new ArrayList<>();
         String sql = "select * from (select ROW_NUMBER() over (";
         if (orderOption.equals("newest")) {
@@ -197,7 +180,7 @@ public class ProductDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = filProductInfor(rs);
+                Product product = filProductDetails(rs);
                 productList.add(product);
             }
             return productList;
@@ -263,7 +246,7 @@ public class ProductDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next() && numberOfProduct-- > 0) {
-                Product product = filProductInfor(rs);
+                Product product = filProductDetails(rs);
                 list.add(product);
             }
         } catch (SQLException sqle) {
@@ -280,7 +263,7 @@ public class ProductDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = filProductInfor(rs);
+                Product product = filProductDetails(rs);
                 list.add(product);
             }
         } catch (SQLException sqle) {
@@ -298,7 +281,7 @@ public class ProductDAO extends DBContext {
             st.setInt(2, featured ? 1 : 0);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = filProductInfor(rs);
+                Product product = filProductDetails(rs);
                 list.add(product);
             }
         } catch (SQLException sqle) {
@@ -332,5 +315,44 @@ public class ProductDAO extends DBContext {
             System.out.println(sqle);
         }
         return 0;
+    }
+    public boolean changeFeatured(int product_id, boolean featured){
+        String sql = "update products set featured=? where product_id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, featured ? 1 : 0);
+            st.setInt(2, product_id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+    public boolean changeThumbnail(int product_id, String imagePath){
+        String sql = "update products set thumbnail=? where product_id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, imagePath);
+            st.setInt(2, product_id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+    public boolean checkThumbnailExist(String fileName){
+        String sql = "select * from products where thumbnail like ?";
+        System.out.println(fileName);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "images/product_images/"+fileName);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()) return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
     }
 }

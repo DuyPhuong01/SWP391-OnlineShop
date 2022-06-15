@@ -12,11 +12,27 @@
     </context-param>
     <context-param>
         <param-name>user</param-name>
-        <param-value>quangtvhe153307@fpt.edu.vn</param-value>
+        <param-value>dungbahe150633@fpt.edu.vn</param-value>
     </context-param>
     <context-param>
         <param-name>pass</param-name>
-        <param-value>pass</param-value>
+        <param-value>anhyeu123</param-value>
+    </context-param>
+    <context-param>
+        <param-name>banking_system</param-name>
+        <param-value>TPBANK</param-value>
+    </context-param>
+    <context-param>
+        <param-name>banking_system</param-name>
+        <param-value>TPBANK</param-value>
+    </context-param>
+    <context-param>
+        <param-name>account_holder</param-name>
+        <param-value>BUI ANH DUNG</param-value>
+    </context-param>
+    <context-param>
+        <param-name>account_number</param-name>
+        <param-value>03253556201</param-value>
     </context-param>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
