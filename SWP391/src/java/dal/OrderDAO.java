@@ -36,28 +36,26 @@ public class OrderDAO extends DBContext {
     }
 
     public Order addOrderUser(Account customer, Cart cart, String note) {
-        LocalDate curDate = LocalDate.now();
-        String date = curDate.toString(); //order date =current time
+
         double freight = cart.getFreight();//ship
         try {
             //add order
             String sql = "";
             sql = "insert into orders(user_id,order_date,ship_name,ship_gender,ship_address,ship_email,\n"
                     + "freight,ship_mobile,ship_city,status,note,total_price)\n"
-                    + "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "values(?,getdate(),?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, customer.getUser_id());
-            st.setString(2, date);
-            st.setString(3, customer.getFull_name());
-            st.setBoolean(4, customer.isGender());
-            st.setString(5, customer.getAddress());
-            st.setString(6, customer.getEmail());
-            st.setDouble(7, freight);
-            st.setString(8, customer.getPhone());
-            st.setString(9, customer.getCity());
-            st.setInt(10, 1);//Default
-            st.setString(11, note);
-            st.setDouble(12, cart.getTotalMoney() + freight);//total=price-freight
+            st.setString(2, customer.getFull_name());
+            st.setBoolean(3, customer.isGender());
+            st.setString(4, customer.getAddress());
+            st.setString(5, customer.getEmail());
+            st.setDouble(6, freight);
+            st.setString(7, customer.getPhone());
+            st.setString(8, customer.getCity());
+            st.setInt(9, 1);//Default
+            st.setString(10, note);
+            st.setDouble(11, cart.getTotalMoney() + freight);//total=price-freight
             st.executeUpdate();
             // get id of newsest order added
             String sql1 = "select top 1 order_id from [orders] order by order_id desc";
@@ -97,27 +95,25 @@ public class OrderDAO extends DBContext {
     }
 
     public Order addOrderGuest(Guest guest, Cart cart, String note) {
-        LocalDate curDate = LocalDate.now();
-        String date = curDate.toString(); //order date =current time
+     
         double freight = cart.getFreight();//ship
         try {
             //add order
             String sql = "";
             sql = "insert into orders(order_date,ship_name,ship_gender,ship_address,ship_email,\n"
                     + "freight,ship_mobile,ship_city,status,note,total_price)\n"
-                    + "values(?,?,?,?,?,?,?,?,?,?,?)";
+                    + "values(GETDATE(),?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, date);
-            st.setString(2, guest.getName());
-            st.setBoolean(3, guest.isGender());
-            st.setString(4, guest.getAddress());
-            st.setString(5, guest.getEmail());
-            st.setDouble(6, freight);
-            st.setString(7, guest.getPhone());
-            st.setString(8, guest.getCity());
-            st.setInt(9, 1);//Default
-            st.setString(10, note);
-            st.setDouble(11, cart.getTotalMoney() + freight);
+            st.setString(1, guest.getName());
+            st.setBoolean(2, guest.isGender());
+            st.setString(3, guest.getAddress());
+            st.setString(4, guest.getEmail());
+            st.setDouble(5, freight);
+            st.setString(6, guest.getPhone());
+            st.setString(7, guest.getCity());
+            st.setInt(8, 1);//Default
+            st.setString(9, note);
+            st.setDouble(10, cart.getTotalMoney() + freight);
             st.executeUpdate();
             // get id of newsest order added
             int order_id = 0;
@@ -223,9 +219,10 @@ public class OrderDAO extends DBContext {
     //change information by order Order (add payment step)
     public void UpdateOrderInformation(Order order) {
         int order_id = order.getOrder_id();
-        String sql = "updatr order"
-                + "set order_date=GETDATE(),ship_name=?,ship_gender=?,ship_address=?,ship_email=?,\n"
-                + "freight=?,ship_mobile=?,ship_city=?,status=?,note=?,payment=?,total_price=?)";
+        String sql = "update orders\n" +
+"set ship_name=?,ship_gender=?,ship_address=?,ship_email=?\n" +
+",freight=?,ship_mobile=?,ship_city=?,status=?,note=?,payment=?,total_price=?\n" +
+"where order_id=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, order.getShip_name());
@@ -239,6 +236,7 @@ public class OrderDAO extends DBContext {
             st.setString(9, order.getNote());
             st.setString(10, order.getPayment());
             st.setDouble(11, order.getTotal_price());
+            st.setDouble(12, order.getOrder_id());
             st.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);

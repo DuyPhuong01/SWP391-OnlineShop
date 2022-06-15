@@ -15,7 +15,7 @@
     </head>
     <body>
         <c:set var="o" value="${requestScope.cart}" />
-        <c:set var="freight" value="${requestScope.freight}" />
+        <c:set var="freight" value="${requestScope.cart.freight}" />
         <div class="header">
             <c:import url="navbar.jsp"></c:import>
             </div>
@@ -158,7 +158,7 @@
                             </li>
                             <li class="d-flex justify-content-between py-3 border-bottom">Shopping Fee
                              <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
-                                      <span><fmt:formatNumber value="${requestScope.freight}" type="currency" currencySymbol="đ"/></span>
+                                      <span><fmt:formatNumber value="${freight}" type="currency" currencySymbol="đ"/></span>
                             </li>
                             </li>
                             <li class="d-flex justify-content-between py-3 border-bottom">Total Cost

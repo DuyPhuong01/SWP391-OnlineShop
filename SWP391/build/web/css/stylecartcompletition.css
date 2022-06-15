@@ -313,3 +313,15 @@ svg:not(:root) {
 .radio-toolbar input :hover{
     cursor: pointer;
 }
+.ship_cod{
+    display: none;
+}
+.vnpay{
+    display: none;
+}
+.banking_system{
+    display: none;
+}
+label :hover{
+    cursor: pointer;
+}

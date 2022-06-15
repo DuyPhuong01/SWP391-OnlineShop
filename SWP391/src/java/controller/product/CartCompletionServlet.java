@@ -16,13 +16,15 @@ import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Cart;
 import model.Order;
+import service.EmailService;
+import service.EmailServiceIml;
 
 /**
  *
  * @author Admin
  */
 public class CartCompletionServlet extends HttpServlet {
-
+ private EmailService emailService = new EmailServiceIml();
     //get payment name by ID
     String getPaymentByID(int paymentID) {
         switch (paymentID) { //select payment name
@@ -65,13 +67,26 @@ public class CartCompletionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+          int orderID = Integer.parseInt(request.getParameter("orderid"));
+          OrderDAO orderDAO=new OrderDAO();
+            Cart cartSubmitted = orderDAO.getCartSubmitted(orderID);
+            Order order = orderDAO.getOrderByOrderID(orderID);
+             request.setAttribute("order", order);
+            request.setAttribute("cart", cartSubmitted);
+            request.getRequestDispatcher("cartcompletion.jsp").forward(request, response);
+        } catch (Exception e) {
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
             //get Information of cart contact
             int oderID = Integer.parseInt(request.getParameter("orderID"));
             OrderDAO orderDAO = new OrderDAO();
@@ -88,10 +103,11 @@ public class CartCompletionServlet extends HttpServlet {
             } else {
                 gender = true;
             }
-            int status = Integer.parseInt(request.getParameter("status"));
+            int status = 2;//after choose paymentmethod
             String note = request.getParameter("note");
             int paymentID = Integer.parseInt(request.getParameter("payment"));
             String payment = getPaymentByID(paymentID);
+            System.out.println("----PAYMENT "+payment);
             String freight_raw=request.getParameter("freight");
             double freight = Double.parseDouble(freight_raw);
             double total_price = Double.parseDouble(request.getParameter("total_price"));
@@ -109,10 +125,12 @@ public class CartCompletionServlet extends HttpServlet {
             order.setNote(note);
             order.setTotal_price(total_price);
             orderDAO.UpdateOrderInformation(order);  //update order
+            //send mail
+            emailService.sendEmailComfirmUpdateOrder(getServletContext(), name, email, order.getOrder_id());
             Cart cartSubmitted = orderDAO.getCartSubmitted(oderID);
             request.setAttribute("order", order);
             request.setAttribute("cart", cartSubmitted);
-            request.getRequestDispatcher("cartcompletion.jsp");
+            request.getRequestDispatcher("cartcompletion.jsp").forward(request, response);
         } catch (Exception e) {
         }
     }

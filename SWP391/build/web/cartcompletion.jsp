@@ -258,8 +258,7 @@
                             <div class="text-center">
                                 <h3 class="pb-3 text-uppercase font-weight-bold">Cart Contact</h3>
                             </div>
-                            <form class="row g-3" id="checkout" action="checkout" method="post">
-                                <input hidden value="${status}"name="status">
+                            <form class="row g-3" action="cartcompletion" method="post">
                                 <input hidden value="${order.order_id}" name="orderID">
                                 <div class="col-6">
                                     <div class="input-group mb-3">
@@ -368,7 +367,7 @@
                                 <li class="d-flex justify-content-between py-3 border-bottom">
                                     <div class="payment-container col-12">
                                         <div class="col-12">
-                                            Payment Information
+                                            Choose Payment Method
                                         </div>
                                         <div class="col-12 bg-white rounded shadow-sm main-banking">
                                             <div class="radio-toolbar">
@@ -389,13 +388,14 @@
                                                 <label for="radioOrange">VNPAY QR</label> 
                                             </div>
 
-                                            <div class="payment-content">
-                                                <div class="col-12">
-                                                    <label for="payment" class="form-label" ></label>
-                                                    <textarea  readonly   style="background:#ffffff;"
-                                                               class="guidline form-control " id="payment" form="checkout" name="payment" rows="3">After receiving product,the customer will pay the order with the delivery staff
-                                                    </textarea>
-                                                </div> 
+                                           <div class="payment-content ship_cod">
+                                            <c:import url="payment_ShipCOD.jsp"></c:import>
+                                            </div>
+                                           <div class="payment-content banking_system">
+                                            <c:import url="payment_BankingSystem.jsp"></c:import>
+                                            </div>
+                                           <div class="payment-content vnpay">
+                                            <c:import url="payment_VNPAY.jsp"></c:import>
                                             </div>
                                             <p>&nbsp;</p>
                                         </div>
@@ -419,7 +419,7 @@
                                     <button class="btn btn-outline-primary" type="submit">Finish</button>
                                 </div>
                             </div>
-                            </form>
+                     </form>
                         </div>
 
 
