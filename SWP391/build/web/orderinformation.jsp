@@ -60,7 +60,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Total Cost:</td>
-                                                <td><fmt:formatNumber type="currency" value="${order.total_price}" currencySymbol="VND"></fmt:formatNumber></td>
+                                                <td><fmt:formatNumber type="currency" value="${order.total_price}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Status:</td>
@@ -118,7 +118,7 @@
                                         <td>
                                             <h5><a href="product?id=${i.product.product_id}">${i.product.name}</a></h5>
                                             <h6 class="card-subtitle mb-2 text-muted">Category: ${i.category.category_name}</h6>
-                                            <p><fmt:formatNumber type="currency" value="${i.price}" currencySymbol="VND"></fmt:formatNumber></p>
+                                            <p><fmt:formatNumber type="currency" value="${i.price}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></p>
                                             </td>
                                             <td>
                                                 <span>Quantity</span>
@@ -126,7 +126,7 @@
                                         </td>
                                         <td>
                                             <span>Sub Total</span>
-                                            <p class="subtotal"><fmt:formatNumber type="currency" value="${i.price * i.quantity}" currencySymbol="VND"></fmt:formatNumber></p>
+                                            <p class="subtotal"><fmt:formatNumber type="currency" value="${i.price * i.quantity}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></p>
                                             </td>
                                             <td><div>
                                                     <a href="product?id=${i.product.product_id}" class="btn btn-outline-primary action">Rebuy</a>

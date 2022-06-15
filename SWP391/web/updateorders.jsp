@@ -103,8 +103,8 @@
                                         <h5 class="font-weight-bold" id="subtotal-final" style="color: red;"><fmt:formatNumber value="${o.total_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
                                     </li>
                                     <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Shipping fee</b><b style="color: red;"><c:if test="${o.freight != 0}">${o.freight}</c:if><c:if test="${o.freight == 0}">Free ship</c:if></b></li>
-                                    <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Total</b>
-                                        <h5 class="font-weight-bold" id="total-final" style="color: red;"><fmt:formatNumber value="${o.total_price + o.freight}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
+                                        <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Total</b>
+                                                <h5 class="font-weight-bold" id="total-final" style="color: red;"><fmt:formatNumber value="${o.total_price + o.freight}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
                                     </li>
                                 </ul>
                             </div>
@@ -139,6 +139,16 @@
                                         <span style="margin-right: 50px;"><input type="text" id="receiver-city" name="shipCity" value="${o.ship_city}"/></span>
                                         <span><label for="receiver-address">Address</label></span>
                                         <span><input type="text" id="receiver-address" name="shipAddress" value="${o.ship_address}"/></span>
+                                    </div>
+                                    <div class="flex" style="    margin-top: 20px;
+                                         height: 40px;
+                                         line-height: 40px;"><span style="font-weight: bold;
+                                            color: #21252b;">Payment method: </span>
+                                        <select name="payment" class="receiver-payment" style="margin-left: 10px;">
+                                            <c:forEach items="${requestScope.payments}" var="i">
+                                                <option value="${i}" <c:if test="${i eq o.payment}">selected</c:if>/> ${i}
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end">

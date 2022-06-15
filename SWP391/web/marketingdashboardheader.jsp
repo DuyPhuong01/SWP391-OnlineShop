@@ -14,13 +14,14 @@
         </a>
         <div class="navbar-right">
             <ul class="nav navbar-nav flex-row">
-                <li class="dropdown"><i class="fa-solid fa-envelope"></i></li>
+                <li style="display: flex;
+                    align-items: center;
+                    margin-right: 10px;
+                    margin-left: 10px;"><i class="fa-solid fa-envelope" style="display: flex; align-items: center;"></i></li>
                     <c:if test="${sessionScope.account != null}">
-                    <li class="dropdown">
-                        <!--<i class="fa-solid fa-user"></i>-->
-                        <span><a href="logout">Logout</a></span>
-                    </li>
-                </c:if>
+                    <li style="    margin-right: 10px;
+                        margin-left: 10px;"><a class="dropdown-item" href="logout">Logout</a></li>
+                    </c:if>
             </ul>
         </div>
     </nav>

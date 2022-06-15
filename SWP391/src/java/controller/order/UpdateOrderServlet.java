@@ -8,6 +8,8 @@ package controller.order;
 import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Order;
+import model.OrderDetail;
+import service.EmailService;
+import service.EmailServiceIml;
 
 /**
  *
@@ -61,6 +66,7 @@ public class UpdateOrderServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession();
         Account acocunt = (Account) session.getAttribute("account");
         OrderDAO orderDAO = new OrderDAO();
@@ -74,10 +80,12 @@ public class UpdateOrderServlet extends HttpServlet {
                 PrintWriter out = response.getWriter();
                 out.println("access denied");
             } else {
+                
+//                get updated infor
                 String shipName = request.getParameter("shipName");
                 String receiverGender_raw = request.getParameter("receiverGender");
                 boolean gender;
-                if(receiverGender_raw.equals("1")){
+                if (receiverGender_raw.equals("1")) {
                     gender = true;
                 } else {
                     gender = false;
@@ -86,9 +94,37 @@ public class UpdateOrderServlet extends HttpServlet {
                 String shipMobile = request.getParameter("shipMobile");
                 String shipAddress = request.getParameter("shipAddress");
                 String shipCity = request.getParameter("shipCity");
-                orderDAO.updateOrder(myOrder, shipName, gender, shipEmail, shipMobile, shipAddress, shipCity);
+                String payment = request.getParameter("payment");
+                orderDAO.updateOrder(myOrder, shipName, gender, shipEmail, shipMobile, shipAddress, shipCity, payment);
                 
+                System.out.println(shipName);
+                System.out.println(gender);
+                System.out.println(shipEmail);
+                System.out.println(shipMobile);
+                System.out.println(shipAddress);
+                System.out.println(shipCity);
+                System.out.println(payment);
+//                send mail
+                String message = "Your order has been updated!\n";
+                message += "Ship Name: " + shipName + "\n";
+                message += "Ship Email: " + shipEmail + "\n";
+                message += "Ship Mobile: " + shipMobile + "\n";
+                message += "Ship Address: " + shipAddress + "\n";
+                message += "Ship City: " + shipCity + "\n";
+                message += "Payment: " + payment + "\n";
+
+                EmailServiceIml sendMail = new EmailServiceIml();
+                sendMail.sendEmail(getServletContext(), acocunt, "update", message);
+
+//                get new order
                 myOrder = orderDAO.getOrderByOrderID(myOrder.getOrder_id());
+                
+//                set payment
+                List<String> payments = new ArrayList<String>();
+                payments.add("Ship COD");
+                payments.add("BANK TRANSFER");
+                payments.add("VN PAY");
+                request.setAttribute("payments", payments);
                 request.setAttribute("order", myOrder);
                 request.setAttribute("message", "Successfully");
                 request.getRequestDispatcher("updateorders.jsp").forward(request, response);
@@ -110,6 +146,7 @@ public class UpdateOrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession();
         Account acocunt = (Account) session.getAttribute("account");
         OrderDAO orderDAO = new OrderDAO();
@@ -122,6 +159,14 @@ public class UpdateOrderServlet extends HttpServlet {
                 PrintWriter out = response.getWriter();
                 out.println("access denied");
             } else {
+                String message = "Your order have been canceled.\nProduct List: \n";
+                for (OrderDetail o : myOrder.getOrderDetailList()) {
+                    message += o.getProduct().getName() + "   " + o.getPrice() + " x " + o.getQuantity() + "\n";
+                }
+                message += (myOrder.getTotal_price() + myOrder.getFreight());
+
+                EmailServiceIml sendMail = new EmailServiceIml();
+                sendMail.sendEmail(getServletContext(), acocunt, "cancel", message);
                 orderDAO.cancelOrder(myOrder);
                 response.sendRedirect("home");
             }

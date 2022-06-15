@@ -58,7 +58,7 @@
                                             <div> and ${i.orderDetailList.size()-1} more</div></c:if>
                                             <div style="height: 10px;"></div>
                                         </div>
-                                        <div class="total-cost flex"><span><fmt:formatNumber type="currency" value="${i.total_price}" currencySymbol="VNĐ"></fmt:formatNumber></span></div>
+                                    <div class="total-cost flex"><span><fmt:formatNumber type="currency" value="${i.total_price}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></span></div>
                                         <div class="status flex">
                                             <span>
                                             <c:if test="${i.status == 0}">Cancel</c:if>

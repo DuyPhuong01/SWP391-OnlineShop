@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -197,6 +199,14 @@ public class AccountDAO extends DBContext {
         }
         return 0;
     }
+        public List getCustomersByDays(LocalDate start, LocalDate end){
+            List list = new ArrayList<>();
+            for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
+                list.add(getNumberOfRegisteredCustomerByDay(i));
+            }
+            
+            return list;
+        }
     public static void main(String[] args) {
         AccountDAO adb = new AccountDAO();
         LocalDate start = LocalDate.parse("2022-06-12",DateTimeFormatter.ISO_LOCAL_DATE );

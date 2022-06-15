@@ -360,9 +360,9 @@ public class OrderDAO extends DBContext {
         return 0;
     }
 
-    public void updateOrder(Order order, String shipName, boolean shipGender, String shipEmail, String shipMobile, String shipAddress, String shipCity) {
+    public void updateOrder(Order order, String shipName, boolean shipGender, String shipEmail, String shipMobile, String shipAddress, String shipCity, String payment) {
         String sql = "update orders\n"
-                + "set ship_name = ?, ship_address = ?, ship_gender = ?, ship_mobile = ?, ship_email = ?, ship_city = ? where order_id = ?";
+                + "set ship_name = ?, ship_address = ?, ship_gender = ?, ship_mobile = ?, ship_email = ?, ship_city = ?, payment = ? where order_id = ?";
         try{
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, shipName);
@@ -371,7 +371,8 @@ public class OrderDAO extends DBContext {
             st.setString(4, shipMobile);
             st.setString(5, shipEmail);
             st.setString(6, shipCity);
-            st.setInt(7, order.getOrder_id());
+            st.setString(7, payment);
+            st.setInt(8, order.getOrder_id());
             st.executeUpdate();
         } catch(SQLException e){
             
@@ -384,7 +385,7 @@ public class OrderDAO extends DBContext {
 
     public static void main(String[] args) {
         OrderDAO orderDAO = new OrderDAO();
-        System.out.println(orderDAO.getOrderByUserIdAndOrderId(3, 32).getOrderDetailList().size());
+        orderDAO.updateOrder(orderDAO.getOrderByOrderID(35), "a", true, "a", "a", "a", "a", "VN PAY");
     }
 
 }
