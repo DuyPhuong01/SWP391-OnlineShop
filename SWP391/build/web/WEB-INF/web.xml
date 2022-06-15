@@ -16,7 +16,7 @@
     </context-param>
     <context-param>
         <param-name>pass</param-name>
-        <param-value>Nogiver1</param-value>
+        <param-value>pass</param-value>
     </context-param>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
