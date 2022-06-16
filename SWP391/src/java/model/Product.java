@@ -13,9 +13,12 @@ import java.util.List;
  */
 public class Product {
     private int product_id;
-    private String title;
+    private String name;
+    private String model;
+    private String thumbnail;
+    private String briefInfor;
     private List<ProductImage> images;
-    private ProductCategory category;
+    private SubCategory subCategory;
     private int unit_in_stock;
     private String updated_date;
     private double original_price;
@@ -28,11 +31,27 @@ public class Product {
     public Product() {
     }
 
-    public Product(int product_id, String title, List<ProductImage> images, ProductCategory category, int unit_in_stock, String updated_date, double original_price, double sale_price, String product_details, List<Feedback> feedbacks, boolean featured, int status) {
+    public Product(int product_id, String name, String model, String thumbnail, String briefInfor, SubCategory subCategory, int unit_in_stock, double original_price, double sale_price, int status) {
         this.product_id = product_id;
-        this.title = title;
+        this.name = name;
+        this.model = model;
+        this.thumbnail = thumbnail;
+        this.briefInfor = briefInfor;
+        this.subCategory = subCategory;
+        this.unit_in_stock = unit_in_stock;
+        this.original_price = original_price;
+        this.sale_price = sale_price;
+        this.status = status;
+    }
+
+    public Product(int product_id, String name, String model, String thumbnail, String briefInfor, List<ProductImage> images, SubCategory subCategory, int unit_in_stock, String updated_date, double original_price, double sale_price, String product_details, List<Feedback> feedbacks, boolean featured, int status) {
+        this.product_id = product_id;
+        this.name = name;
+        this.model = model;
+        this.thumbnail = thumbnail;
+        this.briefInfor = briefInfor;
         this.images = images;
-        this.category = category;
+        this.subCategory = subCategory;
         this.unit_in_stock = unit_in_stock;
         this.updated_date = updated_date;
         this.original_price = original_price;
@@ -51,12 +70,36 @@ public class Product {
         this.product_id = product_id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getBriefInfor() {
+        return briefInfor;
+    }
+
+    public void setBriefInfor(String briefInfor) {
+        this.briefInfor = briefInfor;
     }
 
     public List<ProductImage> getImages() {
@@ -67,12 +110,12 @@ public class Product {
         this.images = images;
     }
 
-    public ProductCategory getCategory() {
-        return category;
+    public SubCategory getSubCategory() {
+        return subCategory;
     }
 
-    public void setCategory(ProductCategory category) {
-        this.category = category;
+    public void setSubCategory(SubCategory subCategory) {
+        this.subCategory = subCategory;
     }
 
     public int getUnit_in_stock() {
@@ -138,6 +181,5 @@ public class Product {
     public void setStatus(int status) {
         this.status = status;
     }
-
-
+    
 }

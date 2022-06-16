@@ -15,6 +15,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/stylehomepage.css">
+        <!-- ===== Boxicons CSS ===== -->
+        <link
+            href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
+            rel="stylesheet"
+            />
         <!--font-awesome-->
         <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
@@ -24,7 +29,7 @@
             <c:import url="navbar.jsp"></c:import>
             </div>
             <div class="container-lg">
-                <div id="carouselExampleCaptions" class="carousel slide mb-3" data-bs-ride="false">
+                <div id="carouselExampleCaptions" class="carousel slide mb-3" data-bs-ride="true">
                     <div class="carousel-indicators">
                     <%
                         int index = 0;
@@ -36,10 +41,10 @@
                         %>
                     </c:forEach>
                 </div>
-                <div class="carousel-inner">
+                <div class="carousel-inner rounded">
                     <c:forEach var="slider" items="${requestScope.slidersList}">
                         <div class="carousel-item">
-                            <a href="${slider.url}"><img src="${slider.imagePath}" class="d-block w-100 rounded" alt="${slider.title}"></a>
+                            <a href="${slider.url}"><img src="${slider.imagePath}" class="d-block w-100" alt="${slider.title}"></a>
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>${slider.title}</h5>
                                 <p>Some representative placeholder content for the first slide.</p>
@@ -86,15 +91,15 @@
                             <div class="text-center">
                                 <h3 class="pb-3 text-uppercase font-weight-bold">Feature items</h3>
                             </div>
-                            <c:forEach var="product" items="${requestScope.activeProductsList}">
+                            <c:forEach var="product" items="${requestScope.productsList}">
                                 <div class="col-3 mb-3">
                                     <div class="card product-card">
                                         <a href="product?id=${product.product_id}">
-                                            <img src="${product.images.get(0).path}" class="card-img-top">
+                                            <img src="${product.thumbnail}" class="card-img-top">
                                         </a>
                                         <div class="card-body">
-                                                <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.title}">
-                                                <h6 class="card-title product-title">${product.title}</h6>
+                                                <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.name}">
+                                                <h6 class="card-title product-title">${product.name}</h6>
                                             </a>
                                             <h6 class="card-subtitle mb-2 text-muted">
                                                 <c:if test="${product.sale_price != 0}">
@@ -102,7 +107,7 @@
                                                     <span style="color: red;"> <fmt:formatNumber value="${product.sale_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></span></c:if>
                                                 <c:if test="${product.sale_price == 0}"><span><fmt:formatNumber value="${product.original_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></span></c:if>
                                                 </h6>
-                                                <p class="brief-infor">${product.product_details}</p>
+                                                <p class="brief-infor">${product.briefInfor}</p>
                                             <a href="product?id=${product.product_id}" type="button" class="btn btn-outline-primary">Details</a>
                                         </div>
                                     </div>

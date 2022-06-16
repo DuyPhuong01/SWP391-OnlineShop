@@ -13,85 +13,106 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/styleproductlist.css">
+        <link rel="stylesheet" href="css/stylefooter.css">
 
+        <!--font-awesome-->
+        <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
 
-    <body>
+    <body onload="autoCollapse()">
         <div class="header">
             <!-- navbar -->
             <c:import url="navbar.jsp"></c:import>
                 <!-- end navbar -->
             </div>
+                <div class="page-product-breadcrumb container-lg flex" style="margin-bottom: 10px;">
+            <c:if test="${requestScope.subCategoryId != null}">
+                <div class="breadcrumb-item-product"><a href="home">Home</a></div>
+                <div class="breadcrumb-item-product"> / </div>
+                <div class="breadcrumb-item-product"><a href="productslist">Product List</a></div>
+                <div class="breadcrumb-item-product"> / </div>
+                <div class="breadcrumb-item-product"><a href="productslist?categoryId=${requestScope.categoryIdParent.category_id}">${requestScope.categoryIdParent.category_name}</a></div>
+                <div class="breadcrumb-item-product"> / </div>
+                <div class="breadcrumb-item-product"><a href="productslist?subCategoryId=${requestScope.subCategoryId.id}">${requestScope.subCategoryId.name}</a></div>
+            </c:if>
+            <c:if test="${requestScope.categoryId != null}">
+                <div class="breadcrumb-item-product"><a href="home">Home</a></div>
+                <div class="breadcrumb-item-product">></div>
+                <div class="breadcrumb-item-product"><a href="productslist">Product List</a></div>
+                <div class="breadcrumb-item-product">></div>
+                <div class="breadcrumb-item-product"><a href="productslist?categoryId=${requestScope.categoryId.category_id}">${requestScope.categoryId.category_name}</a></div>
+            </c:if>
+            </div>
             <div class="container-lg">
                 <div class="row">
                     <div class="col-3">
-                        <c:import url="sider.jsp"></c:import>
+                    <c:import url="sider.jsp"></c:import>
                     </div>
                     <!--product list-->
                     <div class="col-9">
                         <div class="p-3 bg-white rounded shadow-sm">
+                            <div class="p-2 bg-light rounded d-flex justify-content-between">
+                                <div class="input-group w-25">
+                                    <span class="input-group-text" id="basic-addon1">Sort by</span>
+                                    <select class="form-control" name="orderOption" id="order-by" onchange="searchProductByChangeOrderOption()"  aria-describedby="basic-addon1">
+                                        <option value="newest" ${requestScope.orderOption eq "newest"?"selected":""}/> Newest 
+                                    <option value="oldest" ${requestScope.orderOption eq "oldest"?"selected":""}/> Oldest 
+                                    <option value="lowestPrice" ${requestScope.orderOption eq "lowestPrice"?"selected":""}/> Lowest Price 
+                                    <option value="highestPrice" ${requestScope.orderOption eq "highestPrice"?"selected":""}/> Highest Price 
+                                </select>
+                            </div>
+                            <!--pagination-->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" style="margin-bottom: 0;">
+                                    <li class="page-item"><button class="page-link" <c:if test="${requestScope.pageNumber == 1}">disabled</c:if> onclick="nextProductPage(${requestScope.pageNumber - 1});"><i class="fa-solid fa-less-than"></i></button></li>
+                                    <li class="page-item"><a class="page-link" href="#">${requestScope.pageNumber} / ${requestScope.numberPage}</a></li>
+                                    <li class="page-item"><button class="page-link" <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if> onclick="nextProductPage(${requestScope.pageNumber + 1});"><i class="fa-solid fa-greater-than"></i></button></li>
+                                    </ul>
+                                </nav>
+                                <!--end pagination-->
+                            </div>
+                            <!--product list-->
                             <div class="row product-list-container">
-                            <c:forEach items="${requestScope.productListByPage}" var="product">
-                                <div class="col-3 mb-3">
-                                    <div class="card product-card">
-                                        <a href="product?id=${product.product_id}">
-                                            <img src="${product.images.get(0).path}" class="card-img-top" alt="...">
-                                        </a>
+                            <c:forEach items="${requestScope.productListByPage}" var="i">
+                                <div class="col-3 product-container">
+                                    <div class="card" onmouseover="displayProductAction(this);" onmouseout="HideProductAction(this);">
+                                        <c:if test="${i.unit_in_stock == 0}">
+                                            <div class="out-stocks">
+                                                SOLD OUT
+                                            </div>
+                                        </c:if>
+
+                                        <a href="product?id=${i.product_id}" class="product-thumbnail"><img src="${i.thumbnail}" class="card-img-top" alt="..." id="product-thumbnail" onmouseover="zoomIn(this);" onmouseout="zoomOut(this);"></a>
                                         <div class="card-body">
-                                            <a href="product?id=${product.product_id}"  data-bs-toggle="tooltip" title="${product.title}">
-                                                <h6 class="card-title product-title font-weight-bold">${product.title}</h6>
+                                            <a href="product?id=${i.product_id}" data-bs-toggle="tooltip" title="${i.name}">
+                                                <h6 class="card-title product-title font-weight-bold">${i.name}</h6>
                                             </a>
                                             <h6 class="card-subtitle mb-2 text-muted">
-                                                <c:if test="${product.sale_price != 0}">
-                                                    <span class="text-decoration-line-through"><fmt:formatNumber value="${product.original_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></span>
-                                                    <span style="color: red;"> <fmt:formatNumber value="${product.sale_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></span>
-                                                </c:if>
-                                                <c:if test="${product.sale_price == 0}"><span><fmt:formatNumber value="${product.original_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></span></c:if>
-                                            </h6>
-                                            <p class="card-text brief-infor">${product.product_details}</p>
+                                                <c:if test="${i.sale_price != 0}"><span class="text-decoration-line-through"><fmt:formatNumber value="${i.original_price}" type="currency" currencySymbol="đ"/></span> <span style="color: red;"> <fmt:formatNumber value="${i.sale_price}" type="currency" currencySymbol="đ"/></span></c:if>
+                                                <c:if test="${i.sale_price == 0}"><span><fmt:formatNumber value="${i.original_price}" type="currency" currencySymbol="đ" /></span></c:if>
+                                                </h6>
+                                                <p class="card-text">${i.briefInfor}</p>
+                                        </div>
+                                        <div class="buy-form-container">
                                             <form action="buy" method="post">
-                                                <input type="text" name="id" value="${product.product_id}" hidden="true">
+                                                <input type="text" name="id" value="${i.product_id}" hidden="true">
                                                 <input type="number" name="quantity" value="1" hidden="true">
-                                                <div class="d-flex justify-content-between">
-                                                    <a href="feedbeck?id=${product.product_id}" type="button" class="btn btn-outline-primary">Feedback</a>
-                                                    <button type="submit" class="btn btn-outline-primary">Buy</button>
-                                                </div>
+                                                <button type="submit" class="btn buy-product-button" <c:if test="${i.unit_in_stock == 0}">disabled</c:if>>Buy</button>
+                                                <a href="feedback?id=${i.product_id}" class="btn feedback-product-button">Feedback</a>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </c:forEach>
                         </div>
-                        <!--pagination-->
-                        <nav aria-label="Page navigation example" class="paging">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item <c:if test="${requestScope.pageNumber==1}">disabled</c:if>">
-                                    <a class="page-link" href="productslist?page=${requestScope.pageNumber-1}" aria-label="Previous">
-                                        <span aria-hidden="true">Previous</span>
-                                    </a>
-                                </li>
-                                <c:if test="${requestScope.pageNumber!=1}">
-                                    <li class="page-item"><a class="page-link" href="productslist?page=${requestScope.pageNumber-1}">${requestScope.pageNumber-1}</a></li>
-                                </c:if>
-                                <li class="page-item"><a class="page-link" href="productslist?page=${requestScope.pageNumber}">${requestScope.pageNumber}</a></li>
-                                <li class="page-item"><a class="page-link" href="productslist?page=${requestScope.pageNumber+1}">${requestScope.pageNumber+1}</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="productslist?page=${requestScope.pageNumber+1}" aria-label="Next">
-                                        <span aria-hidden="true">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                        <!--end pagination-->
+                        <!--end product list-->
                     </div>
                 </div>
                 <!--end product list-->
             </div>
         </div>
         <!--footer-->
-        <div class="footer">
             <c:import url="footer.jsp"></c:import>
-        </div>      
         <!--end footer-->
     </body>
     <script src="js/productssearchfunction.js"></script>
@@ -99,7 +120,8 @@
 
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+                                            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                                            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>
+    <script src="js/productanimation.js"></script>
 </html>

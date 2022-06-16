@@ -5,6 +5,9 @@
  */
 package model;
 
+import dal.SubCategoryDAO;
+import java.util.List;
+
 /**
  *
  * @author Admin
@@ -13,7 +16,7 @@ public class ProductCategory {
     private int category_id;
     private String category_name, description;
     private int status;
-    
+    private List<SubCategory> subCategoryList;
     public ProductCategory() {
     }
 
@@ -56,4 +59,12 @@ public class ProductCategory {
         this.status = status;
     }
     
+        public List<SubCategory> getSubCategoryList() {
+        return subCategoryList;
+    }
+
+    public void setSubCategoryList() {
+        SubCategoryDAO scd = new SubCategoryDAO();
+        this.subCategoryList = scd.getSubCategoryByCategoryId(category_id);
+    }
 }
