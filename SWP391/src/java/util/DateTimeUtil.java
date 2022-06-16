@@ -8,7 +8,9 @@ package util;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -36,15 +38,14 @@ public class DateTimeUtil {
         LocalDate end = LocalDate.parse(sdf.format(date), DateTimeFormatter.ISO_LOCAL_DATE).plusDays(1);
         return end;
     }
-    public static String getStringOfDateItems(LocalDate start, LocalDate end){
-        String result = "";
+    public static List<String> getStringOfDateItems(LocalDate start, LocalDate end){
+        List<String> list = new ArrayList<>();
         for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
-            result += i.toString()+";";
+            list.add(i.toString());
         }
-        result = result.substring(0, result.length()-1);
-        return result;
+        return list;
     }
     public static void main(String[] args) {
-        System.out.println(getStringOfDateItems(getStartDateDefault(), getEndDateDefault()));
+        System.out.println(getStringOfDateItems(getStartDateDefault(), getEndDateDefault()).get(6));
     }
 }

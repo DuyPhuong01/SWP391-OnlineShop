@@ -42,6 +42,9 @@ public class EmailServiceIml implements EmailService {
     private static final String EMAIL_WELCOME_SUBJECT = "Welcome to OnlineShop";
     private static final String EMAIL_REGISTER_ACTIVE = "OnlineShop - Active Account!";
     private static final String EMAIL_FORGOT_PASSWORD = "OnlineShop - New Password";
+    private static final String EMAIL_CANCEL_ORDER = "OnlineShop - Cancel Order";
+    private static final String EMAIL_UPDATE_ORDER = "OnlineShop - Update Order";
+
     private static final String EMAIL_CONFIRMATION_ORDER = "OnlineShop - CONFIRMATION ORDER";
     private static final String EMAIL_UPDATE_METHOD_ORDER = "OnlineShop - UPDATE ORDER";
     @Override
@@ -70,6 +73,18 @@ public class EmailServiceIml implements EmailService {
                     subject = EMAIL_FORGOT_PASSWORD;
                     content = "Dear " + recipient.getFull_name() + " , we send you the reset password link!\n"
                             + "Click the link below to come to reset password:\n"
+                            + text + "\n"
+                            + "Thank you very much!\n";
+                    break;
+                case "cancel":
+                    subject = EMAIL_CANCEL_ORDER;
+                    content = "Dear " + recipient.getFull_name() + ",\n"
+                            + text + "\n"
+                            + "Thank you very much!\n";
+                    break;
+                case "update":
+                    subject = EMAIL_UPDATE_ORDER;
+                    content = "Dear " + recipient.getFull_name() + ",\n"
                             + text + "\n"
                             + "Thank you very much!\n";
                     break;

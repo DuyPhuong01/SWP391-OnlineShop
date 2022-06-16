@@ -12,7 +12,6 @@ import dal.OrderDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.exit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -190,6 +189,11 @@ public class ShowCartServlet extends HttpServlet {
                 PrintWriter out = response.getWriter();
                 out.println("access denied");
             } else {
+                List<String> payments = new ArrayList<String>();
+                payments.add("Ship COD");
+                payments.add("BANK TRANSFER");
+                payments.add("VN PAY");
+                request.setAttribute("payments", payments);
                 request.setAttribute("order", myOrder);
                 request.getRequestDispatcher("updateorders.jsp").forward(request, response);
             }

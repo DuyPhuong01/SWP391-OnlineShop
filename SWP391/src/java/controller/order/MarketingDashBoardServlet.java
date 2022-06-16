@@ -5,16 +5,15 @@
  */
 package controller.order;
 
+import com.google.gson.Gson;
 import dal.AccountDAO;
 import dal.FeedbackDAO;
 import dal.PostDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -67,6 +66,8 @@ public class MarketingDashBoardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+//        get session account
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         if (account != null) {
@@ -84,36 +85,41 @@ public class MarketingDashBoardServlet extends HttpServlet {
             totalProductFeedbacks = feedbackDAO.getTotalProductFeedbacks();
             totalProducts = productDAO.getTotalProducts();
 
+//            get startdate and enddate
             String startDate = request.getParameter("startDate");
             String endDate = request.getParameter("endDate");
             LocalDate start, end;
+            
+//            set default if null and convert from string to LocalDate
             if (startDate == null) {
                 start = DateTimeUtil.getStartDateDefault();
                 end = DateTimeUtil.getEndDateDefault();
-                System.out.println(start);
-                System.out.println(end);
+                
             } else {
                 start = DateTimeUtil.getStartDate(startDate);
                 end = DateTimeUtil.getEndDate(endDate);
             }
-
-            String getNumberOfCustomerByDay = "";
-            for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
-                getNumberOfCustomerByDay += accountDAO.getNumberOfRegisteredCustomerByDay(i) + ";";
-            }
-
-            getNumberOfCustomerByDay = getNumberOfCustomerByDay.substring(0, getNumberOfCustomerByDay.length() - 1);
-            String getDates = DateTimeUtil.getStringOfDateItems(start, end);
-
+            
+//            get statistic of new customer by day
+            List newCustomers = accountDAO.getCustomersByDays(start, end);
+            List<String> dates = DateTimeUtil.getStringOfDateItems(start, end);
+            for (int i = 0; i < dates.size(); i++) {
+                System.out.println(dates.get(i));
+        }
+            
+//            chart type
+            request.setAttribute("chartType", "bar");
+            
+            //start and end date
             request.setAttribute("startDate", start);
             request.setAttribute("endDate", end.minusDays(1));
 //        set attribute
-            request.setAttribute("dates", getDates);
-            request.setAttribute("customers", getNumberOfCustomerByDay);
+            request.setAttribute("dates", dates);
+            request.setAttribute("customers", newCustomers);
 
+             //statistic 
             request.setAttribute("totalPosts", totalPosts);
             request.setAttribute("totalAccounts", totalAccounts);
-//        request.setAttribute("totalGeneralFeedbacks", totalGeneralFeedbacks);
             request.setAttribute("totalProducts", totalProducts);
             request.setAttribute("totalFeedbacks", totalProductFeedbacks + totalGeneralFeedbacks);
             request.getRequestDispatcher("marketingdashboard.jsp").forward(request, response);

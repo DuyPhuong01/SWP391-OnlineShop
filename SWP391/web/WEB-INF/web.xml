@@ -36,7 +36,7 @@
     </context-param>
     <context-param>
         <param-name>vnpay_qr_code</param-name>
-        <param-value>images/banking_image/vn_pay_qr.JPEG</param-value>
+        <param-value>images/banking_image/vn_pay.png</param-value>
     </context-param>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

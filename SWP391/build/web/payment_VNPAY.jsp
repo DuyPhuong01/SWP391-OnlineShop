@@ -22,7 +22,7 @@
           </div>
           <div class="modal-body">
               <div class="qrcode">
-                  <img src="${initParam['account_number']}" />
+                  <img src="${initParam['vnpay_qr_code']}" />
               </div>
           </div>
           <div class="modal-footer">

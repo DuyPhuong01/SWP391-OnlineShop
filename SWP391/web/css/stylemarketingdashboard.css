@@ -258,13 +258,15 @@
 }
 .trends-of-new-customer input{
     margin-left: 10px;
-    border-radius: 5px;
+    color: #141619;
+    height: 40px;
+    padding-left: 10px;
 }
 .trends-of-new-customer button{
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border: none;
-    width: 35px;
+    width: 40px;
     background: #425164;
     border-left: 1px solid #283744;
     color: #fff;
@@ -293,4 +295,12 @@
 }
 .left-side{
     height: 1000px;
+}
+#mess{
+    float: right;
+    margin-right: 20px;
+    color: red;
+    visibility: hidden;
+    height: 24px;
+    display: inline-block;
 }

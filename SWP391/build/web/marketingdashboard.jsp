@@ -76,16 +76,19 @@
                                         <h2>Trends of new customers</h2>
                                         <div>
                                             <span><label for="start-date">From: </label></span>
-                                            <input type="date" id="start-date" required name="startDate" value="${requestScope.startDate}"/>
+                                            <input type="date" id="start-date" required name="startDate" value="${requestScope.startDate}" onchange="checkFirstDateInput(this);"/>
                                         </div>
                                         <div>
                                             <span><label for="end-date">End: </label></span>
-                                            <input type="date" id="end-date" required name="endDate" value="${requestScope.endDate}"/>
+                                            <input type="date" id="end-date" required name="endDate" value="${requestScope.endDate}" onchange="checkEndDateInput(this);"/>
                                         </div>
                                         <div>
                                             <button><i class="fas fa-search"></i></button>
                                         </div>
                                     </form>
+                                </div>
+                                <div id="mess">
+                                    a
                                 </div>
                             </div>
                             <div class="bg-white">
@@ -93,20 +96,34 @@
 
                                     <canvas id="myChart" width="400" height="400"></canvas>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
                 </section>
             </aside>
         </div>
-
-        <input type="hidden" value="${requestScope.dates}" id="dates"/>
-        <input type="hidden" value="${requestScope.customers}" id="customers"/>
     </body>
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     </script>
     <script src="js/marketingchart.js"></script>
+    <script>
+                                                let labels = [], datas = [];
+                                                let type;
+                                                type = '${requestScope.chartType}';
+
+                                                let colors = [];
+                                                color = getColorArray(${requestScope.dates.size()}).split(";");
+        <c:forEach items="${requestScope.dates}" var="i">
+                                                labels.push('${i}');
+        </c:forEach>
+        <c:forEach items="${requestScope.customers}" var="i">
+                                                datas.push(${i});
+        </c:forEach>
+                                                window.onload = function () {
+                                                    createChart(type, labels, datas, color);
+                                                };
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </html>
