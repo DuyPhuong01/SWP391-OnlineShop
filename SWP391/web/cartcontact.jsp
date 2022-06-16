@@ -153,12 +153,12 @@
                             </tbody>
                         </table>
                         <ul class="list-unstyled mb-4">
-                            <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
-                                <span><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>
+                            <li class="d-flex justify-content-between py-3 border-bottom" price-item>Sub Total
+                                <span class="price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>
                             </li>
                             <li class="d-flex justify-content-between py-3 border-bottom">Shopping Fee
                              <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
-                                      <span><fmt:formatNumber value="${freight}" type="currency" currencySymbol="đ"/></span>
+                                 <span class="price-item"><fmt:formatNumber value="${freight}" type="currency" currencySymbol="đ"/></span>
                             </li>
                             </li>
                             <li class="d-flex justify-content-between py-3 border-bottom">Total Cost

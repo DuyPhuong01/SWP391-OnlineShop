@@ -12,12 +12,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Order;
 
 /**
  *
  * @author Admin
  */
-public class DeleteOrderServlet extends HttpServlet {
+public class Cancel_OrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +37,10 @@ public class DeleteOrderServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteOrderServlet</title>");
+            out.println("<title>Servlet Cancel_Order</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteOrderServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Cancel_Order at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,14 +72,15 @@ public class DeleteOrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
+         try {
 
             int oderID = Integer.parseInt(request.getParameter("order_id"));
             OrderDAO orderDAO = new OrderDAO();
-            orderDAO.DeleteOrderByOrderID(oderID);
+            Order order=orderDAO.getOrderByOrderID(oderID);
+            orderDAO.cancelOrder(order);
             PrintWriter out = response.getWriter();
             out.println("<script type=\"text/javascript\">");
-            out.println("alert('Delete successfully');");
+            out.println("alert('Cancel successfully');");
             out.println("window.location.href = \"showcart\";");
             out.println("</script>");
         } catch (Exception e) {

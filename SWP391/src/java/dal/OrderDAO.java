@@ -380,9 +380,5 @@ public class OrderDAO extends DBContext {
         return new Order(rs.getInt("order_id"), rs.getInt("user_id"), rs.getString("order_date"), rs.getString("require_date"), rs.getString("shipped_Date"), rs.getInt("ship_via"), rs.getDouble("freight"), rs.getString("ship_name"), rs.getString("ship_address"), rs.getBoolean("ship_gender"), rs.getString("ship_mobile"), rs.getString("ship_email"), rs.getString("ship_city"), rs.getInt("status"), rs.getString("note"), rs.getString("payment"), rs.getDouble("total_price"));
     }
 
-    public static void main(String[] args) {
-        OrderDAO orderDAO = new OrderDAO();
-        System.out.println(orderDAO.getOrderByUserIdAndOrderId(3, 32).getOrderDetailList().size());
-    }
 
 }

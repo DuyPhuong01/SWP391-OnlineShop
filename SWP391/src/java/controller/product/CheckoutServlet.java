@@ -9,6 +9,7 @@ import dal.OrderDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.exit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -58,23 +59,32 @@ public class CheckoutServlet extends HttpServlet {
 
         return detailCart;
     }
-
+    
+       /*Check valid item quantity*/
+      public static boolean checkValidItem(Cart cart){
+          for (Item item : cart.getItems()) {
+              if(item.getQuantity()>item.getProduct().getUnit_in_stock()){// quantity of item > quantity in stocl
+                  return false;
+              }
+          }
+          return true;
+      }
+              
+              
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CheckoutServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CheckoutServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Some item in cart have changed');");
+            out.println("window.location.href = \"showcart\";");
+            out.println("</script>");
+        }
+        catch(Exception e){
+            System.out.println(e);
         }
     }
-
+    
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -105,7 +115,21 @@ public class CheckoutServlet extends HttpServlet {
 
         Cart cart;
         cart = new Cart(cookieContent, allproduct, userID);
-        request.setAttribute("freight",cart.getFreight());
+        if(cart.getItems().isEmpty()||cart.getItems().size()==0){//cart empty
+            try (PrintWriter out = response.getWriter()) {
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Your cart have change');");
+            out.println("window.location.href = \"showcart\";");
+            out.println("</script>");
+            return;
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
+        if(!checkValidItem(cart)){//cart invalid item
+            processRequest(request, response);
+        }
         request.setAttribute("cart", cart);
         request.setAttribute("cus", account);
         request.getRequestDispatcher("cartcontact.jsp").forward(request, response);
@@ -132,19 +156,24 @@ public class CheckoutServlet extends HttpServlet {
         Cookie[] arr = request.getCookies();  //get cookie in browsing
         String cookieContent = "";
         //convert cart content from cookie
+        Cart cart = null;
+        Order order=new Order();
         if (arr != null) {//exist cookie
             for (Cookie cookie : arr) {
                 if (cookie.getName().equals("cart"))//cookie name cart matched
                 {
                     cookieContent += cookie.getValue();
+                    cart = new Cart(cookieContent, allproduct, userID);
+                    if(!checkValidItem(cart)){// cart have invalid item
+                     processRequest(request, response);
+                     return;
+                    }else{
                     cookie.setMaxAge(0);//remove cookie
                     response.addCookie(cookie);
                 }
+                    }
             }
         }
-        Cart cart;
-        Order order=new Order();
-        cart = new Cart(cookieContent, allproduct, userID);
         //get information form
         try {
             String name = request.getParameter("name");
