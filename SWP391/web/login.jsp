@@ -12,10 +12,10 @@
         <title>Online Shopping</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--<link rel="stylesheet" href="css/stylelogin.css" />-->
+        <link rel="stylesheet" href="css/stylelogin.css" />
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 
-        <link rel="stylesheet" href="css/stylelogin.css" />
+        <!--<link rel="stylesheet" href="css/stylelogin.css" />-->
     </head>
     <body>
         <div class="overlay-login" id="divOne">
@@ -49,7 +49,30 @@
                             <form action="login" class="login" method="post">
                             </c:if>
                             <c:if test="${requestScope.signmess != null}">
-                                <form action="login" class="login" method="post" style="margin-left: -50%;">   
+                                <div class="title login" style="margin-left: -50%;">Login Form</div>
+                            </c:if>
+                            <div class="title signup">Signup Form</div>
+                        </div>
+                        <div class="form-container">
+                            <div class="slide-controls">
+                                <c:if test="${requestScope.signmess == null}">
+                                    <input type="radio" name="slide" id="login" checked />
+                                    <input type="radio" name="slide" id="signup" />
+                                </c:if>
+                                <c:if test="${requestScope.signmess != null}">
+                                    <input type="radio" name="slide" id="login" />
+                                    <input type="radio" name="slide" id="signup" checked/>
+                                </c:if>
+                                <label for="login" class="slide login">Login</label>
+                                <label for="signup" class="slide signup">Signup</label>
+                                <div class="slider-tab"></div>
+                            </div>
+                            <div class="form-inner">
+                                <c:if test="${requestScope.signmess == null}">
+                                    <form action="login" class="login" method="post">
+                                </c:if>
+                                <c:if test="${requestScope.signmess != null}">
+                                    <form action="login" class="login" method="post" style="margin-left: -50%;">
                                 </c:if>
                                 <p class="text-danger">${requestScope.mess}</p>
                                 <div class="input-box">
@@ -119,15 +142,15 @@
                                     <i class="uil uil-eye-slash toggle2"></i>
                                 </div>
 
-                                <div class="field btn">
-                                    <div class="btn-layer"></div>
-                                    <input type="submit" value="Signup" />
-                                </div>
-                            </form>
+                                    <div class="field btn">
+                                        <div class="btn-layer"></div>
+                                        <input type="submit" value="Signup" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
         <script>
             const loginText = document.querySelector(".title-text .login");
@@ -171,32 +194,32 @@
             };
 
 
-            const toggle = document.querySelector(".toggle"),
-                    input = document.querySelector(".p-input");
-            const toggle1 = document.querySelector(".toggle1"),
-                    input1 = document.querySelector(".p-input1");
-            const toggle2 = document.querySelector(".toggle2"),
-                    input2 = document.querySelector(".p-input2");
+                    const toggle = document.querySelector(".toggle"),
+                        input = document.querySelector(".p-input");
+                    const toggle1 = document.querySelector(".toggle1"),
+                        input1 = document.querySelector(".p-input1");
+                    const toggle2 = document.querySelector(".toggle2"),
+                        input2 = document.querySelector(".p-input2");
 
-            toggle.addEventListener("click", () => {
-                if (input.type === "password") {
-                    input.type = "text";
-                    toggle.classList.replace("uil-eye-slash", "uil-eye");
-                } else {
-                    toggle.classList.replace("uil-eye", "uil-eye-slash");
-                    input.type = "password";
-                }
-            });
+                    toggle.addEventListener("click", () => {
+                        if (input.type === "password") {
+                            input.type = "text";
+                            toggle.classList.replace("uil-eye-slash", "uil-eye");
+                        } else {
+                            toggle.classList.replace("uil-eye", "uil-eye-slash");
+                            input.type = "password";
+                        }
+                    });
 
-            toggle1.addEventListener("click", () => {
-                if (input1.type === "password") {
-                    input1.type = "text";
-                    toggle1.classList.replace("uil-eye-slash", "uil-eye");
-                } else {
-                    toggle1.classList.replace("uil-eye", "uil-eye-slash");
-                    input1.type = "password";
-                }
-            });
+                    toggle1.addEventListener("click", () => {
+                        if (input1.type === "password") {
+                            input1.type = "text";
+                            toggle1.classList.replace("uil-eye-slash", "uil-eye");
+                        } else {
+                            toggle1.classList.replace("uil-eye", "uil-eye-slash");
+                            input1.type = "password";
+                        }
+                    });
 
             toggle2.addEventListener("click", () => {
                 if (input2.type === "password") {

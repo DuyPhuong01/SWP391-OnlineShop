@@ -207,3 +207,9 @@ tr {
     background: rgba(0, 0, 0, 0.5);
     transition: 1s;
 }
+
+.fixed-end-bottom{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}

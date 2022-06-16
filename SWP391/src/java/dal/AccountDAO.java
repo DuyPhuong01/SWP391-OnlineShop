@@ -235,7 +235,6 @@ public class AccountDAO extends DBContext {
         } catch (SQLException e) {
         }
     }
-
     public void updatePassword(String mail, String pass) {
         String sql = "UPDATE [accounts]\n"
                 + "   SET [password] = ?\n"
