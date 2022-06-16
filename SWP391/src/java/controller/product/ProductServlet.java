@@ -2,6 +2,7 @@
 package controller.product;
 
 import dal.ProductDAO;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -9,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Product;
 
 @WebServlet(name = "ProductServlet", urlPatterns = {"/product"})
 public class ProductServlet extends HttpServlet {
@@ -40,49 +40,44 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occursz
-     */
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         ProductDAO product_dao = new ProductDAO();
         String productid_raw = request.getParameter("id");
         
         try{
             int productId = Integer.parseInt(productid_raw);
-            request.setAttribute("product", product_dao.getProductById(productId));
+            File f = new File(getFolder()+"file/product_details/product_"+productId+".html");
+            request.setAttribute("product", product_dao.getProduct(productId));
+            request.setAttribute("pageNumber", 1);
+            request.setAttribute("isExit", f.exists());
+            request.setAttribute("orderOption", "newest");
+            
             request.getRequestDispatcher("productdetails.jsp").forward(request, response);
         } catch (NumberFormatException e){
             System.out.println(e);
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    
+    public String getFolder(){
+        String path = getServletContext().getRealPath("/").replace("\\build", "");
+        File folderUpload = new File(path);
+        if (!folderUpload.exists()) {
+            folderUpload.mkdirs();
+        }
+        return path;
+    }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

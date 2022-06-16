@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <display-name>EmailSendingWebApp</display-name>
+    <!-- SMTP settings -->
+    <context-param>
+        <param-name>host</param-name>
+        <param-value>smtp.gmail.com</param-value>
+    </context-param>
+    <context-param>
+        <param-name>port</param-name>
+        <param-value>587</param-value>
+    </context-param>
+    <context-param>
+        <param-name>user</param-name>
+        <param-value>quangtvhe153307@fpt.edu.vn</param-value>
+    </context-param>
+    <context-param>
+        <param-name>pass</param-name>
+        <param-value>pass</param-value>
+    </context-param>
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>controller.authentication.LoginServlet</servlet-class>
@@ -8,6 +29,78 @@
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>controller.authentication.RegisterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>controller.authentication.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductFeedbackServlet</servlet-name>
+        <servlet-class>controller.product.ProductFeedbackServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>controller.home.HomeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BuyServlet</servlet-name>
+        <servlet-class>controller.product.BuyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <servlet-class>controller.product.CheckoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessServlet</servlet-name>
+        <servlet-class>controller.product.ProcessServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>controller.product.ProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductsListServlet</servlet-name>
+        <servlet-class>controller.product.ProductsListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCartServlet</servlet-name>
+        <servlet-class>controller.product.ShowCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActiveAccount</servlet-name>
+        <servlet-class>controller.authentication.ActiveAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartCompletionServlet</servlet-name>
+        <servlet-class>controller.product.CartCompletionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteOrderServlet</servlet-name>
+        <servlet-class>controller.product.DeleteOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>controller.authentication.ForgotPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <servlet-class>controller.authentication.ResetPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarketingDashBoardServlet</servlet-name>
+        <servlet-class>controller.order.MarketingDashBoardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyOrderServlet</servlet-name>
+        <servlet-class>controller.order.MyOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderInformationServlet</servlet-name>
+        <servlet-class>controller.order.OrderInformationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateOrderServlet</servlet-name>
+        <servlet-class>controller.order.UpdateOrderServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -15,6 +108,78 @@
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductFeedbackServlet</servlet-name>
+        <url-pattern>/feedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuyServlet</servlet-name>
+        <url-pattern>/buy</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessServlet</servlet-name>
+        <url-pattern>/process</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductsListServlet</servlet-name>
+        <url-pattern>/productslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCartServlet</servlet-name>
+        <url-pattern>/showcart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActiveAccount</servlet-name>
+        <url-pattern>/activate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartCompletionServlet</servlet-name>
+        <url-pattern>/cartcompletion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteOrderServlet</servlet-name>
+        <url-pattern>/delete_order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/forgot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <url-pattern>/resetpass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingDashBoardServlet</servlet-name>
+        <url-pattern>/marketingdashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyOrderServlet</servlet-name>
+        <url-pattern>/myorders</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderInformationServlet</servlet-name>
+        <url-pattern>/orderinformation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateOrderServlet</servlet-name>
+        <url-pattern>/updateorder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

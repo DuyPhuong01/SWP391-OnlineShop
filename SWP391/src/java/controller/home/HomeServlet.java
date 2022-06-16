@@ -35,18 +35,7 @@ public class HomeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet HomeServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        doGet(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,7 +55,10 @@ public class HomeServlet extends HttpServlet {
         PostDAO post_dao = new PostDAO();
         request.setAttribute("slidersList", slider_dao.getSliders());
         request.setAttribute("hotPostsList", post_dao.getHotActivePosts(3));
-        request.setAttribute("activeProductsList", product_dao.getNewestActiveProducts(8));
+        request.setAttribute("productsList", product_dao.getProducts(8, true));
+        request.setAttribute("pageNumber", "1");
+        request.setAttribute("orderOption", "newest");
+        request.setAttribute("mess", request.getParameter("mess"));
         request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }
 

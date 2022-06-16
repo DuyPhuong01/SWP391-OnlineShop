@@ -1,4 +1,4 @@
-/*
+  /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,6 +8,9 @@ package controller.authentication;
 import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +42,7 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
+            out.println("<title>Servlet LoginServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
@@ -61,16 +64,8 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        Cookie arr[] = request.getCookies();
-        for (Cookie o : arr) {
-            if (o.getName().equals("userC")) {
-                request.setAttribute("username", o.getValue());
-            }
-            if (o.getName().equals("passC")) {
-                request.setAttribute("password", o.getValue());
-            }
-        }
-        request.getRequestDispatcher("loginregister.jsp").forward(request, response);
+
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /**
@@ -87,16 +82,36 @@ public class LoginServlet extends HttpServlet {
 //        processRequest(request, response);
         String username = request.getParameter("user");
         String password = request.getParameter("pass");
+        String remember = request.getParameter("remember");
         AccountDAO db = new AccountDAO();
-        Account account = db.getAccountByUsernamePassword(username, password);
-        if(account != null) {   
-            HttpSession session = request.getSession();
-            session.setAttribute("account", account);
-            response.getWriter().println("login successful!");
-        }
-        else
-        {
-            response.getWriter().println("login failed");
+        Account account = db.getAccountByUsernamePassword(username, getMd5(password));
+        if (account != null) {
+            if (account.getActive() != 1) {
+                response.sendRedirect("home?mess=Your+or+account+needs+to+be+activated(check+account's+mail)#divOne");
+            } else {
+                //luu account len tren cookie
+                Cookie u = new Cookie("userC", username);
+                Cookie p = new Cookie("passC", password);
+                Cookie r = new Cookie("rememC", remember);
+
+                if (remember == null) {
+                    u.setMaxAge(0);
+                    p.setMaxAge(0);
+                    r.setMaxAge(0);
+                } else {
+                    u.setMaxAge(3600 * 24 * 30);
+                    p.setMaxAge(3600 * 24 * 30);
+                    r.setMaxAge(3600 * 24 * 30);
+                }
+                response.addCookie(u);//luu u va p len tren chrome
+                response.addCookie(p);
+                response.addCookie(r);
+                HttpSession session = request.getSession();
+                session.setAttribute("account", account);
+                response.sendRedirect("home");
+            }
+        } else {
+            response.sendRedirect("home?mess=Username+or+password+is+incorrect#divOne");
         }
     }
 
@@ -110,4 +125,28 @@ public class LoginServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public static String getMd5(String input) {
+        try {
+
+            // Static getInstance method is called with hashing MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // digest() method is called to calculate message digest
+            //  of an input digest() return array of byte
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        } // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -16,3 +16,14 @@ function searchProduct(){
     }
     window.location.replace(action);
 }
+function searchProductByChangeOrderOption(){
+    document.getElementById('order-option').value = document.getElementById('order-by').value;
+    document.getElementById('productSearchForm').submit();
+}
+function nextProductPage(pageNumber){
+    document.getElementById('page').value = pageNumber;
+    document.getElementById('productSearchForm').submit();
+}
+function autoCollapse(){
+    document.getElementById('category-active').click();
+}
