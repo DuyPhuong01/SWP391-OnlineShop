@@ -70,29 +70,29 @@
                                                 <c:if test="${order.status == 3}"><td>Active</td></c:if>
                                                 <c:if test="${order.status == 4}"><td>Transporting</td></c:if>
                                                 <c:if test="${order.status == 5}"><td>Finished</td></c:if>
-           
-                                            </tr>
-                                        </table>
+
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="card">
-                                    <div class="card-body receiver-infor">
-                                        <h5 class="card-title">Receiver Information</h5>
-                                        <table>
-                                            <tr>
-                                                <td>Fullname:</td>
-                                                <td>${order.ship_name}</td>
+                                <div class="col-8">
+                                    <div class="card">
+                                        <div class="card-body receiver-infor">
+                                            <h5 class="card-title">Receiver Information</h5>
+                                            <table>
+                                                <tr>
+                                                    <td>Fullname:</td>
+                                                    <td>${order.ship_name}</td>
                                             </tr>
                                             <tr>
                                                 <td>Gender:</td>
                                                 <c:if test="${order.ship_gender == true}"><td>Male</td></c:if>
                                                 <c:if test="${order.ship_gender == false}"><td>Female</td></c:if>
-                                            </tr>
-                                            <tr>
-                                                <td>Email:</td>
-                                                <td>${order.ship_email}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Email:</td>
+                                                    <td>${order.ship_email}</td>
                                             </tr>
                                             <tr>
                                                 <td>Mobile:</td>
@@ -129,8 +129,18 @@
                                             <p class="subtotal"><fmt:formatNumber type="currency" value="${i.price * i.quantity}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></p>
                                             </td>
                                             <td><div>
-                                                    <a href="product?id=${i.product.product_id}" class="btn btn-outline-primary action">Rebuy</a>
-                                                <a href="feedback?id=${i.product.product_id}" class="btn btn-outline-primary action">Feedback</a>
+                                                    <a href="product?id=${i.product.product_id}" class="btn action" style="    border-radius: 3px;
+                                                   border-color: black;
+                                                   margin-left: 30px;
+                                                   margin-bottom: 10px;
+                                                   color: black;
+                                                   display: block;">Rebuy</a>
+                                                <a href="feedback?id=${i.product.product_id}" class="btn action" style="    border-radius: 3px;
+                                                   border-color: black;
+                                                   margin-left: 30px;
+                                                   margin-bottom: 10px;
+                                                   color: black;
+                                                   display: block;">Feedback</a>
                                             </div>
 
                                         </td>
@@ -138,15 +148,15 @@
                                 </c:forEach>
                             </tbody>
                         </table>
-                            <form action="" method="" id="frm">
-                                <input type="hidden" value="${order.order_id}" name="orderId"/>
+                        <form action="" method="" id="frm">
+                            <input type="hidden" value="${order.order_id}" name="orderId"/>
                         </form>
                         <c:if test="${order.status == 1}">
-                            
+
                             <div style="padding-left: 10px;">
-                                <button type="submit" class="btn btn-outline-danger modify-action" style="background: #dc3545; color: #fff;" <c:if test="${order.status == 1}">onclick="cancel();"</c:if>>Cancel</button>
-                                <button type="button" class="btn btn-outline-primary modify-action" style="background: #0d6efd; color: #fff;" <c:if test="${order.status == 1}">onclick="update();"</c:if>>Update</button>
-                            </div>
+                                <button type="submit" class="btn btn-outline-danger modify-action" style="background: #dc3545; color: #fff; border-radius: 3px;" <c:if test="${order.status == 1}">onclick="cancel();"</c:if>>Cancel</button>
+                                <button type="button" class="btn btn-outline-primary modify-action" style="background: #0d6efd; color: #fff; border-radius: 3px;" <c:if test="${order.status == 1}">onclick="update();"</c:if>>Update</button>
+                                </div>
                         </c:if>
                     </div>
                 </div>
