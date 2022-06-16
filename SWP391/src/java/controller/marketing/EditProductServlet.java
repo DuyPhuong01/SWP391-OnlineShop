@@ -87,6 +87,7 @@ public class EditProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         ProductDAO p_dao = new ProductDAO();
         String action = request.getParameter("action");
@@ -112,6 +113,48 @@ public class EditProductServlet extends HttpServlet {
                         response.sendError(2, "disacivate fail");
                     }
                     break;
+                case "updateproductinformation":
+                    String name = request.getParameter("name");
+                    String model = request.getParameter("model");
+                    String unit_in_stock_raw = request.getParameter("unit_in_stock");
+                    String sub_category_id_raw = request.getParameter("subCategoryId");
+                    String original_price_raw = request.getParameter("original_price");
+                    String sale_price_raw = request.getParameter("sale_price");
+                    String brief_infor = request.getParameter("brief_infor");
+                    String product_details = request.getParameter("product_details");
+                    int unit_in_stock;
+                    int sub_category_id;
+                    int original_price;
+                    int sale_price;
+
+                    try {
+                        unit_in_stock = Integer.parseInt(unit_in_stock_raw);
+                    } catch (NumberFormatException nfe) {
+                        response.sendError(1000, "Unit in Stock in wrong format");
+                        return;
+                    }
+                    try {
+                        sub_category_id = Integer.parseInt(sub_category_id_raw);
+                    } catch (NumberFormatException nfe) {
+                        response.sendError(1000, "Sub Category in wrong format");
+                        return;
+                    }
+                    try {
+                        original_price = Integer.parseInt(original_price_raw);
+                    } catch (NumberFormatException nfe) {
+                        response.sendError(1000, "Original price in wrong format");
+                        return;
+                    }
+                    try {
+                        sale_price = Integer.parseInt(sale_price_raw);
+                    } catch (NumberFormatException nfe) {
+                        response.sendError(1000, "Sale price in wrong format");
+                        return;
+                    }
+
+                    p_dao.updateProductInformation(product_id, name, model, unit_in_stock, sub_category_id, original_price, sale_price, brief_infor, product_details);
+                    out.print("update successfull");
+                    break;
                 case "changeThumbnail":
                     //////////////////////////
                     String path = getFolderUploadPath();
@@ -124,18 +167,15 @@ public class EditProductServlet extends HttpServlet {
                             fileName = r.nextInt(10) + fileName;
                         }
                         fileName = "images/product_images/" + fileName;
-                        OutputStream output = null;
-                        InputStream filecontent = null;
                         final PrintWriter writer = response.getWriter();
 
                         try {
                             File f = new File(path + fileName);
-                            System.out.println(path + fileName);
                             if (f.exists()) {
                                 writer.println("File " + fileName + " already exist at " + path);
                             } else {
-                                output = new FileOutputStream(f);
-                                filecontent = filePart.getInputStream();
+                                OutputStream output = new FileOutputStream(f);
+                                InputStream filecontent = filePart.getInputStream();
 
                                 int read = 0;
                                 final byte[] bytes = new byte[1024];
@@ -144,15 +184,16 @@ public class EditProductServlet extends HttpServlet {
                                     output.write(bytes, 0, read);
                                 }
                             }
-                        File file = new File(path + p_dao.getProduct(product_id).getThumbnail());
-                        p_dao.changeThumbnail(product_id, fileName);
-                        TimeUnit.SECONDS.sleep(2);
-                        Product p = p_dao.getProduct(product_id);
-                        out.print(p.getThumbnail());
-                        if(file.exists()){
-                            while(!file.delete()){};
-                            System.out.println("deleted: " +path + p_dao.getProduct(product_id).getThumbnail());
-                        }
+                            File file = new File(path + p_dao.getProduct(product_id).getThumbnail());
+                            p_dao.changeThumbnail(product_id, fileName);
+                            TimeUnit.SECONDS.sleep(2);
+                            Product p = p_dao.getProduct(product_id);
+                            out.print(p.getThumbnail());
+                            if (file.exists()) {
+                                while (!file.delete()) {
+                                }
+                                System.out.println("deleted: " + path + p_dao.getProduct(product_id).getThumbnail());
+                            }
                         } catch (FileNotFoundException fne) {
                             writer.println("<br/> ERROR: " + fne.getMessage());
                         } catch (Exception e) {
@@ -161,27 +202,103 @@ public class EditProductServlet extends HttpServlet {
                     }
 ///////////////////
                     break;
+                case "deleteImage":
+                    String imagePath = request.getParameter("product_image");
+                    p_dao.deleteProductImage(product_id, imagePath);
+                    File f = new File(getFolderUploadPath() + imagePath);
+                    if (f.exists()) {
+                        while (!f.delete()) {
+                        }
+                        System.out.println("deleted: "+getFolderUploadPath() + imagePath);
+                    }
+                    break;
+                case "addImage":
+                    String path1 = getFolderUploadPath();
+                    final Part filePart1 = request.getPart("image");
+                    String fileName1 = getFileName(filePart1);
+                    Random ra = new Random();
+
+                    if (!fileName1.equals("")) {
+                        while (p_dao.checkThumbnailExist(fileName1)) {
+                            fileName1 = ra.nextInt(10) + fileName1;
+                        }
+                        fileName1 = "images/product_images/" + fileName1;
+                        final PrintWriter writer = response.getWriter();
+
+                        try {
+                            File f1 = new File(path1 + fileName1);
+                            if (f1.exists()) {
+                                writer.println("File " + fileName1 + " already exist at " + path1);
+                            } else {
+                                OutputStream output = new FileOutputStream(f1);
+                                InputStream filecontent = filePart1.getInputStream();
+
+                                int read = 0;
+                                final byte[] bytes = new byte[1024];
+
+                                while ((read = filecontent.read(bytes)) != -1) {
+                                    output.write(bytes, 0, read);
+                                }
+                            }
+                            TimeUnit.SECONDS.sleep(2);
+                        } catch (FileNotFoundException fne) {
+                            writer.println("<br/> ERROR: " + fne.getMessage());
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                    p_dao.addProductImage(product_id, fileName1);
+                    break;
             }
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
     }
 
-    private void returnResult(HttpServletResponse response, Product product)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println(product.getProduct_id()
-                    + "|" + product.getThumbnail()
-                    + "|" + product.getName()
-                    + "|" + product.getOriginal_price()
-                    + "|" + product.getSale_price()
-                    + "|" + product.getSubCategory().getName()
-                    + "|" + product.getSubCategory().getCategory().getCategory_name()
-                    + "|" + product.getStatus()
-                    + "|" + (product.isFeatured() ? "1" : "0")
-            );
+    private boolean checkExistedFile(String fileName, String path) {
+        File f = new File(path + fileName);
+        return f.exists();
+    }
+
+    private void deleteFile(String fileName, String path) {
+        File f = new File(path + fileName);
+        while (!f.delete()) {
         }
+    }
+
+    private boolean saveFile(String fileName, Part filePart, HttpServletResponse response) throws IOException {
+        String path = getFolderUploadPath();
+        Random r = new Random();
+        if (!fileName.equals("")) {
+            while (checkExistedFile("images/product_images/" + fileName, path)) {
+                fileName = r.nextInt(10) + fileName;
+            }
+            fileName = "images/product_images/" + fileName;
+            final PrintWriter writer = response.getWriter();
+
+            try {
+                File f = new File(path + fileName);
+                if (f.exists()) {
+                    writer.println("File " + fileName + " already exist at " + path);
+                } else {
+                    OutputStream output = new FileOutputStream(f);
+                    InputStream filecontent = filePart.getInputStream();
+
+                    int read = 0;
+                    final byte[] bytes = new byte[1024];
+
+                    while ((read = filecontent.read(bytes)) != -1) {
+                        output.write(bytes, 0, read);
+                    }
+                }
+                return true;
+            } catch (FileNotFoundException fne) {
+                writer.println("<br/> ERROR: " + fne.getMessage());
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return false;
     }
 
     private String getFileName(final Part part) {

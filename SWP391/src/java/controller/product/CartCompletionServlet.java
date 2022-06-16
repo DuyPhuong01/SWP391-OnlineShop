@@ -8,6 +8,7 @@ package controller.product;
 import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Base64;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -70,11 +71,15 @@ public class CartCompletionServlet extends HttpServlet {
         try {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
-          int orderID = Integer.parseInt(request.getParameter("orderid"));
+             //decode orderID
+          String orderID_raw=request.getParameter("orderid");
+          byte[] decode=Base64.getDecoder().decode(orderID_raw);
+          String OrderID_decoded=new String(decode,"UTF-8");
+          int orderID=Integer.parseInt(OrderID_decoded);
           OrderDAO orderDAO=new OrderDAO();
             Cart cartSubmitted = orderDAO.getCartSubmitted(orderID);
             Order order = orderDAO.getOrderByOrderID(orderID);
-             request.setAttribute("order", order);
+            request.setAttribute("order", order);
             request.setAttribute("cart", cartSubmitted);
             request.getRequestDispatcher("cartcompletion.jsp").forward(request, response);
         } catch (Exception e) {
@@ -107,7 +112,6 @@ public class CartCompletionServlet extends HttpServlet {
             String note = request.getParameter("note");
             int paymentID = Integer.parseInt(request.getParameter("payment"));
             String payment = getPaymentByID(paymentID);
-            System.out.println("----PAYMENT "+payment);
             String freight_raw=request.getParameter("freight");
             double freight = Double.parseDouble(freight_raw);
             double total_price = Double.parseDouble(request.getParameter("total_price"));

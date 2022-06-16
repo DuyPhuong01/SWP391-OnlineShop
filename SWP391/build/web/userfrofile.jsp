@@ -7,7 +7,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="css/style.css" rel="stylesheet">
+        <!--<link href="css/style.css" rel="stylesheet">-->
         <link rel="stylesheet" href="css/userfrofile.css">
         <link rel="stylesheet" href="css/stylelogin.css" />
 
@@ -173,7 +173,7 @@
             <div class="wrapper-login" style="max-width: 1000px; max-height: 620px; font-size:10px" >
                 <div class="container rounded bg-white mt-5 mb-5">
                     <a class="close" href="#a" id="close" onclick="Cancel_onclick(${sessionScope.account.getUser_id()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');
-                       Cancel_onclick(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');">
+                            Cancel_onclick(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');">
                         &times;
                     </a>
                     <div class="row">

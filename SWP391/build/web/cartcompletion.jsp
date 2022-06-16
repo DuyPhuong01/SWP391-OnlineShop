@@ -19,6 +19,7 @@
     <body>
         <c:set var="o" value="${requestScope.cart}" />
         <c:set var="order" value="${requestScope.order}" />
+       
         <div class="header">
             <c:import url="navbar.jsp"></c:import>
             </div>
@@ -45,8 +46,9 @@
                                 <div class="stepper">
                                     
                                 <c:if test="${order.status==0}">
-                                    <div class="stepper__step stepper__step--finish">
-                                        <div class="stepper__step-icon stepper__step-icon--finish">
+                                    <div class="stepper__step ">
+                                        <div class="stepper__step-icon " style="border-color: #df8650bd;
+    color: red;">
                                             <svg enable-background="new 0 0 32 32" viewBox="0 0 32 32" x="0" y="0" class="shopee-svg-icon icon-order-problem">
                                             <g>
                                             <g>
@@ -227,8 +229,8 @@
                                         </div>
                                     </div>
                                 </c:if>
-
                             </div>
+                       <c:if test="${order.status==1||order.status==2}">  
                             <!--return-->
                             <div class="_1umrlw">
                                 <div class="_2c2kYQ">Warning!:If you do not complete order confirmation, the order will be deleted after 1 day by the administrator </div>
@@ -241,7 +243,7 @@
                                 <div class="_2c2kYQ">
                                     Note:You can cancel your order until the active status is confirmed
                                 </div>
-                                <form action="delete_order" method="post">
+                                <form action="cancel_order" method="post">
                                 <div class="_2iv7q8">
                                     <button  type="submit" class="stardust-button stardust-button--secondary _2x5SvJ">
                                         Cancel order
@@ -250,6 +252,27 @@
                                 </div>
                                 </form>
                             </div>
+                        </c:if>       
+                       <c:if test="${order.status==3||order.status==4}">  
+                            <!--return-->
+                              <div class="_1umrlw">
+                                <div class="_2c2kYQ"> </div>
+                                <div class="_2iv7q8">
+                                    <button class="stardust-button stardust-button--primary _2x5SvJ"
+                                            onclick="window.location.href = 'productslist'">Back to product list</button>
+                                </div>
+                            </div>
+                            <div class="_1umrlw">
+                                <div class="_2c2kYQ">Waiting to next processing </div>
+                            </div>
+                        </c:if>       
+                       <c:if test="${order.status==5}">  
+                            <!--return-->
+                            <div class="_1umrlw">
+                                <div class="_2c2kYQ">Order completion </div>
+                            </div>
+                        </c:if>       
+                                
                             <!--line-->
                             <div class="j7z7l_">
                                 <div class="_1AsWWl"></div>
@@ -258,7 +281,173 @@
                             <div class="text-center">
                                 <h3 class="pb-3 text-uppercase font-weight-bold">Cart Contact</h3>
                             </div>
-                            <form class="row g-3" action="cartcompletion" method="post">
+                            <c:if test="${order.status==0||order.status>2}"> 
+                            <form id="checkout" class="row g-3" action="cartcompletion" method="post">
+                                <input hidden value="${order.order_id}" name="orderID">
+                                <div class="col-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Full name*</span>
+                                        <input disabled type="text" class="form-control" name="name"
+                                               value="${order.ship_name}" aria-describedby="basic-addon1" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Phone</span>
+                                        <input disabled type="tel" class="form-control" placeholder="+84" name="phone" value="${order.ship_mobile}"
+                                               aria-label="tel" aria-describedby="basic-addon1" required>
+
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Email</span>
+                                        <input disabled type="mail" class="form-control" placeholder="email" name="email" value="${order.ship_email}"
+                                               aria-label="email" aria-describedby="basic-addon1" required>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">City</span>
+                                        <input disabled type="text" class="form-control" placeholder="city" name="city" value="${order.ship_city}"
+                                               aria-label="city" aria-describedby="basic-addon1" required>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Gender</span>
+                                        <select name="gender" id="inputState" class="form-select" required>
+                                            <option disabled selected disabled hidden>Choose...</option>
+                                            <option  disabled value="1"<c:if test="${order.ship_gender}">selected</c:if> >Male</option>
+                                            <option  disabled value="0"<c:if test="${!order.ship_gender}">selected</c:if>>Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Address</span>
+                                            <input disabled type="text" class="form-control" placeholder="Address"
+                                                   name="address"
+                                                   value="${order.ship_address}"
+                                            aria-label="address" aria-describedby="basic-addon1" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="note" class="form-label">Note</label>
+                                    <textarea disabled class="form-control" id="note" form="checkout" name="note" rows="3">${order.note}
+                                    </textarea>
+                                </div>        
+                                <!--                            <div>
+                                                                Already have an account? <a href="login">Login</a><br />
+                                                            </div>-->
+
+                        </div>
+
+                        <div class="p-3 bg-white rounded shadow-sm cart-contain">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th >ID</th>
+                                        <th colspan="2">Product</th>
+                                        <th class="text-center">Price</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-end">Sub total</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    <c:forEach items="${o.items}" var="i">
+                                        <tr>
+                                            <td class="align-middle">
+                                                <p class="mb-0 product-id-cart-contact">
+                                                    ${i.product.product_id}
+                                                </p>
+                                            </td>
+                                            <td style="width: 10%">
+                                                <img src="${i.product.thumbnail}" alt="" width="10%" class="img-fluid rounded shadow-sm">
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="product?id=${i.product.product_id}" class="text-decoration-none text-muted"><p class="mb-0 product-title">${i.product.briefInfor}</p></a>
+                                            </td>
+                                            <td class="align-middle">
+                                                <span class="d-flex justify-content-center price-item">
+                                                    <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price}" type="currency" currencySymbol="đ"/></c:if>
+                                                    <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price}" type="currency" currencySymbol="đ" /></c:if>
+                                                    </span  >
+                                                </td>
+                                                <td class="align-middle">
+                                                    <p class="text-center mb-0">${i.quantity}</p>
+                                            </td>
+                                            <td class="align-middle">
+                                                <p class="text-end mb-0 price-item">
+                                                    <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price*i.quantity}" type="currency" currencySymbol="đ"/></c:if>
+                                                    <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price*i.quantity}" type="currency" currencySymbol="đ" /></c:if>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <ul class="list-unstyled mb-4">
+                                <li class="d-flex justify-content-between py-3 border-bottom">
+                                    <div class="payment-container col-12" style=" pointer-events: none;">
+                                        <div class="col-12">
+                                            Choose Payment Method
+                                        </div>
+                                        <div class="col-12 bg-white rounded shadow-sm main-banking">
+                                            <div class="radio-toolbar">
+                                                <input type="radio"
+                                                       <c:if test="${order.payment=='Ship COD'||order.payment==null}">checked</c:if>
+                                                       
+                                                       id="radioApple" name="payment" value="1"  onclick="checkPayment(this.value)">
+                                                <label for="radioApple">Ship COD</label>
+
+                                                <input type="radio"
+                                                       <c:if test="${order.payment=='BANK TRANSFER'}">checked</c:if>
+                                                       id="radioBanana" name="payment"  value="2" onclick="checkPayment(this.value)">
+                                                <label for="radioBanana">Banking Transfer</label>
+
+                                                <input type="radio" 
+                                                         <c:if test="${order.payment=='VN PAY'}">checked</c:if>
+                                                       id="radioOrange" name="payment" value="3" onclick="checkPayment(this.value)">
+                                                <label for="radioOrange">VNPAY QR</label> 
+                                            </div>
+
+                                           <div class="payment-content ship_cod">
+                                            <c:import url="payment_ShipCOD.jsp"></c:import>
+                                            </div>
+                                           <div class="payment-content banking_system">
+                                            <c:import url="payment_BankingSystem.jsp"></c:import>
+                                            </div>
+                                           <div class="payment-content vnpay">
+                                            <c:import url="payment_VNPAY.jsp"></c:import>
+                                            </div>
+                                            <p>&nbsp;</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
+                                    <span class="price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>
+                                </li>
+                                <li class="d-flex justify-content-between py-3 border-bottom price-item">Shopping Fee
+                                    <input type="hidden" name="freight" value="${o.freight}">
+                                   <span class="price-item"><fmt:formatNumber value="${o.freight}" type="currency" currencySymbol="đ"/></span>
+                                </li>
+                                <li class="d-flex justify-content-between py-3 border-bottom">Total Cost
+                                    <h5 class="font-weight-bold price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></h5>
+                                    <input type="hidden" name="total_price" value="${o.totalMoney+o.freight}"/>
+                                </li>
+                            </ul>
+                                
+                            <div class="col-12">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <!--<a class="btn" href="showcart">Cancel order</a>-->
+                                    <button disabled class="btn btn-outline-primary" type="submit">Finish</button>
+                                </div>
+                            </div>
+                     </form>
+                   </c:if>              
+                            <c:if test="${order.status>0&&order.status<=2}"> 
+                            <form id="checkout" class="row g-3" action="cartcompletion" method="post">
                                 <input hidden value="${order.order_id}" name="orderID">
                                 <div class="col-6">
                                     <div class="input-group mb-3">
@@ -406,13 +595,14 @@
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom">Shopping Fee
                                     <input type="hidden" name="freight" value="${o.freight}">
-                                    <span>${o.freight}</span>
+                                    <span class="price-item"><fmt:formatNumber value="${o.freight}" type="currency" currencySymbol="đ"/></span>
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom">Total Cost
-                                    <h5 class="font-weight-bold price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></h5>
-                                    <input type="hidden" name="total_price" value="${o.totalMoney-o.freight}"/>
+                                    <h5 class="font-weight-bold price-item"><fmt:formatNumber value="${o.totalMoney+o.freight}" type="currency" currencySymbol="đ"/></h5>
+                                    <input type="hidden" name="total_price" value="${o.totalMoney+o.freight}"/>
                                 </li>
                             </ul>
+                                
                             <div class="col-12">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <!--<a class="btn" href="showcart">Cancel order</a>-->
@@ -420,12 +610,14 @@
                                 </div>
                             </div>
                      </form>
+                   </c:if>              
                         </div>
 
 
                     </div>
                 </div>
             </div>
+                                   
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 

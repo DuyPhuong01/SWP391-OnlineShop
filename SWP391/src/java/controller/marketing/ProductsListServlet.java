@@ -39,18 +39,62 @@ public class ProductsListServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProductsListServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProductsListServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        ProductDAO productDAO = new ProductDAO();
+
+        String featured_raw = request.getParameter("featured");
+        String category_id_raw = request.getParameter("categoryId");
+        String sub_category_id_raw = request.getParameter("subCategoryId");
+        String orderby = request.getParameter("orderby");
+        if(featured_raw == null) featured_raw = "-1";
+        if(category_id_raw == null) category_id_raw = "-1";
+        if(sub_category_id_raw == null) sub_category_id_raw = "-1";
+        if(orderby == null) orderby = "product_id asc";
+
+        //pagination
+        String pageNumberRaw = request.getParameter("page");
+        int pageNumber, numberPage;
+        final int NUMBER_ITEMS_PER_PAGE = 8;
+
+        try {
+            //assign pageNumber = 1 if it null, otherwise parse
+             pageNumber = pageNumberRaw == null ? 1 : Integer.parseInt(pageNumberRaw);
+             
+             int featured = Integer.parseInt(featured_raw);
+             int category_id = Integer.parseInt(category_id_raw);
+             int sub_category_id = Integer.parseInt(sub_category_id_raw);
+
+            int productCount = productDAO.countAllProducts(sub_category_id, category_id, "", featured);
+            //get number of page 
+            if (productCount % NUMBER_ITEMS_PER_PAGE == 0) {
+                numberPage = productCount / NUMBER_ITEMS_PER_PAGE;
+            } else {
+                numberPage = productCount / NUMBER_ITEMS_PER_PAGE + 1;
+            }
+            //get start and end position in the list of all product
+            int start, end;
+            start = (pageNumber - 1) * NUMBER_ITEMS_PER_PAGE;
+            end = Math.min(pageNumber * NUMBER_ITEMS_PER_PAGE, productCount);
+
+//            get product by page with key = "", orderOption = newest
+            List<Product> productListByPage = productDAO.getAllProductsByRange(sub_category_id, category_id, "", orderby, start + 1, end, featured);
+
+            CategoryDAO c_dao = new CategoryDAO(); 
+            request.setAttribute("choosen_featured", featured);
+            request.setAttribute("choosen_category_id", category_id);
+            request.setAttribute("choosen_sub_category_id", sub_category_id);
+//            request.setAttribute("choosen_sub_category", c_dao.getProductCategory(category_id));
+            request.setAttribute("choosen_orderby", orderby);
+            request.setAttribute("pageNumber", pageNumber);
+            request.setAttribute("numberPage", numberPage);
+            System.out.println(pageNumber);
+            System.out.println(numberPage);
+            request.setAttribute("productListByPage", productListByPage);
+
+
+//            forward to jsp
+            request.getRequestDispatcher("/marketing/productslist.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
+            System.out.println("");
         }
     }
 
@@ -66,79 +110,7 @@ public class ProductsListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        CategoryDAO categoryDAO = new CategoryDAO();
-        ProductDAO productDAO = new ProductDAO();
-        SubCategoryDAO subCategoryDAO = new SubCategoryDAO();
-
-        //get subCategory List
-        List<SubCategory> subCategoryList; //khoi tao list chua subcategory
-
-        //chuyen category hoac subcategory thanh List chua subcategory tuong ung        
-        if (request.getParameter("categoryId") != null || request.getParameter("subCategoryId") != null) {
-            if (request.getParameter("categoryId") != null) {
-                int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-                subCategoryList = subCategoryDAO.getSubCategoryByCategoryId(categoryId);
-                request.setAttribute("categoryId", categoryDAO.getProductCategory(categoryId));
-            } else {
-                subCategoryList = new ArrayList<>();
-
-                int subCategoryId = Integer.parseInt(request.getParameter("subCategoryId"));
-                SubCategory subCategory = subCategoryDAO.getSubCategoryById(subCategoryId);
-                subCategoryList.add(subCategory);
-                ProductCategory category = categoryDAO.getProductCategoryBySubCategory(subCategoryId);
-                request.setAttribute("categoryIdParent", category);
-                request.setAttribute("subCategoryId", subCategory);
-
-            }
-            //set subcategoryList = null neu khong co parameter categoryid hoac subcategoryid
-        } else {
-            subCategoryList = null;
-        }
-
-        //get total number
-        int productCount = productDAO.countProducts(subCategoryList, "");
-        
-        
-        //pagination
-        String pageNumberRaw = request.getParameter("page");
-        int pageNumber, numberPage;
-        final int NUMBER_ITEMS_PER_PAGE = 8;
-
-        try {
-            //assign pageNumber = 1 if it null, otherwise parse
-            if (pageNumberRaw == null) {
-                pageNumber = 1;
-            } else {
-                pageNumber = Integer.parseInt(pageNumberRaw);
-
-            }
-            //get number of page 
-            if (productCount % NUMBER_ITEMS_PER_PAGE == 0) {
-                numberPage = productCount / NUMBER_ITEMS_PER_PAGE;
-            } else {
-                numberPage = productCount / NUMBER_ITEMS_PER_PAGE + 1;
-            }
-            //get start and end position in the list of all product
-            int start, end;
-            start = (pageNumber - 1) * NUMBER_ITEMS_PER_PAGE;
-            end = Math.min(pageNumber * NUMBER_ITEMS_PER_PAGE, productCount);
-
-//            get product by page with key = "", orderOption = newest
-            List<Product> productListByPage = productDAO.getProductsByRange(subCategoryList, "", "newest", start + 1, end);
-
-
-            request.setAttribute("pageNumber", pageNumber);
-            request.setAttribute("numberPage", numberPage);
-            request.setAttribute("productListByPage", productListByPage);
-
-
-//            forward to jsp
-            request.getRequestDispatcher("/marketing/productslist.jsp").forward(request, response);
-        } catch (NumberFormatException e) {
-
-        }
-        
+        processRequest(request, response);
     }
 
     /**

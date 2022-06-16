@@ -325,3 +325,10 @@ svg:not(:root) {
 label :hover{
     cursor: pointer;
 }
+.qrcode{
+    height: 80px;
+    width: 80px;
+}
+.qrcode img{
+    object-fit: contain;
+}

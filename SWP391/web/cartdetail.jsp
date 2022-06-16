@@ -49,7 +49,6 @@
                                 </thead>
                                 <tbody class="table-group-divider">
                                 <c:forEach items="${o.items}" var="i">
-                                    
                                     <tr style="height: 100px" id="items">
                                         <td class="align-middle">
                                             <p class="mb-0 product-id-cart-contact">
@@ -79,17 +78,28 @@
                                                 <div class="change-item">
                                                     <a class="btn btn-outline-success" id="down" onclick="Down(this,'${i.product.product_id}')"
                                                        >-</a>
-                                                <b id="quantity" class="quantity">${i.quantity}</b>
+                                                <c:if test="${i.quantity>i.product.unit_in_stock}">
+                                                 <b id="quantity" class="quantity">${i.product.unit_in_stock}</b>
+                                                </c:if>
+                                                <c:if test="${i.quantity<=i.product.unit_in_stock}">
+                                                 <b id="quantity" class="quantity">${i.quantity}</b>
+                                                </c:if>
                                                 <a class="btn btn-outline-success" id="up"
                                                        onclick="Up(this,'${i.product.product_id}',${i.product.unit_in_stock})"
                                                        
                                                       >+</a>
                                                     <div class="addmore-item">
                                                         <span id="error" style="color: red">
-                                                            You got maximum product
+                                                            You could buy max ${i.product.unit_in_stock}
                                                         </span>
-                                                        
-                                                    </div>  
+                                                    </div> 
+                                                      <c:if test="${i.quantity>i.product.unit_in_stock}"> 
+                                                        <div class="invalid-item" id="invalid">
+                                                          <span  style="color: red">
+                                                                     Left ${i.product.unit_in_stock} Item
+                                                           </span>
+                                                        </div>  
+                                                      </c:if>
                                                 </div>
                                             </div>
                                         </td>
@@ -132,7 +142,9 @@
                                 <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Shipping fee</b> 
                                      <!--Total price >= 1.000.000 free ship-->
                                     <c:if test="${o.totalMoney==0||o.totalMoney>=1000000}">
+                                        <div style="display: none">
                                         ${freight=0}
+                                        </div>  
                                     </c:if>
                                      <input hidden value="${freight}" name="freight" id="shipfee">
                                      <h5 class="font-weight-bold" id="freight" style="color: red;"><fmt:formatNumber value="${freight}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
@@ -227,7 +239,7 @@ function Down(e,productID){
             },
             
     "success": function(data) {
-        var row=document.getElementById("content");
+//        var row=document.getElementById("content");
 //        row.innerHTML="";
 //        row.innerHTML=data
         console.log("normal  successful");
@@ -280,8 +292,11 @@ function Up(e,productID,max){
      var fe=e.parentElement;
     var quantity=fe.childNodes[3];
     var error=fe.childNodes[7];
+    var invalid=fe.childNodes[9];
     var old_quantity=quantity.innerHTML;
-    console.log()
+    if(invalid!=null){
+        invalid.style='display:none';
+    }
     if(old_quantity>=max){
         error.style='display:block';
     }else{

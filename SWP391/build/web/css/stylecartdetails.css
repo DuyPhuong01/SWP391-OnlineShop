@@ -135,6 +135,7 @@ body {
 }
 .addmore-item{
     display: none;
+    color: red;
 }
 ._2REryK {
     display: flex;

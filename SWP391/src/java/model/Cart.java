@@ -13,7 +13,6 @@ import java.util.List;
  * @author win
  */
 public class Cart {
-   
     private List<Item> items; //contain items selected
 
     public Cart() {
@@ -68,7 +67,7 @@ public class Cart {
                                     int quantity = Integer.parseInt(atr[1]);
                                     Product p = getProductById(id, list);
                                     double itemPrice;
-                                    if (p.getSale_price() == 0) { //net have sale price
+                                    if (p.getSale_price() == 0) { //not have sale price
                                         itemPrice = p.getOriginal_price();
                                     } else {
                                         itemPrice = p.getSale_price();
@@ -137,7 +136,7 @@ public class Cart {
         for (Item item : items) {
             total += (item.getQuantity() * item.getPrice());
         }
-       return total;
+        return total;
     }
 
     /*Get product by id*/
@@ -149,12 +148,47 @@ public class Cart {
         }
         return null;  //can't found product
     }
+
     /*get shipping fee of cart */
-    public double getFreight(){
+    public double getFreight() {
         double totalMoney = getTotalMoney();
-        if(totalMoney==0||totalMoney>=1000000){ //order price >1.000.000
+        if (totalMoney == 0 || totalMoney >= 1000000) { //order price >1.000.000
             return 0;
         }
         return 100000;
     }
+
+    /*Remove a item*/
+//    public void removeItem(int id) {
+//        Item item = getItemById(id);
+//        items.remove(item);
+//
+//    }
+//
+//    /*get total money of cart*/
+//    public double getTotalMoney() {
+//        double total = 0;
+//        for (Item item : items) {
+//            total += (item.getQuantity() * item.getPrice());
+//        }
+//       return total;
+//    }
+//
+//    /*Get product by id*/
+//    private Product getProductById(int id, List<Product> list) {
+//        for (Product product : list) {
+//            if (product.getProduct_id() == id) {    //found product
+//                return product;
+//            }
+//        }
+//        return null;  //can't found product
+//    }
+//    /*get shipping fee of cart */
+//    public double getFreight(){
+//        double totalMoney = getTotalMoney();
+//        if(totalMoney==0||totalMoney>=1000000){ //order price >1.000.000
+//            return 0;
+//        }
+//        return 100000;
+//    }
 }

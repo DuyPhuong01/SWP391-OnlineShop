@@ -108,7 +108,7 @@ public class MarketingDashBoardServlet extends HttpServlet {
         }
             
 //            chart type
-            request.setAttribute("chartType", "bar");
+            request.setAttribute("chartType", "line");
             
             //start and end date
             request.setAttribute("startDate", start);

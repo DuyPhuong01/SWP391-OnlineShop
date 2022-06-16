@@ -33,9 +33,9 @@ img {
     width: 100%;
 }
 
-a {
-    text-decoration: none;
-    color: black;
+a{
+    text-decoration: none !important;
+    color: #000 !important;
 }
 .cursor-pointer,
 .link{
@@ -206,4 +206,10 @@ tr {
 .modal {
     background: rgba(0, 0, 0, 0.5);
     transition: 1s;
+}
+
+.fixed-end-bottom{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }

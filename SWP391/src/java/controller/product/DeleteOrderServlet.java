@@ -73,14 +73,14 @@ public class DeleteOrderServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
 
-            int oderID = Integer.parseInt(request.getParameter("orderID"));
+            int oderID = Integer.parseInt(request.getParameter("order_id"));
             OrderDAO orderDAO = new OrderDAO();
             orderDAO.DeleteOrderByOrderID(oderID);
             PrintWriter out = response.getWriter();
             out.println("<script type=\"text/javascript\">");
             out.println("alert('Delete successfully');");
+            out.println("window.location.href = \"showcart\";");
             out.println("</script>");
-            response.sendRedirect("showcart");
         } catch (Exception e) {
             System.out.println(e);
         }
