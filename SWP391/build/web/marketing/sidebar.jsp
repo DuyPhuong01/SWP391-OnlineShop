@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div id="sidebar" class="p-2 bg-white rounded shadow-sm">
+<div id="sidebar" class="p-2 bg-white shadow-sm">
     <div>
         <a type="button" href="/swp/home" class="p-2" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
             <i class="fa-solid fa-house"></i>
@@ -23,6 +23,11 @@
     <div>
         <a type="button" href="feedbackslist" class="p-2" data-bs-toggle="tooltip" data-bs-placement="right" title="Feedbacks List">
             <i class="fa-solid fa-comments"></i>
+        </a>
+    </div>
+    <div class="position-absolute bottom-0">
+        <a type="button" href="feedbackslist" class="p-2" data-bs-toggle="tooltip" data-bs-placement="right" title="Logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
         </a>
     </div>
 </div>

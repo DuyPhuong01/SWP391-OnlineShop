@@ -16,10 +16,10 @@
     </head>
 
     <body>
-        <div class="d-flex my-5">
+        <div class="d-flex">
             <c:import url="/marketing/sidebar.jsp"></c:import>
                 <!--side bar-->
-                <div class="container-lg">
+                <div class="container-lg my-5">
                     <div class="p-3 bg-white rounded shadow-sm">
                         <div class="top-head">
                             <form id="productSearchForm" action="productslist" method="post">
@@ -233,11 +233,11 @@
                     <div class="paging">
                         <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
-                                <li class="page-item <c:if test="${requestScope.pageNumber == 1}">disabled</c:if>" onclick="nextProductPage(${requestScope.pageNumber - 1});">
-                                        <a class="page-link">Previous</a>
+                                <li class="page-item<c:if test="${requestScope.pageNumber <= 1}"> disabled"</c:if> <c:if test="${requestScope.pageNumber > 1}"> cursor-pointer" onclick="nextProductPage(${requestScope.pageNumber - 1});"</c:if>>
+                                    <a class="page-link">Previous</a>
                                     </li>
-                                    <li class="page-item"><span class="page-link">${requestScope.pageNumber}</span></li>
-                                <li class="page-item <c:if test="${requestScope.pageNumber >= requestScope.numberPage}">disabled</c:if>" <c:if test="${requestScope.pageNumber < requestScope.numberPage}">onclick="nextProductPage(${requestScope.pageNumber + 1});"</c:if>>
+                                        <li class="page-item"><span class="page-link">${requestScope.pageNumber}</span></li>
+                                <li class="page-item<c:if test="${requestScope.pageNumber >= requestScope.numberPage}"> disabled"</c:if> <c:if test="${requestScope.pageNumber < requestScope.numberPage}"> cursor-pointer" onclick="nextProductPage(${requestScope.pageNumber + 1});"</c:if>>
                                     <a class="page-link">Next</a>
                                 </li>
                             </ul>

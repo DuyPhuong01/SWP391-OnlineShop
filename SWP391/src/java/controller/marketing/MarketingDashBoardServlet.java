@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.order;
+package controller.marketing;
 
 import com.google.gson.Gson;
 import dal.AccountDAO;
@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,7 @@ import util.DateTimeUtil;
  *
  * @author Admin
  */
+@WebServlet(name = "MarketingDashBoardServlet", urlPatterns = {"/marketing/dashboard"})
 public class MarketingDashBoardServlet extends HttpServlet {
 
     /**
@@ -122,7 +124,7 @@ public class MarketingDashBoardServlet extends HttpServlet {
             request.setAttribute("totalAccounts", totalAccounts);
             request.setAttribute("totalProducts", totalProducts);
             request.setAttribute("totalFeedbacks", totalProductFeedbacks + totalGeneralFeedbacks);
-            request.getRequestDispatcher("marketingdashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("/marketing/dashboard.jsp").forward(request, response);
         } else {
             PrintWriter out = response.getWriter();
             out.println("access denied");

@@ -41,10 +41,13 @@ ul.sub-category-list {
 #sub-category-active{
     background: #e9ecef;
 }
+
 .flex.flex-column.lastest-product {
     height: 400px;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
+
 .flex.latest-product-items {
     width: 90%;
     margin-left: auto;

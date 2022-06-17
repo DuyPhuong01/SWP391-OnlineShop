@@ -106,10 +106,6 @@
         <servlet-class>controller.authentication.ResetPasswordServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MarketingDashBoardServlet</servlet-name>
-        <servlet-class>controller.order.MarketingDashBoardServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MyOrderServlet</servlet-name>
         <servlet-class>controller.order.MyOrderServlet</servlet-class>
     </servlet>
@@ -192,10 +188,6 @@
     <servlet-mapping>
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/resetpass</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MarketingDashBoardServlet</servlet-name>
-        <url-pattern>/marketingdashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MyOrderServlet</servlet-name>
