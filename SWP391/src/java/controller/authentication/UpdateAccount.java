@@ -14,6 +14,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -134,6 +137,11 @@ public class UpdateAccount extends HttpServlet {
             a.setImage_url(fileName);
 
             dao.updateAccountImg(a);
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(UpdateAccount.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
 
             a.setUser_id(Integer.parseInt(id));

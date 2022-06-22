@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
 
 /**
  *
@@ -116,14 +117,21 @@ public class ResetPasswordServlet extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String pass = request.getParameter("pass");
+        String npass = request.getParameter("npass");
         String re_pass = request.getParameter("repass");
         AccountDAO dao = new AccountDAO();
-
-        if (!pass.equals(re_pass)) {
-            request.setAttribute("mess", "Password does not match!");
-            request.getRequestDispatcher("createnewpassword.jsp").forward(request, response);
+        Account a = new Account();
+        a = dao.getAccountByEmail(email);
+        if (a.getPassword().equals(getMd5(pass)) == false) {
+            request.setAttribute("mess", "Password incorect!");
+            request.setAttribute("title", "Check your current Password !");
+            request.getRequestDispatcher("verify.jsp").forward(request, response);
+        } else if (!npass.equals(re_pass)) {
+            request.setAttribute("mess", "New Password does not match!");
+            request.setAttribute("title", "Check your New Password !");
+            request.getRequestDispatcher("verify.jsp").forward(request, response);
         } else {
-            dao.updatePassword(email, getMd5(pass));
+            dao.updatePassword(email, getMd5(npass));
             request.setAttribute("mess", "Thank!");
             request.setAttribute("title", "Password have been changed !");
             request.getRequestDispatcher("verify.jsp").forward(request, response);
@@ -139,7 +147,8 @@ public class ResetPasswordServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-public static String getMd5(String input) {
+
+    public static String getMd5(String input) {
         try {
 
             // Static getInstance method is called with hashing MD5
