@@ -13,7 +13,6 @@ import java.util.List;
  * @author win
  */
 public class Cart {
-
     private List<Item> items; //contain items selected
 
     public Cart() {
@@ -158,4 +157,38 @@ public class Cart {
         }
         return 100000;
     }
+
+    /*Remove a item*/
+//    public void removeItem(int id) {
+//        Item item = getItemById(id);
+//        items.remove(item);
+//
+//    }
+//
+//    /*get total money of cart*/
+//    public double getTotalMoney() {
+//        double total = 0;
+//        for (Item item : items) {
+//            total += (item.getQuantity() * item.getPrice());
+//        }
+//       return total;
+//    }
+//
+//    /*Get product by id*/
+//    private Product getProductById(int id, List<Product> list) {
+//        for (Product product : list) {
+//            if (product.getProduct_id() == id) {    //found product
+//                return product;
+//            }
+//        }
+//        return null;  //can't found product
+//    }
+//    /*get shipping fee of cart */
+//    public double getFreight(){
+//        double totalMoney = getTotalMoney();
+//        if(totalMoney==0||totalMoney>=1000000){ //order price >1.000.000
+//            return 0;
+//        }
+//        return 100000;
+//    }
 }

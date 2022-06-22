@@ -42,7 +42,7 @@ public class ProductDAO extends DBContext {
 
     public List<Product> getAllProducts() {
         List<Product> productList = new ArrayList<>();
-        String sql = "select * from products order by updated_date desc";
+        String sql = "select * from products where featured = 1 order by updated_date desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -70,7 +70,7 @@ public class ProductDAO extends DBContext {
             if (sql.endsWith(",")) {
                 sql = sql.substring(0, sql.length() - 1);
             }
-            sql += ")";
+            sql += ") and featured = 1";
         }
         sql += " order by updated_date desc";
         try {
@@ -101,7 +101,7 @@ public class ProductDAO extends DBContext {
             if (sql.endsWith(",")) {
                 sql = sql.substring(0, sql.length() - 1);
             }
-            sql += ")";
+            sql += ") and featured = 1";
         }
         if (orderOption.equals("newest")) {
             sql += " order by updated_date desc";
@@ -112,6 +112,7 @@ public class ProductDAO extends DBContext {
         } else {
             sql += " order by original_price desc";
         }
+        sql += " order by updated_date desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -125,6 +126,45 @@ public class ProductDAO extends DBContext {
         }
         return null;
     }
+
+//    public List<Product> getAllProducts(int[] categories, String key, String orderOption) {
+////        select * from products where title like '%%' and category_id in (1, 2)
+//        CategoryDAO category_dao = new CategoryDAO();
+//        List<Product> productList = new ArrayList<>();
+//        String sql = "select * from products ";
+//        sql += "where name like '%" + key + "%' ";
+//        if (categories != null) {
+//            sql += "and category_id in (";
+//            for (int i = 0; i < categories.length; i++) {
+//                sql += categories[i] + ",";
+//            }
+//            if (sql.endsWith(",")) {
+//                sql = sql.substring(0, sql.length() - 1);
+//            }
+//            sql += ")";
+//        }
+//        if (orderOption.equals("newest")) {
+//            sql += " order by updated_date desc";
+//        } else if (orderOption.equals("oldest")) {
+//            sql += " order by updated_date asc";
+//        } else if (orderOption.equals("lowestPrice")) {
+//            sql += " order by original_price asc";
+//        } else {
+//            sql += " order by original_price desc";
+//        }
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            ResultSet rs = st.executeQuery();
+//            while (rs.next()) {
+//                Product product = filProductDetails(rs);
+//                productList.add(product);
+//            }
+//            return productList;
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//        return null;
+//    }
 
     public List<Product> getListByPage(List<Product> list, int start, int end) {
         ArrayList<Product> arr = new ArrayList<>();
@@ -174,7 +214,7 @@ public class ProductDAO extends DBContext {
             }
             sql += ")";
         }
-        sql += ") all_products where Row between " + start + " and " + end;
+        sql += " and featured = 1) all_products where Row between " + start + " and " + end;
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -203,7 +243,7 @@ public class ProductDAO extends DBContext {
             if (sql.endsWith(",")) {
                 sql = sql.substring(0, sql.length() - 1);
             }
-            sql += ")";
+            sql += ") and featured = 1";
         }
 //        System.out.println(sql);
         try {
@@ -256,7 +296,6 @@ public class ProductDAO extends DBContext {
     }
 
     public List<Product> getLastActiveProducts(int number) {
-        CategoryDAO category_dao = new CategoryDAO();
         List<Product> list = new ArrayList<>();
         String sql = "select top " + number + " * from products where featured=1 order by product_id desc";
         try {
@@ -355,4 +394,228 @@ public class ProductDAO extends DBContext {
         }
         return false;
     }
+
+//    public void UpdateQuantity(Product product, int quantity) {
+//        String sql = "update products\n"
+//                + "set unit_in_stock = unit_in_stock + ? where product_id = ?";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, quantity);
+//            st.setInt(2, product.getProduct_id());
+//            st.executeUpdate();
+//        } catch (SQLException e) {
+//
+//        }
+//    }
+//
+//    public int getTotalProducts() {
+//        String sql = "select count(product_id) from products";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            ResultSet rs = st.executeQuery();
+//            if (rs.next()) {
+//                return rs.getInt(1);
+//            }
+//        } catch (SQLException sqle) {
+//            System.out.println(sqle);
+//        }
+//        return 0;
+//    }
+
+    // <editor-fold defaultstate="collapsed" desc="productDAO for Marketing">
+//    public boolean changeFeatured(int product_id, boolean featured) {
+//        String sql = "update products set featured=? where product_id=?";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, featured ? 1 : 0);
+//            st.setInt(2, product_id);
+//            st.executeUpdate();
+//            return true;
+//        } catch (SQLException sqle) {
+//            System.out.println(sqle);
+//        }
+//        return false;
+//    }
+//
+//    public boolean changeThumbnail(int product_id, String imagePath) {
+//        String sql = "update products set thumbnail=? where product_id=?";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setString(1, imagePath);
+//            st.setInt(2, product_id);
+//            st.executeUpdate();
+//            return true;
+//        } catch (SQLException sqle) {
+//            System.out.println(sqle);
+//        }
+//        return false;
+//    }
+//
+//    public boolean checkThumbnailExist(String fileName) {
+//        String sql = "select * from products where thumbnail like ?";
+//        System.out.println(fileName);
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setString(1, "images/product_images/" + fileName);
+//            ResultSet rs = st.executeQuery();
+//            if (rs.next()) {
+//                return true;
+//            }
+//        } catch (SQLException sqle) {
+//            System.out.println(sqle);
+//        }
+//        return false;
+//    }
+
+    public int countAllProducts(int subCategoryID, int categoryID, String key, int featured) {
+//        select COUNT(*) from products where name like '%%' and sub_category_id in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)
+        String sql = "select COUNT(*) from products p inner join product_sub_categories psc on p.sub_category_id = psc.sub_category_id where name like '%" + key + "%' ";
+        if (subCategoryID != -1) {
+            sql += "and p.sub_category_id in (" + subCategoryID + ")";
+        } else if (categoryID != -1) {
+            sql += "and psc.category_id in (" + categoryID + ")";
+        }
+        if (featured != -1) {
+            sql += " and featured=" + featured;
+        }
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
+    public List<Product> getAllProductsByRange(int subCategoryID, int categoryID, String key, String orderOption, int start, int end, int featured) {
+//        select * from (select ROW_NUMBER() over (order by updated_date desc) as Row,* from products where name like '%%' and sub_category_id in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)) all_products where Row between 1 and 22
+        List<Product> productList = new ArrayList<>();
+        String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,p.* from products p inner join product_sub_categories psc on p.sub_category_id = psc.sub_category_id where name like '%" + key + "%' ";
+        if (subCategoryID != -1) {
+            sql += "and p.sub_category_id in (" + subCategoryID + ")";
+        } else if (categoryID != -1) {
+            sql += "and psc.category_id in (" + categoryID + ")";
+        }
+        if (featured != -1) {
+            sql += " and p.featured=" + featured;
+        }
+        sql += ") all_products where Row between " + start + " and " + end;
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product product = filProductDetails(rs);
+                productList.add(product);
+            }
+            return productList;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public Product getLastProducts() {
+        String sql = "select * from products order by product_id desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Product product = filProductDetails(rs);
+                return product;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+
+    public boolean updateProductInformation(int product_id, String name, String model, int unit_in_stock, int sub_category_id,
+            int original_price, int sale_price, String brief_infor, String product_details
+    ) {
+        String sql = "update products "
+                + "set name=?, sub_category_id=?, unit_in_stock=?, original_price=?, "
+                + "sale_price=?, product_details=?, brief_infor=?, model=? "
+                + "where product_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setNString(1, name);
+            st.setInt(2, sub_category_id);
+            st.setInt(3, unit_in_stock);
+            st.setInt(4, original_price);
+            st.setInt(5, sale_price);
+            st.setNString(6, product_details);
+            st.setNString(7, brief_infor);
+            st.setNString(8, model);
+            st.setInt(9, product_id);
+            st.executeUpdate();
+
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+
+    public boolean deleteProductImage(int product_id, String path) {
+        String sql = "delete from product_images where product_id=? and url like ?";
+        System.out.println(path);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, product_id);
+            st.setString(2, path);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+
+    public boolean addProductImage(int product_id, String path) {
+        String sql = "insert into product_images (product_id, url) values (?, ?)";
+        System.out.println(path);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, product_id);
+            st.setString(2, path);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+    public boolean addProduct(String name, String model, int unit_in_stock, int sub_category_id,
+            int original_price, int sale_price, int featured, String brief_infor, String product_details, String thumbnail
+    ) {
+        String sql = "insert into products (name, sub_category_id, unit_in_stock, updated_date, original_price, sale_price, "
+                + "featured, status, product_details, brief_infor, thumbnail, model) "
+                + "values (?, ?, ?, GETDATE(), ?, ?, ?, 1, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setNString(1, name);
+            st.setInt(2, sub_category_id);
+            st.setInt(3, unit_in_stock);
+            st.setInt(4, original_price);
+            st.setInt(5, sale_price);
+            st.setInt(6, featured);
+            st.setNString(7, product_details);
+            st.setNString(8, brief_infor);
+            st.setNString(9, thumbnail);
+            st.setNString(10, model);
+            st.executeUpdate();
+
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+    // </editor-fold>
 }

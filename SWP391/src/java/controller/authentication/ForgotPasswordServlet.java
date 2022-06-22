@@ -67,10 +67,7 @@ public class ForgotPasswordServlet extends HttpServlet {
                     random.nextInt(9999999);
                     myHash = getMd5("" + random);
                     acc.setMyHash(myHash);
-                    db.updateHashCode(acc);
-
-                    emailService.sendEmail(getServletContext(), acc, "forgot", "http://localhost:8080/swp/resetpass?key1=" + acc.getEmail() + "&key2=" + acc.getMyHash());
-
+                    db.updateHashCode(acc);               
                     start = System.currentTimeMillis();
                     end = start + 30 * 1000;
                 }
@@ -81,7 +78,6 @@ public class ForgotPasswordServlet extends HttpServlet {
             request.setAttribute("mess", "Unregistered email!");
             request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

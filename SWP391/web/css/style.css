@@ -33,9 +33,9 @@ img {
     width: 100%;
 }
 
-a {
+a{
     text-decoration: none;
-    color: black;
+    color: #000;
 }
 .cursor-pointer,
 .link{
@@ -125,13 +125,13 @@ tr {
 }
 
 #sidebar i {
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 
 #sidebar {
-    height: calc(100vh - 3rem);
+    height: 100vh;
     position: sticky;
-    top: 1.5rem;
+    top: 0;
 }
 
 .sticky-0{
@@ -206,4 +206,10 @@ tr {
 .modal {
     background: rgba(0, 0, 0, 0.5);
     transition: 1s;
+}
+
+.fixed-end-bottom{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }

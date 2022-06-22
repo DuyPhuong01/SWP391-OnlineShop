@@ -106,10 +106,6 @@
         <servlet-class>controller.authentication.ResetPasswordServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MarketingDashBoardServlet</servlet-name>
-        <servlet-class>controller.order.MarketingDashBoardServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MyOrderServlet</servlet-name>
         <servlet-class>controller.order.MyOrderServlet</servlet-class>
     </servlet>
@@ -124,6 +120,10 @@
     <servlet>
         <servlet-name>Cancel_Order</servlet-name>
         <servlet-class>controller.product.Cancel_OrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateAccount</servlet-name>
+        <servlet-class>controller.authentication.UpdateAccount</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -190,10 +190,6 @@
         <url-pattern>/resetpass</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MarketingDashBoardServlet</servlet-name>
-        <url-pattern>/marketingdashboard</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>MyOrderServlet</servlet-name>
         <url-pattern>/myorders</url-pattern>
     </servlet-mapping>
@@ -208,6 +204,10 @@
     <servlet-mapping>
         <servlet-name>Cancel_Order</servlet-name>
         <url-pattern>/cancel_order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAccount</servlet-name>
+        <url-pattern>/updateacc</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

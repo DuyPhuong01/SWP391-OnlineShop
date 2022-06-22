@@ -149,9 +149,11 @@ public class AccountDAO extends DBContext {
                 + "           ,[image_url]\n"
                 + "           ,[city]\n"
                 + "           ,[country]\n"
+                + "           ,[registered_date]\n"
+                + "           ,[role_id]\n"
                 + "           ,[active])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?,?,'images\\account-images\\acc.png','(Nah)','(Nah)','0')";
+                + "           (?,?,?,?,?,?,?,?,'images\\account-images\\acc.png','(Nah)','(Nah)',getdate(),1,'0')";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, acc.getUsername());
@@ -235,7 +237,6 @@ public class AccountDAO extends DBContext {
         } catch (SQLException e) {
         }
     }
-
     public void updatePassword(String mail, String pass) {
         String sql = "UPDATE [accounts]\n"
                 + "   SET [password] = ?\n"

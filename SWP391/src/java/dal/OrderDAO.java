@@ -36,7 +36,6 @@ public class OrderDAO extends DBContext {
     }
 
     public Order addOrderUser(Account customer, Cart cart, String note) {
-
         double freight = cart.getFreight();//ship
         try {
             //add order
