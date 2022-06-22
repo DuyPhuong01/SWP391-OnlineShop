@@ -2,6 +2,7 @@
 package model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Post {
 
@@ -9,21 +10,27 @@ public class Post {
     private int user_id;
     private String thumbnail;
     private String title;
+    private String sub_title;
+    private List<Tag> tag_list;
+    private Timestamp publication_date;
     private Timestamp updated_date;
-    private ProductCategory category_id;
+    private ProductCategory category;
     private String post_details;
     private boolean featured;
 
     public Post() {
     }
 
-    public Post(int post_id, int user_id, String thumbnail, String title, Timestamp updated_date, ProductCategory category_id, String post_details, boolean featured) {
+    public Post(int post_id, int user_id, String thumbnail, String title, String sub_title, List<Tag> tag_list, Timestamp publication_date, Timestamp updated_date, ProductCategory category, String post_details, boolean featured) {
         this.post_id = post_id;
         this.user_id = user_id;
         this.thumbnail = thumbnail;
         this.title = title;
+        this.sub_title = sub_title;
+        this.tag_list = tag_list;
+        this.publication_date = publication_date;
         this.updated_date = updated_date;
-        this.category_id = category_id;
+        this.category = category;
         this.post_details = post_details;
         this.featured = featured;
     }
@@ -60,6 +67,30 @@ public class Post {
         this.title = title;
     }
 
+    public String getSub_title() {
+        return sub_title;
+    }
+
+    public void setSub_title(String sub_title) {
+        this.sub_title = sub_title;
+    }
+
+    public List<Tag> getTag_list() {
+        return tag_list;
+    }
+
+    public void setTag_list(List<Tag> tag_list) {
+        this.tag_list = tag_list;
+    }
+
+    public Timestamp getPublication_date() {
+        return publication_date;
+    }
+
+    public void setPublication_date(Timestamp publication_date) {
+        this.publication_date = publication_date;
+    }
+
     public Timestamp getUpdated_date() {
         return updated_date;
     }
@@ -68,20 +99,20 @@ public class Post {
         this.updated_date = updated_date;
     }
 
-    public ProductCategory getCategory_id() {
-        return category_id;
+    public ProductCategory getCategory() {
+        return category;
     }
 
-    public void setCategory_id(ProductCategory category_id) {
-        this.category_id = category_id;
+    public void setCategory(ProductCategory category) {
+        this.category = category;
     }
 
     public String getPost_details() {
         return post_details;
     }
 
-    public void setPost_details(String posts_detail) {
-        this.post_details = posts_detail;
+    public void setPost_details(String post_details) {
+        this.post_details = post_details;
     }
 
     public boolean isFeatured() {

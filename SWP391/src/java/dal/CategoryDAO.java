@@ -9,7 +9,7 @@ import model.ProductCategory;
 import model.SubCategory;
 
 public class CategoryDAO extends DBContext {
-
+    // <editor-fold defaultstate="collapsed" desc="Product Category">
     public SubCategory getProductSubCategory(int subCategoryId) {
         String sql = "select * from product_sub_categories where sub_category_id=?";
         try {
@@ -72,6 +72,30 @@ public class CategoryDAO extends DBContext {
         return list;
     }
 
+    public ProductCategory getProductCategoryBySubCategory(int subCategoryId) {
+        String sql = "select pc.* from product_categories pc inner join product_sub_categories psc \n"
+                + "on pc.category_id = psc.category_id\n"
+                + "where psc.sub_category_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, subCategoryId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                ProductCategory product_category = new ProductCategory(rs.getInt("category_id"),
+                        rs.getString("category_name"),
+                        rs.getString("description"),
+                        rs.getInt("featured")
+                );
+                return product_category;
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return null;
+    }
+// </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Post category">
     public ProductCategory getPostCategory(int category_id) {
         String sql = "select * from post_categories where category_id=?";
         try {
@@ -111,31 +135,6 @@ public class CategoryDAO extends DBContext {
         }
         return list;
     }
-
-    public ProductCategory getProductCategoryBySubCategory(int subCategoryId) {
-        String sql = "select pc.* from product_categories pc inner join product_sub_categories psc \n"
-                + "on pc.category_id = psc.category_id\n"
-                + "where psc.sub_category_id = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, subCategoryId);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                ProductCategory product_category = new ProductCategory(rs.getInt("category_id"),
-                        rs.getString("category_name"),
-                        rs.getString("description"),
-                        rs.getInt("featured")
-                );
-                return product_category;
-            }
-        } catch (SQLException sqle) {
-            System.out.println(sqle);
-        }
-        return null;
-    }
-
-    public static void main(String[] args) {
-        CategoryDAO c = new CategoryDAO();
-        System.out.println(c.getProductCategoryBySubCategory(6).getCategory_name());
-    }
+    // </editor-fold>
+    
 }

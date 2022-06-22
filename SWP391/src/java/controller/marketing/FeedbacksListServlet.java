@@ -3,11 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.home;
+package controller.marketing;
 
-import dal.PostDAO;
-import dal.ProductDAO;
-import dal.SliderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Admin
+ * @author Duy Phuong
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "FeedbacksListServlet", urlPatterns = {"/marketing/feedbackslist"})
+public class FeedbacksListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,7 +32,18 @@ public class HomeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        doGet(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet FeedbacksListServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet FeedbacksListServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -50,16 +58,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDAO product_dao = new ProductDAO();
-        SliderDAO slider_dao = new SliderDAO();
-        PostDAO post_dao = new PostDAO();
-        request.setAttribute("slidersList", slider_dao.getSliders());
-        request.setAttribute("hotPostsList", post_dao.getPosts(true, 1, 3));
-        request.setAttribute("productsList", product_dao.getProducts(8, true));
-        request.setAttribute("pageNumber", "1");
-        request.setAttribute("orderOption", "newest");
-        request.setAttribute("mess", request.getParameter("mess"));
-        request.getRequestDispatcher("homepage.jsp").forward(request, response);
+        request.getRequestDispatcher("/marketing/feedbackslist.jsp").forward(request, response);
     }
 
     /**

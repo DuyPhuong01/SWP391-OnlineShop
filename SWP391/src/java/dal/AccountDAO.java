@@ -47,7 +47,11 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
-
+    public Account getAccountByID(int id){
+        Account account = new Account();
+        account.setUser_id(id);
+        return getAccountByID(account);
+    }
     public Account getAccountByID(Account acc) {
         try {
             String sql = "SELECT *"

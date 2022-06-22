@@ -5,8 +5,12 @@
  */
 package controller.post;
 
+import dal.CategoryDAO;
+import dal.PostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +41,7 @@ public class BlogsListServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BlogsListServlet</title>");            
+            out.println("<title>Servlet BlogsListServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet BlogsListServlet at " + request.getContextPath() + "</h1>");
@@ -58,6 +62,41 @@ public class BlogsListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        CategoryDAO categoryDAO = new CategoryDAO();
+        PostDAO postDAO = new PostDAO();
+        final int NUMBER_ITEMS_PER_PAGE = 8;
+
+        String category_id_raw = request.getParameter("categoryId");
+        String[] tag_id_raw_list = request.getParameterValues("tag_id");
+        String key = request.getParameter("key");
+        String pageNumberRaw = request.getParameter("page");
+
+        if (category_id_raw == null) {
+            category_id_raw = "-1";
+        }
+        if (key == null) {
+            key = "";
+        }
+        try {
+            int category_id = Integer.parseInt(category_id_raw);
+            List<Integer> tag_id_list = new ArrayList<>();
+            if (tag_id_raw_list != null) {
+                for (String tag_id_raw : tag_id_raw_list) {
+                    tag_id_list.add(Integer.parseInt(tag_id_raw));
+                }
+            }
+            int postsCount = postDAO.countPosts(1, key, category_id, tag_id_list);
+            int pageNumber = pageNumberRaw == null ? 1 : Integer.parseInt(pageNumberRaw);
+            int numberPage = postsCount % NUMBER_ITEMS_PER_PAGE == 0 ? postsCount / NUMBER_ITEMS_PER_PAGE : postsCount / NUMBER_ITEMS_PER_PAGE + 1;
+
+            int start = (pageNumber - 1) * NUMBER_ITEMS_PER_PAGE;
+            int end = Math.min(pageNumber * NUMBER_ITEMS_PER_PAGE, postsCount);
+
+            request.setAttribute("postsList", postDAO.getPosts("publication_date", 1, key, category_id, tag_id_list, start, end));
+        } catch (NumberFormatException nfe) {
+            System.out.println(nfe);
+        }
+
         request.getRequestDispatcher("blogslist.jsp").forward(request, response);
     }
 

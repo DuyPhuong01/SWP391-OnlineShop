@@ -16,10 +16,7 @@
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/stylehomepage.css">
         <!-- ===== Boxicons CSS ===== -->
-        <link
-            href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
-            rel="stylesheet"
-            />
+        <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
         <!--font-awesome-->
         <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
@@ -73,8 +70,10 @@
                                 </div>
                             <c:forEach var="post" items="${requestScope.hotPostsList}">
                                 <div class="col-4 mb-3">
-                                    <div class="card">
-                                        <img src="${post.thumbnail}" class="card-img-top" alt="${post.title}">
+                                    <div class="card post">
+                                        <div class="post-thumbnail">
+                                            <img src="${post.thumbnail}" class="card-img-top" alt="${post.title}">
+                                        </div>
                                         <div class="card-body">
                                             <h5 class="card-title">${post.title}</h5>
                                             <p class="card-text">${post.post_details}</p>
@@ -98,7 +97,7 @@
                                             <img src="${product.thumbnail}" class="card-img-top">
                                         </a>
                                         <div class="card-body">
-                                                <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.name}">
+                                            <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.name}">
                                                 <h6 class="card-title product-title">${product.name}</h6>
                                             </a>
                                             <h6 class="card-subtitle mb-2 text-muted">

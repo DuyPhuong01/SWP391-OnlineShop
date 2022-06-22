@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.home;
+package controller.post;
 
+import dal.AccountDAO;
 import dal.PostDAO;
-import dal.ProductDAO;
-import dal.SliderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,13 +14,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
+import model.Post;
 
 /**
  *
- * @author Admin
+ * @author Duy Phuong
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "BlogServlet", urlPatterns = {"/post"})
+public class BlogServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,7 +36,18 @@ public class HomeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        doGet(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet BlogServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet BlogServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -50,16 +62,20 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDAO product_dao = new ProductDAO();
-        SliderDAO slider_dao = new SliderDAO();
-        PostDAO post_dao = new PostDAO();
-        request.setAttribute("slidersList", slider_dao.getSliders());
-        request.setAttribute("hotPostsList", post_dao.getPosts(true, 1, 3));
-        request.setAttribute("productsList", product_dao.getProducts(8, true));
-        request.setAttribute("pageNumber", "1");
-        request.setAttribute("orderOption", "newest");
-        request.setAttribute("mess", request.getParameter("mess"));
-        request.getRequestDispatcher("homepage.jsp").forward(request, response);
+        PostDAO postDAO = new PostDAO();
+        AccountDAO accountDAO = new AccountDAO();
+        String id_raw = request.getParameter("id");
+        try{
+            int id = Integer.parseInt(id_raw);
+            Post post = postDAO.getPost(id);
+            Account author = accountDAO.getAccountByID(post.getUser_id());
+            request.setAttribute("post", post);
+            request.setAttribute("author", author);
+            request.getRequestDispatcher("/blogdetails.jsp").forward(request, response);
+        } catch(NumberFormatException nfe){
+            System.out.println(nfe);
+        }
+        
     }
 
     /**
