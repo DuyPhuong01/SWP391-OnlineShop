@@ -88,7 +88,8 @@ public class RegisterServlet extends HttpServlet {
             String str = dao.singup(a);
  
             if (str.equals("Success")) {
-                 
+                 request.setAttribute("mess", "You need active your account!\n Check your mail!");
+                    request.getRequestDispatcher("verify.jsp").forward(request, response);
 
             } else {
                 request.setAttribute("signmess", "Register error !");

@@ -73,12 +73,22 @@
             .inputfile + label svg {
                 fill: #fff;
             }
-            #upload-photo,#change-photo {
+            #imgInp,#change-photo {
                 opacity: 0;
                 position: absolute;
                 z-index: -1;
             }
-
+            .avatar{
+                width:150px;
+                height:150px;
+                border-radius:50%;
+                overflow:hidden;
+            }
+            .rounded-circle img{
+                width:100%;
+                height:100%;
+                object-fit: cover;
+            }
         </style>
         <script>
             var ids = [];
@@ -184,13 +194,13 @@
                                         <div style="position: absolute;">
                                             <input class="btn btn-primary profile-button viewmode${sessionScope.account.getActive()}" type="button" value="Edit" style="width: auto;"  onclick="Edit_onclick(${sessionScope.account.getActive()});"/>
                                         </div>
-                                        <img class="rounded-circle " width="150px" src="${sessionScope.account.getImage_url()}">
+                                        <img class="rounded-circle avatar" id="blah" alt="your image" src="${sessionScope.account.getImage_url()}">
                                         <form action="updateacc" id="frmImgUpdate" method="POST" enctype="multipart/form-data">
                                             <div class="inner editmode${sessionScope.account.getActive()}">
                                                 <input type="hidden" name="id" value="${sessionScope.account.getUser_id()}"/>
                                                 <input type="hidden" name="type" value="1"/>
-                                                <input type="file" name="file" id="upload-photo">
-                                                <label for="upload-photo" style="cursor: pointer;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg></label>
+                                                <input accept="image/*" type="file" name="file" id="imgInp">
+                                                <label for="imgInp" style="cursor: pointer;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg></label>
                                             </div>
                                         </form>
                                     </div>
@@ -204,7 +214,7 @@
 
                                 <div class="mt-5 text-center editmode${sessionScope.account.getActive()}">
                                     <input class="btn btn-primary profile-button editmode${sessionScope.account.getActive()}" type="submit" onclick="submitForm();" value="Save" style="width: auto;"/>
-                                    <input class="btn btn-primary profile-button editmode${sessionScope.account.getActive()}" type="button" value="Cancel" style="width: auto;"
+                                    <input id="cancel-btn" class="btn btn-primary profile-button editmode${sessionScope.account.getActive()}" type="button" value="Cancel" style="width: auto;"
                                            onclick="Cancel_onclick(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');"/>
                                 </div>
                                 <span>
@@ -269,6 +279,24 @@
             </div>
         </div>
         <script>
+            const cancelBtn = document.querySelector("#cancel-btn");
+            
+            imgInp.onchange = evt => {
+                const [file] = imgInp.files
+                if (file) {
+                    blah.src = URL.createObjectURL(file)
+                }
+            }
+//            cancelBtn.onclick = evt => {
+//                const  [file] = '${sessionScope.account.getImage_url()}'
+//                if(file) {
+//                    
+//                }
+//            }
+            cancelBtn.addEventListener("click", function () {
+                blah.src = '${sessionScope.account.getImage_url()}';
+            });
+
             hideEditModeControls();
             Cancel_onclick(${sessionScope.account.getUser_id()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');
             Cancel_onclick(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');
