@@ -156,10 +156,8 @@
                             <li class="d-flex justify-content-between py-3 border-bottom" price-item>Sub Total
                                 <span class="price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>
                             </li>
-                            <li class="d-flex justify-content-between py-3 border-bottom">Shopping Fee
-                             <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
+                             <li class="d-flex justify-content-between py-3 border-bottom">Shopping Fee
                                  <span class="price-item"><fmt:formatNumber value="${freight}" type="currency" currencySymbol="đ"/></span>
-                            </li>
                             </li>
                             <li class="d-flex justify-content-between py-3 border-bottom">Total Cost
                                 <h5 class="font-weight-bold price-item"><fmt:formatNumber value="${o.totalMoney+freight}" type="currency" currencySymbol="đ"/></h5>

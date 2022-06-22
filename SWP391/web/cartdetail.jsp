@@ -142,7 +142,9 @@
                                 <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Shipping fee</b> 
                                      <!--Total price >= 1.000.000 free ship-->
                                     <c:if test="${o.totalMoney==0||o.totalMoney>=1000000}">
+                                        <div style="display: none">
                                         ${freight=0}
+                                        </div>  
                                     </c:if>
                                      <input hidden value="${freight}" name="freight" id="shipfee">
                                      <h5 class="font-weight-bold" id="freight" style="color: red;"><fmt:formatNumber value="${freight}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>

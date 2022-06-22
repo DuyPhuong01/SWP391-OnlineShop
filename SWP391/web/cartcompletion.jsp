@@ -428,9 +428,9 @@
                                 <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
                                     <span class="price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>
                                 </li>
-                                <li class="d-flex justify-content-between py-3 border-bottom">Shopping Fee
+                                <li class="d-flex justify-content-between py-3 border-bottom price-item">Shopping Fee
                                     <input type="hidden" name="freight" value="${o.freight}">
-                                    <span>${o.freight}</span>
+                                   <span class="price-item"><fmt:formatNumber value="${o.freight}" type="currency" currencySymbol="đ"/></span>
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom">Total Cost
                                     <h5 class="font-weight-bold price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></h5>
@@ -595,7 +595,7 @@
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom">Shopping Fee
                                     <input type="hidden" name="freight" value="${o.freight}">
-                                    <span>${o.freight}</span>
+                                    <span class="price-item"><fmt:formatNumber value="${o.freight}" type="currency" currencySymbol="đ"/></span>
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom">Total Cost
                                     <h5 class="font-weight-bold price-item"><fmt:formatNumber value="${o.totalMoney+o.freight}" type="currency" currencySymbol="đ"/></h5>
