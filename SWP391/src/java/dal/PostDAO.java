@@ -117,7 +117,7 @@ public class PostDAO extends DBContext {
                     + "\n";
         }
 
-        System.out.println(sql);
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();

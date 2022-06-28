@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,7 +33,8 @@ public class Order {
     private double total_price;
 
     private List<OrderDetail> orderDetailList;
-
+    private Date orderDate;
+    private Account account;
     public Order() {
     }
 
@@ -198,6 +200,22 @@ public class Order {
 
     public void setOrderDetailList(List<OrderDetail> orderDetailList) {
         this.orderDetailList = orderDetailList;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date OrderDate) {
+        this.orderDate = OrderDate;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @Override

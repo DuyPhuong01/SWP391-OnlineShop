@@ -8,9 +8,12 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Account;
 import model.Cart;
 import model.Guest;
@@ -18,7 +21,9 @@ import model.Item;
 import model.Order;
 import model.OrderDetail;
 import model.OrderInformation;
+import model.OrderStatus;
 import model.Product;
+import util.DateTimeUtil;
 
 /**
  *
@@ -94,7 +99,7 @@ public class OrderDAO extends DBContext {
     }
 
     public Order addOrderGuest(Guest guest, Cart cart, String note) {
-     
+
         double freight = cart.getFreight();//ship
         try {
             //add order
@@ -218,10 +223,10 @@ public class OrderDAO extends DBContext {
     //change information by order Order (add payment step)
     public void UpdateOrderInformation(Order order) {
         int order_id = order.getOrder_id();
-        String sql = "update orders\n" +
-"set ship_name=?,ship_gender=?,ship_address=?,ship_email=?\n" +
-",freight=?,ship_mobile=?,ship_city=?,status=?,note=?,payment=?,total_price=?\n" +
-"where order_id=?";
+        String sql = "update orders\n"
+                + "set ship_name=?,ship_gender=?,ship_address=?,ship_email=?\n"
+                + ",freight=?,ship_mobile=?,ship_city=?,status=?,note=?,payment=?,total_price=?\n"
+                + "where order_id=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, order.getShip_name());
@@ -269,7 +274,7 @@ public class OrderDAO extends DBContext {
         }
 
         String sql = "update orders\n"
-                + "set status = 0 where order_id = ?";
+                + "set status = 6 where order_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, order.getOrder_id());
@@ -321,7 +326,173 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
+        public List<Order> getOrderByPage(int start, int end) {
+        List<Order> list = new ArrayList<>();
+        AccountDAO accountDAO = new AccountDAO();
+        String sql = "select * from (select ROW_NUMBER() over (order by order_date desc) as Row,* from orders) as allorders where Row between ? and ?";
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, start);
+            st.setInt(2, end);
+            ResultSet rs = st.executeQuery();
 
+            while (rs.next()) {
+                Order c = getOrder(rs);
+                c.setOrderDetailList(orderDetailDAO.getOrderDetailByOrderId(c.getOrder_id()));
+                c.setOrderDate(DateTimeUtil.GetDateFromString(c.getOrder_Date()));
+                c.setAccount(accountDAO.getAccountByID(c.getUser_id()));
+                list.add(c);
+            }
+        } catch (ParseException e) {
+            System.out.println(e);
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+    //    public List<Order> getOrderByPage(int start, int end, String[] saleId, String[] status, String orderOption, String key) {
+//        List<Order> list = new ArrayList<>();
+//        AccountDAO accountDAO = new AccountDAO();
+//        String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,o.*, a.full_name, sale.full_name as sale_name from orders o\n"
+//                + "inner join accounts a\n"
+//                + "on o.user_id = a.user_id\n"
+//                + "inner join orders_management om\n"
+//                + "on om.order_id = o.order_id\n"
+//                + "inner join accounts sale\n"
+//                + "on sale.user_id = om.user_id\n"
+//                + "where (o.order_id like '%" + key + "%' or a.full_name like '%" + key + "%')";
+//        sql = appendSaleId(sql, saleId);
+//        sql = appendStatus(sql, status);
+//        sql += ") as allorders where Row between " + start + " and " + end;
+//        System.out.println(sql);
+//        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            ResultSet rs = st.executeQuery();
+//
+//            while (rs.next()) {
+//                Order c = getOrder(rs);
+//                c.setOrderDetailList(orderDetailDAO.getOrderDetailByOrderId(c.getOrder_id()));
+//                c.setOrderDate(DateTimeUtil.GetDateFromString(c.getOrder_Date()));
+//                c.setAccount(accountDAO.getAccountByID(c.getUser_id()));
+//                list.add(c);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return list;
+//    }
+
+//    public int getTotalOrder(String[] saleId, String[] status, String key) {
+//        String sql = "select COUNT(*) from orders o\n"
+//                + "inner join accounts a\n"
+//                + "on o.user_id = a.user_id\n"
+//                + "inner join orders_management om\n"
+//                + "on om.order_id = o.order_id\n"
+//                + "inner join accounts sale\n"
+//                + "on sale.user_id = om.user_id\n"
+//                + "where (o.order_id like '%" + key + "%' or a.full_name like '%" + key + "%')";
+//        sql = appendSaleId(sql, saleId);
+//        sql = appendStatus(sql, status);
+//        System.out.println(sql);
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            ResultSet rs = st.executeQuery();
+//
+//            if (rs.next()) {
+//                return rs.getInt(1);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//        return 0;
+//    }
+
+    public List<Order> getOrderByPage(int start, int end, String[] saleId, String[] status, String orderOption, String key, String startDate, String endDate) {
+        List<Order> list = new ArrayList<>();
+        AccountDAO accountDAO = new AccountDAO();
+        String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,o.*, a.full_name, sale.full_name as sale_name from orders o\n"
+                + "inner join accounts a\n"
+                + "on o.user_id = a.user_id\n"
+                + "inner join orders_management om\n"
+                + "on om.order_id = o.order_id\n"
+                + "inner join accounts sale\n"
+                + "on sale.user_id = om.user_id\n"
+                + "where (o.order_id like '%" + key + "%' or a.full_name like N'%" + key + "%')";
+        sql = appendSaleId(sql, saleId);
+        sql = appendStatus(sql, status);
+        sql += " and o.order_date between '" + startDate + "' and '" + endDate + "'";
+        sql += ") as allorders where Row between " + start + " and " + end;
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Order c = getOrder(rs);
+                c.setOrderDetailList(orderDetailDAO.getOrderDetailByOrderId(c.getOrder_id()));
+                c.setOrderDate(DateTimeUtil.GetDateFromString(c.getOrder_Date()));
+                c.setAccount(accountDAO.getAccountByID(c.getUser_id()));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } catch (ParseException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public int getTotalOrder(String[] saleId, String[] status, String key, String startDate, String endDate) {
+        String sql = "select COUNT(*) from orders o\n"
+                + "inner join accounts a\n"
+                + "on o.user_id = a.user_id\n"
+                + "inner join orders_management om\n"
+                + "on om.order_id = o.order_id\n"
+                + "inner join accounts sale\n"
+                + "on sale.user_id = om.user_id\n"
+                + "where (o.order_id like '%" + key + "%' or a.full_name like N'%" + key + "%')";
+        sql = appendSaleId(sql, saleId);
+        sql = appendStatus(sql, status);
+        sql += " and o.order_date between '" + startDate + "' and '" + endDate + "'";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+    private String appendStatus(String sql, String[] status) {
+        if (status != null) {
+            sql += " and status in(";
+            for (String statu : status) {
+                sql += statu + ",";
+            }
+            sql = sql.substring(0, sql.length() - 1);
+            sql += ")";
+        }
+        return sql;
+    }
+
+    private String appendSaleId(String sql, String[] saleId) {
+        if (saleId != null) {
+            sql += " and sale.user_id in (";
+            for (String saleId1 : saleId) {
+                sql += saleId1 + ",";
+            }
+            sql = sql.substring(0, sql.length() - 1);
+            sql += ")";
+        }
+        return sql;
+    }
     public Order getOrderByUserIdAndOrderId(int userId, int orderId) {
         String sql = "select * from orders where user_id = ? and order_id =?";
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
@@ -357,10 +528,43 @@ public class OrderDAO extends DBContext {
         return 0;
     }
 
+    public int getTotalOrder() {
+        String sql = "select COUNT(*) from orders";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
+
+    public int getTotalOrderToday() {
+        String sql = "select COUNT(*) from orders";
+        String end = DateTimeUtil.Now();
+        String start = DateTimeUtil.getStartDate(0).toString();
+        sql += " where order_date between '" + start + "' and '" + end + "'";
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
     public void updateOrder(Order order, String shipName, boolean shipGender, String shipEmail, String shipMobile, String shipAddress, String shipCity, String payment) {
         String sql = "update orders\n"
                 + "set ship_name = ?, ship_address = ?, ship_gender = ?, ship_mobile = ?, ship_email = ?, ship_city = ?, payment = ? where order_id = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, shipName);
             st.setString(2, shipAddress);
@@ -371,8 +575,8 @@ public class OrderDAO extends DBContext {
             st.setString(7, payment);
             st.setInt(8, order.getOrder_id());
             st.executeUpdate();
-        } catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
     }
 
@@ -380,5 +584,84 @@ public class OrderDAO extends DBContext {
         return new Order(rs.getInt("order_id"), rs.getInt("user_id"), rs.getString("order_date"), rs.getString("require_date"), rs.getString("shipped_Date"), rs.getInt("ship_via"), rs.getDouble("freight"), rs.getString("ship_name"), rs.getString("ship_address"), rs.getBoolean("ship_gender"), rs.getString("ship_mobile"), rs.getString("ship_email"), rs.getString("ship_city"), rs.getInt("status"), rs.getString("note"), rs.getString("payment"), rs.getDouble("total_price"));
     }
 
+    private OrderStatus getOrderStatusById(int id) {
+        String sql = "select * from order_status where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return new OrderStatus(rs.getInt(1), rs.getString(2));
+            }
+        } catch (SQLException e) {
 
+        }
+        return null;
+    }
+
+    public List<OrderStatus> getAllOrderStatusForSale() {
+        String sql = "select * from order_status where id != 6";
+        List<OrderStatus> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderStatus os = new OrderStatus(rs.getInt(1), rs.getString(2));
+                list.add(os);
+            }
+            return list;
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
+
+    public List<OrderStatus> getAllOrderStatus() {
+        String sql = "select * from order_status";
+        List<OrderStatus> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderStatus os = new OrderStatus(rs.getInt(1), rs.getString(2));
+                list.add(os);
+            }
+            return list;
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
+
+    public String getFirstOrderDate() {
+        String sql = "select top 1 order_date from orders order by order_date asc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        OrderDAO orderDAO = new OrderDAO();
+//        System.out.println(orderDAO.getTotalOrder(null, null, "quang","2022-01-01", "2022-12-31"));
+//        List<Order> list = orderDAO.getOrderByPage(1, 50, null, null, "total_price asc", "quang");
+//        for (Order order : list) {
+//            System.out.println(order.getTotal_price());
+//        }
+//        System.out.println(orderDAO.getTotalOrder(null, null, "quang"));
+//        List<Order> list1 = orderDAO.getOrderByPage(1, 999, null, null, "a.full_name asc", "quang", "2022-01-01", "2022-01-02");
+//        for (Order order : list1) {
+//            System.out.println(order.getAccount().getUsername());
+//        }
+//        System.out.println(list1.size());
+//        System.out.println(orderDAO.getTotalOrder(null, null, "", "2022-01-01", DateTimeUtil.Now()));
+//        System.out.println(orderDAO.getFirstOrderDate());
+        System.out.println(orderDAO.getTotalOrderToday());
+    }
 }
