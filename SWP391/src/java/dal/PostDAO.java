@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Account;
 import model.Post;
 import model.Tag;
 
@@ -51,7 +52,7 @@ public class PostDAO extends DBContext {
         if (category_id > 0) {
             sql += "and p.category_id =" + category_id;
         }
-        if (tag_id_list != null && tag_id_list.size()>0) {
+        if (tag_id_list != null && tag_id_list.size() > 0) {
             sql += "and tp.tag_id in (";
             for (int tag_id : tag_id_list) {
                 sql += tag_id + ",";
@@ -77,22 +78,130 @@ public class PostDAO extends DBContext {
         }
         return list;
     }
-    
-    public Post getPost(int id){
+
+    //convert order option to string
+    public String convertOrderByID(int id) {
+        switch (id) {
+            case 1:
+                return "post_id";
+            case 2:
+                return "user_id";
+            case 3:
+                return "category_id";
+            default:
+        }
+        return null;
+    }
+
+    // count filter and paging
+    public int countPostPaging(String word, int categoryID, int authorID, int feature, int numperpage) {
+        int num = 1;
+        String sql = "select count(post_id)    from posts\n"
+                + "where category_id=category_id";
+        if (!word.equals("")) { // have option word
+            sql += " and title like'%"
+                    + word
+                    + "%'";
+        }
+        if (categoryID != 0) { // have option category
+            sql += " and category_id="
+                    + categoryID;
+        }
+        if (authorID != 0) { //have option author
+            sql += " and user_id ="
+                    + authorID;
+        }
+        if (feature != -1) { //have option feature
+            sql += " and featured="
+                    + feature
+                    + "\n";
+        }
+
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                num = rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        if (num == 0) {
+            return 1;//minimum=1
+        } else if (num % numperpage == 0) { //number full apge
+            return num / numperpage;
+        }
+        return num / numperpage + 1;
+
+    }
+    //get post and filter
+
+    public List<Post> getPosts(String word, int categoryID, int authorID, int feature, int orderByID, int page, int numperpage) {
+        List<Post> list = new ArrayList<>();
+        String sql = "select * from posts  \n"
+                + "where category_id=category_id";
+        if (!word.equals("")) { // have option word
+            sql += " and title like'%"
+                    + word
+                    + "%'";
+        }
+        if (categoryID != 0) { // have option category
+            sql += " and category_id="
+                    + categoryID;
+        }
+        if (authorID != 0) { //have option author
+            sql += " and user_id ="
+                    + authorID;
+        }
+        if (feature != -1) { //have option feature
+            sql += " and featured="
+                    + feature
+                    + "\n";
+        }
+        if (convertOrderByID(orderByID) != null) { //have option order
+            sql += " order by "
+                    + convertOrderByID(orderByID)
+                    + "\n";
+        } else {
+            sql += " order by post_id\n";
+        }
+        sql += " OFFSET "
+                + (page - 1) * numperpage
+                + " ROWS FETCH NEXT "
+                + numperpage
+                + " ROWS ONLY";
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, featured);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Post post = filpostDetails(rs);
+                list.add(post);
+            }
+            st.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return list;
+    }
+
+    public Post getPost(int id) {
         String sql = "select * from posts where post_id=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-            if(rs.next())
+            if (rs.next()) {
                 return filpostDetails(rs);
+            }
             st.close();
         } catch (SQLException sqle) {
             System.out.println(sqle);
         }
         return null;
     }
-    
     public int countPosts() {
         String sql = "select count(post_id) from posts";
         try {
@@ -114,7 +223,7 @@ public class PostDAO extends DBContext {
         if (category_id > 0) {
             sql += "and p.category_id =" + category_id;
         }
-        if (tag_id_list != null && tag_id_list.size()>0) {
+        if (tag_id_list != null && tag_id_list.size() > 0) {
             sql += "and tp.tag_id in (";
             for (int tag_id : tag_id_list) {
                 sql += tag_id + ",";
@@ -136,6 +245,73 @@ public class PostDAO extends DBContext {
             System.out.println(sqle);
         }
         return 0;
+    }
+
+    //update status of post
+    public boolean updateStatusPost(int post_id, int featured) {
+        String sql = "UPDATE posts\n"
+                + "SET featured = "
+                + featured
+                + "\n"
+                + "WHERE post_id="
+                + post_id;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return false;//exception
+    }
+    //add new post category
+
+    public boolean InsertPostCategory(String category_name, String description) {
+        String sql = "insert into post_categories(category_name,description)\n"
+                + "values(?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, category_name);
+            st.setString(2, description);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;//exception
+    }
+    //add new post
+
+    public boolean InsertPost(Post post) {
+        String sql = "insert into posts(user_id,title,thumbnail,category_id,post_details,featured,publication_date)\n"
+                + "values(?,?,?,?,?,?,getdate())";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, post.getUser_id());
+            st.setString(2, post.getTitle());
+            st.setString(3, post.getThumbnail());
+            st.setInt(4, post.getCategory().getCategory_id());
+            st.setString(5, post.getPost_details());
+            st.setBoolean(6, post.isFeatured());
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;//exception
+    }
+    public boolean upload(String file){
+        String sql="insert into upload(url)\n" +
+"values(?)";
+        try {
+            PreparedStatement st=connection.prepareStatement(sql);
+            st.setString(1, file);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Tag">

@@ -1,6 +1,7 @@
 
 package model;
 
+import dal.AccountDAO;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -35,6 +36,17 @@ public class Post {
         this.featured = featured;
     }
 
+    public Post(int user_id, String thumbnail, String title, ProductCategory category, String post_details, boolean featured) {
+        this.user_id = user_id;
+        this.thumbnail = thumbnail;
+        this.title = title;
+        this.category = category;
+        this.post_details = post_details;
+        this.featured = featured;
+    }
+
+  
+    
     public int getPost_id() {
         return post_id;
     }
@@ -121,6 +133,17 @@ public class Post {
 
     public void setFeatured(boolean featured) {
         this.featured = featured;
+    }
+    
+    public String getAuthor(){
+        AccountDAO accountDAO=new AccountDAO();
+        Account account = accountDAO.getAccountByID(user_id);
+        return account.getUsername();
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" + "post_id=" + post_id + ", user_id=" + user_id + ", thumbnail=" + thumbnail + ", title=" + title + ", sub_title=" + sub_title + ", tag_list=" + tag_list + ", publication_date=" + publication_date + ", updated_date=" + updated_date + ", category=" + category + ", post_details=" + post_details + ", featured=" + featured + '}';
     }
     
 }
