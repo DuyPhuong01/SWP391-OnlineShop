@@ -75,7 +75,7 @@ public class CheckoutServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            out.println("<script type=\"text/javascript\">");
+               out.println("<script type=\"text/javascript\">");
             out.println("alert('Some item in cart have changed');");
             out.println("window.location.href = \"showcart\";");
             out.println("</script>");

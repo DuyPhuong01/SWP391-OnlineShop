@@ -3,18 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/web/postlist1.jsp</file>
-            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/web/css/post_list.css</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/controller/authentication/LogoutServlet.java</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/controller/authentication/RegisterServlet.java</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/controller/authentication/UpdateAccount.java</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/controller/authentication/ActiveAccount.java</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/controller/authentication/ResetPasswordServlet.java</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/controller/authentication/ForgotPasswordServlet.java</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/userfrofile.jsp</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/dal/AccountDAO.java</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/login.jsp</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/model/Account.java</file>
+            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/web/postlist.jsp</file>
+            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/web/sliderlist.jsp</file>
         </group>
     </open-files>
 </project-private>

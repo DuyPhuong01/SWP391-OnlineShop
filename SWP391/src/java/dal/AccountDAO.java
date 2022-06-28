@@ -68,6 +68,26 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
+    public Account getAccountByID(int id) {
+        try {
+            String sql = "SELECT *"
+                    + "  FROM [accounts]\n"
+                    + "  WHERE [user_id] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Account account = new Account(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"),
+                        rs.getString("full_name"), rs.getInt("role_id"), rs.getBoolean("gender"), rs.getString("email"),
+                        rs.getString("city"), rs.getString("country"), rs.getString("address"), rs.getString("phone"),
+                        rs.getString("image_url"), rs.getBoolean("featured"), rs.getString("hash"), rs.getInt("active"));
+                return account;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public Account getAccountByEmail(String email) {
         try {
@@ -237,6 +257,7 @@ public class AccountDAO extends DBContext {
         } catch (SQLException e) {
         }
     }
+
     public void updatePassword(String mail, String pass) {
         String sql = "UPDATE [accounts]\n"
                 + "   SET [password] = ?\n"
@@ -279,19 +300,34 @@ public class AccountDAO extends DBContext {
         }
         return 0;
     }
-        public List getCustomersByDays(LocalDate start, LocalDate end){
-            List list = new ArrayList<>();
-            for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
-                list.add(getNumberOfRegisteredCustomerByDay(i));
-            }
-            
-            return list;
+
+    public List getCustomersByDays(LocalDate start, LocalDate end) {
+        List list = new ArrayList<>();
+        for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
+            list.add(getNumberOfRegisteredCustomerByDay(i));
         }
-    public static void main(String[] args) {
-        AccountDAO adb = new AccountDAO();
-        Account a = new Account(7, "toanpv123", "123", "pham toan", 0, true, "123@123", "hanoi", "vn", "hd - hn", "09999999", "tt", true);
-        adb.singup(a);
-        System.out.println(a.getEmail());
+
+        return list;
+    }
+
+    public List<Account> getAuthors() {
+        List<Account> list = new ArrayList<>();
+        try {
+            String sql="select distinct a.user_id from  accounts a \n" +
+            "inner join \n" +
+            "posts p on a.user_id=p.user_id\n" +
+            "group by a.user_id";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Account account=getAccountByID(rs.getInt("user_id"));
+                list.add(account);
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }
