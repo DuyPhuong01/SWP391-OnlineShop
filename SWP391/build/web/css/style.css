@@ -3,12 +3,26 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-size: 18px;
+    font-size: 20px;
     transition: .2s;
     scroll-behavior: smooth;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+::-webkit-scrollbar {
+  width: 8px;
 }
 
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
 :root {
     --bs-border-radius: .5rem;
 }
@@ -234,4 +248,34 @@ tr {
     right: 0;
     bottom: 0;
     object-fit: cover;
+}
+.lastest-product::-webkit-scrollbar{
+    width: 5px;
+}
+.lastest-product::-webkit-scrollbar-thumb{
+    background: rgba(0, 0, 0, 0.3);
+}
+.lastest-product::-webkit-scrollbar-thumb:hover{
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.line-limit-2 {
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.scrollbox {
+    padding-right: 5px;
+  overflow: auto;
+  visibility: hidden;
+}
+
+.scrollbox-content,
+.scrollbox:hover,
+.scrollbox:focus {
+  visibility: visible;
 }

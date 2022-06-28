@@ -22,47 +22,118 @@
                 <div class="container-lg my-5">
                     <div class="p-3 bg-white rounded shadow-sm">
                         <div class="top-head">
-                            <form id="productSearchForm" action="feedbackslist" method="post">
+                            <form id="feedbackSearchForm" action="feedbackslist" method="post">
                                 <input type="number" id="page" name="page" value="${requestScope.pageNumber}" hidden>
                             <div class="mb-3 d-flex justify-content-between">
-                                <div class="d-flex">
-                                    <div class="me-3">
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon1">Featured</span>
-                                            <select class="form-control" name="featured" aria-describedby="basic-addon1">
-                                                <option value="-1"  ${requestScope.choosen_featured eq -1?"selected":""}> All </option>
-                                                <option value="1" ${requestScope.choosen_featured eq 1?"selected":""}> On </option>
-                                                <option value="0" ${requestScope.choosen_featured eq 0?"selected":""}> Off </option>
-                                            </select>
+                                <div>
+                                    <a class="btn btn-outline-primary cursor-pointer" onclick="openFilterOverlay()">Choose Filter</a>
+                                </div>
+                                <div>
+                                    <div id="modal-filer" class="modal modal-xl">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="btn-close" onclick="closeModalFilter()"></button>
+                                                </div>
+                                                <div class="modal-body pb-5">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <h3>Status</h3>
+                                                            <div>
+                                                                <label>
+                                                                    <input class="me-2" type="radio" name="status" value="-1">All
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <label>
+                                                                    <input class="me-2" type="radio" name="status" value="1">Showed
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <label>
+                                                                    <input class="me-2" type="radio" name="status" value="0">Hidden
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <h3>Rated Star</h3>
+                                                            <div>
+                                                                <label>
+                                                                    <input class="me-2" type="checkbox" name="rated_star" value="0" onclick="clearCheckboxRatedStar()">All
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <label>
+                                                                    <input class="me-2" type="checkbox" name="rated_star" value="1" onclick="clearCheckboxRatedStarAll()">1
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <label>
+                                                                    <input class="me-2" type="checkbox" name="rated_star" value="2" onclick="clearCheckboxRatedStarAll()">2
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <label>
+                                                                    <input class="me-2" type="checkbox" name="rated_star" value="3" onclick="clearCheckboxRatedStarAll()">3
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <label>
+                                                                    <input class="me-2" type="checkbox" name="rated_star" value="4" onclick="clearCheckboxRatedStarAll()">4
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <label>
+                                                                    <input class="me-2" type="checkbox" name="rated_star" value="5" onclick="clearCheckboxRatedStarAll()">5
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h3>Feedbacks Type</h3>
+                                                        <div>
+                                                            <label>
+                                                                <input class="me-2" type="radio" name="type" value="1" onclick="hideProductOption(event)">General Feedbacks
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <label>
+                                                                <input class="me-2" type="radio" name="type" value="2" onclick="showProductOption(event)">Product Feedbacks
+                                                            </label>
+                                                        </div>
+                                                        <div id="sub-product-select" class="ms-5" style="opacity: 0;">
+                                                            <div>
+                                                                <label>
+                                                                    <input class="me-2" type="radio" name="typeProduct" value="0" onclick="hideProductList(event)">All Products
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <label>
+                                                                    <input class="me-2" type="radio" name="typeProduct" value="1" onclick="showProductList(event)">Custom Products
+                                                                </label>
+                                                                <div id="product-list" class="ms-5" style="opacity: 0;">
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="me-3">
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon1">Category</span>
-                                            <select class="form-control" name="categoryId" aria-describedby="basic-addon1" id="select-category" onchange="updateSubCategry()">
-                                                <%
-                                                    CategoryDAO category_dao = new CategoryDAO();
-                                                %>
-                                                <option value="-1" ${requestScope.choosen_category_id eq -1 ? "selected" : ""}> All </option>
-                                                <c:forEach var="category" items="<%= category_dao.getProductCategory()%>">
-                                                    <option value="${category.category_id}"  ${requestScope.choosen_category_id eq category.category_id ? "selected" : ""}> ${category.category_name} </option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="me-3">
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon1">Sub Category</span>
-                                            <select class="form-control" name="subCategoryId" aria-describedby="basic-addon1" id="select-sub-category">
-                                                <option value="-1"> All </option>
-                                                <c:forEach var="category" items="<%= category_dao.getProductCategory()%>">
-                                                    <c:if test="${requestScope.choosen_category_id eq category.category_id}">
-                                                        <c:forEach var="subcategory" items="${category.subCategoryList}">
-                                                            <option value="${subcategory.id}"  ${requestScope.choosen_sub_category_id eq subcategory.id ? "selected" : ""}> ${subcategory.name} </option>
-                                                        </c:forEach>
-                                                    </c:if>
-                                                </c:forEach>
-                                            </select>
+                                </div>
+                                <div>
+                                    <div id="modal-search" class="modal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h6 class="modal-title">Search Feedback</h6>
+                                                    <button type="button" class="btn-close" onclick="closeModalSearch()"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input class="form-control" type="text" name="key" value="${requestScope.searchKey}">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -70,95 +141,62 @@
                                     <input class="btn btn-primary" type="submit" value="Filter">
                                 </div>
                             </div>
-                            <script>
-                                function updateSubCategry() {
-                                    var selected = document.getElementById('select-category').querySelector('option:checked').value;
-                                    var div = document.getElementById('select-sub-category');
-                                    $.ajax({
-                                        url: 'getsubcategory',
-                                        type: 'post',
-                                        data: {
-                                            cid: selected
-                                        },
-                                        success: function (response) {
-                                            div.innerHTML = response;
-                                        },
-                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                            b.checked = false;
-                                        }
-                                    });
-                                }
-                            </script>
                             <div>
                                 <span class="me-3" id="basic-addon1">Sort by</span>
                                 <label>
-                                    <input type="radio" class="btn-check" name="orderby" value="product_id asc" ${requestScope.choosen_orderby eq "product_id asc"?"checked":""}>
+                                    <input type="radio" class="btn-check" name="orderby" value="feedback_id asc" ${requestScope.choosen_orderby eq "product_id asc"?"checked":""}>
                                     <div class="btn btn-outline-primary">
                                         <i class="fa-solid fa-arrow-down-1-9"></i>
                                         <span>ID</span>
                                     </div>
                                 </label>
                                 <label>
-                                    <input type="radio" class="btn-check" name="orderby" value="product_id desc" ${requestScope.choosen_orderby eq "product_id desc"?"checked":""}>
+                                    <input type="radio" class="btn-check" name="orderby" value="feedback_id desc" ${requestScope.choosen_orderby eq "product_id desc"?"checked":""}>
                                     <div class="btn btn-outline-primary">
                                         <i class="fa-solid fa-arrow-down-9-1"></i>
                                         <span>ID</span>
                                     </div>
                                 </label>
                                 <label>
-                                    <input type="radio" class="btn-check" name="orderby" value="name asc" ${requestScope.choosen_orderby eq "name asc"?"checked":""}>
+                                    <input type="radio" class="btn-check" name="orderby" value="full_name asc" ${requestScope.choosen_orderby eq "name asc"?"checked":""}>
                                     <div class="btn btn-outline-primary">
                                         <i class="fa-solid fa-arrow-down-a-z"></i>
-                                        <span>Title</span>
+                                        <span>Fullname</span>
                                     </div>
                                 </label>
                                 <label>
-                                    <input type="radio" class="btn-check" name="orderby" value="name desc" ${requestScope.choosen_orderby eq "name desc"?"checked":""}>
+                                    <input type="radio" class="btn-check" name="orderby" value="full_name desc" ${requestScope.choosen_orderby eq "name desc"?"checked":""}>
                                     <div class="btn btn-outline-primary">
                                         <i class="fa-solid fa-arrow-down-z-a"></i>
-                                        <span>Title</span>
+                                        <span>Fullname</span>
                                     </div>
                                 </label>
                                 <label>
-                                    <input type="radio" class="btn-check" name="orderby" value="original_price asc"  ${requestScope.choosen_orderby eq "original_price asc"?"checked":""}>
+                                    <input type="radio" class="btn-check" name="orderby" value="email asc"  ${requestScope.choosen_orderby eq "original_price asc"?"checked":""}>
+                                    <div class="btn btn-outline-primary">
+                                        <i class="fa-solid fa-arrow-down-a-z"></i>
+                                        <span>Email</span>
+                                    </div>
+                                </label>
+                                <label>
+                                    <input type="radio" class="btn-check" name="orderby" value="email desc" ${requestScope.choosen_orderby eq "original_price desc"?"checked":""}>
+                                    <div class="btn btn-outline-primary">
+                                        <i class="fa-solid fa-arrow-down-z-a"></i>
+                                        <span>Email</span>
+                                    </div>
+                                </label>
+                                <label>
+                                    <input type="radio" class="btn-check" name="orderby" value="star asc"  ${requestScope.choosen_orderby eq "sale_price asc"?"checked":""}>
                                     <div class="btn btn-outline-primary">
                                         <i class="fa-solid fa-arrow-down-short-wide"></i>
-                                        <span>List price</span>
+                                        <span>Rated star</span>
                                     </div>
                                 </label>
                                 <label>
-                                    <input type="radio" class="btn-check" name="orderby" value="original_price desc" ${requestScope.choosen_orderby eq "original_price desc"?"checked":""}>
+                                    <input type="radio" class="btn-check" name="orderby" value="star desc"  ${requestScope.choosen_orderby eq "sale_price desc"?"checked":""}>
                                     <div class="btn btn-outline-primary">
                                         <i class="fa-solid fa-arrow-down-wide-short"></i>
-                                        <span>List price</span>
-                                    </div>
-                                </label>
-                                <label>
-                                    <input type="radio" class="btn-check" name="orderby" value="sale_price asc"  ${requestScope.choosen_orderby eq "sale_price asc"?"checked":""}>
-                                    <div class="btn btn-outline-primary">
-                                        <i class="fa-solid fa-arrow-down-short-wide"></i>
-                                        <span>Sale price</span>
-                                    </div>
-                                </label>
-                                <label>
-                                    <input type="radio" class="btn-check" name="orderby" value="sale_price desc"  ${requestScope.choosen_orderby eq "sale_price desc"?"checked":""}>
-                                    <div class="btn btn-outline-primary">
-                                        <i class="fa-solid fa-arrow-down-wide-short"></i>
-                                        <span>Sale price</span>
-                                    </div>
-                                </label>
-                                <label>
-                                    <input type="radio" class="btn-check" name="orderby" value="unit_in_stock asc"  ${requestScope.choosen_orderby eq "unit_in_stock asc"?"checked":""}>
-                                    <div class="btn btn-outline-primary">
-                                        <i class="fa-solid fa-arrow-down-short-wide"></i>
-                                        <span>Quantity</span>
-                                    </div>
-                                </label>
-                                <label>
-                                    <input type="radio" class="btn-check" name="orderby" value="unit_in_stock desc"  ${requestScope.choosen_orderby eq "unit_in_stock desc"?"checked":""}>
-                                    <div class="btn btn-outline-primary">
-                                        <i class="fa-solid fa-arrow-down-wide-short"></i>
-                                        <span>Quantity</span>
+                                        <span>Rated star</span>
                                     </div>
                                 </label>
                             </div>
@@ -172,12 +210,9 @@
                             <thead class="sticky-0 bg-white">
                                 <tr>
                                     <th>Id</th>
-                                    <th>Thumbnail</th>
-                                    <th>Title</th>
-                                    <th>List Price</th>
-                                    <th>Sale Price</th>
-                                    <th>Category</th>
-                                    <th>Quantity</th>
+                                    <th>Fullname</th>
+                                    <th>Product Name</th>
+                                    <th>Rated Star</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -246,19 +281,11 @@
             }
         </script>
         <div class="fixed-end-bottom">
-            <div class="px-3 py-2 bg-white rounded-pill shadow-sm mb-3">
-                <a href="addproduct" class="cursor-pointer"><i class="fa-solid fa-circle-plus fs-4"></i></a>
-            </div>
-            <!--            <div class="px-3 py-2 bg-white rounded-pill shadow-sm">
-<a class="cursor-pointer" onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></a>
-</div>-->
-            <script>
-                //
-                //                function search (){
-                //                    
-                //                }
-                //
-            </script>
+            <a class="cursor-pointer" onclick="openModalSearch()" data-bs-toggle="tooltip" data-bs-placement="left" title="Search">
+                <div class="px-3 py-2 bg-white rounded-pill shadow-sm">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </a>
         </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
@@ -268,53 +295,54 @@
                 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
                 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
     </script>
+    <script src="../js/marketing/feedbackslist.js"></script>
     <script>
-        document.querySelectorAll('.featured-btn').forEach(b => {
-            b.addEventListener('change', function () {
-                var id = b.getAttribute('data-product-id');
-                if (b.checked) {
-                    if (confirm('Do you want to show product with id = ' + id + '?')) {
-                        $.ajax({
-                            url: 'editproduct',
-                            type: 'post',
-                            data: {
-                                action: 'activate',
-                                product_id: id
-                            },
-                            success: function (response) {
-                                b.checked = true;
-                                console.log(response);
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                document.querySelectorAll('.featured-btn').forEach(b => {
+                    b.addEventListener('change', function () {
+                        var id = b.getAttribute('data-product-id');
+                        if (b.checked) {
+                            if (confirm('Do you want to show product with id = ' + id + '?')) {
+                                $.ajax({
+                                    url: 'editproduct',
+                                    type: 'post',
+                                    data: {
+                                        action: 'activate',
+                                        product_id: id
+                                    },
+                                    success: function (response) {
+                                        b.checked = true;
+                                        console.log(response);
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        b.checked = false;
+                                    }
+                                });
+                            } else {
                                 b.checked = false;
                             }
-                        });
-                    } else {
-                        b.checked = false;
-                    }
-                } else {
-                    if (confirm('Do you want to hide product with id = ' + id + '?')) {
-                        $.ajax({
-                            url: 'editproduct',
-                            type: 'post',
-                            data: {
-                                action: 'disactivate',
-                                product_id: id
-                            },
-                            success: function (response) {
-                                b.checked = false;
-                                console.log(response);
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        } else {
+                            if (confirm('Do you want to hide product with id = ' + id + '?')) {
+                                $.ajax({
+                                    url: 'editproduct',
+                                    type: 'post',
+                                    data: {
+                                        action: 'disactivate',
+                                        product_id: id
+                                    },
+                                    success: function (response) {
+                                        b.checked = false;
+                                        console.log(response);
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        b.checked = true;
+                                    }
+                                });
+                            } else {
                                 b.checked = true;
                             }
-                        });
-                    } else {
-                        b.checked = true;
-                    }
-                }
-            });
-        })
+                        }
+                    });
+                })
     </script>
 
 </html>
