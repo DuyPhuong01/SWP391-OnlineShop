@@ -72,26 +72,26 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
-    public Account getAccountByID(int id) {
-        try {
-            String sql = "SELECT *"
-                    + "  FROM [accounts]\n"
-                    + "  WHERE [user_id] = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, id);
-            ResultSet rs = stm.executeQuery();
-            if (rs.next()) {
-                Account account = new Account(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"),
-                        rs.getString("full_name"), rs.getInt("role_id"), rs.getBoolean("gender"), rs.getString("email"),
-                        rs.getString("city"), rs.getString("country"), rs.getString("address"), rs.getString("phone"),
-                        rs.getString("image_url"), rs.getBoolean("featured"), rs.getString("hash"), rs.getInt("active"));
-                return account;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+//    public Account getAccountByID(int id) {
+//        try {
+//            String sql = "SELECT *"
+//                    + "  FROM [accounts]\n"
+//                    + "  WHERE [user_id] = ?";
+//            PreparedStatement stm = connection.prepareStatement(sql);
+//            stm.setInt(1, id);
+//            ResultSet rs = stm.executeQuery();
+//            if (rs.next()) {
+//                Account account = new Account(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"),
+//                        rs.getString("full_name"), rs.getInt("role_id"), rs.getBoolean("gender"), rs.getString("email"),
+//                        rs.getString("city"), rs.getString("country"), rs.getString("address"), rs.getString("phone"),
+//                        rs.getString("image_url"), rs.getBoolean("featured"), rs.getString("hash"), rs.getInt("active"));
+//                return account;
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return null;
+//    }
 
     public Account getAccountByEmail(String email) {
         try {

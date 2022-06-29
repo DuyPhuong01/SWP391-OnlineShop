@@ -47,8 +47,7 @@ public class PostDAO extends DBContext {
         
         List<Post> list = new ArrayList<>();
         String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,p.* from posts p "
-                + "inner join tag_post tp on p.post_id = tp.post_id "
-                + "where p.featured=? and p.title like '%" + title_search_key + "%' ";
+                + "where p.featured="+featured+" and p.title like '%" + title_search_key + "%' ";
         if (category_id > 0) {
             sql += "and p.category_id =" + category_id;
         }
@@ -66,7 +65,6 @@ public class PostDAO extends DBContext {
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, featured);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Post post = filpostDetails(rs);
@@ -174,7 +172,7 @@ public class PostDAO extends DBContext {
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, featured);
+//            st.setInt(1, feature);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Post post = filpostDetails(rs);
@@ -218,7 +216,6 @@ public class PostDAO extends DBContext {
     }
     public int countPosts(int featured, String title_search_key, int category_id, List<Integer> tag_id_list) {
         String sql = "select count(p.post_id) as count from posts p "
-                + "inner join tag_post tp on p.post_id = tp.post_id "
                 + "where p.featured=? and p.title like '%" + title_search_key + "%' ";
         if (category_id > 0) {
             sql += "and p.category_id =" + category_id;

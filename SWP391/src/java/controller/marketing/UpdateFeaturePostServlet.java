@@ -5,20 +5,21 @@
  */
 package controller.marketing;
 
+import dal.PostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
- * @author Duy Phuong
+ * @author Admin
  */
-@WebServlet(name = "FeedbacksListServlet", urlPatterns = {"/marketing/feedbackslist"})
-public class FeedbacksListServlet extends HttpServlet {
+public class UpdateFeaturePostServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,18 +32,12 @@ public class FeedbacksListServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+              response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FeedbacksListServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FeedbacksListServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Access denied');");
+            out.println("window.location.href = \"http://localhost:8080/swp/home#divOne\";");
+            out.println("</script>");
         }
     }
 
@@ -58,9 +53,12 @@ public class FeedbacksListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        request.getRequestDispatcher("/marketing/feedbackslist.jsp").forward(request, response);
+                HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        if(account==null){ //have  not login
+            processRequest(request, response);
+        }
+       response.sendRedirect("postlist");
     }
 
     /**
@@ -74,7 +72,17 @@ public class FeedbacksListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         int postId=Integer.parseInt(request.getParameter("postid"));
+        int featured=Integer.parseInt(request.getParameter("featured"));
+        PostDAO postDAO=new PostDAO();
+        boolean checkUpdate=postDAO.updateStatusPost(postId, featured);
+        PrintWriter out = response.getWriter();
+        if(checkUpdate){//update successfully
+            out.println("Update successfully!");
+        }
+        else{
+            out.println("Update Failed!");
+        }
     }
 
     /**

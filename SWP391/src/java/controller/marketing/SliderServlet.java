@@ -3,23 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.post;
+package controller.marketing;
 
-import dal.PostDAO;
+import dal.SliderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Account;
+import model.Slider;
 
 /**
  *
- * @author Admin
+ * @author Duy Phuong
  */
-public class UpdateFeaturePostServlet extends HttpServlet {
+@WebServlet(name = "SliderServlet", urlPatterns = {"/marketing/slider"})
+public class SliderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,12 +33,18 @@ public class UpdateFeaturePostServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-              response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('Access denied');");
-            out.println("window.location.href = \"http://localhost:8080/swp/home#divOne\";");
-            out.println("</script>");
+        response.setContentType("text/html;charset=UTF-8");
+        SliderDAO sliderDAO = new SliderDAO();
+        
+        String id_raw = request.getParameter("id");
+        
+        try{
+            int id = Integer.parseInt(id_raw);
+            Slider slider = sliderDAO.getSlider(id);
+            request.setAttribute("slider", slider);
+            request.getRequestDispatcher("/marketing/sliderdetails.jsp").forward(request, response);
+        } catch (NumberFormatException nfe){
+            System.out.println(nfe);
         }
     }
 
@@ -53,12 +60,7 @@ public class UpdateFeaturePostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-        if(account==null){ //have  not login
-            processRequest(request, response);
-        }
-       response.sendRedirect("postlist");
+        processRequest(request, response);
     }
 
     /**
@@ -72,17 +74,7 @@ public class UpdateFeaturePostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         int postId=Integer.parseInt(request.getParameter("postid"));
-        int featured=Integer.parseInt(request.getParameter("featured"));
-        PostDAO postDAO=new PostDAO();
-        boolean checkUpdate=postDAO.updateStatusPost(postId, featured);
-        PrintWriter out = response.getWriter();
-        if(checkUpdate){//update successfully
-            out.println("Update successfully!");
-        }
-        else{
-            out.println("Update Failed!");
-        }
+        processRequest(request, response);
     }
 
     /**

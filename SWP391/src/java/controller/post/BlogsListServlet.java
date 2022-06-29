@@ -5,10 +5,8 @@
  */
 package controller.post;
 
-import dal.CategoryDAO;
 import dal.PostDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -39,11 +37,15 @@ public class BlogsListServlet extends HttpServlet {
         PostDAO postDAO = new PostDAO();
         final int NUMBER_ITEMS_PER_PAGE = 8;
 
+        String orderOption = request.getParameter("orderOption");
         String category_id_raw = request.getParameter("categoryId");
         String[] tag_id_raw_list = request.getParameterValues("tag_id");
         String key = request.getParameter("key");
         String pageNumberRaw = request.getParameter("page");
 
+        if (orderOption == null) {
+            orderOption = "publication_date";
+        }
         if (category_id_raw == null) {
             category_id_raw = "-1";
         }
@@ -62,12 +64,14 @@ public class BlogsListServlet extends HttpServlet {
             int pageNumber = pageNumberRaw == null ? 1 : Integer.parseInt(pageNumberRaw);
             int numberPage = postsCount % NUMBER_ITEMS_PER_PAGE == 0 ? postsCount / NUMBER_ITEMS_PER_PAGE : postsCount / NUMBER_ITEMS_PER_PAGE + 1;
 
-            int start = (pageNumber - 1) * NUMBER_ITEMS_PER_PAGE;
+            int start = (pageNumber - 1) * NUMBER_ITEMS_PER_PAGE + 1;
             int end = Math.min(pageNumber * NUMBER_ITEMS_PER_PAGE, postsCount);
 
-            request.setAttribute("postsList", postDAO.getPosts("publication_date", 1, key, category_id, tag_id_list, start, end));
+            request.setAttribute("postsList", postDAO.getPosts(orderOption, 1, key, category_id, tag_id_list, start, end));
             request.setAttribute("selectedCategoryId", category_id);
-            System.out.println(category_id);
+            request.setAttribute("orderOption", orderOption);
+            request.setAttribute("pageNumber", pageNumber);
+            request.setAttribute("numberPage", numberPage);
         } catch (NumberFormatException nfe) {
             System.out.println(nfe);
         }

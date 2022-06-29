@@ -28,7 +28,7 @@
 }
 
 html {
-    --theme-primary-color: #E15246;
+    --theme-primary-color: #0d6efd;
     --background-primary-color: #FFFFFF;
     --background-secondary-color: #F0F2F5;
     --background-tertiary-color: #F2F2F2;
@@ -93,11 +93,6 @@ a{
     width: 20%;
 }
 
-.sidebar {
-    width: 72px;
-    display: flex;
-    flex-direction: column;
-}
 
 .dashboard>*>* {
     margin-bottom: 15px;
@@ -137,10 +132,6 @@ tr {
 
 .product-specification table tr td:first-child {
     width: 30%;
-}
-
-#sidebar i {
-    font-size: 1.8rem;
 }
 
 #sidebar {
@@ -278,4 +269,8 @@ tr {
 .scrollbox:hover,
 .scrollbox:focus {
   visibility: visible;
+}
+input[name="poststatus-radio"]:checked + div{
+    color: var(--theme-primary-color);
+    border-bottom: 1px solid var(--theme-primary-color); 
 }

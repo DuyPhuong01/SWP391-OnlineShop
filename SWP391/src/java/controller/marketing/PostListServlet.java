@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.post;
+package controller.marketing;
 
 import dal.AccountDAO;
 import dal.CategoryDAO;
@@ -25,6 +25,7 @@ import model.ProductCategory;
  *
  * @author Admin
  */
+@WebServlet(name = "PostListServlet", urlPatterns = {"/marketing/postslist"})
 public class PostListServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -61,7 +62,7 @@ public class PostListServlet extends HttpServlet {
         request.setAttribute("categories", postCategory);
         request.setAttribute("maxpage",maxPage);
         request.setAttribute("authors", authors);
-        request.getRequestDispatcher("postlist.jsp").forward(request, response);
+        request.getRequestDispatcher("/marketing/postlist.jsp").forward(request, response);
     }
 
  

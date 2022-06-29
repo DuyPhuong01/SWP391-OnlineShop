@@ -122,28 +122,20 @@
         <servlet-class>controller.authentication.UpdateAccount</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PostListServlet</servlet-name>
-        <servlet-class>controller.post.PostListServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UpdateFeaturePostServlet</servlet-name>
-        <servlet-class>controller.post.UpdateFeaturePostServlet</servlet-class>
+        <servlet-class>controller.marketing.UpdateFeaturePostServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SearchPostListServlet</servlet-name>
-        <servlet-class>controller.post.SearchPostListServlet</servlet-class>
+        <servlet-class>controller.marketing.SearchPostListServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadServlet</servlet-name>
         <servlet-class>UploadServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddPostServlet</servlet-name>
-        <servlet-class>controller.post.AddPostServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddPostCategoryServlet</servlet-name>
-        <servlet-class>controller.post.AddPostCategoryServlet</servlet-class>
+        <servlet-class>controller.marketing.AddPostCategoryServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -234,10 +226,6 @@
         <url-pattern>/ckfinder/core/connector/java/connector.java</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PostListServlet</servlet-name>
-        <url-pattern>/postlist</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>UpdateFeaturePostServlet</servlet-name>
         <url-pattern>/updatefeaturepost</url-pattern>
     </servlet-mapping>
@@ -248,10 +236,6 @@
     <servlet-mapping>
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/upload</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddPostServlet</servlet-name>
-        <url-pattern>/addpost</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddPostCategoryServlet</servlet-name>

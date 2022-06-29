@@ -8,6 +8,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 //import java.util.Arrays.ArrayList;
 import java.util.List;
 import model.Account;
@@ -18,6 +19,10 @@ import model.Feedback;
  * @author tretr
  */
 public class FeedbackDAO extends DBContext {
+
+    public Feedback fillFeedbackDetails(ResultSet rs) {
+        return new Feedback();
+    }
 
     public void insertFeedback(Feedback f) {
         String sql = "INSERT INTO [product_feedbacks]\n"
@@ -135,6 +140,7 @@ public class FeedbackDAO extends DBContext {
         }
         return 0;
     }
+
     public int getTotalProductFeedbacks() {
         String sql = "select count(*) from product_feedbacks";
         try {
@@ -162,31 +168,43 @@ public class FeedbackDAO extends DBContext {
         }
         return 0;
     }
-    
-//    public List<Feedback> getAllFeedbacksByRange(String orderOption, ){
-//        List<Feedback> feedbacksList = new ArrayList<>();
-//        String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,p.* from products p inner join product_sub_categories psc on p.sub_category_id = psc.sub_category_id where name like '%" + key + "%' ";
-//        if (subCategoryID != -1) {
-//            sql += "and p.sub_category_id in (" + subCategoryID + ")";
-//        } else if (categoryID != -1) {
-//            sql += "and psc.category_id in (" + categoryID + ")";
-//        }
-//        if (featured != -1) {
-//            sql += " and p.featured=" + featured;
-//        }
-//        sql += ") all_products where Row between " + start + " and " + end;
-//        System.out.println(sql);
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                Product product = filProductDetails(rs);
-//                feedbacksList.add(product);
-//            }
-//            return feedbacksList;
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//        return null;
-//    }
+
+    public List<Feedback> getGeneralFeedbacksByRange(String orderOption, String key, int status, int[] stars, int start, int end) {
+        /**
+         * select * from ( select ROW_NUMBER() over (order by feedback_id asc)
+         * as Row,* from general_feedbacks where full_name like '%%' and
+         * [status] = '1' and star in (1, 2, 3, 4, 5) ) all_products where Row
+         * between 1 and 22
+         */
+
+        List<Feedback> feedbacksList = new ArrayList<>();
+        String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,* from general_feedbacks where full_name like '%" + key + "%' ";
+        if (status != -1) {
+            sql += "and status = " + status + " ";
+        }
+        
+        if (stars.length > 0 && stars[0] != -1) {
+            sql += " and star in (";
+            for(int i : stars){
+                sql += i+",";
+            }
+            sql = sql.substring(0, sql.length());
+            sql += ")";
+        }
+        sql += ") all_products where Row between " + start + " and " + end;
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Feedback feedback = fillFeedbackDetails(rs);
+                feedbacksList.add(feedback);
+            }
+            return feedbacksList;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
 }

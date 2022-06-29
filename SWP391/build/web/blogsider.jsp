@@ -10,7 +10,7 @@
 %>
 <div id="sider" class="scrollbox" style="position: sticky; top: 100px; bottom: 0; max-height: calc(100vh - 100px);">
     <div class="scrollbox-content rounded">
-        <form method="post" action="blogslist" id="productSearchForm" class="bg-white p-3 rounded shadow-sm mb-3">
+        <form method="post" action="blogslist" id="form-blog-sider" class="bg-white p-3 rounded shadow-sm mb-3">
             <div class="search-container mb-3">
                 <input id="productSeachKey" class="form-control" type="text" placeholder="Search Post" aria-label="default input example" name="key" id="productSeachKey" value="${requestScope.key}">
             </div>
@@ -39,8 +39,8 @@
                 </div>
             </div>
             <div class="hidden-input">
-                <input type="hidden" value="<c:if test="${requestScope.pageNumber != null}">${requestScope.pageNumber}</c:if><c:if test="${requestScope.pageNumber == null}">1</c:if>" name="page" id="page"/>
-                <input type="hidden" value="<c:if test="${requestScope.orderOption != null}">${requestScope.orderOption}</c:if><c:if test="${requestScope.orderOption == null}">newest</c:if>" name="orderOption" id="order-option"/>
+                <input type="hidden" value="1" name="page" id="page"/>
+                <input type="hidden" value="${requestScope.orderOption}" name="orderOption" id="order-option"/>
                 <c:if test="${requestScope.categoryId != null}"><input type="hidden" value="${requestScope.categoryId.category_id}" name="categoryId"></c:if>
                 <c:if test="${requestScope.subCategoryId != null}"><input type="hidden" value="${requestScope.subCategoryId.id}" name="subCategoryId"></c:if>
                 </div>
