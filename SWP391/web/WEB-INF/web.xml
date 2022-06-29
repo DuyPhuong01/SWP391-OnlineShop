@@ -37,6 +37,43 @@
     <welcome-file-list>
         <welcome-file>ckeditor</welcome-file>
     </welcome-file-list>
+    <filter>
+        <filter-name>NewFilter</filter-name>
+        <filter-class>filter.NewFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>NewFilter</filter-name>
+        <url-pattern>/buy</url-pattern>
+        <url-pattern>/register</url-pattern>
+        <url-pattern>/checkout</url-pattern>
+        <url-pattern>/process</url-pattern>
+        <url-pattern>/product</url-pattern>
+        <url-pattern>/showcart</url-pattern>
+        <url-pattern>/activate</url-pattern>
+        <url-pattern>/cartcompletion</url-pattern>
+        <url-pattern>/delete_order</url-pattern>
+        <url-pattern>/updateorder</url-pattern>
+        <url-pattern>/cancel_order</url-pattern>
+        <url-pattern>/blogslist</url-pattern>
+        <url-pattern>/myorders</url-pattern>
+        <url-pattern>/orderinformation</url-pattern>
+        <url-pattern>/marketing/.*</url-pattern>
+        <url-pattern>/logout</url-pattern>
+        <url-pattern>/delete_order</url-pattern>
+        <url-pattern>/resetpass</url-pattern>
+        <url-pattern>/myorders</url-pattern>
+        <url-pattern>/orderinformation</url-pattern>
+        <url-pattern>/updateorder</url-pattern>
+        <url-pattern>/cancel_order</url-pattern>
+        <url-pattern>/updateacc</url-pattern>
+        <url-pattern>/marketing/productslist</url-pattern>
+        <url-pattern>/marketing/product</url-pattern>
+        <url-pattern>/marketing</url-pattern>
+        <url-pattern>/marketing/dashboard</url-pattern>
+        <url-pattern>/marketing/getsubcategory</url-pattern>
+        <url-pattern>/marketing/editproduct</url-pattern>
+        <url-pattern>/marketing/addproduct</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>controller.authentication.LoginServlet</servlet-class>
@@ -136,6 +173,22 @@
     <servlet>
         <servlet-name>AddPostCategoryServlet</servlet-name>
         <servlet-class>controller.marketing.AddPostCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleServlet</servlet-name>
+        <servlet-class>controller.sale.SaleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderListServlet</servlet-name>
+        <servlet-class>controller.sale.OrderListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDetailsServlet</servlet-name>
+        <servlet-class>controller.sale.OrderDetailsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccessDeniedServlet</servlet-name>
+        <servlet-class>controller.authentication.AccessDeniedServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -240,6 +293,23 @@
     <servlet-mapping>
         <servlet-name>AddPostCategoryServlet</servlet-name>
         <url-pattern>/addpostcategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleServlet</servlet-name>
+        <url-pattern>/sale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderListServlet</servlet-name>
+        <url-pattern>/sale/orderslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetailsServlet</servlet-name>
+        <url-pattern>/sale/orderdetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccessDeniedServlet</servlet-name>
+        <url-pattern>/accessdenied</url-pattern>
+        <url-pattern>/marketing/accessdenied</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

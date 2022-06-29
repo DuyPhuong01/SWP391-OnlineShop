@@ -3,17 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/NewCode/summer2022-se1611-g2/SWP391/src/java/controller/post/BlogsListServlet.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/NewCode/summer2022-se1611-g2/SWP391/web/js/form.js</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/NewCode/summer2022-se1611-g2/SWP391/web/js/post_list.js</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/NewCode/summer2022-se1611-g2/SWP391/src/java/dal/PostDAO.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/NewCode/summer2022-se1611-g2/SWP391/src/java/dal/ProductDAO.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/NewCode/summer2022-se1611-g2/SWP391/web/js/blogslist.js</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/NewCode/summer2022-se1611-g2/SWP391/web/blogsider.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/NewCode/summer2022-se1611-g2/SWP391/web/navbar.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/NewCode/summer2022-se1611-g2/SWP391/web/blogslist.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/NewCode/summer2022-se1611-g2/SWP391/src/java/controller/marketing/FeedbacksListServlet.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/NewCode/summer2022-se1611-g2/SWP391/src/java/dal/FeedbackDAO.java</file>
+            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/controller/home/HomeServlet.java</file>
+            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>

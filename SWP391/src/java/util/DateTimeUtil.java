@@ -5,6 +5,7 @@
  */
 package util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,28 +25,59 @@ public class DateTimeUtil {
         LocalDate start = LocalDate.parse(sdf.format(date), DateTimeFormatter.ISO_LOCAL_DATE).minusDays(6);
         return start;
     }
-    public static LocalDate getStartDate(String date) {
-        LocalDate start = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
+    public static LocalDate getStartDate(int number) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        LocalDate start = LocalDate.parse(sdf.format(date), DateTimeFormatter.ISO_LOCAL_DATE).minusDays(number);
         return start;
     }
+
+
+    public static LocalDate getStartDate(String time) {
+        switch (time) {
+            case "1":
+                return getStartDateDefault();
+            case "2":
+                return getStartDate(29);
+            default:
+                return getStartDate(89);
+        }
+    }
+
     public static LocalDate getEndDate(String date) {
         LocalDate end = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
         return end.plusDays(1);
     }
+    public static String getEndDate2(String date) {
+        LocalDate end = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
+        return end.plusDays(1).toString();
+    }
+
     public static LocalDate getEndDateDefault() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         LocalDate end = LocalDate.parse(sdf.format(date), DateTimeFormatter.ISO_LOCAL_DATE).plusDays(1);
         return end;
     }
-    public static List<String> getStringOfDateItems(LocalDate start, LocalDate end){
+
+    public static List<String> getStringOfDateItems(LocalDate start, LocalDate end) {
         List<String> list = new ArrayList<>();
         for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
             list.add(i.toString());
         }
         return list;
     }
+
+    public static Date GetDateFromString(String date) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return sdf.parse(date);
+    }
+    public static String Now(){
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        return sdf.format(d);
+    }
     public static void main(String[] args) {
-        System.out.println(getStringOfDateItems(getStartDateDefault(), getEndDateDefault()).get(6));
+        System.out.println(Now());
     }
 }
