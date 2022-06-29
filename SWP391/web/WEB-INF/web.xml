@@ -157,6 +157,10 @@
         <servlet-name>OrderDetailsServlet</servlet-name>
         <servlet-class>controller.sale.OrderDetailsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PostDetailsServlet</servlet-name>
+        <servlet-class>controller.marketing.PostDetailsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -280,6 +284,10 @@
     <servlet-mapping>
         <servlet-name>OrderDetailsServlet</servlet-name>
         <url-pattern>/sale/orderdetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostDetailsServlet</servlet-name>
+        <url-pattern>/marketing/postdetails</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

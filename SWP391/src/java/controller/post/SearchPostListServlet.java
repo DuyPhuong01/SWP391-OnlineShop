@@ -160,10 +160,10 @@ public class SearchPostListServlet extends HttpServlet {
 "                                    <div class=\"col-2 action-container\">\n" +
 "                                      <button type=\"button\" class=\"edit-btn btn btn-secondary btn-sm \">\n" +
 "                                          <i class=\"fa-solid fa-pen-to-square\"></i>\n" +
-"                                          Edit\n" +
+"                                          <a href=\"/swp/marketing/postdetails?id="+post.getPost_id()+"&action=edit\">View</a>\n" +
 "                                      </button>\n" +
 "                                      <button type=\"button\" class=\" view-btn btn btn-primary btn-sm \">\n" +
-"                                          <i class=\"fa-solid fa-eye\"></i>View</button>\n" +
+"                                          <i class=\"fa-solid fa-eye\"></i><a href=\"/swp/marketing/postdetails?id="+post.getPost_id()+"&action=view\">View</a></button>\n" +
 "                                    </div>\n" +
 "                                </div>\n" +
 "                                    </li>";

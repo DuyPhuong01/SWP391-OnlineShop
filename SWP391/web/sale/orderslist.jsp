@@ -13,7 +13,7 @@
         <link href="../css/stylesaleheadersider.css" rel="stylesheet"/>
         <link href="../css/stylesaleorderslist.css" rel="stylesheet"/>
         <!--font-awesome-->
-        <!--<script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>-->
+        <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <jsp:directive.include file="salenavbar.jsp"/>
@@ -25,12 +25,6 @@
                         <h1>Orders List</h1>
                         <div class="left">
                             <form class="flex flex-column" action="orderslist" method="post" id="submit-frm">                               
-                                <div class="search-order">
-                                    <h3>Search Title</h3>
-                                    <div>   
-                                        <input type="text" name="key" placeholder="Search order" value="${requestScope.key}"/>
-                                    </div>
-                                </div>
                                 <div class="filter flex flex-column">
                                     <h3>Filter</h3>
                                     <div class="filter-option">Order date</div>
@@ -65,7 +59,15 @@
                                     </div>
                                     <div class="hidden-input">
                                         <input type="hidden" name="orderOption" value="${requestScope.orderOption}" id="orderOption"/>
+                                        <input type="hidden" name="sequence" value="${requestScope.sequence}" id="sequence"/>
                                         <input type="hidden" name="page" value="${requestScope.pageNumber}" id="pageNumber"/>
+                                    </div>
+                                </div>
+                                <div class="search-order">
+<!--                                    <h3>Search Title</h3>-->
+                                    <span class="filter-option">Search order</span>
+                                    <div>   
+                                        <input type="text" name="key" placeholder="Search order" value="${requestScope.key}"/>
                                     </div>
                                 </div>
 
@@ -79,14 +81,17 @@
                                 <div class="sort-bar-title">Sort</div>
                                 <div>
                                     <select name="orderOption" onchange="submitFormWithNewOrderOption(this);">
-                                        <option value="order_date desc" ${requestScope.orderOption eq "order_date desc"?"selected":""}>Order date: newest</option>
-                                        <option value="order_date asc" ${requestScope.orderOption eq "order_date asc"?"selected":""}>Order date: oldest</option>
-                                        <option value="a.full_name asc" ${requestScope.orderOption eq "a.full_name asc"?"selected":""}>Customer name: a-z</option>
-                                        <option value="a.full_name desc" ${requestScope.orderOption eq "a.full_name desc"?"selected":""}>Customer name: z-a</option>
-                                        <option value="total_price asc" ${requestScope.orderOption eq "total_price asc"?"selected":""}>Total Cost: Lowest</option>
-                                        <option value="total_price desc" ${requestScope.orderOption eq "total_price desc"?"selected":""}>Total Cost: Highest</option>
-                                        <option value="status asc" ${requestScope.orderOption eq "status asc"?"selected":""}>Status: Increase</option>
-                                        <option value="status desc" ${requestScope.orderOption eq "status desc"?"selected":""}>Status: Decrease</option>
+                                        <option value="order_date" ${requestScope.orderOption eq "order_date"?"selected":""}>Order date</option>
+                                        <option value="a.full_name" ${requestScope.orderOption eq "a.full_name"?"selected":""}>Customer name</option>
+                                        <option value="total_price" ${requestScope.orderOption eq "total_price"?"selected":""}>Total Cost</option>
+                                        <option value="status" ${requestScope.orderOption eq "status"?"selected":""}>Status</option>
+                                    </select>
+                                </div>
+                                    
+                                <div>
+                                    <select name="orderOption" onchange="submitFormWithSequence(this);">
+                                        <option value="desc" ${requestScope.sequence eq "desc"?"selected":""}>Descending</option>
+                                        <option value="asc" ${requestScope.sequence eq "asc"?"selected":""}>Ascending</option>
                                     </select>
                                 </div>
                             </div> 

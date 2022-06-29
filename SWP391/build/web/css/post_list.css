@@ -1126,3 +1126,6 @@ html.VN, html.VN button {
   margin-left: 40px;
   display: none;
 }
+.view-btn a, .edit-btn a{
+    color: #fff !important;
+}
