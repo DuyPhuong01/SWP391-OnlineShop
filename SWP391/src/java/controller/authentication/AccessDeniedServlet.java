@@ -37,7 +37,7 @@ public class AccessDeniedServlet extends HttpServlet {
 //        } else {
 //            response.sendRedirect("accessdenied.jsp");
 //        }
-        response.sendRedirect(request.getContextPath()+"accessdenied.jsp");
+        response.sendRedirect(request.getContextPath()+"/accessdenied.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
