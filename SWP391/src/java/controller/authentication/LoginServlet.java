@@ -109,7 +109,7 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("account", account);
                 if(account.getRole_id()==2){
-                response.sendRedirect("marketing/dashboard");
+                response.sendRedirect("marketing");
                 }else{
                 response.sendRedirect("home");
                 }

@@ -54,7 +54,6 @@
         <url-pattern>/delete_order</url-pattern>
         <url-pattern>/updateorder</url-pattern>
         <url-pattern>/cancel_order</url-pattern>
-        <url-pattern>/blogslist</url-pattern>
         <url-pattern>/myorders</url-pattern>
         <url-pattern>/orderinformation</url-pattern>
         <url-pattern>/marketing/.*</url-pattern>
