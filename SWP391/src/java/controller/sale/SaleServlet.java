@@ -5,6 +5,7 @@
  */
 package controller.sale;
 
+import dal.AccountDAO;
 import dal.OrderDAO;
 import dal.SaleDAO;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
 import model.OrderStatus;
 import model.Sale;
 import util.DateTimeUtil;
@@ -79,9 +81,29 @@ public class SaleServlet extends HttpServlet {
         List<Sale> saleList = saleDAO.getAllSaleMember();
         List<OrderStatus> statusList = orderDAO.getAllOrderStatusForSale();
 
+        Account a = new Account();
+        a.setFull_name("All sale members");
+        Sale sale = new Sale();
+        sale.setAccount(a);
+
+        request.setAttribute("sale", sale);
+        int aa = orderDAO.getTotalOrderBySaleId(0);
+        int ba = orderDAO.getTotalSuccessOrderBySaleId(0);
+        request.setAttribute("totalOrderAllTime", aa);
+        request.setAttribute("totalSuccessOrderAllTime", ba);
+        request.setAttribute("totalRevenueAllTime", orderDAO.getTotalRevenueBySaleId(0));
+        request.setAttribute("totalDays", DateTimeUtil.getTotalDays());
+        double success;
+        if (aa == 0) {
+            success = 0;
+        } else {
+            success = (double)ba / aa;
+        }
+        request.setAttribute("successRate", success);
+        request.setAttribute("revenueBytime", orderDAO.getTotalRevenueBySaleIdAndTime(0, DateTimeUtil.getStartDate(6).toString(), DateTimeUtil.getEndDateDefault().toString()));
         totalSuccessOrderDoGet(request, response);
         generalStatistic(request, response);
-        
+
         request.setAttribute("dates", dates);
         request.setAttribute("revenue", revenue);
         request.setAttribute("saleList", saleList);
@@ -99,6 +121,12 @@ public class SaleServlet extends HttpServlet {
         List totalOrder = saleDAO.getListOfTotalOrderByDayBySale(start, end, 0);
         List successOrder = saleDAO.getListOfTotalSuccessOrderByDayBySale(start, end, 0);
         List<String> dates = DateTimeUtil.getStringOfDateItems(start, end);
+
+        int countTotalOrder = getTotal(totalOrder);
+        int countSuccessOrder = getTotal(successOrder);
+
+        request.setAttribute("countTotalOrder", countTotalOrder);
+        request.setAttribute("countSuccessOrder", countSuccessOrder);
         request.setAttribute("labels", dates);
         request.setAttribute("totalOrder", totalOrder);
         request.setAttribute("successOrder", successOrder);
@@ -106,9 +134,19 @@ public class SaleServlet extends HttpServlet {
         request.setAttribute("timeOrder", 1);
     }
 
+    private int getTotal(List<Integer> list) {
+        int count = 0;
+        for (int i = 0; i < list.size(); i++) {
+            count += list.get(i);
+        }
+        return count;
+    }
+
     private void totalSuccessOrderDoPost(HttpServletRequest request, HttpServletResponse response) {
         String time = request.getParameter("orderTrendTime");
         String saleId_raw = request.getParameter("orderTrendSaleId");
+        AccountDAO accountDAO = new AccountDAO();
+        OrderDAO orderDAO = new OrderDAO();
         int saleId;
         SaleDAO saleDAO = new SaleDAO();
         LocalDate start, end;
@@ -122,6 +160,39 @@ public class SaleServlet extends HttpServlet {
             List successOrder = saleDAO.getListOfTotalSuccessOrderByDayBySale(start, end, saleId);
             List<String> dates = DateTimeUtil.getStringOfDateItems(start, end);
 
+            int countTotalOrder = getTotal(totalOrder);
+            int countSuccessOrder = getTotal(successOrder);
+
+            Sale sale = new Sale();
+//        get sale member
+            if (saleId == 0) {
+                Account a = new Account();
+                a.setFull_name("All sale members");
+                sale = new Sale();
+                sale.setAccount(a);
+            } else {
+                Account a = accountDAO.getAccountByID(saleId);
+                sale = new Sale();
+                sale.setAccount(a);
+            }
+            request.setAttribute("sale", sale);
+            request.setAttribute("countTotalOrder", countTotalOrder);
+            request.setAttribute("countSuccessOrder", countSuccessOrder);
+
+            int a = orderDAO.getTotalOrderBySaleId(saleId);
+            int b = orderDAO.getTotalSuccessOrderBySaleId(saleId);
+            request.setAttribute("totalOrderAllTime", a);
+            request.setAttribute("totalSuccessOrderAllTime", b);
+            request.setAttribute("totalRevenueAllTime", orderDAO.getTotalRevenueBySaleId(saleId));
+            double success;
+            if (a == 0) {
+                success = 0;
+            } else {
+                success = (double)b / a;
+            }
+            request.setAttribute("successRate", success);
+            request.setAttribute("totalDays", DateTimeUtil.getTotalDays());
+                    request.setAttribute("revenueBytime", orderDAO.getTotalRevenueBySaleIdAndTime(saleId, DateTimeUtil.getStartDate(6).toString(), DateTimeUtil.getEndDateDefault().toString()));
             request.setAttribute("labels", dates);
             request.setAttribute("totalOrder", totalOrder);
             request.setAttribute("successOrder", successOrder);
@@ -131,6 +202,7 @@ public class SaleServlet extends HttpServlet {
 
         }
     }
+
     private void generalStatistic(HttpServletRequest request, HttpServletResponse response) {
         OrderDAO orderDAO = new OrderDAO();
         int totalOrder = orderDAO.getTotalOrder();
@@ -144,9 +216,9 @@ public class SaleServlet extends HttpServlet {
         request.setAttribute("totalOrderToday", totalOrderToday);
         request.setAttribute("totalRevenueToday", totalRevenueToday);
         request.setAttribute("totalRevenue", totalRevenue);
-        
+
     }
-    
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *

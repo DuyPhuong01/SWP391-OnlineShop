@@ -47,7 +47,7 @@ public class Sale {
         }
         return revenue;
     }
-
+    
     public static void main(String[] args) {
     }
 }

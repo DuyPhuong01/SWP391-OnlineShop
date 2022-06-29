@@ -8,6 +8,8 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.PostCategory;
 
 /**
@@ -15,7 +17,7 @@ import model.PostCategory;
  * @author Admin
  */
 public class PostCategoryDAO extends DBContext {
-    
+
     public PostCategory getPostCategory(int id) {
         String sql = "select * from post_categories where category_id = ?";
         try {
@@ -35,8 +37,30 @@ public class PostCategoryDAO extends DBContext {
         }
         return null;
     }
+
+    public List<PostCategory> getPostCategorys() {
+        String sql = "select * from post_categories";
+        List<PostCategory> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                PostCategory category = new PostCategory(rs.getInt("category_id"),
+                        rs.getString("category_name"),
+                        rs.getString("description"),
+                        rs.getBoolean("status")
+                );
+                list.add(category);
+            }
+            return list;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         PostCategoryDAO p = new PostCategoryDAO();
-        System.out.println(p.getPostCategory(1).getCategory_name());
+        System.out.println(p.getPostCategorys().size());
     }
 }

@@ -6,7 +6,9 @@
 package controller.marketing;
 
 import dal.CategoryDAO;
+import dal.PostCategoryDAO;
 import dal.PostDAO;
+import dal.PostSubcategoryDAO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -26,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import model.Post;
 import model.PostCategory;
+import model.PostSubCategory;
 import model.ProductCategory;
 
 /**
@@ -76,15 +79,18 @@ public class PostDetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PostDAO postDAO = new PostDAO();
-        CategoryDAO categoryDAO = new CategoryDAO();
+        PostCategoryDAO postCategoryDAO = new PostCategoryDAO();
+        PostSubcategoryDAO postSubcategoryDAO = new PostSubcategoryDAO();
         String id_raw = request.getParameter("id");
         String action = request.getParameter("action");
         int id;
         try {
             id = Integer.parseInt(id_raw);
             Post post = postDAO.getPostWithSubCategory(id);
-            List<ProductCategory> postCategoryList = categoryDAO.getPostCategory();
+            List<PostCategory> postCategoryList = postCategoryDAO.getPostCategorys();
+            List<PostSubCategory> postSubcategoryList = postSubcategoryDAO.getPostSubCategorysByCategory(post.getPostSubCategory().getCategory().getCategory_id());
             request.setAttribute("postCategoryList", postCategoryList);
+            request.setAttribute("postSubcategoryList", postSubcategoryList);
             request.setAttribute("post", post);
             if (action == null) {
                 System.out.println("a");
@@ -113,6 +119,8 @@ public class PostDetailsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         String action = request.getParameter("action");
         String postId_raw = request.getParameter("postId");
@@ -120,48 +128,81 @@ public class PostDetailsServlet extends HttpServlet {
         int postId;
         try {
             postId = Integer.parseInt(postId_raw);
-            String path = getFolderUploadPath();
-            final Part filePart = request.getPart("thumbnail");
-            String fileName = getFileName(filePart);
-//            
-            Random r = new Random();
-            if (!fileName.equals("")) {
-                while (postDAO.checkThumbnailExist(fileName)) {
-                    fileName = r.nextInt(10) + fileName;
-                }
-                fileName = "images/post-thumbnails/" + fileName;
-                final PrintWriter writer = response.getWriter();
 
-                try {
-                    File f = new File(path + fileName);
-                    if (f.exists()) {
-                        writer.println("File " + fileName + " already exist at " + path);
+            switch (action) {
+                case "update":
+                    String title = request.getParameter("title");
+                    String subTitle = request.getParameter("subtitle");
+                    String cate_raw = request.getParameter("categoryId");
+                    String subCategoryId_raw = request.getParameter("subCategoryId");
+                    String featured_raw = request.getParameter("featured");
+                    String postContent = request.getParameter("postContent");
+
+                    int subCate = Integer.parseInt(subCategoryId_raw);
+                    boolean featured;
+                    if (featured_raw == null) {
+                        featured = false;
                     } else {
-                        OutputStream output = new FileOutputStream(f);
-                        InputStream filecontent = filePart.getInputStream();
+                        featured = true;
+                    }
 
-                        int read = 0;
-                        final byte[] bytes = new byte[1024];
+                    postDAO.updatePost(title, postContent, featured, subTitle, subCate, postId);
+                    PostCategoryDAO postCategoryDAO = new PostCategoryDAO();
+                    PostSubcategoryDAO postSubcategoryDAO = new PostSubcategoryDAO();
 
-                        while ((read = filecontent.read(bytes)) != -1) {
-                            output.write(bytes, 0, read);
+                    Post post = postDAO.getPostWithSubCategory(postId);
+                    List<PostCategory> postCategoryList = postCategoryDAO.getPostCategorys();
+                    List<PostSubCategory> postSubcategoryList = postSubcategoryDAO.getPostSubCategorysByCategory(post.getPostSubCategory().getCategory().getCategory_id());
+                    request.setAttribute("postCategoryList", postCategoryList);
+                    request.setAttribute("postSubcategoryList", postSubcategoryList);
+                    request.setAttribute("post", post);
+                    request.getRequestDispatcher("/marketing/postdetails.jsp").forward(request, response);
+                    break;
+                case "changeThumbnail":
+                    String path = getFolderUploadPath();
+                    final Part filePart = request.getPart("thumbnail");
+                    String fileName = getFileName(filePart);
+//            
+                    Random r = new Random();
+                    if (!fileName.equals("")) {
+                        while (postDAO.checkThumbnailExist(fileName)) {
+                            fileName = r.nextInt(10) + fileName;
+                        }
+                        fileName = "images/post-thumbnails/" + fileName;
+                        final PrintWriter writer = response.getWriter();
+
+                        try {
+                            File f = new File(path + fileName);
+                            if (f.exists()) {
+                                writer.println("File " + fileName + " already exist at " + path);
+                            } else {
+                                OutputStream output = new FileOutputStream(f);
+                                InputStream filecontent = filePart.getInputStream();
+
+                                int read = 0;
+                                final byte[] bytes = new byte[1024];
+
+                                while ((read = filecontent.read(bytes)) != -1) {
+                                    output.write(bytes, 0, read);
+                                }
+                            }
+                            File file = new File(path + postDAO.getPostWithSubCategory(postId).getThumbnail());
+                            postDAO.changeThumbnail(postId, fileName);
+                            TimeUnit.SECONDS.sleep(2);
+                            Post p = postDAO.getPostWithSubCategory(postId);
+                            out.print(p.getThumbnail());
+                            if (file.exists()) {
+                                while (!file.delete()) {
+                                }
+                                System.out.println("deleted: " + path + postDAO.getPostWithSubCategory(postId).getThumbnail());
+                            }
+                        } catch (FileNotFoundException fne) {
+                            writer.println("<br/> ERROR: " + fne.getMessage());
+                        } catch (Exception e) {
+                            System.out.println(e);
                         }
                     }
-                    File file = new File(path + postDAO.getPostWithSubCategory(postId).getThumbnail());
-                    postDAO.changeThumbnail(postId, fileName);
-                    TimeUnit.SECONDS.sleep(2);
-                    Post p = postDAO.getPostWithSubCategory(postId);
-                    out.print(p.getThumbnail());
-                    if (file.exists()) {
-                        while (!file.delete()) {
-                        }
-                        System.out.println("deleted: " + path + postDAO.getPostWithSubCategory(postId).getThumbnail());
-                    }
-                } catch (FileNotFoundException fne) {
-                    writer.println("<br/> ERROR: " + fne.getMessage());
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
+                    break;
             }
         } catch (IOException | NumberFormatException | ServletException e) {
             System.out.println(e);

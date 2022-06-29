@@ -194,6 +194,10 @@
         <servlet-name>AccessDeniedServlet</servlet-name>
         <servlet-class>controller.authentication.AccessDeniedServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangePostCategoryServlet</servlet-name>
+        <servlet-class>controller.marketing.ChangePostCategoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -318,6 +322,10 @@
         <servlet-name>AccessDeniedServlet</servlet-name>
         <url-pattern>/accessdenied</url-pattern>
         <url-pattern>/marketing/accessdenied</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePostCategoryServlet</servlet-name>
+        <url-pattern>/marketing/changepostcategory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

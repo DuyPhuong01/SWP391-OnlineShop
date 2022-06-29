@@ -19,11 +19,13 @@
             <c:import url="/marketing/sidebar.jsp"></c:import>
                 <section class="container-lg my-5 container">
                     <h1>Post Details</h1>
-                    <form class="" id="frm">
-                        <div class="p-3 bg-white rounded shadow-sm row">
-                            <div class="left col-md-6">
-                                <div class="post-thumbnail" onmousemove="thumbnailHover();" onmouseout="thumbnailOut();">
-                                    <img src="../${requestScope.post.thumbnail}" class="img-thumbnail" aria-label="thumbnail"/>
+                    <form class="" id="frm" action="postdetails" method="post">
+                        <input type="hidden" value="update" name="action"/>
+                        <input type="text" name="postId" value="${requestScope.post.post_id}" hidden/>
+                    <div class="p-3 bg-white rounded shadow-sm row">
+                        <div class="left col-md-6">
+                            <div class="post-thumbnail" onmousemove="thumbnailHover();" onmouseout="thumbnailOut();">
+                                <img src="../${requestScope.post.thumbnail}" class="img-thumbnail" aria-label="thumbnail"/>
                                 <div>
                                     <div class="thumbnail-action">
                                         <span data-bs-toggle="modal" data-bs-target="#view-thumbnail">
@@ -46,8 +48,8 @@
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     Edit
                                 </button>
-                                <button type="button" class="edit-btn btn btn-secondary btn-sm " aria-label="cancel-edit" style="display: none;" onclick="cancelEdit();">
-                                    X
+                                <button type="button" class="edit-btn btn btn-secondary btn-sm " aria-label="cancel-edit" style="display: none;">
+                                    <i class="fa-solid fa-x"></i>Cancel
                                 </button>
                                 <button type="button" class="edit-btn btn btn-secondary btn-sm " aria-label="save-post" style="display: none;">
                                     <i class="fa-solid fa-pen-to-square"></i>
@@ -67,9 +69,17 @@
                             <div class="flex">
                                 <div class="input-fields post-cate">                                    
                                     <label for="post-category">Category</label>
-                                    <select disabled="true" class="post-category" aria-label="changable-fields">
+                                    <select disabled="true" class="post-category" aria-label="changable-fields" onchange="changeCategory();" id="post-cate-select" name="categoryId">
                                         <c:forEach items="${requestScope.postCategoryList}" var="i">
-                                            <option value="${i.category_id}" ${requestScope.post.category.category_name eq i.category_id?"selected":""}>${i.category_name}</option>
+                                            <option value="${i.category_id}" ${requestScope.post.postSubCategory.category.category_id eq i.category_id?"selected":""}>${i.category_name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="input-fields post-sub-cate">                                    
+                                    <label for="post-sub-cate">Sub Category</label>
+                                    <select disabled="true" class="post-sub-cate" aria-label="changable-fields" id="post-sub-cate-select" name="subCategoryId">
+                                        <c:forEach items="${requestScope.postSubcategoryList}" var="i">
+                                            <option aria-label="new-post-sub-cate" value="${i.id}" ${requestScope.post.postSubCategory.id eq i.id?"selected":""}>${i.name}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -77,7 +87,7 @@
                             <div class="flex">
                                 <div class="flex input-fields post-public-date">                                    
                                     <label for="post-publication-date">Publication date</label>
-                                    <input id="post-publication-date" name="publicDate" value="${requestScope.post.publication_date}" readonly/>
+                                    <input id="post-publication-date" name="publicDate" value="<fmt:formatDate value="${requestScope.post.publication_date}" type="both" dateStyle="short" timeStyle="short"/>" readonly/>
                                 </div>
                             </div>
                             <div class="flex">                                
@@ -93,18 +103,19 @@
                                 </div>
                             </div>
                             <div class="flex">
-                                <div class="flex">                                    
+                                <div class="flex" style="margin-left: 10px;
+                                     margin-top: 10px;">                                    
                                     <div class="form-check form-switch">
-                                        <label class="form-check-label" for="product-feature">Featured</label>
-                                        <input class="form-check-input" type="checkbox" role="switch" id="product-feature" ${requestScope.post.featured ? "checked":""} disabled="true" aria-label="changable-fields"/>
+                                        <label class="form-check-label" for="product-feature">Show</label>
+                                        <input class="form-check-input" type="checkbox" role="switch" id="product-feature" ${requestScope.post.featured ? "checked":""} disabled="true" aria-label="changable-fields" name="featured"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <h2>Post Details</h2>
+                            <h3 id="post-content">Post content</h3>
                             <div class="details">
-                                <textarea id="post-detail">
+                                <textarea id="post-detail" name="postContent">
                                     ${requestScope.post.post_details}
                                 </textarea>
                             </div>
@@ -121,11 +132,17 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <h1>${requestScope.post.title}</h1>
+                                <h1 id="preview-title">${requestScope.post.title}</h1>
                                 <div class="flex flex-column post-view-brief-infor">
                                     <div class="post-view-category">
+                                        <div>
 
-                                        <span>Category: </span><span>${requestScope.post.category.category_name}</span>
+                                            <span>Category: </span><span id="preview-cate" value-holder="${requestScope.post.postSubCategory.category.category_id}">${requestScope.post.postSubCategory.category.category_name}</span>
+                                        </div>
+                                        <div>
+
+                                            <span>Sub Category </span><span id="preview-sub-cate" value-holder="${requestScope.post.postSubCategory.id}">${requestScope.post.postSubCategory.name}</span>
+                                        </div>
                                     </div>
                                     <div class="flex">
 
@@ -138,8 +155,16 @@
                                             <span>Updated date </span><span><fmt:formatDate value="${requestScope.post.updated_date}" type="both"/></span>
                                         </div>
                                     </div>
+                                    <div class="flex">
+                                        <div class="post-view-subtitle">
+                                            <h2 id="preview-subtitle">${requestScope.post.sub_title}</h2>
+                                        </div>
+                                    </div>
+                                    <div id="preview-featured" value-holder="${requestScope.post.featured}"></div>
                                 </div>
-                                ${requestScope.post.post_details}
+                                <div id="preview-post-detail">
+                                    ${requestScope.post.post_details}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -182,27 +207,28 @@
                     </form>
                 </div>
             </section>
+            <div class="input-fields post-sub-cate">                                    
+                <select id="original-subcate" hidden>
+                    <c:forEach items="${requestScope.postSubcategoryList}" var="i">
+                        <option aria-label="new-post-sub-cate" value="${i.id}" ${requestScope.post.postSubCategory.id eq i.id?"selected":""}>${i.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
         </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../js/marketingpost.js"></script>
     <script>
-                            console.log('<c:out value="${requestScope.post.post_details}"/>');
-                            document.querySelector('button[aria-label="cancel-edit"]').addEventListener('click', function () {
-                                cancelEdit('${requestScope.post.title}', '${requestScope.post.category.category_name}', '${requestScope.post.sub_title}', '${requestScope.post.featured}', <c:out value="${requestScope.post.post_details}"/>);
-                            });
-    </script>
-    <script>
         <c:if test="${requestScope.view != null}">
-        $(document).ready(function () {
-            document.querySelector('#view-post').click();
-        });
+                            $(document).ready(function () {
+                                document.querySelector('#view-post').click();
+                            });
         </c:if>
         <c:if test="${requestScope.edit != null}">
-        $(document).ready(function () {
-            document.querySelector('#edit-post').click();
-        });
+                            $(document).ready(function () {
+                                document.querySelector('#edit-post').click();
+                            });
         </c:if>
     </script>
 </html>

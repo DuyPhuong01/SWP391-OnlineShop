@@ -305,6 +305,89 @@ public class OrderDAO extends DBContext {
         return list;
     }
 
+    public int getTotalOrderBySaleId(int userId) {
+        String sql = "select count(*) from orders o\n"
+                + "inner join orders_management om\n"
+                + "on o.order_id = om.order_id\n";
+        if (userId != 0) {
+            sql += "where om.user_id = " + userId;
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
+    public int getTotalSuccessOrderBySaleId(int userId) {
+        String sql = "select count(*) from orders o\n"
+                + "inner join orders_management om\n"
+                + "on o.order_id = om.order_id\n"
+                + "where o.status = 5";
+        if (userId != 0) {
+            sql += " and om.user_id = " + userId;
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
+    public int getTotalRevenueBySaleId(int userId) {
+        String sql = "select sum(total_price) from orders o\n"
+                + "inner join orders_management om\n"
+                + "on o.order_id = om.order_id\n"
+                + "where o.status != 6";
+        if (userId != 0) {
+            sql += " and om.user_id = " + userId;
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+    public int getTotalRevenueBySaleIdAndTime(int userId, String start, String end) {
+        String sql = "select sum(total_price) from orders o\n"
+                + "inner join orders_management om\n"
+                + "on o.order_id = om.order_id\n"
+                + "where o.status != 6";
+        sql += " and order_date between '"+start+"' and '"+end+"'";
+        if (userId != 0) {
+            sql += " and om.user_id = " + userId;
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
     public List<Order> getOrderByUserId(int userId, int start, int end) {
         List<Order> list = new ArrayList<>();
         String sql = "select * from (select ROW_NUMBER() over (order by order_id desc) as Row,* from orders where user_id = ?) as allorders where Row between ? and ?";
@@ -326,7 +409,8 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
-        public List<Order> getOrderByPage(int start, int end) {
+
+    public List<Order> getOrderByPage(int start, int end) {
         List<Order> list = new ArrayList<>();
         AccountDAO accountDAO = new AccountDAO();
         String sql = "select * from (select ROW_NUMBER() over (order by order_date desc) as Row,* from orders) as allorders where Row between ? and ?";
@@ -410,7 +494,6 @@ public class OrderDAO extends DBContext {
 //        }
 //        return 0;
 //    }
-
     public List<Order> getOrderByPage(int start, int end, String[] saleId, String[] status, String orderOption, String key, String startDate, String endDate) {
         List<Order> list = new ArrayList<>();
         AccountDAO accountDAO = new AccountDAO();
@@ -470,6 +553,7 @@ public class OrderDAO extends DBContext {
         }
         return 0;
     }
+
     private String appendStatus(String sql, String[] status) {
         if (status != null) {
             sql += " and status in(";
@@ -493,6 +577,7 @@ public class OrderDAO extends DBContext {
         }
         return sql;
     }
+
     public Order getOrderByUserIdAndOrderId(int userId, int orderId) {
         String sql = "select * from orders where user_id = ? and order_id =?";
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
@@ -541,7 +626,6 @@ public class OrderDAO extends DBContext {
         }
         return 0;
     }
-
 
     public int getTotalOrderToday() {
         String sql = "select COUNT(*) from orders";
@@ -662,6 +746,8 @@ public class OrderDAO extends DBContext {
 //        System.out.println(list1.size());
 //        System.out.println(orderDAO.getTotalOrder(null, null, "", "2022-01-01", DateTimeUtil.Now()));
 //        System.out.println(orderDAO.getFirstOrderDate());
-        System.out.println(orderDAO.getTotalOrderToday());
+//        System.out.println(orderDAO.getTotalOrderToday());
+//        System.out.println(orderDAO.getTotalOrderBySaleId(0));
+        System.out.println(orderDAO.getTotalRevenueBySaleId(0));
     }
 }

@@ -90,3 +90,29 @@ input#post-publication-date, input#post-updated-date {
 .thumbnail-action span:nth-child(2):hover{
     color: blue;
 }
+.input-fields.post-sub-cate {
+    margin-left: 20px;
+}
+select.post-sub-cate {
+    height: 40px;
+    line-height: 40px;
+}
+.input-fields.post-cate {
+    padding-right: 10px;
+}
+.input-fields.post-sub-cate {
+    padding-right: 10px;
+}
+.post-cate input, .post-sub-cate input{
+    width: 110%;
+}
+#post-content{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+    
+}
+.action.flex {
+    margin-bottom: 15px;
+    margin-top: 20px;
+}

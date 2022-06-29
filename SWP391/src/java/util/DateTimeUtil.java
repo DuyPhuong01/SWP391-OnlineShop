@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,13 +26,13 @@ public class DateTimeUtil {
         LocalDate start = LocalDate.parse(sdf.format(date), DateTimeFormatter.ISO_LOCAL_DATE).minusDays(6);
         return start;
     }
+
     public static LocalDate getStartDate(int number) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         LocalDate start = LocalDate.parse(sdf.format(date), DateTimeFormatter.ISO_LOCAL_DATE).minusDays(number);
         return start;
     }
-
 
     public static LocalDate getStartDate(String time) {
         switch (time) {
@@ -48,6 +49,7 @@ public class DateTimeUtil {
         LocalDate end = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
         return end.plusDays(1);
     }
+
     public static String getEndDate2(String date) {
         LocalDate end = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
         return end.plusDays(1).toString();
@@ -72,12 +74,23 @@ public class DateTimeUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return sdf.parse(date);
     }
-    public static String Now(){
+
+    public static String Now() {
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         return sdf.format(d);
     }
+
+    public static long getTotalDays() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        LocalDate end = LocalDate.parse(sdf.format(date), DateTimeFormatter.ISO_LOCAL_DATE).plusDays(1);
+        LocalDate start = LocalDate.parse("2022-05-09");
+        return ChronoUnit.DAYS.between(start, end);
+
+    }
+
     public static void main(String[] args) {
-        System.out.println(Now());
+        System.out.println(getTotalDays());
     }
 }

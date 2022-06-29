@@ -404,7 +404,7 @@ thead{
     padding: 5px 20px 5px 20px;
     margin: 0 auto;
     margin-top: 10px;
-/*    margin-bottom: 30px;*/
+    /*    margin-bottom: 30px;*/
     display: flex;
     align-items: center;
 }
@@ -414,7 +414,7 @@ thead{
     padding: 5px 20px 5px 20px;
     margin: 0 auto;
     margin-top: 10px;
-/*    margin-bottom: 30px;*/
+    /*    margin-bottom: 30px;*/
     height: 20%;
     display: flex;
     align-items: center;
@@ -513,4 +513,13 @@ element.style {
 }
 .order-trends-start-date.flex {
     margin-right: 10px;
+}
+span#timeOrder2 {
+    /* margin-top: 20px; */
+    /* font-size: 100%; */
+    font-weight: bold;
+    font-size: 125%;
+}
+.table-responsive{
+    margin-top: 30px;
 }
