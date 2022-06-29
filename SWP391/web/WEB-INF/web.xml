@@ -44,6 +44,7 @@
     <filter-mapping>
         <filter-name>NewFilter</filter-name>
         <url-pattern>/buy</url-pattern>
+        <url-pattern>/feedback</url-pattern>
         <url-pattern>/register</url-pattern>
         <url-pattern>/checkout</url-pattern>
         <url-pattern>/process</url-pattern>
