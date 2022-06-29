@@ -135,6 +135,31 @@ public class CategoryDAO extends DBContext {
         }
         return list;
     }
-    // </editor-fold>
-    
+
+//    public ProductCategory getProductCategoryBySubCategory(int subCategoryId) {
+//        String sql = "select pc.* from product_categories pc inner join product_sub_categories psc \n"
+//                + "on pc.category_id = psc.category_id\n"
+//                + "where psc.sub_category_id = ?";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, subCategoryId);
+//            ResultSet rs = st.executeQuery();
+//            if (rs.next()) {
+//                ProductCategory product_category = new ProductCategory(rs.getInt("category_id"),
+//                        rs.getString("category_name"),
+//                        rs.getString("description"),
+//                        rs.getInt("featured")
+//                );
+//                return product_category;
+//            }
+//        } catch (SQLException sqle) {
+//            System.out.println(sqle);
+//        }
+//        return null;
+//    }
+
+    public static void main(String[] args) {
+        CategoryDAO c = new CategoryDAO();
+        System.out.println(c.getPostCategory().get(0).getCategory_name());
+    }
 }

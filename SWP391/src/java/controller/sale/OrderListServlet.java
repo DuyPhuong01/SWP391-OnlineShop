@@ -82,7 +82,8 @@ public class OrderListServlet extends HttpServlet {
             request.setAttribute("saleList", saleList);
             request.setAttribute("statusList", statusList);
 
-            request.setAttribute("orderOption", "order_date desc");
+            request.setAttribute("orderOption", "order_date");
+            request.setAttribute("sequence", "desc");
             request.setAttribute("pageNumber", pageNumber);
             request.setAttribute("numberPage", numberPage);
             request.setAttribute("myorders", myOrder);
@@ -113,7 +114,7 @@ public class OrderListServlet extends HttpServlet {
         String[] status = request.getParameterValues("status");
         String pageNumberRaw = request.getParameter("page");
         String orderOption = request.getParameter("orderOption");
-
+        String sequence = request.getParameter("sequence");
         int total;
         List<Order> myOrder;
         //pagination
@@ -149,7 +150,7 @@ public class OrderListServlet extends HttpServlet {
             start = Pagination.getStart(pageNumber);
             end = Pagination.getEnd(pageNumber, total);
 
-            myOrder = orderDAO.getOrderByPage(start, end, saleId, status, orderOption, key, startDate, endDate);
+            myOrder = orderDAO.getOrderByPage(start, end, saleId, status, orderOption+" "+sequence, key, startDate, endDate);
 
             SaleDAO saleDAO = new SaleDAO();
             List<Sale> saleList = saleDAO.getAllSaleMember();
@@ -171,6 +172,7 @@ public class OrderListServlet extends HttpServlet {
             request.setAttribute("statusList", statusList);
 
             request.setAttribute("orderOption", orderOption);
+            request.setAttribute("sequence", sequence);
             request.setAttribute("pageNumber", pageNumber);
             request.setAttribute("numberPage", numberPage);
             request.setAttribute("myorders", myOrder);

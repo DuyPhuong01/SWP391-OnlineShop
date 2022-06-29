@@ -5,6 +5,10 @@ function submitFormWithNewOrderOption(item) {
     document.getElementById('orderOption').value = item.value;
     document.getElementById('submit-frm').submit();
 }
+function submitFormWithSequence(item) {
+    document.getElementById('sequence').value = item.value;
+    document.getElementById('submit-frm').submit();
+}
 function submitFormWithNewPage(page) {
     document.getElementById('pageNumber').value = page;
     document.getElementById('submit-frm').submit();

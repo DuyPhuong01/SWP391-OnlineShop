@@ -149,15 +149,19 @@ public class SearchPostListServlet extends HttpServlet {
 "                                                Hide\n" +
 "                                            </option>\n" +
 "                                        </select>\n";
-        postHTML+= "<td class=\"col-2 action-container\">\n" +
-"                                                        <button type=\"button\" class=\"edit-btn btn btn-secondary btn-sm \">\n" +
-"                                                            <i class=\"fa-solid fa-pen-to-square\"></i>\n" +
-"                                                            Edit\n" +
-"                                                        </button>\n" +
-"                                                        <button type=\"button\" class=\" view-btn btn btn-primary btn-sm \">\n" +
-"                                                            <i class=\"fa-solid fa-eye\"></i>View</button>\n" +
-"                                                    </td>\n" +
-"                                                    </tr>";
+        postHTML+=
+             
+"                                    </div>\n" +
+"                                    <div class=\"col-2 action-container\">\n" +
+"                                      <button type=\"button\" class=\"edit-btn btn btn-secondary btn-sm \">\n" +
+"                                          <i class=\"fa-solid fa-pen-to-square\"></i>\n" +
+"                                          <a href=\"/swp/marketing/postdetails?id="+post.getPost_id()+"&action=edit\">View</a>\n" +
+"                                      </button>\n" +
+"                                      <button type=\"button\" class=\" view-btn btn btn-primary btn-sm \">\n" +
+"                                          <i class=\"fa-solid fa-eye\"></i><a href=\"/swp/marketing/postdetails?id="+post.getPost_id()+"&action=view\">View</a></button>\n" +
+"                                    </div>\n" +
+"                                </div>\n" +
+"                                    </li>";
         }
                            //Convert Page to html
              postHTML+= 

@@ -115,7 +115,6 @@ public class PostDAO extends DBContext {
                     + "\n";
         }
 
-
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -200,6 +199,32 @@ public class PostDAO extends DBContext {
         }
         return null;
     }
+    public Post getPostWithSubCategory(int id) {
+        String sql = "select * from posts where post_id=?";
+        PostSubcategoryDAO postSubCategoryDAO = new PostSubcategoryDAO();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Post p = new Post(rs.getInt("post_id"), 
+                        rs.getInt("user_id"), 
+                        rs.getString("thumbnail"), 
+                        rs.getString("title"), 
+                        rs.getString("sub_title"), 
+                        rs.getTimestamp("publication_date"), 
+                        rs.getTimestamp("updated_date"), 
+                        rs.getString("post_details"), 
+                        rs.getBoolean("featured"), postSubCategoryDAO.getPostSubCategory(rs.getInt("post_subcategories_id")));
+                return p;
+            }
+            st.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return null;
+    }
+
     public int countPosts() {
         String sql = "select count(post_id) from posts";
         try {
@@ -298,11 +323,12 @@ public class PostDAO extends DBContext {
         }
         return false;//exception
     }
-    public boolean upload(String file){
-        String sql="insert into upload(url)\n" +
-"values(?)";
+
+    public boolean upload(String file) {
+        String sql = "insert into upload(url)\n"
+                + "values(?)";
         try {
-            PreparedStatement st=connection.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, file);
             st.executeUpdate();
             return true;
@@ -333,4 +359,38 @@ public class PostDAO extends DBContext {
     }
     // </editor-fold>
 
+    public boolean checkThumbnailExist(String fileName) {
+        String sql = "select * from posts where thumbnail like ?";
+        System.out.println(fileName);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "images/post-thumbnails/" + fileName);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+
+    public boolean changeThumbnail(int id, String imagePath) {
+        String sql = "update posts set thumbnail=? where post_id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, imagePath);
+            st.setInt(2, id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        PostDAO pd = new PostDAO();
+        System.out.println(pd.getPostWithSubCategory(1).getPost_details());
+    }
 }

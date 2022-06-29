@@ -186,6 +186,10 @@
         <servlet-class>controller.sale.OrderDetailsServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>PostDetailsServlet</servlet-name>
+        <servlet-class>controller.marketing.PostDetailsServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AccessDeniedServlet</servlet-name>
         <servlet-class>controller.authentication.AccessDeniedServlet</servlet-class>
     </servlet>
@@ -304,6 +308,10 @@
     <servlet-mapping>
         <servlet-name>OrderDetailsServlet</servlet-name>
         <url-pattern>/sale/orderdetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostDetailsServlet</servlet-name>
+        <url-pattern>/marketing/postdetails</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccessDeniedServlet</servlet-name>

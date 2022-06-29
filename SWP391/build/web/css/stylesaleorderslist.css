@@ -197,3 +197,8 @@ span.page-link {
     color: red;
     background: #ffc10729;
 }
+i.fa-solid.fa-angle-down {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}

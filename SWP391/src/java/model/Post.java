@@ -1,4 +1,3 @@
-
 package model;
 
 import dal.AccountDAO;
@@ -18,6 +17,8 @@ public class Post {
     private ProductCategory category;
     private String post_details;
     private boolean featured;
+
+    private PostSubCategory postSubCategory;
 
     public Post() {
     }
@@ -45,7 +46,18 @@ public class Post {
         this.featured = featured;
     }
 
-  
+    public Post(int post_id, int user_id, String thumbnail, String title, String sub_title, Timestamp publication_date, Timestamp updated_date, String post_details, boolean featured, PostSubCategory postSubCategory) {
+        this.post_id = post_id;
+        this.user_id = user_id;
+        this.thumbnail = thumbnail;
+        this.title = title;
+        this.sub_title = sub_title;
+        this.publication_date = publication_date;
+        this.updated_date = updated_date;
+        this.post_details = post_details;
+        this.featured = featured;
+        this.postSubCategory = postSubCategory;
+    }
     
     public int getPost_id() {
         return post_id;
@@ -134,16 +146,24 @@ public class Post {
     public void setFeatured(boolean featured) {
         this.featured = featured;
     }
-    
-    public String getAuthor(){
-        AccountDAO accountDAO=new AccountDAO();
+
+    public String getAuthor() {
+        AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.getAccountByID(user_id);
         return account.getUsername();
+    }
+
+    public PostSubCategory getPostSubCategory() {
+        return postSubCategory;
+    }
+
+    public void setPostSubCategory(PostSubCategory postSubCategory) {
+        this.postSubCategory = postSubCategory;
     }
 
     @Override
     public String toString() {
         return "Post{" + "post_id=" + post_id + ", user_id=" + user_id + ", thumbnail=" + thumbnail + ", title=" + title + ", sub_title=" + sub_title + ", tag_list=" + tag_list + ", publication_date=" + publication_date + ", updated_date=" + updated_date + ", category=" + category + ", post_details=" + post_details + ", featured=" + featured + '}';
     }
-    
+
 }
