@@ -5,6 +5,7 @@
  */
 package dal;
 
+import java.sql.Connection;
 import util.SendingEmailUtil;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,7 +48,35 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
+    public Account getAccountByID(int id){
+        Account account = new Account();
+        account.setUser_id(id);
+        return getAccountByID(account);
+    }
 
+    public static List<String> getListScreen(int role_id) {
+        try {
+            Connection conn = DBContext.getConnection();
+            List<String> s = new ArrayList<>();
+            String sql = "SELECT s.screen_name\n"
+                    + "  FROM [accounts] a join [roles] r \n"
+                    + "  ON a.role_id = r.role_id join [permissions] p \n"
+                    + "  ON r.role_id = p.role_id join [screens] s \n"
+                    + "  ON p.screen_id = s.screen_id\n"
+                    + "WHERE a.[role_id] = ?";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, role_id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                s.add(rs.getString("screen_name"));
+            }
+                return s;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public Account getAccountByID(Account acc) {
         try {
             String sql = "SELECT *"
@@ -68,26 +97,26 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
-    public Account getAccountByID(int id) {
-        try {
-            String sql = "SELECT *"
-                    + "  FROM [accounts]\n"
-                    + "  WHERE [user_id] = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, id);
-            ResultSet rs = stm.executeQuery();
-            if (rs.next()) {
-                Account account = new Account(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"),
-                        rs.getString("full_name"), rs.getInt("role_id"), rs.getBoolean("gender"), rs.getString("email"),
-                        rs.getString("city"), rs.getString("country"), rs.getString("address"), rs.getString("phone"),
-                        rs.getString("image_url"), rs.getBoolean("featured"), rs.getString("hash"), rs.getInt("active"));
-                return account;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+//    public Account getAccountByID(int id) {
+//        try {
+//            String sql = "SELECT *"
+//                    + "  FROM [accounts]\n"
+//                    + "  WHERE [user_id] = ?";
+//            PreparedStatement stm = connection.prepareStatement(sql);
+//            stm.setInt(1, id);
+//            ResultSet rs = stm.executeQuery();
+//            if (rs.next()) {
+//                Account account = new Account(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"),
+//                        rs.getString("full_name"), rs.getInt("role_id"), rs.getBoolean("gender"), rs.getString("email"),
+//                        rs.getString("city"), rs.getString("country"), rs.getString("address"), rs.getString("phone"),
+//                        rs.getString("image_url"), rs.getBoolean("featured"), rs.getString("hash"), rs.getInt("active"));
+//                return account;
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return null;
+//    }
 
     public Account getAccountByEmail(String email) {
         try {

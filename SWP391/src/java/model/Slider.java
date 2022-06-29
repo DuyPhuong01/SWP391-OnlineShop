@@ -11,16 +11,18 @@ public class Slider {
     private String title;
     private String url;
     private String status;
+    private String notes;
 
     public Slider() {
     }
 
-    public Slider(int id, String imagePath, String title, String url, String status) {
+    public Slider(int id, String imagePath, String title, String url, String status, String notes) {
         this.id = id;
         this.imagePath = imagePath;
         this.title = title;
         this.url = url;
         this.status = status;
+        this.notes = notes;
     }
 
     public int getId() {
@@ -61,6 +63,14 @@ public class Slider {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
     
 }

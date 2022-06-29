@@ -127,45 +127,6 @@ public class ProductDAO extends DBContext {
         return null;
     }
 
-//    public List<Product> getAllProducts(int[] categories, String key, String orderOption) {
-////        select * from products where title like '%%' and category_id in (1, 2)
-//        CategoryDAO category_dao = new CategoryDAO();
-//        List<Product> productList = new ArrayList<>();
-//        String sql = "select * from products ";
-//        sql += "where name like '%" + key + "%' ";
-//        if (categories != null) {
-//            sql += "and category_id in (";
-//            for (int i = 0; i < categories.length; i++) {
-//                sql += categories[i] + ",";
-//            }
-//            if (sql.endsWith(",")) {
-//                sql = sql.substring(0, sql.length() - 1);
-//            }
-//            sql += ")";
-//        }
-//        if (orderOption.equals("newest")) {
-//            sql += " order by updated_date desc";
-//        } else if (orderOption.equals("oldest")) {
-//            sql += " order by updated_date asc";
-//        } else if (orderOption.equals("lowestPrice")) {
-//            sql += " order by original_price asc";
-//        } else {
-//            sql += " order by original_price desc";
-//        }
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                Product product = filProductDetails(rs);
-//                productList.add(product);
-//            }
-//            return productList;
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//        return null;
-//    }
-
     public List<Product> getListByPage(List<Product> list, int start, int end) {
         ArrayList<Product> arr = new ArrayList<>();
         for (int i = start; i < end; i++) {
@@ -394,78 +355,6 @@ public class ProductDAO extends DBContext {
         }
         return false;
     }
-
-//    public void UpdateQuantity(Product product, int quantity) {
-//        String sql = "update products\n"
-//                + "set unit_in_stock = unit_in_stock + ? where product_id = ?";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setInt(1, quantity);
-//            st.setInt(2, product.getProduct_id());
-//            st.executeUpdate();
-//        } catch (SQLException e) {
-//
-//        }
-//    }
-//
-//    public int getTotalProducts() {
-//        String sql = "select count(product_id) from products";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            if (rs.next()) {
-//                return rs.getInt(1);
-//            }
-//        } catch (SQLException sqle) {
-//            System.out.println(sqle);
-//        }
-//        return 0;
-//    }
-
-    // <editor-fold defaultstate="collapsed" desc="productDAO for Marketing">
-//    public boolean changeFeatured(int product_id, boolean featured) {
-//        String sql = "update products set featured=? where product_id=?";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setInt(1, featured ? 1 : 0);
-//            st.setInt(2, product_id);
-//            st.executeUpdate();
-//            return true;
-//        } catch (SQLException sqle) {
-//            System.out.println(sqle);
-//        }
-//        return false;
-//    }
-//
-//    public boolean changeThumbnail(int product_id, String imagePath) {
-//        String sql = "update products set thumbnail=? where product_id=?";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setString(1, imagePath);
-//            st.setInt(2, product_id);
-//            st.executeUpdate();
-//            return true;
-//        } catch (SQLException sqle) {
-//            System.out.println(sqle);
-//        }
-//        return false;
-//    }
-//
-//    public boolean checkThumbnailExist(String fileName) {
-//        String sql = "select * from products where thumbnail like ?";
-//        System.out.println(fileName);
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setString(1, "images/product_images/" + fileName);
-//            ResultSet rs = st.executeQuery();
-//            if (rs.next()) {
-//                return true;
-//            }
-//        } catch (SQLException sqle) {
-//            System.out.println(sqle);
-//        }
-//        return false;
-//    }
 
     public int countAllProducts(int subCategoryID, int categoryID, String key, int featured) {
 //        select COUNT(*) from products where name like '%%' and sub_category_id in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)
