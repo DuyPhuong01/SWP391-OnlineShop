@@ -108,7 +108,11 @@ public class LoginServlet extends HttpServlet {
                 response.addCookie(r);
                 HttpSession session = request.getSession();
                 session.setAttribute("account", account);
+                if(account.getRole_id()==2){
+                response.sendRedirect("marketing/dashboard");
+                }else{
                 response.sendRedirect("home");
+                }
             }
         } else {
             response.sendRedirect("home?mess=Username+or+password+is+incorrect#divOne");
