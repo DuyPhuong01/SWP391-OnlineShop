@@ -44,6 +44,7 @@
     <filter-mapping>
         <filter-name>NewFilter</filter-name>
         <url-pattern>/buy</url-pattern>
+        <url-pattern>/feedback</url-pattern>
         <url-pattern>/register</url-pattern>
         <url-pattern>/checkout</url-pattern>
         <url-pattern>/process</url-pattern>
@@ -54,7 +55,6 @@
         <url-pattern>/delete_order</url-pattern>
         <url-pattern>/updateorder</url-pattern>
         <url-pattern>/cancel_order</url-pattern>
-        <url-pattern>/blogslist</url-pattern>
         <url-pattern>/myorders</url-pattern>
         <url-pattern>/orderinformation</url-pattern>
         <url-pattern>/marketing/.*</url-pattern>
@@ -159,6 +159,10 @@
         <servlet-class>controller.authentication.UpdateAccount</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>PostListServlet</servlet-name>
+        <servlet-class>controller.marketing.PostListServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UpdateFeaturePostServlet</servlet-name>
         <servlet-class>controller.marketing.UpdateFeaturePostServlet</servlet-class>
     </servlet>
@@ -171,8 +175,28 @@
         <servlet-class>UploadServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddPostServlet</servlet-name>
+        <servlet-class>controller.marketing.AddPostServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddPostCategoryServlet</servlet-name>
         <servlet-class>controller.marketing.AddPostCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SliderListServlet</servlet-name>
+        <servlet-class>controller.marketing.SliderListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchSliderList</servlet-name>
+        <servlet-class>controller.marketing.SearchSliderList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateFeatureSliderServlet</servlet-name>
+        <servlet-class>controller.marketing.UpdateFeatureSliderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSliderServlet</servlet-name>
+        <servlet-class>controller.marketing.AddSliderServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SaleServlet</servlet-name>
@@ -301,6 +325,22 @@
     <servlet-mapping>
         <servlet-name>AddPostCategoryServlet</servlet-name>
         <url-pattern>/addpostcategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SliderListServlet</servlet-name>
+        <url-pattern>/sliderlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchSliderList</servlet-name>
+        <url-pattern>/searchsliderlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFeatureSliderServlet</servlet-name>
+        <url-pattern>/updatefeatureslider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSliderServlet</servlet-name>
+        <url-pattern>/addslider</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SaleServlet</servlet-name>

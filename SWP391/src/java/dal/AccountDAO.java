@@ -48,7 +48,8 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
-    public Account getAccountByID(int id){
+
+    public Account getAccountByID(int id) {
         Account account = new Account();
         account.setUser_id(id);
         return getAccountByID(account);
@@ -59,24 +60,22 @@ public class AccountDAO extends DBContext {
             Connection conn = DBContext.getConnection();
             List<String> s = new ArrayList<>();
             String sql = "SELECT s.screen_name\n"
-                    + "  FROM [accounts] a join [roles] r \n"
-                    + "  ON a.role_id = r.role_id join [permissions] p \n"
-                    + "  ON r.role_id = p.role_id join [screens] s \n"
-                    + "  ON p.screen_id = s.screen_id\n"
-                    + "WHERE a.[role_id] = ?";
+                    + "FROM [permissions] p  join [screens] s \n"
+                    + "ON p.screen_id = s.screen_id\n"
+                    + "WHERE p.[role_id] = ?";
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setInt(1, role_id);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 s.add(rs.getString("screen_name"));
             }
-                return s;
+            return s;
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
+
     public Account getAccountByID(Account acc) {
         try {
             String sql = "SELECT *"
@@ -342,14 +341,14 @@ public class AccountDAO extends DBContext {
     public List<Account> getAuthors() {
         List<Account> list = new ArrayList<>();
         try {
-            String sql="select distinct a.user_id from  accounts a \n" +
-            "inner join \n" +
-            "posts p on a.user_id=p.user_id\n" +
-            "group by a.user_id";
+            String sql = "select distinct a.user_id from  accounts a \n"
+                    + "inner join \n"
+                    + "posts p on a.user_id=p.user_id\n"
+                    + "group by a.user_id";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Account account=getAccountByID(rs.getInt("user_id"));
+                Account account = getAccountByID(rs.getInt("user_id"));
                 list.add(account);
             }
             return list;
