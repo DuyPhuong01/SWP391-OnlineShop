@@ -11,11 +11,12 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="css/post_list.css"/>
+        <link rel="stylesheet" href="css/sliderlist.css"/>
           <!--font-awesome-->
         <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <script src="js/post_list.js"> </script>
+        <script src="js/slider_list.js"> </script>
         <div class="header">
             <c:import url="navbar.jsp"></c:import>
         </div>
@@ -29,54 +30,14 @@
             <div class="col-9 main-form">
                 <form id="post_list" action="searchpostlist" method="get">               
                         <!-- header  -->
-                       <div data-v-b2f6143e="" data-v-75520c46="" id="product-filter-card" class="product-filter-card">
-                            
-                           <div class="search-container">
-                                  <div class="input-group">
-                                      <input value="" id="search" name="search" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                                      <button type="button" onclick="SubmitForm(1)" class="btn btn-outline-primary">search</button>
-                                  </div>      
-                           </div>
+                     
                            <div class="filter-container">
-                               <h1>Filter</h1>
-                               <div class="search_list col-12">
-                                   <div class="col-3 search-item">
-                                       <label for="category"></label>
-                                       <select class="form-select form-select-sm" name="category" id="category" aria-label=".form-select-sm example" onchange="SubmitForm(1)">
-                                           <option value="0" selected>All</option>  <!--default-->
-                                            <c:forEach items="${requestScope.categories}" var="category">
-                                             <option value="${category.category_id}" >${category.category_name}</option>
-                                            </c:forEach>
-                                       </select>
-                                   </div>
-                                    <div class="col-3 search-item">
-                                       <label for="author">Author:</label>
-                                       <select class="form-select form-select-sm" name="author" id="author" aria-label=".form-select-sm example" onchange="SubmitForm(1)">
-                                           <option value="0" >All</option>
-                                       <c:forEach items="${requestScope.authors}" var="author">
-                                            <option value="${author.user_id}">${author.username}</option>
-                                       </c:forEach>
-                                      </select>
-                                   </div>
-                                    <div class="col-3 search-item">
-                                       <label for="category">Sort By:</label>
-                                       <select class="form-select form-select-sm" id="sort" aria-label=".form-select-sm example" 
-                                             name="sort" id="sort" onchange="SubmitForm(1)">
-                                        <option value="0">All</option>
-                                        <option value="1">Post</option>
-                                        <option value="2">Author</option>
-                                        <option value="3">Category</option>
-                                      </select>
-                                   </div>
-                                  
-                                  
-                               </div>
+                       
 <!--                         
                                         
  
                        <!-- NavBar  -->
                        <input hidden value="-1" name="feature" id="feature_input">
-                       
                        <div data-v-75520c46="" class="product-list-main" >
                            <div data-v-dff31658="" data-v-75520c46="" class="shopee-fixed-top-card">
                                <div data-v-dff31658="" class="fixed-container" style="top: 56px; z-index: 1000;">
@@ -85,14 +46,14 @@
                                            data-v-dff31658="">
                                            <div class="shopee-tabs__nav">
                                                <div class=" tab-container shopee-tabs__nav-warp">
-                                                   <div id="list_category" class="   shopee-tabs__nav-tabs col-8" style="transform: translateX(0px);">
+                                                   <div id="list_category" class="   shopee-tabs__nav-tabs col-3" style="transform: translateX(0px);">
                                                        <div class="shopee-tabs__nav-tab active" value="-1"  onclick="CheckFeature(this)" style="white-space: normal;">
-                                                           <div data-v-75520c46="" class="tabs__tab ">All of post
+                                                           <div data-v-75520c46="" class="tabs__tab ">All of Slider
 
                                                            </div>
                                                        </div>
                                                        <div class="shopee-tabs__nav-tab"  value="1" style="white-space: normal;" onclick="CheckFeature(this)">
-                                                           <div data-v-75520c46="" class="tabs__tab">Activing
+                                                           <div data-v-75520c46="" class="tabs__tab"> Showing
                                                            </div>
                                                        </div>
                                                    
@@ -104,8 +65,29 @@
                                                            </div>
                                                        </div>
                                                    </div>
+                                                   <!--search box-->
+                                                   <div class=" search-all search-container col-4">
+                                                       <div class="col-1"></div>
+                                                     <div class=" search-item input-group rounded col-7">
+                                                         
+                                                         <input type="search" class="form-control rounded " oninput="SubmitForm(1)"
+                                                                id="search" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                                         <select name="option_search" id="option_search" onchange="SubmitForm(1)">
+                                                                    <option value="1">
+                                                                            Title
+                                                                    </option>
+                                                                    <option value="2">
+                                                                            Backlinks
+                                                                    </option>
+                                                                </select>
+<!--                                                        <span class="input-group-text border-0" id="search-addon">
+                                                          <i class="fas fa-search"></i>
+                                                        </span>-->
+                                                   </div>
+                                                   </div>
                                                    <div class="add-post col-3">
-                                                       <button type="button"  onclick="window.location.href='addpost'" class="btn btn-success">Add New Post  +</button>
+                                                       <div class="col-6"></div> 
+                                                       <button type="button"  onclick="window.location.href='addslider'" class="btn btn-success">Add New   +</button>
                                                    </div>
                                                    <div class="shopee-tabs__ink-bar" style="width: 104px; transform: translateX(203px);">
                                                    </div>
@@ -138,7 +120,7 @@
                            <div class="row navbar-content">
                                <div class="col-2">ID</div>
                                <div class="col-4">Title</div>
-                               <div class="col-2">Author</div>
+                               <div class="col-2">Backlink</div>
                                <div class="col-2">Status</div>
                                <div class="col-2">Action </div>
                            </div>
@@ -146,30 +128,34 @@
                             <div class="list-post_container ">
                                 <!--a post-->
                                 <ul class="list-post" id="listpost">
-                                <c:forEach items="${requestScope.posts}" var="p">
+                                <c:forEach items="${requestScope.sliders}" var="s">
                                     <li>
                                 <div class="row item-detail">
-                                    <div class="col-1">${p.post_id}</div>
+                                    <div class="col-1">
+                                        ${s.id}
+                                    </div>
                                     <div class="col-5 title-item">
                                         <div class="col-4 image-item">
-                                            <img src="${p.thumbnail}" />
+                                            <img src="
+                                                 ${s.imagePath}
+                                                 " />
                                         </div>
                                         <div class="col-8 title">
                                             <p class="title-detail">
-                                               ${p.title}
+                                               ${s.title}
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="col-2">${p.author}</div>
+                                               <div class="col-2"><a href="${s.url}">${s.url}</a></div>
                                     <div class="col-2">
-                                        <select id="feature_item" style=" width: 65%; height: 40px;font-size: 13px;" onchange="ChangeFeature(${p.post_id},$(this).children('option:selected').val())">
+                                        <select id="feature_item" style=" width: 65%; height: 40px;font-size: 13px;" onchange="ChangeFeature(${s.id},$(this).children('option:selected').val())">
                                             <option value="1" style="font-size: 13px;"
-                                                    <c:if test="${p.featured}">selected</c:if>
+                                                    <c:if test="${s.status==1}">selected</c:if>
                                                     >
-                                                Show 
+                                                Show
                                             </option>
                                             <option value="0" style="font-size: 13px;" 
-                                            <c:if test="${!p.featured}">selected</c:if>
+                                            <c:if test="${s.status==0}">selected</c:if>
                                                     >
                                                 Hide
                                             </option>
@@ -180,8 +166,8 @@
                                           <i class="fa-solid fa-pen-to-square"></i>
                                           Edit
                                       </button>
-                                      <button type="button" class=" view-btn btn btn-primary btn-sm ">
-                                          <i class="fa-solid fa-eye"></i>View</button>
+<!--                                      <button type="button" class=" view-btn btn btn-primary btn-sm ">
+                                          <i class="fa-solid fa-eye"></i>View</button>-->
                                     </div>
                                 </div>
                                     </li>   

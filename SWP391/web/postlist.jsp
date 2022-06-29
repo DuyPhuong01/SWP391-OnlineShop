@@ -31,12 +31,12 @@
                         <!-- header  -->
                        <div data-v-b2f6143e="" data-v-75520c46="" id="product-filter-card" class="product-filter-card">
                             
-                           <div class="search-container">
+<!--                           <div class="search-container">
                                   <div class="input-group">
                                       <input value="" id="search" name="search" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                                       <button type="button" onclick="SubmitForm(1)" class="btn btn-outline-primary">search</button>
                                   </div>      
-                           </div>
+                           </div>-->
                            <div class="filter-container">
                                <h1>Filter</h1>
                                <div class="search_list col-12">
@@ -50,13 +50,37 @@
                                        </select>
                                    </div>
                                     <div class="col-3 search-item">
-                                       <label for="author">Author:</label>
+                                       <label for="author">Author</label>
                                        <select class="form-select form-select-sm" name="author" id="author" aria-label=".form-select-sm example" onchange="SubmitForm(1)">
                                            <option value="0" >All</option>
                                        <c:forEach items="${requestScope.authors}" var="author">
                                             <option value="${author.user_id}">${author.username}</option>
                                        </c:forEach>
                                       </select>
+                                   </div>
+                                    <div class="col-3 search-item">
+<!--                                       <label for="category">Sort By:</label>
+                                       <select class="form-select form-select-sm" id="sort" aria-label=".form-select-sm example" 
+                                             name="sort" id="sort" onchange="SubmitForm(1)">
+                                        <option value="0">All</option>
+                                        <option value="1">Post</option>
+                                        <option value="2">Author</option>
+                                        <option value="3">Category</option>
+                                      </select>-->
+                                   </div>
+                                  
+                                  
+                               </div>
+                           <div class="filter-container">
+                               <div class="search_list col-12">
+                                   <div class="col-3 search-item">
+                                       <label for="category">Sub Category:</label>
+                                       <select class="form-select form-select-sm" name="category" id="category" aria-label=".form-select-sm example" onchange="SubmitForm(1)">
+                                           <option value="0" selected>All</option>  default
+                                            <c:forEach items="${requestScope.categories}" var="category">
+                                             <option value="${category.category_id}" >${category.category_name}</option>
+                                            </c:forEach>
+                                       </select>
                                    </div>
                                     <div class="col-3 search-item">
                                        <label for="category">Sort By:</label>
@@ -67,6 +91,15 @@
                                         <option value="2">Author</option>
                                         <option value="3">Category</option>
                                       </select>
+                                   </div>
+                                    <div class="col-3 search-item">
+<!--                                       <label for="author">Sub category</label>
+                                       <select class="form-select form-select-sm" name="author" id="author" aria-label=".form-select-sm example" onchange="SubmitForm(1)">
+                                           <option value="0" >All</option>
+                                       <c:forEach items="${requestScope.authors}" var="author">
+                                            <option value="${author.user_id}">${author.username}</option>
+                                       </c:forEach>
+                                      </select>-->
                                    </div>
                                   
                                   
@@ -85,7 +118,7 @@
                                            data-v-dff31658="">
                                            <div class="shopee-tabs__nav">
                                                <div class=" tab-container shopee-tabs__nav-warp">
-                                                   <div id="list_category" class="   shopee-tabs__nav-tabs col-8" style="transform: translateX(0px);">
+                                                   <div id="list_category" class="   shopee-tabs__nav-tabs col-3" style="transform: translateX(0px);">
                                                        <div class="shopee-tabs__nav-tab active" value="-1"  onclick="CheckFeature(this)" style="white-space: normal;">
                                                            <div data-v-75520c46="" class="tabs__tab ">All of post
 
@@ -104,6 +137,17 @@
                                                            </div>
                                                        </div>
                                                    </div>
+                                                    <!--search nav-->
+                                                   <div class="search-nav col-5">
+                                                       <div class="input-group rounded">
+                                                           <input type="search" id="search" name="search" oninput="SubmitForm(1)"
+                                                                   class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                                            <span class="input-group-text border-0" id="search-addon">
+                                                              <i class="fas fa-search"></i>
+                                                            </span>
+                                                       </div>
+                                                   </div>
+                                                    <!-------------------->
                                                    <div class="add-post col-3">
                                                        <button type="button"  onclick="window.location.href='addpost'" class="btn btn-success">Add New Post  +</button>
                                                    </div>

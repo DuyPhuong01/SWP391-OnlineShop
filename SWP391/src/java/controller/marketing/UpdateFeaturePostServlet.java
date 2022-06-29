@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.post;
+package controller.marketing;
 
 import dal.PostDAO;
 import java.io.IOException;
@@ -77,12 +77,7 @@ public class UpdateFeaturePostServlet extends HttpServlet {
         PostDAO postDAO=new PostDAO();
         boolean checkUpdate=postDAO.updateStatusPost(postId, featured);
         PrintWriter out = response.getWriter();
-        if(checkUpdate){//update successfully
-            out.println("Update successfully!");
-        }
-        else{
-            out.println("Update Failed!");
-        }
+       
     }
 
     /**
