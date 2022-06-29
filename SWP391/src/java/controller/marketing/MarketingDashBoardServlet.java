@@ -81,7 +81,7 @@ public class MarketingDashBoardServlet extends HttpServlet {
 
             //khoi tao cac bien va gan gia tri
             int totalPosts, totalGeneralFeedbacks, totalProductFeedbacks, totalProducts, totalAccounts;
-            totalPosts = postDAO.getTotalPosts();
+            totalPosts = postDAO.countPosts();
             totalAccounts = accountDAO.getTotalCustomers();
             totalGeneralFeedbacks = feedbackDAO.getTotalGeneralFeedbacks();
             totalProductFeedbacks = feedbackDAO.getTotalProductFeedbacks();

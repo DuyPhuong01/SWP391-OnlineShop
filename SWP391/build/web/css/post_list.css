@@ -1134,4 +1134,6 @@ html.VN, html.VN button {
 }
 .input-group input{
     height: 33px;
+.view-btn a, .edit-btn a{
+    color: #fff !important;
 }

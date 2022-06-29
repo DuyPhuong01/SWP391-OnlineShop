@@ -18,7 +18,6 @@
     <body>
         <div class="d-flex">
             <c:import url="/marketing/sidebar.jsp"></c:import>
-                <!--side bar-->
                 <div class="container-lg my-5">
                     <div class="p-3 bg-white rounded shadow-sm">
                         <div class="top-head">

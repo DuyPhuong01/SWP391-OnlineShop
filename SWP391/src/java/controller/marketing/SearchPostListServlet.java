@@ -97,46 +97,41 @@ public class SearchPostListServlet extends HttpServlet {
         
         
         
-        postHTML+="  <div data-v-75520c46=\"\" class=\"row main-content\">\n" +
-"                                 <!--header-->\n" +
-"                           <div class=\"row navbar-content\">\n" +
-"                               <div class=\"col-2\">ID</div>\n" +
-"                               <div class=\"col-4\">Title</div>\n" +
-"                               <div class=\"col-2\">Author</div>\n" +
-"                               <div class=\"col-2\">Status</div>\n" +
-"                               <div class=\"col-2\">Action </div>\n" +
-"                           </div>\n" +
-"                              <!--list-item-->\n" +
-"                            <div class=\"list-post_container \">\n" +
-"                                <!--a post-->\n" +
-"                                <ul class=\"list-post\" id=\"listpost\">\n";
-       
-                            //Convert List of post to html
+        postHTML+="  <table class=\"table\">\n" +
+"                                            <thead>\n" +
+"                                                <tr>\n" +
+"                                                    <th>ID</th>\n" +
+"                                                    <th>Title</th>\n" +
+"                                                    <th>Author</th>\n" +
+"                                                    <th>Status</th>\n" +
+"                                                    <th>Action</th>\n" +
+"                                                </tr>\n" +
+"                                            </thead>\n" +
+"                                            <tbody id=\"listpost\">";
                 for (Post post : posts) {
-            postHTML+="       <li>\n" +
-"                                <div class=\"row item-detail\">\n" +
-"                                    <div class=\"col-1\">"
-                    + post.getPost_id()
-                    + "</div>\n" +
-"                                    <div class=\"col-5 title-item\">\n" +
-"                                        <div class=\"col-4 image-item\">\n" +
-"                                            <img src=\""
+            postHTML+="       <tr>\n" +
+"                    <td>" + post.getPost_id()
+                    + "</td>\n" +
+"                                                <td class=\"w-50\">\n" +
+"                                                    <div class=\"row\">\n" +
+"                                                        <div class=\"col-4 image-item\">\n" +
+"                                                            <img src=\""
                     + post.getThumbnail()
-                    + "\" />\n" +
-"                                        </div>\n" +
-"                                        <div class=\"col-8 title\">\n" +
-"                                            <p class=\"title-detail\">\n" +
+                    + "\" />" +
+"                                                        </div>\n" +
+"                                                        <div class=\"col-8 title\">\n" +
+"                                                            <p class=\"title-detail\">" +
                                                 post.getTitle()
-                    + "\n" +
-"                                            </p>\n" +
-"                                        </div>\n" +
-"                                    </div>\n" +
-"                                    <div class=\"col-2\">"
+                    + "</p>\n" +
+"                                                        </div>\n" +
+"                                                    </div>\n" +
+"                                                </td>\n" +
+"                                                <td>"
                     + post.getAuthor()
-                    + "</div>\n" +
-"                                    <div class=\"col-2\">\n";
+                    + "</td>\n" +
+"                                                <td>";
                     
-       postHTML+= "                                        <select id=\"feature_item\" style=\" width: 65%; height: 40px;font-size: 13px;\" onchange=\"ChangeFeature("
+       postHTML+= "<select class=\"form-select form-select-sm\" id=\"feature_item\" style=\" width: 65%; height: 40px;font-size: 13px;\" onchange=\"ChangeFeature("
                + post.getPost_id()
                + ",$(this).children('option:selected').val())\">\n" +
 "                                            <option value=\"1\" style=\"font-size: 13px;\"";
@@ -160,18 +155,18 @@ public class SearchPostListServlet extends HttpServlet {
 "                                    <div class=\"col-2 action-container\">\n" +
 "                                      <button type=\"button\" class=\"edit-btn btn btn-secondary btn-sm \">\n" +
 "                                          <i class=\"fa-solid fa-pen-to-square\"></i>\n" +
-"                                          Edit\n" +
+"                                          <a href=\"/swp/marketing/postdetails?id="+post.getPost_id()+"&action=edit\">View</a>\n" +
 "                                      </button>\n" +
 "                                      <button type=\"button\" class=\" view-btn btn btn-primary btn-sm \">\n" +
-"                                          <i class=\"fa-solid fa-eye\"></i>View</button>\n" +
+"                                          <i class=\"fa-solid fa-eye\"></i><a href=\"/swp/marketing/postdetails?id="+post.getPost_id()+"&action=view\">View</a></button>\n" +
 "                                    </div>\n" +
 "                                </div>\n" +
 "                                    </li>";
         }
                            //Convert Page to html
              postHTML+= 
-"                                </ul>\n" +
-"                           </div>\n" +
+"</tbody>\n" +
+"                                        </table>" +
 "                              <!--//footer-->\n" +
 "                              <footer>\n" +
 "                                  <div class=\"pagination\">\n" +

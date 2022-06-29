@@ -16,10 +16,7 @@
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/stylehomepage.css">
         <!-- ===== Boxicons CSS ===== -->
-        <link
-            href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
-            rel="stylesheet"
-            />
+        <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
         <!--font-awesome-->
         <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
@@ -61,36 +58,16 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-3">
                     <c:import url="sider.jsp"></c:import>
                     </div>
                     <div class="col-9">
                         <div class="p-3 bg-white rounded shadow-sm">
-                            <div class="hot-post row mb-3">
+                            <div class="feature-item row mb-3">
                                 <div class="text-center">
-                                    <h3 class="pb-3 text-uppercase font-weight-bold">Hot posts</h3>
+                                    <h3 class="pb-3 text-uppercase font-weight-bold">Feature items</h3>
                                 </div>
-                            <c:forEach var="post" items="${requestScope.hotPostsList}">
-                                <div class="col-4 mb-3">
-                                    <div class="card">
-                                        <img src="${post.thumbnail}" class="card-img-top" alt="${post.title}">
-                                        <div class="card-body">
-                                            <h5 class="card-title">${post.title}</h5>
-                                            <p class="card-text">${post.post_details}</p>
-                                            <a href="post?id=${post.post_id}" class="btn btn-outline-primary">View</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                            <div class="d-flex justify-content-end">
-                                <a href="blogslist">View all Blogs</a>
-                            </div>
-                        </div>
-                        <div class="feature-item row mb-3">
-                            <div class="text-center">
-                                <h3 class="pb-3 text-uppercase font-weight-bold">Feature items</h3>
-                            </div>
                             <c:forEach var="product" items="${requestScope.productsList}">
                                 <div class="col-3 mb-3">
                                     <div class="card product-card">
@@ -98,7 +75,7 @@
                                             <img src="${product.thumbnail}" class="card-img-top">
                                         </a>
                                         <div class="card-body">
-                                                <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.name}">
+                                            <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.name}">
                                                 <h6 class="card-title product-title">${product.name}</h6>
                                             </a>
                                             <h6 class="card-subtitle mb-2 text-muted">
@@ -117,6 +94,32 @@
                                 <a href="productslist">View all Products</a>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+                    <div class="p-3 bg-white rounded shadow-sm">
+                <div class="hot-post row mb-3">
+                    <div class="text-center">
+                        <h3 class="pb-3 text-uppercase font-weight-bold">Hot posts</h3>
+                    </div>
+                    <c:forEach var="post" items="${requestScope.hotPostsList}">
+                        <div class="col-4 mb-3">
+                            <div class="card post">
+                                <a class="post-thumbnail" href="post?id=${post.post_id}">
+                                    <img src="${post.thumbnail}" class="card-img-top" alt="...">
+                                </a>
+                                <div class="card-body">
+                                    <h6 class="card-title mb-3">${post.title}</h6>
+                                    <h6 class="card-subtitle text-muted" style="font-size: .85rem">${post.sub_title}</h6>
+                                </div>
+                                <div class="mx-2 mb-2 text-muted opacity-75 d-flex justify-content-end">
+                                    <fmt:formatDate value="${post.publication_date}" pattern="HH:mm dd/MM/yyyy"/>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                    <div class="d-flex justify-content-end">
+                        <a href="blogslist">View all Blogs</a>
                     </div>
                 </div>
             </div>

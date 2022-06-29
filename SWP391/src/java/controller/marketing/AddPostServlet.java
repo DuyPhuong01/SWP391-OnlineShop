@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +33,7 @@ import model.ProductCategory;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
         maxFileSize = 1024 * 1024 * 50,
         maxRequestSize = 1024 * 1024 * 50)
+@WebServlet(name = "AddPostServlet", urlPatterns = {"/marketing/addpost"})
 public class AddPostServlet extends HttpServlet {
 
     /**
@@ -84,7 +86,7 @@ public class AddPostServlet extends HttpServlet {
         CategoryDAO categoryDAO=new CategoryDAO();
         List<ProductCategory> categories = categoryDAO.getPostCategory();
         request.setAttribute("categories", categories);
-        request.getRequestDispatcher("addpost.jsp").forward(request, response);
+        request.getRequestDispatcher("/marketing/addpost.jsp").forward(request, response);
     }
 
     /**

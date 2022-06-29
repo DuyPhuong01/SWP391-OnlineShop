@@ -5,8 +5,10 @@
  */
 package controller.post;
 
+import dal.PostDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,18 +34,48 @@ public class BlogsListServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet BlogsListServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet BlogsListServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PostDAO postDAO = new PostDAO();
+        final int NUMBER_ITEMS_PER_PAGE = 8;
+
+        String orderOption = request.getParameter("orderOption");
+        String category_id_raw = request.getParameter("categoryId");
+        String[] tag_id_raw_list = request.getParameterValues("tag_id");
+        String key = request.getParameter("key");
+        String pageNumberRaw = request.getParameter("page");
+
+        if (orderOption == null) {
+            orderOption = "publication_date";
         }
+        if (category_id_raw == null) {
+            category_id_raw = "-1";
+        }
+        if (key == null) {
+            key = "";
+        }
+        try {
+            int category_id = Integer.parseInt(category_id_raw);
+            List<Integer> tag_id_list = new ArrayList<>();
+            if (tag_id_raw_list != null) {
+                for (String tag_id_raw : tag_id_raw_list) {
+                    tag_id_list.add(Integer.parseInt(tag_id_raw));
+                }
+            }
+            int postsCount = postDAO.countPosts(1, key, category_id, tag_id_list);
+            int pageNumber = pageNumberRaw == null ? 1 : Integer.parseInt(pageNumberRaw);
+            int numberPage = postsCount % NUMBER_ITEMS_PER_PAGE == 0 ? postsCount / NUMBER_ITEMS_PER_PAGE : postsCount / NUMBER_ITEMS_PER_PAGE + 1;
+
+            int start = (pageNumber - 1) * NUMBER_ITEMS_PER_PAGE + 1;
+            int end = Math.min(pageNumber * NUMBER_ITEMS_PER_PAGE, postsCount);
+
+            request.setAttribute("postsList", postDAO.getPosts(orderOption, 1, key, category_id, tag_id_list, start, end));
+            request.setAttribute("selectedCategoryId", category_id);
+            request.setAttribute("orderOption", orderOption);
+            request.setAttribute("pageNumber", pageNumber);
+            request.setAttribute("numberPage", numberPage);
+        } catch (NumberFormatException nfe) {
+            System.out.println(nfe);
+        }
+        request.getRequestDispatcher("blogslist.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,7 +90,7 @@ public class BlogsListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("blogslist.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

@@ -44,11 +44,10 @@ public class PostDAO extends DBContext {
          * tp.post_id where p.title like '%%' and p.category_id = 1 and
          * tp.tag_id in (1) ) all_posts where Row between 1 and 22
          */
-
+        
         List<Post> list = new ArrayList<>();
         String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,p.* from posts p "
-                + "inner join tag_post tp on p.post_id = tp.post_id "
-                + "where p.featured=? and p.title like '%" + title_search_key + "%' ";
+                + "where p.featured="+featured+" and p.title like '%" + title_search_key + "%' ";
         if (category_id > 0) {
             sql += "and p.category_id =" + category_id;
         }
@@ -66,7 +65,6 @@ public class PostDAO extends DBContext {
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, featured);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Post post = filpostDetails(rs);
@@ -117,7 +115,6 @@ public class PostDAO extends DBContext {
                     + "\n";
         }
 
-        System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -174,6 +171,7 @@ public class PostDAO extends DBContext {
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, feature);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Post post = filpostDetails(rs);
@@ -201,6 +199,31 @@ public class PostDAO extends DBContext {
         }
         return null;
     }
+    public Post getPostWithSubCategory(int id) {
+        String sql = "select * from posts where post_id=?";
+        PostSubcategoryDAO postSubCategoryDAO = new PostSubcategoryDAO();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Post p = new Post(rs.getInt("post_id"), 
+                        rs.getInt("user_id"), 
+                        rs.getString("thumbnail"), 
+                        rs.getString("title"), 
+                        rs.getString("sub_title"), 
+                        rs.getTimestamp("publication_date"), 
+                        rs.getTimestamp("updated_date"), 
+                        rs.getString("post_details"), 
+                        rs.getBoolean("featured"), postSubCategoryDAO.getPostSubCategory(rs.getInt("post_subcategories_id")));
+                return p;
+            }
+            st.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return null;
+    }
 
     public int countPosts() {
         String sql = "select count(post_id) from posts";
@@ -216,10 +239,8 @@ public class PostDAO extends DBContext {
         }
         return 0;
     }
-
     public int countPosts(int featured, String title_search_key, int category_id, List<Integer> tag_id_list) {
         String sql = "select count(p.post_id) as count from posts p "
-                + "inner join tag_post tp on p.post_id = tp.post_id "
                 + "where p.featured=? and p.title like '%" + title_search_key + "%' ";
         if (category_id > 0) {
             sql += "and p.category_id =" + category_id;
@@ -302,11 +323,12 @@ public class PostDAO extends DBContext {
         }
         return false;//exception
     }
-    public boolean upload(String file){
-        String sql="insert into upload(url)\n" +
-"values(?)";
+
+    public boolean upload(String file) {
+        String sql = "insert into upload(url)\n"
+                + "values(?)";
         try {
-            PreparedStatement st=connection.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, file);
             st.executeUpdate();
             return true;
@@ -337,4 +359,38 @@ public class PostDAO extends DBContext {
     }
     // </editor-fold>
 
+    public boolean checkThumbnailExist(String fileName) {
+        String sql = "select * from posts where thumbnail like ?";
+        System.out.println(fileName);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "images/post-thumbnails/" + fileName);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+
+    public boolean changeThumbnail(int id, String imagePath) {
+        String sql = "update posts set thumbnail=? where post_id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, imagePath);
+            st.setInt(2, id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        PostDAO pd = new PostDAO();
+        System.out.println(pd.getPostWithSubCategory(1).getPost_details());
+    }
 }
