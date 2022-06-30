@@ -78,61 +78,69 @@ public class SearchPostListServlet extends HttpServlet {
 //            processRequest(request, response);
 //        }
         String word=request.getParameter("search");
+        int sub_categoryID=Integer.parseInt(request.getParameter("sub_category"));
         int categoryID=Integer.parseInt(request.getParameter("category"));
         int authorID=Integer.parseInt(request.getParameter("author"));
         int featureID=Integer.parseInt(request.getParameter("feature"));
         int sortID=Integer.parseInt(request.getParameter("sort"));
         int currentPage=Integer.parseInt(request.getParameter("page"));
+        int op=Integer.parseInt(request.getParameter("op"));
         int numper_page=6;
         PostDAO postDAO=new PostDAO();
-        List<Post> posts = postDAO.getPosts(word,categoryID, authorID, featureID, sortID, currentPage,numper_page); //get all product for page 1
+        List<Post> posts = postDAO.getPosts(word,categoryID,sub_categoryID, authorID, featureID, sortID,op, currentPage,numper_page); //get all product for page 1
         CategoryDAO categoryDAO=new CategoryDAO();
         List<PostCategory> postCategory = categoryDAO.getPostCategory();
         AccountDAO accountDAO=new AccountDAO();
         List<Account> authors = accountDAO.getAuthors();
-        int maxPage=postDAO.countPostPaging(word, categoryID, authorID, featureID, 6); //num of max page 6 post per page
-    
+        int maxPage=postDAO.countPostPaging(word,categoryID, sub_categoryID, authorID, featureID, 6); //num of max page 6 post per page
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String postHTML="";//contain htm; of list post
+         
+       
         
         
-        
-        postHTML+="  <table class=\"table\">\n" +
-"                                            <thead>\n" +
-"                                                <tr>\n" +
-"                                                    <th>ID</th>\n" +
-"                                                    <th>Title</th>\n" +
-"                                                    <th>Author</th>\n" +
-"                                                    <th>Status</th>\n" +
-"                                                    <th>Action</th>\n" +
-"                                                </tr>\n" +
-"                                            </thead>\n" +
-"                                            <tbody id=\"listpost\">";
+        postHTML+="  <div data-v-75520c46=\"\" class=\"row main-content\">\n" +
+"                                 <!--header-->\n" +
+"                           <div class=\"row navbar-content\">\n" +
+"                               <div class=\"col-2\">ID</div>\n" +
+"                               <div class=\"col-4\">Title</div>\n" +
+"                               <div class=\"col-2\">Author</div>\n" +
+"                               <div class=\"col-2\">Status</div>\n" +
+"                               <div class=\"col-2\">Action </div>\n" +
+"                           </div>\n" +
+"                              <!--list-item-->\n" +
+"                            <div class=\"list-post_container \">\n" +
+"                                <!--a post-->\n" +
+"                                <ul class=\"list-post\" id=\"listpost\">\n";
+       
+                            //Convert List of post to html
                 for (Post post : posts) {
-            postHTML+="       <tr>\n" +
-"                    <td>" + post.getPost_id()
-                    + "</td>\n" +
-"                                                <td class=\"w-50\">\n" +
-"                                                    <div class=\"row\">\n" +
-"                                                        <div class=\"col-4 image-item\">\n" +
-"                                                            <img src=\""
+            postHTML+="       <li>\n" +
+"                                <div class=\"row item-detail\">\n" +
+"                                    <div class=\"col-1\">"
+                    + post.getPost_id()
+                    + "</div>\n" +
+"                                    <div class=\"col-5 title-item\">\n" +
+"                                        <div class=\"col-4 image-item\">\n" +
+"                                            <img src=\"../"
                     + post.getThumbnail()
-                    + "\" />" +
-"                                                        </div>\n" +
-"                                                        <div class=\"col-8 title\">\n" +
-"                                                            <p class=\"title-detail\">" +
+                    + "\" />\n" +
+"                                        </div>\n" +
+"                                        <div class=\"col-8 title\">\n" +
+"                                            <p class=\"title-detail\">\n" +
                                                 post.getTitle()
-                    + "</p>\n" +
-"                                                        </div>\n" +
-"                                                    </div>\n" +
-"                                                </td>\n" +
-"                                                <td>"
+                    + "\n" +
+"                                            </p>\n" +
+"                                        </div>\n" +
+"                                    </div>\n" +
+"                                    <div class=\"col-2\">"
                     + post.getAuthor()
-                    + "</td>\n" +
-"                                                <td>";
+                    + "</div>\n" +
+"                                    <div class=\"col-2\">\n";
                     
-       postHTML+= "<select class=\"form-select form-select-sm\" id=\"feature_item\" style=\" width: 65%; height: 40px;font-size: 13px;\" onchange=\"ChangeFeature("
+       postHTML+= "                                        <select id=\"feature_item\" style=\" width: 65%; height: 40px;font-size: 13px;\" onchange=\"ChangeFeature("
                + post.getPost_id()
                + ",$(this).children('option:selected').val())\">\n" +
 "                                            <option value=\"1\" style=\"font-size: 13px;\"";
@@ -156,18 +164,18 @@ public class SearchPostListServlet extends HttpServlet {
 "                                    <div class=\"col-2 action-container\">\n" +
 "                                      <button type=\"button\" class=\"edit-btn btn btn-secondary btn-sm \">\n" +
 "                                          <i class=\"fa-solid fa-pen-to-square\"></i>\n" +
-"                                          <a href=\"/swp/marketing/postdetails?id="+post.getPost_id()+"&action=edit\">View</a>\n" +
+"                                          Edit\n" +
 "                                      </button>\n" +
 "                                      <button type=\"button\" class=\" view-btn btn btn-primary btn-sm \">\n" +
-"                                          <i class=\"fa-solid fa-eye\"></i><a href=\"/swp/marketing/postdetails?id="+post.getPost_id()+"&action=view\">View</a></button>\n" +
+"                                          <i class=\"fa-solid fa-eye\"></i>View</button>\n" +
 "                                    </div>\n" +
 "                                </div>\n" +
 "                                    </li>";
         }
                            //Convert Page to html
              postHTML+= 
-"</tbody>\n" +
-"                                        </table>" +
+"                                </ul>\n" +
+"                           </div>\n" +
 "                              <!--//footer-->\n" +
 "                              <footer>\n" +
 "                                  <div class=\"pagination\">\n" +

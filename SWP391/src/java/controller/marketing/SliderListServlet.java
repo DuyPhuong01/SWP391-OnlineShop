@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import model.Slider;
  *
  * @author Admin
  */
+@WebServlet(name = "SliderListServlet", urlPatterns = {"/marketing/sliderslist"})
 public class SliderListServlet extends HttpServlet {
 
     /**
@@ -71,7 +73,7 @@ public class SliderListServlet extends HttpServlet {
          request.setAttribute("curpage", currentPage);
          request.setAttribute("maxpage",maxPage);
          request.setAttribute("sliders", sliders);
-         request.getRequestDispatcher("sliderlist.jsp").forward(request, response);
+         request.getRequestDispatcher("/marketing/sliderlist.jsp").forward(request, response);
     }
 
   

@@ -184,10 +184,6 @@
         <servlet-class>controller.marketing.AddPostCategoryServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SliderListServlet</servlet-name>
-        <servlet-class>controller.marketing.SliderListServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SearchSliderList</servlet-name>
         <servlet-class>controller.marketing.SearchSliderList</servlet-class>
     </servlet>
@@ -326,10 +322,6 @@
     <servlet-mapping>
         <servlet-name>AddPostCategoryServlet</servlet-name>
         <url-pattern>/addpostcategory</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SliderListServlet</servlet-name>
-        <url-pattern>/sliderlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchSliderList</servlet-name>

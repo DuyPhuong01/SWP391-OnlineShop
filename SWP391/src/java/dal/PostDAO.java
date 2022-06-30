@@ -94,18 +94,22 @@ public class PostDAO extends DBContext {
     }
 
     // count filter and paging
-    public int countPostPaging(String word, int categoryID, int authorID, int feature, int numperpage) {
+    public int countPostPaging(String word,int categoryID , int subCategoryID, int authorID, int feature, int numperpage) {
         int num = 1;
-        String sql = "select count(post_id) from posts\n"
-                + "where category_id=category_id";
+        String sql = "select count(post_id)  from posts p,post_sub_categories ps\n"
+                + "where p.post_subcategories_id=ps.id";
         if (!word.equals("")) { // have option word
             sql += " and title like'%"
                     + word
                     + "%'";
         }
-        if (categoryID != 0) { // have option category
-            sql += " and category_id="
+        if(categoryID!=0){
+            sql+=" and  ps.category_id="
                     + categoryID;
+        }
+        if (subCategoryID != 0) { // have option category
+            sql += " and post_subcategories_id="
+                    + subCategoryID;
         }
         if (authorID != 0) { //have option author
             sql += " and user_id ="
@@ -117,6 +121,7 @@ public class PostDAO extends DBContext {
                     + "\n";
         }
 
+        System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -136,18 +141,22 @@ public class PostDAO extends DBContext {
     }
     //get post and filter
 
-    public List<Post> getPosts(String word, int categoryID, int authorID, int feature, int orderByID, int page, int numperpage) {
+    public List<Post> getPosts(String word,int categoryID , int subCategoryID, int authorID, int feature, int orderByID,int op, int page, int numperpage) {
         List<Post> list = new ArrayList<>();
-        String sql = "select * from posts  \n"
-                + "where category_id=category_id";
+        String sql = "select * from posts p,post_sub_categories ps  \n"
+                + "where p.post_subcategories_id=ps.id";
         if (!word.equals("")) { // have option word
             sql += " and title like'%"
                     + word
                     + "%'";
         }
-        if (categoryID != 0) { // have option category
-            sql += " and category_id="
+        if(categoryID!=0){
+            sql+=" and  ps.category_id="
                     + categoryID;
+        }
+        if (subCategoryID != 0) { // have option category
+            sql += " and post_subcategories_id="
+                    + subCategoryID;
         }
         if (authorID != 0) { //have option author
             sql += " and user_id ="
@@ -160,10 +169,16 @@ public class PostDAO extends DBContext {
         }
         if (convertOrderByID(orderByID) != null) { //have option order
             sql += " order by "
-                    + convertOrderByID(orderByID)
-                    + "\n";
+                    + convertOrderByID(orderByID);
+                    
         } else {
-            sql += " order by post_id\n";
+            sql += " order by post_id ";
+        }
+        if(op==1){
+            sql+= " asc \n";
+        }
+        else{
+            sql+= " desc \n";
         }
         sql += " OFFSET "
                 + (page - 1) * numperpage
@@ -173,7 +188,6 @@ public class PostDAO extends DBContext {
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-//            st.setInt(1, feature);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Post post = filpostDetails(rs);

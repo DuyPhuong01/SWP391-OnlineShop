@@ -36,6 +36,12 @@
             <span>Feedbacks List</span>
         </a>
     </div>
+    <div>
+        <a type="button" href="sliderslist" class="p-2" data-bs-toggle="tooltip">
+            <i class="fa-solid fa-comments"></i>
+            <span>Sliders List</span>
+        </a>
+    </div>
     <div class="position-absolute bottom-0">
         <a type="button" href="../logout" class="p-2" data-bs-toggle="tooltip">
             <i class="fa-solid fa-right-from-bracket"></i>

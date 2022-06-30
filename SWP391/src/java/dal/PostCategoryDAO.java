@@ -58,6 +58,28 @@ public class PostCategoryDAO extends DBContext {
         }
         return null;
     }
+    public List<PostCategory> getPostCategory() {
+        List<PostCategory> list = new ArrayList<>();
+        String sql = "select * from post_categories";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            PostSubcategoryDAO ps=new PostSubcategoryDAO();
+         
+            while (rs.next()) {
+                PostCategory category = new PostCategory(rs.getInt("category_id"),
+                        rs.getString("category_name"),
+                        rs.getString("description"),
+                        rs.getBoolean("status"),
+                        ps.getSubCategoryByCategoryID(rs.getInt("category_id"))
+                );
+                list.add(category);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return list;
+    }
 
     public static void main(String[] args) {
         PostCategoryDAO p = new PostCategoryDAO();
