@@ -272,6 +272,22 @@ public class ProductDAO extends DBContext {
         return list;
     }
 
+    public List<Product> getProducts(String key) {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from products where name like '%" + key + "%'";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product product = filProductDetails(rs);
+                list.add(product);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return list;
+    }
+
     public List<Product> getProducts(int number, boolean featured) {
         List<Product> list = new ArrayList<>();
         String sql = "select top(?) * from products where featured=?";
@@ -289,17 +305,17 @@ public class ProductDAO extends DBContext {
         }
         return list;
     }
-    
-     public void UpdateQuantity(Product product, int quantity) {
+
+    public void UpdateQuantity(Product product, int quantity) {
         String sql = "update products\n"
                 + "set unit_in_stock = unit_in_stock + ? where product_id = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, quantity);
             st.setInt(2, product.getProduct_id());
             st.executeUpdate();
-        }catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
     }
 
@@ -316,7 +332,8 @@ public class ProductDAO extends DBContext {
         }
         return 0;
     }
-    public boolean changeFeatured(int product_id, boolean featured){
+
+    public boolean changeFeatured(int product_id, boolean featured) {
         String sql = "update products set featured=? where product_id=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -329,7 +346,8 @@ public class ProductDAO extends DBContext {
         }
         return false;
     }
-    public boolean changeThumbnail(int product_id, String imagePath){
+
+    public boolean changeThumbnail(int product_id, String imagePath) {
         String sql = "update products set thumbnail=? where product_id=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -342,14 +360,17 @@ public class ProductDAO extends DBContext {
         }
         return false;
     }
-    public boolean checkThumbnailExist(String fileName){
+
+    public boolean checkThumbnailExist(String fileName) {
         String sql = "select * from products where thumbnail like ?";
         System.out.println(fileName);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, "images/product_images/"+fileName);
+            st.setString(1, "images/product_images/" + fileName);
             ResultSet rs = st.executeQuery();
-            if(rs.next()) return true;
+            if (rs.next()) {
+                return true;
+            }
         } catch (SQLException sqle) {
             System.out.println(sqle);
         }
@@ -407,7 +428,7 @@ public class ProductDAO extends DBContext {
         }
         return null;
     }
-    
+
     public Product getLastProducts() {
         String sql = "select * from products order by product_id desc";
         try {
@@ -422,7 +443,6 @@ public class ProductDAO extends DBContext {
         }
         return null;
     }
-    
 
     public boolean updateProductInformation(int product_id, String name, String model, int unit_in_stock, int sub_category_id,
             int original_price, int sale_price, String brief_infor, String product_details
@@ -480,6 +500,7 @@ public class ProductDAO extends DBContext {
         }
         return false;
     }
+
     public boolean addProduct(String name, String model, int unit_in_stock, int sub_category_id,
             int original_price, int sale_price, int featured, String brief_infor, String product_details, String thumbnail
     ) {

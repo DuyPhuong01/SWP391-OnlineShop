@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Account;
 import model.Post;
 import model.Tag;
 
@@ -22,22 +21,22 @@ public class PostDAO extends DBContext {
                 rs.getString("sub_title"),
                 getTags(post_id),
                 rs.getTimestamp("publication_date"),
+                category_dao.getPostSubCategory(rs.getInt("post_subcategories_id")),
                 rs.getTimestamp("updated_date"),
-                category_dao.getPostCategory(rs.getInt("category_id")),
                 rs.getString("post_details"),
                 rs.getBoolean("featured")
         );
     }
 
     public List<Post> getPosts(int featured, int start, int end) {
-        return getPosts("publication_date", featured, "", -1, null, start, end);
+        return getPosts("publication_date", featured, "", -1, -1, null, start, end);
     }
 
     public List<Post> getPosts(boolean featured, int start, int end) {
-        return getPosts("publication_date", featured ? 1 : 0, "", -1, null, start, end);
+        return getPosts("publication_date", featured ? 1 : 0, "", -1, -1, null, start, end);
     }
 
-    public List<Post> getPosts(String orderOption, int featured, String title_search_key, int category_id, List<Integer> tag_id_list, int start, int end) {
+    public List<Post> getPosts(String orderOption, int featured, String title_search_key, int sub_category_id, int category_id, List<Integer> tag_id_list, int start, int end) {
         /**
          * select * from ( select ROW_NUMBER() over (order by updated_date desc)
          * as Row,p.* from posts p inner join tag_post tp on p.post_id =
@@ -47,12 +46,15 @@ public class PostDAO extends DBContext {
         
         List<Post> list = new ArrayList<>();
         String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,p.* from posts p "
+                + "inner join post_sub_categories psc on p.post_subcategories_id = psc.id "
                 + "where p.featured="+featured+" and p.title like '%" + title_search_key + "%' ";
-        if (category_id > 0) {
-            sql += "and p.category_id =" + category_id;
+        if (sub_category_id > 0) {
+            sql += "and p.post_subcategories_id =" + sub_category_id;
+        } else if (category_id > 0) {
+            sql += "and psc.category_id =" + category_id;
         }
         if (tag_id_list != null && tag_id_list.size() > 0) {
-            sql += "and tp.tag_id in (";
+            sql += " and tp.tag_id in (";
             for (int tag_id : tag_id_list) {
                 sql += tag_id + ",";
             }
@@ -94,7 +96,7 @@ public class PostDAO extends DBContext {
     // count filter and paging
     public int countPostPaging(String word, int categoryID, int authorID, int feature, int numperpage) {
         int num = 1;
-        String sql = "select count(post_id)    from posts\n"
+        String sql = "select count(post_id) from posts\n"
                 + "where category_id=category_id";
         if (!word.equals("")) { // have option word
             sql += " and title like'%"
@@ -207,15 +209,7 @@ public class PostDAO extends DBContext {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                Post p = new Post(rs.getInt("post_id"), 
-                        rs.getInt("user_id"), 
-                        rs.getString("thumbnail"), 
-                        rs.getString("title"), 
-                        rs.getString("sub_title"), 
-                        rs.getTimestamp("publication_date"), 
-                        rs.getTimestamp("updated_date"), 
-                        rs.getString("post_details"), 
-                        rs.getBoolean("featured"), postSubCategoryDAO.getPostSubCategory(rs.getInt("post_subcategories_id")));
+                Post p = filpostDetails(rs);
                 return p;
             }
             st.close();
@@ -239,11 +233,14 @@ public class PostDAO extends DBContext {
         }
         return 0;
     }
-    public int countPosts(int featured, String title_search_key, int category_id, List<Integer> tag_id_list) {
+    public int countPosts(int featured, String title_search_key, int sub_category_id, int category_id, List<Integer> tag_id_list) {
         String sql = "select count(p.post_id) as count from posts p "
+                + "inner join post_sub_categories psc on p.post_subcategories_id = psc.id "
                 + "where p.featured=? and p.title like '%" + title_search_key + "%' ";
-        if (category_id > 0) {
-            sql += "and p.category_id =" + category_id;
+        if (sub_category_id > 0) {
+            sql += "and p.post_subcategories_id =" + sub_category_id;
+        } else if (category_id > 0) {
+            sql += "and psc.category_id =" + category_id;
         }
         if (tag_id_list != null && tag_id_list.size() > 0) {
             sql += "and tp.tag_id in (";
@@ -313,7 +310,7 @@ public class PostDAO extends DBContext {
             st.setInt(1, post.getUser_id());
             st.setString(2, post.getTitle());
             st.setString(3, post.getThumbnail());
-            st.setInt(4, post.getCategory().getCategory_id());
+            st.setInt(4, post.getPostSubCategory().getId());
             st.setString(5, post.getPost_details());
             st.setBoolean(6, post.isFeatured());
             st.executeUpdate();

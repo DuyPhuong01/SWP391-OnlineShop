@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Post;
+import model.PostCategory;
 import model.ProductCategory;
 
 /**
@@ -42,18 +43,18 @@ public class PostListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-        if(account==null){ //have  not login
-            processRequest(request, response);
-        }
+//         HttpSession session = request.getSession();
+//        Account account = (Account) session.getAttribute("account");
+//        if(account==null){ //have  not login
+//            processRequest(request, response);
+//        }
         
          PostDAO postDAO=new PostDAO();
         int currentPage=1;//start page=1
         int numper_page=6;
         List<Post> posts = postDAO.getPosts("",0, 0, -1, 0, currentPage,numper_page); //get all product for page 1
         CategoryDAO categoryDAO=new CategoryDAO();
-        List<ProductCategory> postCategory = categoryDAO.getPostCategory();
+        List<PostCategory> postCategory = categoryDAO.getPostCategory();
         AccountDAO accountDAO=new AccountDAO();
         List<Account> authors = accountDAO.getAuthors();
         int maxPage=postDAO.countPostPaging("", 0, 0, -1, 6); //num of max page 6 post per page

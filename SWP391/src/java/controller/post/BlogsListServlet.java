@@ -38,6 +38,7 @@ public class BlogsListServlet extends HttpServlet {
         final int NUMBER_ITEMS_PER_PAGE = 8;
 
         String orderOption = request.getParameter("orderOption");
+        String subcategory_id_raw = request.getParameter("subCategoryId");
         String category_id_raw = request.getParameter("categoryId");
         String[] tag_id_raw_list = request.getParameterValues("tag_id");
         String key = request.getParameter("key");
@@ -46,6 +47,9 @@ public class BlogsListServlet extends HttpServlet {
         if (orderOption == null) {
             orderOption = "publication_date";
         }
+        if (subcategory_id_raw == null) {
+            subcategory_id_raw = "-1";
+        }
         if (category_id_raw == null) {
             category_id_raw = "-1";
         }
@@ -53,6 +57,7 @@ public class BlogsListServlet extends HttpServlet {
             key = "";
         }
         try {
+            int sub_category_id = Integer.parseInt(subcategory_id_raw);
             int category_id = Integer.parseInt(category_id_raw);
             List<Integer> tag_id_list = new ArrayList<>();
             if (tag_id_raw_list != null) {
@@ -60,18 +65,19 @@ public class BlogsListServlet extends HttpServlet {
                     tag_id_list.add(Integer.parseInt(tag_id_raw));
                 }
             }
-            int postsCount = postDAO.countPosts(1, key, category_id, tag_id_list);
+            int postsCount = postDAO.countPosts(1, key, sub_category_id, category_id, tag_id_list);
             int pageNumber = pageNumberRaw == null ? 1 : Integer.parseInt(pageNumberRaw);
             int numberPage = postsCount % NUMBER_ITEMS_PER_PAGE == 0 ? postsCount / NUMBER_ITEMS_PER_PAGE : postsCount / NUMBER_ITEMS_PER_PAGE + 1;
 
             int start = (pageNumber - 1) * NUMBER_ITEMS_PER_PAGE + 1;
             int end = Math.min(pageNumber * NUMBER_ITEMS_PER_PAGE, postsCount);
-
-            request.setAttribute("postsList", postDAO.getPosts(orderOption, 1, key, category_id, tag_id_list, start, end));
+            System.out.println(postsCount);
+            request.setAttribute("postsList", postDAO.getPosts(orderOption, 1, key, sub_category_id, category_id, tag_id_list, start, end));
             request.setAttribute("selectedCategoryId", category_id);
             request.setAttribute("orderOption", orderOption);
             request.setAttribute("pageNumber", pageNumber);
             request.setAttribute("numberPage", numberPage);
+            request.setAttribute("key", key);
         } catch (NumberFormatException nfe) {
             System.out.println(nfe);
         }

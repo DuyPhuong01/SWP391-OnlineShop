@@ -24,6 +24,8 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import model.Account;
 import model.Post;
+import model.PostCategory;
+import model.PostSubCategory;
 import model.ProductCategory;
 
 /**
@@ -84,7 +86,7 @@ public class AddPostServlet extends HttpServlet {
             processRequest(request, response);
         }
         CategoryDAO categoryDAO=new CategoryDAO();
-        List<ProductCategory> categories = categoryDAO.getPostCategory();
+        List<PostCategory> categories = categoryDAO.getPostCategory();
         request.setAttribute("categories", categories);
         request.getRequestDispatcher("/marketing/addpost.jsp").forward(request, response);
     }
@@ -114,7 +116,7 @@ public class AddPostServlet extends HttpServlet {
         boolean feature=(feature_raw==1);
         String postDetail = request.getParameter("content");
         CategoryDAO categoryDAO=new CategoryDAO();
-        ProductCategory postCategory = categoryDAO.getPostCategory(categoryID);
+        PostSubCategory postCategory = categoryDAO.getPostSubCategory(categoryID);
         
         //get image
          response.setContentType("text/html;charset=UTF-8");
@@ -139,7 +141,7 @@ public class AddPostServlet extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e);
         }
-        Post post=new Post(account.getUser_id(), fileName, title,postCategory , postDetail, feature);
+        Post post=new Post(account.getUser_id(), fileName, title, postCategory , postDetail, feature);
         PostDAO postDAO=new PostDAO();
         boolean check = postDAO.InsertPost(post);
         PrintWriter out = response.getWriter();

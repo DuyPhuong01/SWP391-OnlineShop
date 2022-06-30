@@ -147,15 +147,15 @@ public class ProductFeedbackServlet extends HttpServlet {
         Product p = new Product();
         p.setProduct_id(Integer.parseInt(productId));
         Feedback f = new Feedback();
-        f.setAccount(a);
+        f.setUser(a);
         f.setProduct(p);
-        f.setFullName(name);
-        f.setPhoneNum(phone);
+        f.setFullname(name);
+        f.setPhone(phone);
         f.setGender(Boolean.parseBoolean(gender));
         f.setEmail(email);
-        f.setRate(Integer.parseInt(rate));
-        f.setFeedback(feedback);
-        f.setFileName(fileName);
+        f.setStar(Integer.parseInt(rate));
+        f.setContent(feedback);
+        f.setImage_url(fileName);
         if (!productId.equals("0")) {
             fdb.insertFeedback(f);
         } else {

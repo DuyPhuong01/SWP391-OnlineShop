@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.PostCategory;
+import model.PostSubCategory;
 import model.ProductCategory;
 import model.SubCategory;
 
@@ -96,17 +98,17 @@ public class CategoryDAO extends DBContext {
 // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Post category">
-    public ProductCategory getPostCategory(int category_id) {
+    public PostCategory getPostCategory(int category_id) {
         String sql = "select * from post_categories where category_id=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, category_id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                ProductCategory category = new ProductCategory(rs.getInt("category_id"),
+                PostCategory category = new PostCategory(rs.getInt("category_id"),
                         rs.getString("category_name"),
                         rs.getString("description"),
-                        rs.getInt("status")
+                        rs.getInt("status")==1
                 );
                 return category;
             }
@@ -115,18 +117,38 @@ public class CategoryDAO extends DBContext {
         }
         return null;
     }
+    public PostSubCategory getPostSubCategory(int sub_category_id) {
+        String sql = "select * from post_sub_categories where id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, sub_category_id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                PostSubCategory sub_category = new PostSubCategory(rs.getInt("id"),
+                        getPostCategory(rs.getInt("category_id")),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getInt("feature")==1
+                );
+                return sub_category;
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return null;
+    }
 
-    public List<ProductCategory> getPostCategory() {
-        List<ProductCategory> list = new ArrayList<>();
+    public List<PostCategory> getPostCategory() {
+        List<PostCategory> list = new ArrayList<>();
         String sql = "select * from post_categories";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                ProductCategory category = new ProductCategory(rs.getInt("category_id"),
+                PostCategory category = new PostCategory(rs.getInt("category_id"),
                         rs.getString("category_name"),
                         rs.getString("description"),
-                        rs.getInt("status")
+                        rs.getInt("status")==1
                 );
                 list.add(category);
             }

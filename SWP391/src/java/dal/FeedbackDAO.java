@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 //import java.util.Arrays.ArrayList;
 import java.util.List;
-import model.Account;
 import model.Feedback;
 
 /**
@@ -20,8 +19,37 @@ import model.Feedback;
  */
 public class FeedbackDAO extends DBContext {
 
-    public Feedback fillFeedbackDetails(ResultSet rs) {
-        return new Feedback();
+    public Feedback fillGeneralFeedbackDetails(ResultSet rs) throws SQLException {
+        return new Feedback(
+                rs.getInt("feedback_id"),
+                rs.getInt("star"),
+                rs.getString("feedbacks_content"),
+                rs.getString("full_name"),
+                rs.getString("phone"),
+                rs.getInt("gender")==1,
+                rs.getString("email"),
+                rs.getString("image_url"),
+                rs.getTimestamp("feedback_date"),
+                rs.getInt("status")
+        );
+    }
+    public Feedback fillProductFeedbackDetails(ResultSet rs) throws SQLException {
+        AccountDAO accountDAO = new AccountDAO();
+        ProductDAO productDAO = new ProductDAO();
+        return new Feedback(
+                rs.getInt("feedback_id"),
+                accountDAO.getAccountByID(rs.getInt("user_id")),
+                productDAO.getProduct(rs.getInt("product_id")),
+                rs.getInt("star"),
+                rs.getString("feedbacks_content"),
+                rs.getString("full_name"),
+                rs.getString("phone"),
+                rs.getInt("gender")==1,
+                rs.getString("email"),
+                rs.getString("image_url"),
+                rs.getTimestamp("feedback_date"),
+                rs.getInt("status")
+        );
     }
 
     public void insertFeedback(Feedback f) {
@@ -40,15 +68,15 @@ public class FeedbackDAO extends DBContext {
                 + "           (?,?,?,?,?,?,?,?,?,GETDATE())";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, f.getAccount().getUser_id());
+            stm.setInt(1, f.getUser().getUser_id());
             stm.setInt(2, f.getProduct().getProduct_id());
-            stm.setFloat(3, f.getRate());
-            stm.setString(4, f.getFeedback());
-            stm.setString(5, f.getFullName());
-            stm.setString(6, f.getPhoneNum());
+            stm.setFloat(3, f.getStar());
+            stm.setString(4, f.getContent());
+            stm.setString(5, f.getFullname());
+            stm.setString(6, f.getPhone());
             stm.setBoolean(7, f.isGender());
             stm.setString(8, f.getEmail());
-            stm.setString(9, f.getFileName());
+            stm.setString(9, f.getImage_url());
             stm.executeUpdate();
         } catch (Exception e) {
         }
@@ -69,13 +97,13 @@ public class FeedbackDAO extends DBContext {
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
 
-            stm.setFloat(1, f.getRate());
-            stm.setString(2, f.getFeedback());
-            stm.setString(3, f.getFullName());
-            stm.setString(4, f.getPhoneNum());
+            stm.setFloat(1, f.getStar());
+            stm.setString(2, f.getContent());
+            stm.setString(3, f.getFullname());
+            stm.setString(4, f.getPhone());
             stm.setBoolean(5, f.isGender());
             stm.setString(6, f.getEmail());
-            stm.setString(7, f.getFileName());
+            stm.setString(7, f.getImage_url());
             stm.executeUpdate();
         } catch (Exception e) {
         }
@@ -168,17 +196,23 @@ public class FeedbackDAO extends DBContext {
         }
         return 0;
     }
-
+    
+    public List<Feedback> getGeneralFeedbacksByRange(int start, int end) {
+        int[] stars = {1, 2, 3, 4, 5};
+        return getGeneralFeedbacksByRange("feedback_id desc", "", -1, stars, start, end);
+    }
+    
     public List<Feedback> getGeneralFeedbacksByRange(String orderOption, String key, int status, int[] stars, int start, int end) {
         /**
          * select * from ( select ROW_NUMBER() over (order by feedback_id asc)
          * as Row,* from general_feedbacks where full_name like '%%' and
-         * [status] = '1' and star in (1, 2, 3, 4, 5) ) all_products where Row
+         * [status] = '1' and star in (1, 2, 3, 4, 5) ) all_feedbacks where Row
          * between 1 and 22
          */
 
         List<Feedback> feedbacksList = new ArrayList<>();
-        String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,* from general_feedbacks where full_name like '%" + key + "%' ";
+        String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,* from general_feedbacks "
+                + "where (full_name like '%" + key + "%' or full_name like '" + key + "%' or full_name like '%" + key + "') ";
         if (status != -1) {
             sql += "and status = " + status + " ";
         }
@@ -188,16 +222,16 @@ public class FeedbackDAO extends DBContext {
             for(int i : stars){
                 sql += i+",";
             }
-            sql = sql.substring(0, sql.length());
+            sql = sql.substring(0, sql.length()-1);
             sql += ")";
         }
-        sql += ") all_products where Row between " + start + " and " + end;
+        sql += ") all_feedbacks where Row between " + start + " and " + end;
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Feedback feedback = fillFeedbackDetails(rs);
+                Feedback feedback = fillGeneralFeedbackDetails(rs);
                 feedbacksList.add(feedback);
             }
             return feedbacksList;
@@ -205,6 +239,114 @@ public class FeedbackDAO extends DBContext {
             System.out.println(e);
         }
         return null;
+    }
+    public int countGeneralFeedbacks(String key, int status, int[] stars) {
+        /**
+         * select count(*) from general_feedbacks where full_name like '%%' and
+         * [status] = '1' and star in (1, 2, 3, 4, 5)
+         */
+
+        String sql = "select count(*) from general_feedbacks where (full_name like '%" + key + "%' or full_name like '" + key + "%' or full_name like '%" + key + "') ";
+        if (status != -1) {
+            sql += "and status = " + status + " ";
+        }
+        
+        if (stars.length > 0 && stars[0] != -1) {
+            sql += " and star in (";
+            for(int i : stars){
+                sql += i+",";
+            }
+            sql = sql.substring(0, sql.length()-1);
+            sql += ")";
+        }
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+    public List<Feedback> getProductFeedbacksByRange(String orderOption, int productId, String key, int status, int[] stars, int start, int end) {
+        /**
+         * select * from ( select ROW_NUMBER() over (order by feedback_id asc)
+         * as Row,* from general_feedbacks where full_name like '%%' and
+         * [status] = '1' and star in (1, 2, 3, 4, 5) ) all_feedbacks where Row
+         * between 1 and 22
+         */
+
+        List<Feedback> feedbacksList = new ArrayList<>();
+        String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,* from product_feedbacks "
+                + "where (full_name like '%" + key + "%' or full_name like '" + key + "%' or full_name like '%" + key + "') ";
+        if(productId > 0) {
+            sql += " and product_id = "+productId;
+        }
+        if (status != -1) {
+            sql += "and status = " + status + " ";
+        }
+        
+        if (stars.length > 0 && stars[0] != -1) {
+            sql += " and star in (";
+            for(int i : stars){
+                sql += i+",";
+            }
+            sql = sql.substring(0, sql.length()-1);
+            sql += ")";
+        }
+        sql += ") all_feedbacks where Row between " + start + " and " + end;
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Feedback feedback = fillProductFeedbackDetails(rs);
+                feedbacksList.add(feedback);
+            }
+            return feedbacksList;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public int countProductFeedbacks(int productId, String key, int status, int[] stars) {
+        /**
+         * select count(*) from general_feedbacks where full_name like '%%' and
+         * [status] = '1' and star in (1, 2, 3, 4, 5)
+         */
+
+        List<Feedback> feedbacksList = new ArrayList<>();
+        String sql = "select Count(*) from product_feedbacks "
+                + "where (full_name like '%" + key + "%' or full_name like '" + key + "%' or full_name like '%" + key + "') ";
+        if(productId > 0) {
+            sql += " and product_id = "+productId;
+        }
+        if (status != -1) {
+            sql += "and status = " + status + " ";
+        }
+        
+        if (stars.length > 0 && stars[0] != -1) {
+            sql += " and star in (";
+            for(int i : stars){
+                sql += i+",";
+            }
+            sql = sql.substring(0, sql.length()-1);
+            sql += ")";
+        }
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
     }
 
 }

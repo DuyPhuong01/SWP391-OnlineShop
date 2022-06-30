@@ -72,6 +72,7 @@
         <url-pattern>/marketing/getsubcategory</url-pattern>
         <url-pattern>/marketing/editproduct</url-pattern>
         <url-pattern>/marketing/addproduct</url-pattern>
+        <url-pattern>/marketing/feedbackslist</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>

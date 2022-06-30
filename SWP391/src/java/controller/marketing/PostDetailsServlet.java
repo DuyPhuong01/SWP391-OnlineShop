@@ -83,7 +83,7 @@ public class PostDetailsServlet extends HttpServlet {
         try {
             id = Integer.parseInt(id_raw);
             Post post = postDAO.getPostWithSubCategory(id);
-            List<ProductCategory> postCategoryList = categoryDAO.getPostCategory();
+            List<PostCategory> postCategoryList = categoryDAO.getPostCategory();
             request.setAttribute("postCategoryList", postCategoryList);
             request.setAttribute("post", post);
             if (action == null) {

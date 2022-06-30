@@ -10,13 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.PostSubCategory;
 import model.SubCategory;
 
 /**
  *
  * @author Admin
  */
-public class SubCategoryDAO extends DBContext{
+public class SubCategoryDAO extends DBContext {
 //    public SubCategory[] getSubCategoryByCategoryId(int categoryId){
 //        CategoryDAO categoryDAO = new CategoryDAO();
 //        List<SubCategory> list= new ArrayList<>();
@@ -43,11 +44,12 @@ public class SubCategoryDAO extends DBContext{
 //        }
 //        return arr;
 //    }
-    public List<SubCategory> getSubCategoryByCategoryId(int categoryId){
+
+    public List<SubCategory> getSubCategoryByCategoryId(int categoryId) {
         CategoryDAO categoryDAO = new CategoryDAO();
-        List<SubCategory> list= new ArrayList<>();
+        List<SubCategory> list = new ArrayList<>();
         String sql = "select * from product_sub_categories where category_id = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, categoryId);
             ResultSet rs = st.executeQuery();
@@ -56,20 +58,44 @@ public class SubCategoryDAO extends DBContext{
                         rs.getString("category_name"),
                         categoryDAO.getProductCategory(rs.getInt("category_id")),
                         rs.getString("description"),
-                        (rs.getInt("status")==1)
+                        (rs.getInt("status") == 1)
                 );
                 list.add(productSubCategory);
             }
-        } catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
         return list;
     }
-        public SubCategory getSubCategoryById(int subCategoryId){
+
+    public List<PostSubCategory> getPostSubCategoryByCategoryId(int categoryId) {
         CategoryDAO categoryDAO = new CategoryDAO();
-        List<SubCategory> list= new ArrayList<>();
+        List<PostSubCategory> list = new ArrayList<>();
+        String sql = "select * from post_sub_categories where category_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, categoryId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                PostSubCategory postSubCategory = new PostSubCategory(rs.getInt("id"),
+                        categoryDAO.getPostCategory(rs.getInt("category_id")),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getInt("featured")==1
+                );
+                list.add(postSubCategory);
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+
+    public SubCategory getSubCategoryById(int subCategoryId) {
+        CategoryDAO categoryDAO = new CategoryDAO();
+        List<SubCategory> list = new ArrayList<>();
         String sql = "select * from product_sub_categories where sub_category_id = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, subCategoryId);
             ResultSet rs = st.executeQuery();
@@ -78,15 +104,16 @@ public class SubCategoryDAO extends DBContext{
                         rs.getString("category_name"),
                         categoryDAO.getProductCategory(rs.getInt("category_id")),
                         rs.getString("description"),
-                        (rs.getInt("status")==1)
+                        (rs.getInt("status") == 1)
                 );
                 return productSubCategory;
             }
-        } catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
         return null;
     }
+
     public static void main(String[] args) {
         SubCategoryDAO s = new SubCategoryDAO();
 //         SubCategory[] arr = s.getSubCategoryByCategoryId(1);

@@ -5,23 +5,23 @@
  */
 package controller.marketing;
 
-import dal.CategoryDAO;
-import dal.PostDAO;
+import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.PostCategory;
-import model.ProductCategory;
+import model.Product;
 
 /**
  *
- * @author Admin
+ * @author Duy Phuong
  */
-public class AddPostCategoryServlet extends HttpServlet {
+@WebServlet(name = "GetProductsListForFeedbacksListServlet", urlPatterns = {"/marketing/getproductslist"})
+public class GetProductsListForFeedbacksListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +40,10 @@ public class AddPostCategoryServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddCategoryServlet</title>");            
+            out.println("<title>Servlet GetProductsListForFeedbacksListServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddCategoryServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet GetProductsListForFeedbacksListServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -75,33 +75,26 @@ public class AddPostCategoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String description=request.getParameter("description");
-        PostDAO postDAO=new PostDAO();
-        CategoryDAO categoryDAO=new CategoryDAO();
-        boolean check = postDAO.InsertPostCategory(name, description);
-        List<PostCategory> categories = categoryDAO.getPostCategory();
         PrintWriter out = response.getWriter();
-        if(check){// check successfull
-            String data="";
-            data+="<select name=\"category\" id=\"category-select\"\n" +
-"                                  onchange=\"checkCategoryOption()\" required>\n" +
-"                              <option   disabled>Select</option>\n";
-            for (PostCategory category : categories) {
-                data+="<option value=\"";
-                data+=category.getCategory_id();
-                data+="\"";
-                if(category.getCategory_name().equals(name)){
-                    data+=" selected ";
-                }
-                data+=">";
-                data+=category.getCategory_name();
-                data+="</option>\n";
-            }
-            data+=" <option value=\"0\" onclick=\"openCategoryForm()\" >Add More</option>\n" +
-"                          </select>";
-        out.print(data);
+        ProductDAO productDAO = new ProductDAO();
+
+        String key = request.getParameter("key");
+        if (key == null) {
+            key = "";
         }
+
+        List<Product> list = productDAO.getProducts(key);
+
+        for (Product p : list) {
+            out.print(" <label>\n"
+                    + " <div class=\"row border rounded mb-2\">\n"
+                    + " <div class=\"col-1\"><input type=\"radio\" value=\""+p.getProduct_id()+"\" name=\"product_id\"></div>"
+                    + " <div class=\"col-3\"><img src=\"../" + p.getThumbnail() + "\"></div>\n"
+                    + " <div class=\"col-8\">" + p.getName() + "</div>\n"
+                    + " </div>"
+                    + "</label>");
+        }
+
     }
 
     /**

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Post;
+import model.PostCategory;
 import model.ProductCategory;
 
 /**
@@ -86,7 +87,7 @@ public class SearchPostListServlet extends HttpServlet {
         PostDAO postDAO=new PostDAO();
         List<Post> posts = postDAO.getPosts(word,categoryID, authorID, featureID, sortID, currentPage,numper_page); //get all product for page 1
         CategoryDAO categoryDAO=new CategoryDAO();
-        List<ProductCategory> postCategory = categoryDAO.getPostCategory();
+        List<PostCategory> postCategory = categoryDAO.getPostCategory();
         AccountDAO accountDAO=new AccountDAO();
         List<Account> authors = accountDAO.getAuthors();
         int maxPage=postDAO.countPostPaging(word, categoryID, authorID, featureID, 6); //num of max page 6 post per page

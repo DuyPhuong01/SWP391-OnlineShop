@@ -1,42 +1,71 @@
 
 package model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Duy Phuong
  */
 public class Feedback {
-    private Account account;//
-    private Product product;//
-    private String fullName;
-    private String phoneNum;
+    private int id;
+    private Account user;
+    private Product product;
+    private int star;
+    private String content;
+    private String fullname;
+    private String phone;
     private boolean gender;
     private String email;
-    private int rate;//
-    private String feedback;//
-    private String fileName;
+    private String image_url;
+    private Timestamp feedbackDate;//
+    private int status;
 
     public Feedback() {
     }
 
-    public Feedback(Account account, Product product, String fullName, String phoneNum, boolean gender, String email, int rate, String feedback, String fileName) {
-        this.account = account;
-        this.product = product;
-        this.fullName = fullName;
-        this.phoneNum = phoneNum;
+    public Feedback(int id, int star, String content, String fullname, String phone, boolean gender, String email, String image_url, Timestamp feedbackDate, int status) {
+        this.id = id;
+        this.star = star;
+        this.content = content;
+        this.fullname = fullname;
+        this.phone = phone;
         this.gender = gender;
         this.email = email;
-        this.rate = rate;
-        this.feedback = feedback;
-        this.fileName = fileName;
+        this.image_url = image_url;
+        this.feedbackDate = feedbackDate;
+        this.status = status;
+    }
+    
+    public Feedback(int id, Account user, Product product, int star, String content, String fullname, String phone, boolean gender, String email, String image_url, Timestamp feedbackDate, int status) {
+        this.id = id;
+        this.user = user;
+        this.product = product;
+        this.star = star;
+        this.content = content;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.gender = gender;
+        this.email = email;
+        this.image_url = image_url;
+        this.feedbackDate = feedbackDate;
+        this.status = status;
     }
 
-    public Account getAccount() {
-        return account;
+    public int getId() {
+        return id;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Account getUser() {
+        return user;
+    }
+
+    public void setUser(Account user) {
+        this.user = user;
     }
 
     public Product getProduct() {
@@ -47,20 +76,36 @@ public class Feedback {
         this.product = product;
     }
 
-    public String getFullName() {
-        return fullName;
+    public int getStar() {
+        return star;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setStar(int star) {
+        this.star = star;
     }
 
-    public String getPhoneNum() {
-        return phoneNum;
+    public String getContent() {
+        return content;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public boolean isGender() {
@@ -79,29 +124,28 @@ public class Feedback {
         this.email = email;
     }
 
-    public int getRate() {
-        return rate;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setRate(int rate) {
-        this.rate = rate;
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
-    public String getFeedback() {
-        return feedback;
+    public Timestamp getFeedbackDate() {
+        return feedbackDate;
     }
 
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
+    public void setFeedbackDate(Timestamp feedbackDate) {
+        this.feedbackDate = feedbackDate;
     }
 
-    public String getFileName() {
-        return fileName;
+    public int getStatus() {
+        return status;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setStatus(int status) {
+        this.status = status;
     }
-    
     
 }
