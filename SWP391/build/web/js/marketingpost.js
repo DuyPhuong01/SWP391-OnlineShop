@@ -1,6 +1,10 @@
 var editor = CKEDITOR.replace('post-detail', {
-    filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
-    filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+    filebrowserBrowseUrl: '../ckfinder/ckfinder.html',
+    filebrowserImageBrowseUrl: '../ckfinder/ckfinder.html?type=Images',
+    filebrowserFlashBrowseUrl: '../ckfinder/ckfinder.html?type=Flash',
+    filebrowserUploadUrl: '../ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files',
+    filebrowserImageUploadUrl: '../ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images',
+    filebrowserFlashUploadUrl: '../ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash'
 });
 
 editor.config.width = '90%';
@@ -33,6 +37,14 @@ document.querySelector('#preview-thumbnail').querySelector('button[aria-label="s
     });
 });
 
+document.querySelector('button[aria-label="cancel-edit"]').addEventListener('click', function () {
+    cancelEdit();
+    returnSubcate();
+});
+document.querySelector('button[aria-label="save-post"]').addEventListener('click', function () {
+    var form = document.getElementById('frm');
+    form.submit();
+});
 
 function updateThumbnail(event) {
     var file = event.target.files[0];
@@ -68,6 +80,23 @@ function thumbnailOut() {
     a.style.opacity = 0;
 }
 function cancelEdit() {
+    document.getElementById('post-title').value = document.getElementById('preview-title').innerHTML;
+    document.getElementById('post-subtitle').value = document.getElementById('preview-subtitle').innerHTML;
+    var cateId = document.querySelector('#preview-cate').getAttribute('value-holder');
+    var subCateId = document.querySelector('#preview-sub-cate').getAttribute('value-holder');
+    document.querySelectorAll('#post-cate-select option').forEach(option => {
+        if (option.value === cateId) {
+            option.selected = true;
+        }
+    });
+    var featured = document.getElementById('preview-featured').getAttribute('value-holder');
+    if (featured === "true") {
+        document.getElementById('product-feature').checked = true;
+    } else {
+        document.getElementById('product-feature').checked = false;
+    }
+
+    document.getElementById('post-detail').value = "a";
     document.querySelectorAll('#frm [aria-label="changable-fields"]').forEach(input => {
         input.disabled = true;
     });
@@ -75,4 +104,25 @@ function cancelEdit() {
     document.querySelector('button[aria-label="cancel-edit"]').style.display = "none";
     document.querySelector('button[aria-label="edit-post"]').style.display = "";
     CKEDITOR.instances['post-detail'].setReadOnly(true);
+    var originalContent = document.getElementById('preview-post-detail');
+    
+    CKEDITOR.instances['post-detail'].setData(originalContent.innerHTML);
+//    returnSubcate(subCateId);
+}
+function changeCategory() {
+    var selected = document.getElementById('post-cate-select').querySelector('option:checked').value;
+    var div = document.getElementById('post-sub-cate-select');
+    $.ajax({
+        url: 'changepostcategory',
+        type: 'post',
+        data: {
+            cid: selected
+        },
+        success: function (response) {
+            div.innerHTML = response;
+        }
+    });
+}
+function returnSubcate() {
+    document.querySelector('#post-sub-cate-select').innerHTML = document.getElementById('original-subcate').innerHTML;
 }

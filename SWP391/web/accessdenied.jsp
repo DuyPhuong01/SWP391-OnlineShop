@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
     @import url("https://fonts.googleapis.com/css?family=Bungee");
 
@@ -63,7 +64,12 @@ svg {
             </g>
           </svg>
 <h1>You are not allowed to enter here</h1>
-<h2>Go <a target="_self" href="http://localhost:8080/swp/home">Home!</a></h2>
+<h2>Go <a target="_self" href="
+          <c:if test="${sessionScope.account.getRole_id()== 1 || sessionScope.account == null}">http://localhost:8080/swp/home</c:if>
+          <c:if test="${sessionScope.account.getRole_id()== 2}">http://localhost:8080/swp/marketing/dashboard</c:if>
+          <c:if test="${sessionScope.account.getRole_id()== 3}">http://localhost:8080/swp/sale</c:if>
+          
+          ">Home!</a></h2>
 <script>
     var root = document.documentElement;
 var eyef = document.getElementById('eyef');

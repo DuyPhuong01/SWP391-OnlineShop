@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -28,15 +29,14 @@ import model.Account;
  * @author tretr
  */
 public class NewFilter implements Filter {
-    
+
     private HttpServletRequest httpRequest;
     private HttpServletResponse httpResponse;
     AccountDAO dao = new AccountDAO();
-    
+
 //    private static final String[] loginRequiredURLs = {
 //            "/view_profile", "/edit_profile", "/update_profile"
 //    };
-
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         httpRequest = (HttpServletRequest) request;
@@ -56,7 +56,7 @@ public class NewFilter implements Filter {
             // then forward to the homepage
             httpRequest.getRequestDispatcher("/").forward(request, response);
 
-        } else if (isLoggedIn == true && isLoginRequired() == true) {
+        } else if (isLoginRequired() == true) {
             // or the user is already logged in and gat authentication continue
             chain.doFilter(request, response);
         } else {
@@ -66,13 +66,17 @@ public class NewFilter implements Filter {
 //              httpResponse.sendRedirect("../accessdenied.jsp");
         }
     }
-    
-    
+
     // Check if the user is authorized
     private boolean isLoginRequired() {
         String requestURL = httpRequest.getRequestURL() + "";
-        Account a = (Account)httpRequest.getSession().getAttribute("account");
-        List<String> loginRequiredURLs = dao.getListScreen(a.getRole_id());
+        Account a = (Account) httpRequest.getSession().getAttribute("account");
+        List<String> loginRequiredURLs = new ArrayList<>();
+        if (a == null) {
+            loginRequiredURLs = dao.getListScreen(6);
+        } else {
+            loginRequiredURLs = dao.getListScreen(a.getRole_id());
+        }
         for (String loginRequiredURL : loginRequiredURLs) {
             if (requestURL.contains(loginRequiredURL)) {
                 return true;

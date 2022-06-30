@@ -107,7 +107,7 @@
                                 <div>
                                     <div class="order-trends-start-date flex">
                                         <span>Time</span>
-                                        <select onchange="changeTime(this);">
+                                        <select onchange="changeTime(this);" id="timeOrder">
                                             <option value="1" ${requestScope.timeOrder eq "1"?"selected":""}>Last 7 days</option>
                                             <option value="2" ${requestScope.timeOrder eq "2"?"selected":""}>Last 1 month</option>
                                             <option value="3" ${requestScope.timeOrder eq "3"?"selected":""}>Last 3 months</option>
@@ -124,41 +124,44 @@
 
                         </div>
                         <div class="sale-profile col-md-3 flex flex-column">
-                            <div class="sale-username">Best sale</div>
+                            <div class="sale-username">Sale Member</div>
                             <div class="sale-img flex">
                                 <div class="img-wrapper">
-                                    <img src="https://th.bing.com/th/id/R.5ba3c5f393890bd25dfc0ab9676c9f25?rik=iSc2O0kIYbJtCg&pid=ImgRaw&r=0&sres=1&sresct=1" class="img-circle img-thumbnail"/>
-                                </div>
-                                <div>
-                                    <span class="name">Takemikazuchi</span>
+
+                                    <c:if test="${requestScope.sale.account.image_url != null}"><img src="${requestScope.sale.account.image_url}" class="img-circle img-thumbnail"/></c:if>
+                                    <c:if test="${requestScope.sale.account.image_url == null}"><img src="https://th.bing.com/th/id/R.5ba3c5f393890bd25dfc0ab9676c9f25?rik=iSc2O0kIYbJtCg&pid=ImgRaw&r=0&sres=1&sresct=1" class="img-circle img-thumbnail"/></c:if>
+                                    </div>
+                                    <div>
+                                        <span class="name">${requestScope.sale.account.full_name}</span>
                                     <span class="role">Sale Member</span>
                                 </div>
                             </div>
                             <div class="sale-brief-infor">
                                 <div class="achievement">
                                     <h4>Achievement</h4>
-                                    <div class="total-achievement"><span>Total order: 999</span><span>Revenue: VND999999999</span></div>
-                                    <div class="success-achievement"><span>Success order: 900</span></div>
-                                    <div><span>Success rate: 90%</span> <span>Average order per day:</span><span>10</span></div>
-                                    <hr/>
-                                    <!--                                    <div><span>Success/Total order this month:</span><span>100/101</span></div>
-                                                                        <div><span>Success/Total order this week:</span><span>50/51</span></div>
-                                                                        <div><span>Success/Total order today:</span><span>5/6</span></div>-->
-                                    <div class="table-responsive">
-
-                                        <table class="table">
-                                            <tr><th></th><th>This month</th><th>This week</th><th>Today</th></tr>
-                                            <tr>
-                                                <th>Revenue</th>
-                                                <td>1000000</td>
-                                                <td>1000000</td>
-                                                <td>1000000</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Success/Total order</th>
-                                                <td>100/101</td>
-                                                <td>50/51</td>
-                                                <td>5/6</td>
+                                    <div class="total-achievement"><span>Total order: ${requestScope.totalOrderAllTime}</span><span>Revenue: <fmt:formatNumber type="currency" value="${requestScope.totalRevenueAllTime}" currencySymbol="VND"></fmt:formatNumber></span></div>
+                                    <div class="success-achievement"><span>Success order: ${requestScope.totalSuccessOrderAllTime}</span></div>
+                                    <div><span>Success rate: <fmt:formatNumber value="${requestScope.successRate}" type="number" maxFractionDigits="2"></fmt:formatNumber></span> <span>Average order per day:</span><span><fmt:formatNumber value="${requestScope.totalOrderAllTime/requestScope.totalDays}" type="number" maxFractionDigits="1"></fmt:formatNumber></span></div>
+                                        <hr/>
+                                        <!--                                    <div><span>Success/Total order this month:</span><span>100/101</span></div>
+                                                                            <div><span>Success/Total order this week:</span><span>50/51</span></div>
+                                                                            <div><span>Success/Total order today:</span><span>5/6</span></div>-->
+                                        <div class="table-responsive">
+                                            <div>
+                                                <span id="timeOrder2">
+                                                <c:if test="${requestScope.timeOrder == 1}">Last 7 days</c:if>
+                                                <c:if test="${requestScope.timeOrder == 2}">Last 1 month</c:if>
+                                                <c:if test="${requestScope.timeOrder == 3}">Last 3 months</c:if>
+                                                </span>
+                                            </div>
+                                            <table class="table">
+                                                <tr>
+                                                    <th>Revenue</th>
+                                                    <td><fmt:formatNumber value="${requestScope.revenueBytime}" type="currency" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Success/Total order</th>
+                                                        <td>${requestScope.countSuccessOrder}/${requestScope.countTotalOrder}</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -255,34 +258,34 @@
     <!--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>-->
     <script src="js/salechart.js"></script>
     <script>
-                                            let labels = [], datas = [];
-                                            let type = 'bar';
-                                            let colors = [];
-                                            color = getColorArray(${requestScope.dates.size()}).split(";");
+                                    let labels = [], datas = [];
+                                    let type = 'bar';
+                                    let colors = [];
+                                    color = getColorArray(${requestScope.dates.size()}).split(";");
         <c:forEach items="${requestScope.revenue}" var="i">
-                                            datas.push(${i});
+                                    datas.push(${i});
         </c:forEach>
         <c:forEach items="${requestScope.dates}" var="i">
-                                            labels.push('${i}');
+                                    labels.push('${i}');
         </c:forEach>
 
 
-                                            let labels2 = [], datas1 = [], datas2 = [];
-                                            let colors2 = [];
-                                            colors2 = getColorArray(${requestScope.totalOrder.size()}).split(";");
+                                    let labels2 = [], datas1 = [], datas2 = [];
+                                    let colors2 = [];
+                                    colors2 = getColorArray(${requestScope.totalOrder.size()}).split(";");
         <c:forEach items="${requestScope.labels}" var="i">
-                                            labels2.push('${i}');
+                                    labels2.push('${i}');
         </c:forEach>
         <c:forEach items="${requestScope.totalOrder}" var="i">
-                                            datas1.push('${i}');
+                                    datas1.push('${i}');
         </c:forEach>
         <c:forEach items="${requestScope.successOrder}" var="i">
-                                            datas2.push('${i}');
+                                    datas2.push('${i}');
         </c:forEach>
-                                            window.onload = function () {
-                                                createChart(type, labels, datas, color);
-                                                createChart2(type, labels2, datas1, datas2, color)
-                                            };
+                                    window.onload = function () {
+                                        createChart(type, labels, datas, color);
+                                        createChart2(type, labels2, datas1, datas2, color)
+                                    };
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </html>

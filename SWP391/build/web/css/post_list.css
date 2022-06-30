@@ -1126,6 +1126,14 @@ html.VN, html.VN button {
   margin-left: 40px;
   display: none;
 }
+.input-group{
+        width: 65% !important;
+    margin-left: 63px;
+    margin-top: 12px;
+    height: 30px;
+}
+.input-group input{
+    height: 33px;
 .view-btn a, .edit-btn a{
     color: #fff !important;
 }

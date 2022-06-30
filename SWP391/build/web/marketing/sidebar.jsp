@@ -37,7 +37,7 @@
         </a>
     </div>
     <div class="position-absolute bottom-0">
-        <a type="button" href="feedbackslist" class="p-2" data-bs-toggle="tooltip">
+        <a type="button" href="../logout" class="p-2" data-bs-toggle="tooltip">
             <i class="fa-solid fa-right-from-bracket"></i>
             <span>Logout</span>
         </a>

@@ -1,4 +1,4 @@
-  /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -108,10 +108,12 @@ public class LoginServlet extends HttpServlet {
                 response.addCookie(r);
                 HttpSession session = request.getSession();
                 session.setAttribute("account", account);
-                if(account.getRole_id()==2){
-                response.sendRedirect("marketing");
-                }else{
-                response.sendRedirect("home");
+                if (account.getRole_id() == 2) {
+                    response.sendRedirect("marketing/dashboard");
+                } else if (account.getRole_id() == 3) {
+                    response.sendRedirect("sale");
+                } else {
+                    response.sendRedirect("home");
                 }
             }
         } else {

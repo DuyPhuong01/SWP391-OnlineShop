@@ -43,7 +43,7 @@ public class PostDAO extends DBContext {
          * tp.post_id where p.title like '%%' and p.category_id = 1 and
          * tp.tag_id in (1) ) all_posts where Row between 1 and 22
          */
-        
+
         List<Post> list = new ArrayList<>();
         String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,p.* from posts p "
                 + "inner join post_sub_categories psc on p.post_subcategories_id = psc.id "
@@ -201,6 +201,7 @@ public class PostDAO extends DBContext {
         }
         return null;
     }
+
     public Post getPostWithSubCategory(int id) {
         String sql = "select * from posts where post_id=?";
         PostSubcategoryDAO postSubCategoryDAO = new PostSubcategoryDAO();
@@ -384,6 +385,23 @@ public class PostDAO extends DBContext {
             System.out.println(sqle);
         }
         return false;
+    }
+
+    public void updatePost(String title, String content, boolean featured, String subTitle, int subcate, int postId) {
+        String sql = "update posts\n"
+                + "set title=?, updated_date = GETDATE(), post_details=?, featured = ?, sub_title = ?, post_subcategories_id = ? where post_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, title);
+            st.setString(2, content);
+            st.setBoolean(3, featured);
+            st.setString(4, subTitle);
+            st.setInt(5, subcate);
+            st.setInt(6, postId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+
+        }
     }
 
     public static void main(String[] args) {

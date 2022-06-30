@@ -31,12 +31,13 @@ public class AccessDeniedServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String requestURL = request.getRequestURL() + "";
-        if (requestURL.contains("/marketing/")) {
-            response.sendRedirect("../accessdenied.jsp");
-        } else {
-            response.sendRedirect("accessdenied.jsp");
-        }
+//        String requestURL = request.getRequestURL() + "";
+//        if (requestURL.contains("/marketing/")) {
+//            response.sendRedirect("../accessdenied.jsp");
+//        } else {
+//            response.sendRedirect("accessdenied.jsp");
+//        }
+        response.sendRedirect(request.getContextPath()+"/accessdenied.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

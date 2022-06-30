@@ -84,6 +84,7 @@ input[type="checkbox"] {
     padding-left: 10px;
     color: #fff;
     background: #39435c;
+    padding-right: 10px;
 }
 .main-order {
     margin-top: 10px;
