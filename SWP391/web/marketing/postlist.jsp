@@ -113,10 +113,10 @@
                                     <!-- NavBar  -->
                                     <input hidden value="-1" name="feature" id="feature_input">
 
-                                    <div data-v-75520c46="" class="product-list-main" >
-                                        <div data-v-dff31658="" class="py-2 px-3 position-sticky top-0 bg-light my-3 rounded" style="top: 56px; z-index: 1000;">
+                                    <div class="product-list-main" >
+                                        <div class="py-2 px-3 position-sticky top-0 bg-light my-3 rounded" style="top: 56px; z-index: 1000;">
                                             <div class="d-flex justify-content-between">
-                                                <div id="list_category" clsass="d-flex">
+                                                <div id="list_category" class="d-flex">
                                                     <label class="me-3 cursor-pointer">
                                                         <input type="radio" name="poststatus-radio" value="-1" onclick="CheckFeature(this)" checked hidden>
                                                         <div>All of post</div>

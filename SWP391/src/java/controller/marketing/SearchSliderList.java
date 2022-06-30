@@ -96,7 +96,7 @@ public class SearchSliderList extends HttpServlet {
             content+="</div>\n" +
 "                                    <div class=\"col-5 title-item\">\n" +
 "                                        <div class=\"col-4 image-item\">";
-            content+="<img src=\"";
+            content+="<img src=\"../";
             content+=s.getImagePath();
             content+="\" />\n" +
 "                                        </div>\n" +
@@ -134,11 +134,8 @@ public class SearchSliderList extends HttpServlet {
 "                                        </select>\n" +
 "                                    </div>\n" +
 "                                    <div class=\"col-2 action-container\">\n" +
-"                                      <button type=\"button\" class=\"edit-btn btn btn-secondary btn-sm \">\n" +
-"                                          <i class=\"fa-solid fa-pen-to-square\"></i>\n" +
-"                                          Edit\n" +
-"                                      </button>\n" +
-
+"                                      <a type=\"button\" class=\" view-btn btn btn-primary btn-sm \" href=\"slider?"+s.getId()+"\">\n" +
+"                                                                        <i class=\"fa-solid fa-eye\"></i>View more</a>"+
 "                                    </div>\n" +
 "                                </div>\n" +
 "                                    </li>   "; 

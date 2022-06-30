@@ -38,7 +38,7 @@
     </div>
     <div>
         <a type="button" href="sliderslist" class="p-2" data-bs-toggle="tooltip">
-            <i class="fa-solid fa-comments"></i>
+            <i class="fa-solid fa-audio-description"></i>
             <span>Sliders List</span>
         </a>
     </div>

@@ -10,103 +10,53 @@
         <!--CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/style.css"/>
-        <link rel="stylesheet" href="../css/post_list.css"/>
-        <link rel="stylesheet" href="../css/sliderlist.css"/>
+        <!--<link rel="stylesheet" href="../css/post_list.css"/>-->
+        <!--<link rel="stylesheet" href="../css/sliderlist.css"/>-->
           <!--font-awesome-->
         <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <script src="../js/slider_list.js"> </script>
-         <!--Ajax-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <div class="row container main-page">
-            <div class="row col-3">
-                <c:import url="marketing_sider.jsp"></c:import>
-            </div>
+        <div class="d-flex">
+            <c:import url="/marketing/sidebar.jsp"></c:import>
+        <div class="container-lg">
             <!--content--> 
-            <div class="col-9 main-form">
+            <div class="p-3 bg-white rounded my-5">
                 <form id="post_list" action="searchpostlist" method="get">               
-                        <!-- header  -->
-                     
                            <div class="filter-container">
-                       
-<!--                         
-                                        
- 
-                       <!-- NavBar  -->
                        <input hidden value="-1" name="feature" id="feature_input">
                        <div data-v-75520c46="" class="product-list-main" >
                            <div data-v-dff31658="" data-v-75520c46="" class="shopee-fixed-top-card">
-                               <div data-v-dff31658="" class="fixed-container" style="top: 56px; z-index: 1000;">
-                                   <div data-v-75520c46="" data-v-dff31658="" class="portal-panel">
-                                       <div data-v-75520c46="" class="tabs shopee-tabs shopee-tabs-line shopee-tabs-normal shopee-tabs-top"
-                                           data-v-dff31658="">
-                                           <div class="shopee-tabs__nav">
-                                               <div class=" tab-container shopee-tabs__nav-warp">
-                                                   <div id="list_category" class="   shopee-tabs__nav-tabs col-3" style="transform: translateX(0px);">
-                                                       <div class="shopee-tabs__nav-tab active" value="-1"  onclick="CheckFeature(this)" style="white-space: normal;">
-                                                           <div data-v-75520c46="" class="tabs__tab ">All of Slider
-
-                                                           </div>
-                                                       </div>
-                                                       <div class="shopee-tabs__nav-tab"  value="1" style="white-space: normal;" onclick="CheckFeature(this)">
-                                                           <div data-v-75520c46="" class="tabs__tab"> Showing
-                                                           </div>
-                                                       </div>
-                                                   
-                                                       <div class="shopee-tabs__nav-tab" value="0" style="white-space: normal;" onclick="CheckFeature(this)">
-                                                           <div data-v-75520c46="" class="tabs__tab">Hidden
-                                                               <span class="tab-badge">
-
-                                                               </span>
-                                                           </div>
-                                                       </div>
+                               <div class="py-2 px-3 position-sticky top-0 bg-light my-3 rounded" style="top: 56px; z-index: 1000;">
+                                               <div class="d-flex justify-content-between">
+                                                   <div id="list_category" class="d-flex">
+                                                       <label class="me-3 cursor-pointer">
+                                                        <input type="radio" name="poststatus-radio" value="-1" onclick="CheckFeature(this)" checked hidden>
+                                                        <div>All of Slider</div>
+                                                    </label>
+                                                       <label class="me-3 cursor-pointer">
+                                                        <input type="radio" name="poststatus-radio" value="1" onclick="CheckFeature(this)" hidden>
+                                                        <div>Showing</div>
+                                                    </label>
+                                                    <label class="me-3 cursor-pointer">
+                                                        <input type="radio" name="poststatus-radio" value="0" onclick="CheckFeature(this)" hidden>
+                                                        <div>Hidden</div>
+                                                    </label>
                                                    </div>
                                                    <!--search box-->
-                                                   <div class=" search-all search-container col-4">
-                                                       <div class="col-1"></div>
-                                                     <div class=" search-item input-group rounded col-7">
-                                                         
+                                                   <div class="search-nav">
+                                                     <div class="input-group rounded">
                                                          <input type="search" class="form-control rounded " oninput="SubmitForm(1)"
                                                                 id="search" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                                                          <select name="option_search" id="option_search" onchange="SubmitForm(1)">
-                                                                    <option value="1">
-                                                                            Title
-                                                                    </option>
-                                                                    <option value="2">
-                                                                            Backlinks
-                                                                    </option>
+                                                                    <option value="1">Title</option>
+                                                                    <option value="2">Backlinks</option>
                                                                 </select>
-<!--                                                        <span class="input-group-text border-0" id="search-addon">
-                                                          <i class="fas fa-search"></i>
-                                                        </span>-->
                                                    </div>
                                                    </div>
-                                                   <div class="add-post col-3">
-                                                       <div class="col-6"></div> 
+                                                   <div class="add-post">
                                                        <button type="button"  onclick="window.location.href='addslider'" class="btn btn-success">Add New   +</button>
                                                    </div>
-                                                   <div class="shopee-tabs__ink-bar" style="width: 104px; transform: translateX(203px);">
-                                                   </div>
                                                </div>
-                                           </div>
-                                           <div class="shopee-tabs__content">
-                                               <div data-v-75520c46="" class="shopee-tabs-tabpane" style="display: none;">
-                                               </div>
-                                               <div data-v-75520c46="" class="shopee-tabs-tabpane" style="display: none;">
-                                               </div>
-                                               <div data-v-75520c46="" class="shopee-tabs-tabpane">
-
-                                               </div>
-                                               <div data-v-75520c46="" class="shopee-tabs-tabpane" style="display: none;">
-                                               </div>
-                                               <div data-v-75520c46="" class="shopee-tabs-tabpane" style="display: none;">
-                                               </div>
-                                               <div data-v-75520c46="" class="shopee-tabs-tabpane" style="display: none;">
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
                                </div>
                                <div data-v-dff31658="" class="fixed-placeholder" style="display: none; height: 54px;">
                                </div>
@@ -157,10 +107,8 @@
                                         </select>
                                     </div>
                                     <div class="col-2 action-container">
-                                      <button type="button" class="edit-btn btn btn-secondary btn-sm ">
-                                          <i class="fa-solid fa-pen-to-square"></i>
-                                          Edit
-                                      </button>
+                                      <a type="button" class=" view-btn btn btn-primary btn-sm " href="slider?id=${s.id}">
+                                                                        <i class="fa-solid fa-eye"></i>View more</a>
 <!--                                      <button type="button" class=" view-btn btn btn-primary btn-sm ">
                                           <i class="fa-solid fa-eye"></i>View</button>-->
                                     </div>
@@ -214,8 +162,12 @@
                       </div>
                          
             </div>
-         </div>
         </form>      
+         </div>
+       </div>
        </div>
     </body>
+    <script src="../js/slider_list.js"> </script>
+         <!--Ajax-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </html>
