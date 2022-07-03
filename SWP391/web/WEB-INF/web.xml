@@ -74,6 +74,9 @@
         <url-pattern>/marketing/editproduct</url-pattern>
         <url-pattern>/marketing/addproduct</url-pattern>
         <url-pattern>/marketing/feedbackslist</url-pattern>
+        <url-pattern>/sale</url-pattern>
+        <url-pattern>/sale/orderslist</url-pattern>
+        <url-pattern>/sale/orderdetails</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>

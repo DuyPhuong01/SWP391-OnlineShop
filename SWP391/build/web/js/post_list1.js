@@ -61,7 +61,7 @@ function SubmitForm(numpage){
             
     "success": function(data) {
         console.log(data);
-            alert(data);
+//            alert(data);
         
     },
     "error": function(errorData) {

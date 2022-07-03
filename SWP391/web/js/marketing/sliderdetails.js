@@ -10,7 +10,7 @@ function showSlider(id) {
             },
             success: function (repsonse) {
                 document.getElementById('sliderStatusSwitch').checked = true;
-                document.getElementById('sliderStatusSwitch').onclick = "hideSlider(" + id + ")";
+                document.getElementById('sliderStatusSwitch').setAttribute('onchange', "hideSlider(" + id + ")");
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -33,7 +33,7 @@ function hideSlider(id) {
             },
             success: function (repsonse) {
                 document.getElementById('sliderStatusSwitch').checked = false;
-                document.getElementById('sliderStatusSwitch').onclick = "showSlider(" + id + ")";
+                document.getElementById('sliderStatusSwitch').setAttribute('onchange', "showSlider(" + id + ")");
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 document.getElementById('sliderStatusSwitch').checked = true;

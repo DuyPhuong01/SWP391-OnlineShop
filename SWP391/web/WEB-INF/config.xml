@@ -17,7 +17,7 @@
 	Configure the location of uploaded files. See the following article for more details:
 	http://docs.cksource.com/CKFinder_2.x/Developers_Guide/Java/Configuration/baseURL_and_baseDir
 	-->
-	<baseDir>C:\Users\Admin\Desktop\ITE3SWP\summer2022-se1611-g2\SWP391\web\images\post-image</baseDir>
+	<baseDir>C:\Users\Admin\Desktop\SWP3006\summer2022-se1611-g2\SWP391\web\images\post-image</baseDir>
         <baseURL>/swp/images/post-image</baseURL>
 	<licenseKey></licenseKey>
 	<licenseName></licenseName>

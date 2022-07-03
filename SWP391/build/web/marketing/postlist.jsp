@@ -165,7 +165,10 @@
                                                             <td class="w-50">
                                                                 <div class="row">
                                                                     <div class="col-4 image-item">
-                                                                        <img src="../${p.thumbnail}" />
+                                                                        <a href="postdetails?id=${p.post_id}">
+
+                                                                            <img src="../${p.thumbnail}" />
+                                                                        </a>
                                                                     </div>
                                                                     <div class="col-8 title">
                                                                         <p class="title-detail">
@@ -184,10 +187,10 @@
                                                                 <td class="col-2 action-container">
                                                                     <button type="button" class="edit-btn btn btn-secondary btn-sm ">
                                                                         <i class="fa-solid fa-pen-to-square"></i>
-                                                                        Edit
+                                                                        <a href="postdetails?id=${p.post_id}&action=edit">Edit</a>
                                                                     </button>
                                                                     <button type="button" class=" view-btn btn btn-primary btn-sm ">
-                                                                        <i class="fa-solid fa-eye"></i>View</button>
+                                                                        <i class="fa-solid fa-eye"></i><a href="postdetails?id=${p.post_id}&action=view">View</a></button>
                                                                 </td>
                                                             </tr>   
                                                     </c:forEach>

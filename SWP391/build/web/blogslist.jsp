@@ -39,7 +39,7 @@
                                         </a>
                                         <div class="card-body">
                                             <h6 class="card-title mb-3">${post.title}</h6>
-                                            <h6 class="card-subtitle text-muted" style="font-size: .85rem">${post.sub_title}</h6>
+                                            <!--<h6 class="card-subtitle text-muted" style="font-size: .85rem">${post.sub_title}</h6>-->
                                         </div>
                                         <div class="mx-2 mb-2 text-muted opacity-75 d-flex justify-content-end">
                                             <fmt:formatDate value="${post.publication_date}" pattern="HH:mm dd/MM/yyyy"/>

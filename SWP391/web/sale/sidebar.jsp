@@ -31,7 +31,7 @@
                 </a>
             </li>
             <li>
-                <a href="logout">
+                <a href="/swp/logout">
                     <i class="fas fa-sign-out"></i>
                     <span>Sign out</span>
                 </a>
