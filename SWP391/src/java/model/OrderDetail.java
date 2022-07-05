@@ -65,7 +65,7 @@ public class OrderDetail {
         this.category = category;
     }
 
-    
+
     @Override
     public String toString() {
         return "OrderDetail{" + "order_id=" + order_id + ", product_id=" + product + ", quantity=" + quantity + ", price=" + price + '}';

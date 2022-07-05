@@ -46,6 +46,26 @@ public class SaleDAO extends DBContext {
         }
         return null;
     }
+    public List<Account> getAllAccountOfSaleMember() {
+        String sql = "select * from accounts where role_id = 3";
+        List<Account> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Account account = new Account(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"),
+                        rs.getString("full_name"), rs.getInt("role_id"), rs.getBoolean("gender"), rs.getString("email"),
+                        rs.getString("city"), rs.getString("country"), rs.getString("address"), rs.getString("phone"),
+                        rs.getString("image_url"), rs.getBoolean("featured"), rs.getString("hash"), rs.getInt("active"));
+
+                list.add(account);
+            }
+            return list;
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
 
     public List<Order> getOrderBySaleMember(int userId) {
         String sql = "select o.* from orders o \n"
@@ -101,6 +121,7 @@ public class SaleDAO extends DBContext {
         }
         return 0;
     }
+
     public double getTotalRevenueToday() {
         String sql = "select SUM(total_price) from orders o\n"
                 + "where order_date between ? and ?";
@@ -117,6 +138,7 @@ public class SaleDAO extends DBContext {
         }
         return 0;
     }
+
     public double getTotalRevenue() {
         String sql = "select SUM(total_price) from orders o\n";
         try {
@@ -337,6 +359,7 @@ public class SaleDAO extends DBContext {
 
         return list;
     }
+
     public List getListOfTotalSuccessOrderByDayBySale(LocalDate start, LocalDate end, int saleId) {
         List list = new ArrayList();
         for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
@@ -346,11 +369,51 @@ public class SaleDAO extends DBContext {
         return list;
     }
 
+    public boolean checkedSalePermission(int orderId, Account sale) {
+        if (sale.getRole_id() == 4) {
+            return true;
+        }
+        String sql = "select * from orders_management where order_id = ? and user_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, orderId);
+            st.setInt(2, sale.getUser_id());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+
+        }
+        return false;
+    }
+
+    public Account getSaleByOrderId(int orderId) {
+        String sql = "select a.* from orders o\n"
+                + "inner join orders_management om \n"
+                + "on o.order_id = om.order_id\n"
+                + "inner join accounts a\n"
+                + "on om.user_id = a.user_id\n"
+                + "where o.order_id = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, orderId);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                Account a  = new Account();
+                a.setUser_id(rs.getInt("user_id"));
+                a.setFull_name(rs.getString("full_name"));
+                a.setUsername(rs.getString("username"));
+                return a;
+            }
+        } catch(SQLException e){
+            
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         SaleDAO saleDAO = new SaleDAO();
-//        System.out.println(saleDAO.getTotalSuccessOrderBySaleByDay(3025, LocalDate.parse("2022-06-18")));
-//        System.out.println(saleDAO.getTotalRevenueToday());
-//        System.out.println(saleDAO.getTotalRevenue());
-        System.out.println(saleDAO.getTotalOrder());
+        System.out.println(saleDAO.getSaleByOrderId(1).getFull_name());
     }
 }

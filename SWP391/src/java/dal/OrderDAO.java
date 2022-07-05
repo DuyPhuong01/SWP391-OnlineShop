@@ -37,7 +37,7 @@ public class OrderDAO extends DBContext {
         return new Order(order_id, rs.getInt("user_id"), rs.getString("order_date"), rs.getString("require_date"),
                 rs.getString("shipped_date"), rs.getInt("ship_via"), rs.getDouble("freight"), rs.getString("ship_name"),
                 rs.getString("ship_address"), rs.getBoolean("ship_gender"), rs.getString("ship_mobile"), rs.getString("ship_email"), rs.getString("ship_city"),
-                rs.getInt("status"), rs.getString("note"), rs.getString("payment"), rs.getDouble("total_price"));
+                rs.getInt("status"), rs.getString("note"), rs.getString("payment"), rs.getDouble("total_price"), rs.getString("sale_note"));
     }
 
     public Order addOrderUser(Account customer, Cart cart, String note) {
@@ -167,9 +167,13 @@ public class OrderDAO extends DBContext {
             if (rs.next()) {//result set return a order
                 Order order = filOrderInfor(rs);
                 order.setOrderDetailList(orderDetailDAO.getOrderDetailByOrderId(order.getOrder_id()));
+                order.setOrderStatus(getOrderStatusById(order.getStatus()));
+                order.setOrderDate(DateTimeUtil.GetDateFromString(order.getOrder_Date()));
                 return order;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+        } catch (ParseException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;//exception or can't find order
     }
@@ -366,12 +370,13 @@ public class OrderDAO extends DBContext {
         }
         return 0;
     }
+
     public int getTotalRevenueBySaleIdAndTime(int userId, String start, String end) {
         String sql = "select sum(total_price) from orders o\n"
                 + "inner join orders_management om\n"
                 + "on o.order_id = om.order_id\n"
                 + "where o.status != 6";
-        sql += " and order_date between '"+start+"' and '"+end+"'";
+        sql += " and order_date between '" + start + "' and '" + end + "'";
         if (userId != 0) {
             sql += " and om.user_id = " + userId;
         }
@@ -731,23 +736,35 @@ public class OrderDAO extends DBContext {
         return null;
     }
 
+    public void updateOrder(int orderId, int status, String saleNote) {
+        String sql = "update orders\n"
+                + "set status = ?, sale_note = ? where order_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, status);
+            st.setInt(3, orderId);
+            st.setString(2, saleNote);
+            st.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
+
+    public void updateOrderManagement(int orderId, int saleId) {
+        String sql = "update orders_management\n"
+                + "set user_id = ? where order_id = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, saleId);
+            st.setInt(2, orderId);
+            st.executeUpdate();
+        } catch(SQLException e){
+            
+        }
+    }
+
     public static void main(String[] args) {
         OrderDAO orderDAO = new OrderDAO();
-//        System.out.println(orderDAO.getTotalOrder(null, null, "quang","2022-01-01", "2022-12-31"));
-//        List<Order> list = orderDAO.getOrderByPage(1, 50, null, null, "total_price asc", "quang");
-//        for (Order order : list) {
-//            System.out.println(order.getTotal_price());
-//        }
-//        System.out.println(orderDAO.getTotalOrder(null, null, "quang"));
-//        List<Order> list1 = orderDAO.getOrderByPage(1, 999, null, null, "a.full_name asc", "quang", "2022-01-01", "2022-01-02");
-//        for (Order order : list1) {
-//            System.out.println(order.getAccount().getUsername());
-//        }
-//        System.out.println(list1.size());
-//        System.out.println(orderDAO.getTotalOrder(null, null, "", "2022-01-01", DateTimeUtil.Now()));
-//        System.out.println(orderDAO.getFirstOrderDate());
-//        System.out.println(orderDAO.getTotalOrderToday());
-//        System.out.println(orderDAO.getTotalOrderBySaleId(0));
-        System.out.println(orderDAO.getTotalRevenueBySaleId(0));
+        System.out.println(orderDAO.getOrderByOrderID(21).getSale_note());
     }
 }
