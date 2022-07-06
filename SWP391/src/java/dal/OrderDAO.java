@@ -649,6 +649,23 @@ public class OrderDAO extends DBContext {
         }
         return 0;
     }
+    public int getTotalOrderByStatusAndTime(int status, String time) {
+        String sql = "select COUNT(*) from orders";
+        String end = DateTimeUtil.Now();
+        String start = DateTimeUtil.getStartDate(time).toString();
+        sql += " where order_date between '" + start + "' and '" + end + "'";
+        sql += " and status = "+status;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
 
     public void updateOrder(Order order, String shipName, boolean shipGender, String shipEmail, String shipMobile, String shipAddress, String shipCity, String payment) {
         String sql = "update orders\n"

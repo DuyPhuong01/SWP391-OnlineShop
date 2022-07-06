@@ -46,6 +46,7 @@ public class SaleDAO extends DBContext {
         }
         return null;
     }
+
     public List<Account> getAllAccountOfSaleMember() {
         String sql = "select * from accounts where role_id = 3";
         List<Account> list = new ArrayList<>();
@@ -326,6 +327,26 @@ public class SaleDAO extends DBContext {
         }
         return 0;
     }
+    private int getAllOrderByDay(LocalDate start) {
+        String sql = "select  COUNT(*) from orders o\n"
+                + "inner join orders_management om\n"
+                + "on o.order_id = om.order_id\n"
+                + "inner join accounts a\n"
+                + "on a.user_id = om.user_id\n"
+                + "where o.order_date between ? and ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, start.toString());
+            st.setString(2, start.plusDays(1).toString());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+
+        }
+        return 0;
+    }
 
     private int getTotalSuccessOrderBySaleByDay(int saleId, LocalDate start) {
         String sql = "select  COUNT(*) from orders o\n"
@@ -355,6 +376,14 @@ public class SaleDAO extends DBContext {
         List list = new ArrayList();
         for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
             list.add(getTotalOrderBySaleByDay(saleId, i));
+        }
+
+        return list;
+    }
+    public List getListOfAllOrderByDay(LocalDate start, LocalDate end) {
+        List list = new ArrayList();
+        for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
+            list.add(getAllOrderByDay(i));
         }
 
         return list;
@@ -395,25 +424,53 @@ public class SaleDAO extends DBContext {
                 + "inner join accounts a\n"
                 + "on om.user_id = a.user_id\n"
                 + "where o.order_id = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, orderId);
             ResultSet rs = st.executeQuery();
-            if(rs.next()){
-                Account a  = new Account();
+            if (rs.next()) {
+                Account a = new Account();
                 a.setUser_id(rs.getInt("user_id"));
                 a.setFull_name(rs.getString("full_name"));
                 a.setUsername(rs.getString("username"));
                 return a;
             }
-        } catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
         return null;
     }
 
+    public double getRevenueByProductCategoryId(int id, String time) {
+        String end = DateTimeUtil.Now();
+        String start = DateTimeUtil.getStartDate(time).toString();
+        String sql = "select SUM(total_price) from orders o\n"
+                + "inner join order_details od\n"
+                + "on o.order_id = od.order_id\n"
+                + "inner join products p\n"
+                + "on od.product_id = p.product_id\n"
+                + "inner join product_sub_categories psc\n"
+                + "on p.sub_category_id = psc.sub_category_id\n"
+                + "inner join product_categories pc\n"
+                + "on pc.category_id = psc.category_id\n"
+                + "where o.status != 6 and order_date between '"+start+"' and '"+end+"'";
+        if(id != 0){
+            sql += " and pc.category_id = "+id;
+        }
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return rs.getDouble(1);
+            }
+        }catch(SQLException e){
+            
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
         SaleDAO saleDAO = new SaleDAO();
-        System.out.println(saleDAO.getSaleByOrderId(1).getFull_name());
+        System.out.println(saleDAO.getRevenueByProductCategoryId(0, "1"));
     }
 }
