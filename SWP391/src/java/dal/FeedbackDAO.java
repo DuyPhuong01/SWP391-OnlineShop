@@ -197,6 +197,35 @@ public class FeedbackDAO extends DBContext {
         return 0;
     }
     
+    public Feedback getGeneralFeedback(int id){
+        String sql = "select * from general_feedbacks where feedback_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return fillGeneralFeedbackDetails(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public Feedback getProductFeedback(int id){
+        String sql = "select * from product_feedbacks where feedback_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return fillProductFeedbackDetails(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
     public List<Feedback> getGeneralFeedbacksByRange(int start, int end) {
         int[] stars = {1, 2, 3, 4, 5};
         return getGeneralFeedbacksByRange("feedback_id desc", "", -1, stars, start, end);
@@ -347,6 +376,12 @@ public class FeedbackDAO extends DBContext {
             System.out.println(e);
         }
         return 0;
+    }
+    
+    
+    public boolean changeFeedbackStatus(int id, int status) {
+        String sql = "update feedbacks";
+        return false;
     }
 
 }

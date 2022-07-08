@@ -3,7 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Desktop/SWP3006/summer2022-se1611-g2/SWP391/src/java/dal/OrderDAO.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/controller/marketing/FeedbacksListServlet.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/marketing/feedbackslist.jsp</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/productslist.jsp</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/blogdetails.jsp</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/feedbackdetails.html</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/controller/marketing/FeedbackServlet.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/model/Feedback.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/marketing/feedbackdetails.jsp</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/dal/FeedbackDAO.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/error/page_not_found.jsp</file>
         </group>
     </open-files>
 </project-private>

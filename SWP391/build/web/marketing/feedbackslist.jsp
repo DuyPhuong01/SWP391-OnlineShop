@@ -267,7 +267,7 @@
                                             </c:if>
                                         </td>
                                         <td class="align-middle"></td>
-                                        <td class="align-middle"><a class="btn btn-light cursor-pointer"><i class="fa-solid fa-eye me-2"></i>View</a></td>
+                                        <td class="align-middle"><a href="feedback?type=${requestScope.type}&id=${feedback.id}" class="btn btn-light"><i class="fa-solid fa-eye me-2"></i>View</a></td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
