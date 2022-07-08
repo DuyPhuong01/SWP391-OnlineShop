@@ -222,6 +222,22 @@
         <servlet-name>ChangePostCategoryServlet</servlet-name>
         <servlet-class>controller.marketing.ChangePostCategoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>controller.admin.AdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UsersListServlet</servlet-name>
+        <servlet-class>controller.admin.UsersListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddUserServlet</servlet-name>
+        <servlet-class>controller.admin.AdminAddUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminUdateAccServlet</servlet-name>
+        <servlet-class>controller.admin.AdminUdateAccServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -362,6 +378,22 @@
     <servlet-mapping>
         <servlet-name>ChangePostCategoryServlet</servlet-name>
         <url-pattern>/marketing/changepostcategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsersListServlet</servlet-name>
+        <url-pattern>/userslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddUserServlet</servlet-name>
+        <url-pattern>/adminadduser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminUdateAccServlet</servlet-name>
+        <url-pattern>/adminudateacc</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -182,6 +182,6 @@ public class CategoryDAO extends DBContext {
 
     public static void main(String[] args) {
         CategoryDAO c = new CategoryDAO();
-        System.out.println(c.getPostCategory().get(0).getCategory_name());
+        System.out.println(c.getProductCategory().size());
     }
 }

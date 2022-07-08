@@ -91,6 +91,6 @@ public class DateTimeUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(getTotalDays());
+        System.out.println(getEndDateDefault().toString());
     }
 }

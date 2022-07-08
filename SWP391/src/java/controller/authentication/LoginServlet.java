@@ -112,6 +112,10 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect("marketing/dashboard");
                 } else if (account.getRole_id() == 3) {
                     response.sendRedirect("sale");
+                } else if (account.getRole_id() == 4) {
+                    response.sendRedirect("home");
+                } else if (account.getRole_id() == 5) {
+                    response.sendRedirect("admin");
                 } else {
                     response.sendRedirect("home");
                 }
