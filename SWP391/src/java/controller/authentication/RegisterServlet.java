@@ -60,7 +60,11 @@ public class RegisterServlet extends HttpServlet {
         AccountDAO dao = new AccountDAO();
         Account a = new Account();
         a.setFull_name(fullname);
-        a.setGender(Boolean.parseBoolean(gender));
+        if (gender.endsWith("1")) {
+            a.setGender(true);
+        } else {
+            a.setGender(false);
+        }
         a.setEmail(mail);
         a.setPhone(phone);
         a.setAddress(address);
@@ -85,11 +89,11 @@ public class RegisterServlet extends HttpServlet {
             //dc signup
             emailService.sendEmail(getServletContext(), a, "active", "http://localhost:8080/swp/activate?key1=" + a.getEmail() + "&key2=" + a.getMyHash());
 
-            String str = dao.singup(a);
- 
+            String str = dao.singup(a, 2);
+
             if (str.equals("Success")) {
-                 request.setAttribute("mess", "You need active your account!\n Check your mail!");
-                    request.getRequestDispatcher("verify.jsp").forward(request, response);
+                request.setAttribute("mess", "You need active your account!\n Check your mail!");
+                request.getRequestDispatcher("verify.jsp").forward(request, response);
 
             } else {
                 request.setAttribute("signmess", "Register error !");
@@ -161,6 +165,7 @@ public class RegisterServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
     public static void main(String[] args) {
         System.out.println(getMd5("15102001"));
     }
