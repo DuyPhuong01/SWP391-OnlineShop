@@ -4,11 +4,6 @@
  * and open the template in the editor.
  */
 
-
-function submitForm()
-{
-    document.getElementById('frmSearch').submit();
-}
 const toggle1 = document.querySelector(".toggle1"),
         input1 = document.querySelector(".p-input1");
 const toggle2 = document.querySelector(".toggle2"),
@@ -32,3 +27,11 @@ toggle2.addEventListener("click", () => {
         input2.type = "password";
     }
 });
+function myFunction(id) {
+    let text = "Do you want to delete account?\n OK or Cancel.";
+    if (confirm(text) === true) {
+        window.location.href = 'admindeleteuser?id=' + id;
+    } else {
+        window.location.href = 'userslist';
+    }
+}

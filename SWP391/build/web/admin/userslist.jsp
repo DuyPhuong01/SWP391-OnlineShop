@@ -18,6 +18,91 @@
         <link href="css/admin.css" rel="stylesheet"/>
         <!--font-awesome-->
         <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
+        <script>
+            var ids = [];
+            <c:forEach items="${requestScope.accounts}" var="a">
+            ids.push(${a.getUser_id()});
+            </c:forEach>
+            function submitForm()
+            {
+                document.getElementById('frmSearch').submit();
+            }
+            function submitUpdate()
+            {
+                document.getElementById('frmUpdate').submit();
+            }
+
+            function hideControlsbyClassName(name)
+            {
+                var controls = document.getElementsByClassName(name);
+                for (var i = 0; i < controls.length; i++)
+                {
+                    controls[i].style.display = 'none';
+                }
+            }
+            function showControlsbyClassName(name)
+            {
+                var controls = document.getElementsByClassName(name);
+                for (var i = 0; i < controls.length; i++)
+                {
+                    controls[i].style.display = 'inline';
+                }
+            }
+            function hideEditModeControls()
+            {
+                for (var i = 0; i < ids.length; i++)
+                {
+                    hideControlsbyClassName('editmode' + ids[i]);
+                }
+            }
+            function hideViewModeControls()
+            {
+                for (var i = 0; i < ids.length; i++)
+                {
+                    hideControlsbyClassName('viewmode' + ids[i]);
+                }
+            }
+            function showEditModeControls(id)
+            {
+                for (var i = 0; i < ids.length; i++)
+                {
+                    showControlsbyClassName('editmode' + ids[i]);
+                }
+            }
+            function showViewModeControls()
+            {
+                for (var i = 0; i < ids.length; i++)
+                {
+                    showControlsbyClassName('viewmode' + ids[i]);
+                }
+            }
+
+            function Edit_onclick(id)
+            {
+                hideControlsbyClassName('viewmode' + id);
+                showControlsbyClassName('editmode' + id);
+            }
+
+            function Cancel_onclick(id, name, gender, email, phone, active, rid)
+            {
+                hideControlsbyClassName('editmode' + id);
+                showControlsbyClassName('viewmode' + id);
+                document.getElementById('edit_name' + id).value = name;
+                document.getElementById('edit_email' + id).value = email;
+                document.getElementById('edit_phone' + id).value = phone;
+                document.getElementById('edit_gender' + id).checked = gender;
+                document.getElementById('edit_active' + id).checked = active;
+                var options = document.getElementById('edit_rid' + id).getElementsByTagName('option');
+                for (var i = 0; i < options.length; i++)
+                {
+                    if (options[i].value == rid)
+                    {
+                        document.getElementById('edit_rid' + id).selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        </script>
     </head>
     <body>
         <jsp:directive.include file="salenavbar.jsp"/>
@@ -100,37 +185,57 @@
                                         </thead>
                                         <tbody>
                                         <c:forEach items="${requestScope.accounts}" var="a">
-
+                                        <form action="adminudateacc" id="frmUpdate" method="POST">
                                             <tr>
-                                                <td class="pl-4">${a.getUser_id()}</td>
-                                                <td>
-                                                    <h5 class="font-medium mb-0">${a.getFull_name()}</h5>
+                                                <td class="pl-4">
+                                                    ${a.getUser_id()}
+                                                    <input type="hidden" name="id" value="${a.getUser_id()}"/>
                                                 </td>
                                                 <td>
-                                                    <span class="text-muted"><c:if test="${a.isGender() == true}">Male</c:if><c:if test="${a.isGender() != true}">Female</c:if></span>
+                                                    <span class="viewmode${a.getUser_id()}"><h5 class="font-medium mb-0">${a.getFull_name()}</h5></span>
+                                                    <input id="edit_name${a.getUser_id()}" type="text" value="${a.getFull_name()}" class="editmode${a.getUser_id()}" name="name"/>
+                                                </td>
+                                                <td>
+                                                    <span class="viewmode${a.getUser_id()}">${a.gender?"Male":"Female"}</span>
+                                                    <input id="edit_gender${a.getUser_id()}" name="gender" class="editmode${a.getUser_id()}" type="checkbox" <c:if test="${a.gender}">checked="checked"</c:if>/>
                                                     </td>
                                                     <td>
-                                                            <span class="text-muted">${a.getEmail()}</span><br>
-                                                    <span class="text-muted">${a.getPhone()}</span>
+                                                        <span class="text-muted viewmode${a.getUser_id()}">${a.getEmail()}</span>
+                                                    <input id="edit_email${a.getUser_id()}" type="text" value="${a.getEmail()}" class="editmode${a.getUser_id()}" name="email"/><br>
+                                                    <span class="text-muted viewmode${a.getUser_id()}">${a.getPhone()}</span>
+                                                    <input id="edit_phone${a.getUser_id()}" type="text" value="${a.getPhone()}" class="editmode${a.getUser_id()}" name="phone"/><br>
                                                 </td>
                                                 <td>
                                                     <div class="form-check form-switch">
                                                         <label class="form-check-label" for="flexSwitchCheckDisabled"></label>
-                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDisabled" <c:if test="${a.getActive() == 1}">checked</c:if>  disabled>
+                                                        <input class="form-check-input viewmode${a.getUser_id()}" type="checkbox" role="switch" id="flexSwitchCheckDisabled" <c:if test="${a.getActive() == 1}">checked</c:if>  disabled>
+                                                        <input class="form-check-input editmode${a.getUser_id()}" type="checkbox" role="switch" id="edit_active${a.getUser_id()}" name="active"   <c:if test="${a.getActive() == 1}">checked</c:if>/>
+
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <select class="form-control category-select" id="exampleFormControlSelect1">
-                                                            <option>${a.getRole().getrName()}</option>
+                                                        <span class="viewmode${a.getUser_id()}">${a.getRole().getrName()}</span>
+                                                    <select id="edit_rid${a.getUser_id()}" name="did" class="editmode${a.getUser_id()}"  >
+                                                        <c:forEach items="${requestScope.listRoles}" var="d">
+                                                            <option
+                                                                <c:if test="${a.role.rId eq d.rId}">
+                                                                    selected="selected"
+                                                                </c:if>
+                                                                value="${d.rId}">${d.rName}</option>
+                                                        </c:forEach>
                                                     </select>
+
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa-solid fa-arrow-up-right-from-square"></i> </button>
-                                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-edit"></i> </button>
-                                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>
+                                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2 viewmode${a.getUser_id()}"><i class="fa-solid fa-arrow-up-right-from-square"></i> </button>
+                                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2 viewmode${a.getUser_id()}" onclick="Edit_onclick(${a.getUser_id()});"><i class="fa fa-edit"></i> </button>
+                                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2 editmode${a.getUser_id()}" onclick="submitUpdate();"><i class="fa-solid fa-floppy-disk"></i></button>
+                                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2 editmode${a.getUser_id()}" 
+                                                            onclick="Cancel_onclick(${a.getUser_id()}, '${a.getFull_name()}',${a.gender}, '${a.getEmail()}', '${a.getPhone()}',${a.getActive()},${a.role.rId});"><i class="fa-solid fa-rectangle-xmark"></i></button>
                                                 </td>
                                             </tr>
-                                        </c:forEach>
+                                        </form>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                                 <nav aria-label="Page navigation example">
@@ -277,6 +382,9 @@
             </div>
         </div>
     </body>
+    <script>
+        hideEditModeControls();
+    </script>
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     </script>

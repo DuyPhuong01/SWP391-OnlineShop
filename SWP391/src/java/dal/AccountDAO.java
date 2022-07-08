@@ -273,6 +273,30 @@ public class AccountDAO extends DBContext {
         return arr;
     }
 
+    public void updateAcc(Account model) {
+        try {
+            String sql = "UPDATE [accounts]\n"
+                    + "   SET [full_name] = ?\n"
+                    + "      ,[role_id] = ?\n"
+                    + "      ,[gender] = ?\n"
+                    + "      ,[email] = ?\n"
+                    + "      ,[phone] = ?\n"
+                    + "      ,[active] = ?\n"
+                    + " WHERE [user_id] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, model.getFull_name());
+            stm.setBoolean(3, model.isGender());
+            stm.setInt(2, model.getRole().getrId());
+            stm.setString(4, model.getEmail());
+            stm.setString(5, model.getPhone());
+            stm.setInt(6, model.getActive());
+            stm.setInt(7, model.getUser_id());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public Account getAccountByID(Account acc) {
         try {
             String sql = "SELECT *"
@@ -447,6 +471,17 @@ public class AccountDAO extends DBContext {
 
             ResultSet rs = stm.executeQuery();
         } catch (SQLException e) {
+        }
+    }
+
+    public void deleteAccount(String aId) {
+        String query = "DELETE FROM [accounts]\n"
+                + "      WHERE [role_id] = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(query);
+            stm.setString(1, aId);
+            ResultSet rs = stm.executeQuery();
+        } catch (Exception e) {
         }
     }
 

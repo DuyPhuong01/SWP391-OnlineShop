@@ -234,6 +234,10 @@
         <servlet-name>AdminAddUserServlet</servlet-name>
         <servlet-class>controller.admin.AdminAddUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminUdateAccServlet</servlet-name>
+        <servlet-class>controller.admin.AdminUdateAccServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -386,6 +390,10 @@
     <servlet-mapping>
         <servlet-name>AdminAddUserServlet</servlet-name>
         <url-pattern>/adminadduser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminUdateAccServlet</servlet-name>
+        <url-pattern>/adminudateacc</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
