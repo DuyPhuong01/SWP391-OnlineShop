@@ -73,7 +73,7 @@ public final class sliderlist_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor\" crossorigin=\"anonymous\">\r\n");
       out.write("        <link rel=\"stylesheet\" href=\"../css/style.css\"/>\r\n");
       out.write("        <!--<link rel=\"stylesheet\" href=\"../css/post_list.css\"/>-->\r\n");
-      out.write("        <!--<link rel=\"stylesheet\" href=\"../css/sliderlist.css\"/>-->\r\n");
+      out.write("        <link rel=\"stylesheet\" href=\"../css/sliderlist.css\"/>\r\n");
       out.write("          <!--font-awesome-->\r\n");
       out.write("        <script src=\"https://kit.fontawesome.com/3c84cb624f.js\" crossorigin=\"anonymous\"></script>\r\n");
       out.write("    </head>\r\n");
@@ -130,11 +130,10 @@ public final class sliderlist_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            <div data-v-75520c46=\"\" class=\"row main-content \" id=\"content\">\r\n");
       out.write("                                 <!--header-->\r\n");
       out.write("                           <div class=\"row navbar-content\">\r\n");
-      out.write("                               <div class=\"col-2\">ID</div>\r\n");
+      out.write("                               <div class=\"col-2 content-item\">ID</div>\r\n");
       out.write("                               <div class=\"col-4\">Title</div>\r\n");
       out.write("                               <div class=\"col-2\">Backlink</div>\r\n");
       out.write("                               <div class=\"col-2\">Status</div>\r\n");
-      out.write("                               <div class=\"col-2\">Action </div>\r\n");
       out.write("                           </div>\r\n");
       out.write("                              <!--list-item-->\r\n");
       out.write("                            <div class=\"list-post_container \">\r\n");

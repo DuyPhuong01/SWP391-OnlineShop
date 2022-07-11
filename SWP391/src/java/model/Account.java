@@ -46,6 +46,24 @@ public class Account {
         this.feature = feature;
     }
 
+    public Account(String username, String password, String full_name, int role_id, boolean gender, String email, String city, String country, String address, String phone, String image_url, boolean feature, String myHash, int active) {
+        this.username = username;
+        this.password = password;
+        this.full_name = full_name;
+        this.role_id = role_id;
+        this.gender = gender;
+        this.email = email;
+        this.city = city;
+        this.country = country;
+        this.address = address;
+        this.phone = phone;
+        this.image_url = image_url;
+        this.feature = feature;
+        this.myHash = myHash;
+        this.active = active;
+    }
+
+    
     public Account(int user_id, String username, String password, String full_name, int role_id, boolean gender, String email, String city, String country, String address, String phone, String image_url, boolean feature, String myHash, int active) {
         this.user_id = user_id;
         this.username = username;
@@ -64,6 +82,17 @@ public class Account {
         this.active = active;
     }
 
+    public Account(int user_id, String full_name, boolean gender, String email, String phone, boolean feature) {
+        this.user_id = user_id;
+        this.full_name = full_name;
+        this.gender = gender;
+        this.email = email;
+        this.phone = phone;
+        this.feature = feature;
+    }
+
+ 
+    
     public Account(int user_id, String username, String password) {
         this.user_id = user_id;
         this.username = username;

@@ -85,8 +85,12 @@ public class PostDAO extends DBContext {
             case 1:
                 return "post_id";
             case 2:
-                return "user_id";
+                return "title";
             case 3:
+                return "user_id";
+            case 4:
+                return "featured";
+            case 5:
                 return "category_id";
             default:
         }

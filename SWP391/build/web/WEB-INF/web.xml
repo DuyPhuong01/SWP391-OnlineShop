@@ -171,7 +171,6 @@
         <servlet-name>UploadServlet</servlet-name>
         <servlet-class>UploadServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>AddPostCategoryServlet</servlet-name>
         <servlet-class>controller.marketing.AddPostCategoryServlet</servlet-class>
@@ -215,6 +214,10 @@
     <servlet>
         <servlet-name>AdminServlet</servlet-name>
         <servlet-class>controller.admin.AdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateFeatureCustomerServlet</servlet-name>
+        <servlet-class>controller.marketing.UpdateFeatureCustomerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -360,6 +363,10 @@
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFeatureCustomerServlet</servlet-name>
+        <url-pattern>/marketing/updatefeaturecustomer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

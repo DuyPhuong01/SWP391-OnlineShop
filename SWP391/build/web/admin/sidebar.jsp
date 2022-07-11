@@ -31,6 +31,12 @@
                 </a>
             </li>
             <li>
+                <a href="#">
+                   <i class="fa-solid fa-person-military-pointing"></i>
+                    <span>Customer List</span>
+                </a>
+            </li>
+            <li>
                 <a href="/swp/logout">
                     <i class="fas fa-sign-out"></i>
                     <span>Sign out</span>
