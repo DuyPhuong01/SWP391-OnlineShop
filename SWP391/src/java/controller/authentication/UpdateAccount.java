@@ -147,7 +147,11 @@ public class UpdateAccount extends HttpServlet {
             a.setUser_id(Integer.parseInt(id));
             a.setFull_name(fname);
             a.setPhone(phone);
-            a.setGender(Boolean.getBoolean(gender));
+            if (gender.endsWith("1")) {
+                a.setGender(true);
+            } else {
+                a.setGender(false);
+            }
             a.setCity(city);
             a.setCountry(country);
             a.setAddress(address);

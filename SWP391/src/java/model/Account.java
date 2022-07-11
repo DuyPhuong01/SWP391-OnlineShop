@@ -26,10 +26,12 @@ public class Account {
     private boolean feature;
     private String myHash;
     private int active;
-
+    private Role role;
+    
     public Account() {
     }
 
+    
     public Account(int user_id, String username, String password, String full_name, int role_id, boolean gender, String email, String city, String country, String address, String phone, String image_url, boolean feature) {
         this.user_id = user_id;
         this.username = username;
@@ -99,6 +101,14 @@ public class Account {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+    
     public int getRole_id() {
         return role_id;
     }

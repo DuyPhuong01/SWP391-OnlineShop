@@ -219,6 +219,18 @@
         <servlet-name>UpdateFeatureCustomerServlet</servlet-name>
         <servlet-class>controller.marketing.UpdateFeatureCustomerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UsersListServlet</servlet-name>
+        <servlet-class>controller.admin.UsersListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddUserServlet</servlet-name>
+        <servlet-class>controller.admin.AdminAddUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminUdateAccServlet</servlet-name>
+        <servlet-class>controller.admin.AdminUdateAccServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -365,8 +377,20 @@
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>UsersListServlet</servlet-name>
+        <url-pattern>/userslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UpdateFeatureCustomerServlet</servlet-name>
         <url-pattern>/marketing/updatefeaturecustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddUserServlet</servlet-name>
+        <url-pattern>/adminadduser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminUdateAccServlet</servlet-name>
+        <url-pattern>/adminudateacc</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -378,9 +402,9 @@
         <servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
         <init-param>
             <description>
-                        Path to configuration file can be relative path inside application,
-                        absolute path on local file system or UNC path.
-                </description>
+                Path to configuration file can be relative path inside application,
+                absolute path on local file system or UNC path.
+            </description>
             <param-name>XMLConfig</param-name>
             <param-value>/WEB-INF/config.xml</param-value>
         </init-param>

@@ -20,6 +20,7 @@ import javax.servlet.ServletContext;
 import model.Account;
 import model.Customer;
 import model.Slider;
+import model.Role;
 import service.EmailService;
 import service.EmailServiceIml;
 
@@ -76,6 +77,226 @@ public class AccountDAO extends DBContext {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public List<Role> getListRole() {
+        List<Role> s = new ArrayList<>();
+        try {
+            Connection conn = DBContext.getConnection();
+            String sql = "SELECT [role_id]\n"
+                    + "      ,[role_name]\n"
+                    + "  FROM [roles]";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                if (rs.getInt("role_id") != 6) {
+                    Role r = new Role();
+                    r.setrId(rs.getInt("role_id"));
+                    r.setrName(rs.getString("role_name"));
+                    s.add(r);
+                }
+            }
+            return s;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Account> searchByRid(int did, int gender, int active, String search) {
+        ArrayList<Account> accounts = new ArrayList<>();
+        try {
+            String sql = "SELECT a.[user_id]\n"
+                    + "      ,a.[username]\n"
+                    + "      ,a.[password]\n"
+                    + "      ,a.[full_name]\n"
+                    + "      ,a.[role_id]\n"
+                    + "      ,a.[gender]\n"
+                    + "      ,a.[email]\n"
+                    + "      ,a.[city]\n"
+                    + "      ,a.[country]\n"
+                    + "      ,a.[address]\n"
+                    + "      ,a.[phone]\n"
+                    + "      ,a.[image_url]\n"
+                    + "      ,a.[featured]\n"
+                    + "      ,a.[hash]\n"
+                    + "      ,a.[active]\n"
+                    + "      ,a.[registered_date]\n"
+                    + "	  ,r.[role_name]\n"
+                    + "  FROM [accounts] a INNER JOIN [roles] r on a.[role_id] = r.[role_id]";
+            if (did > 0 && gender > -1 && active > -1 && search != "") {
+                sql += " WHERE a.[role_id] = ? and a.[gender] = ? and a.[active] = ? and a.[full_name] like ? or a.[phone] like ? or a.[email] like ?";
+            }
+            if (did > 0 && gender > -1 && active > -1 && search == "") {
+                sql += " WHERE a.[role_id] = ? and a.[gender] = ? and a.[active] = ?";
+            }
+            if (did == 0 && gender > -1 && active > -1 && search != "") {
+                sql += " WHERE a.[gender] = ? and a.[active] = ? and a.[full_name] like ? or a.[phone] like ? or a.[email] like ?";
+            }
+            if (did > 0 && gender == -1 && active > -1 && search != "") {
+                sql += " WHERE a.[role_id] = ? and a.[active] = ? and a.[full_name] like ? or a.[phone] like ? or a.[email] like ?";
+            }
+            if (did > 0 && gender > -1 && active == -1 && search != "") {
+                sql += " WHERE a.[role_id] = ? and a.[gender] = ? and a.[full_name] like ? or a.[phone] like ? or a.[email] like ?";
+            }
+            if (did == 0 && gender > -1 && active > -1 && search == "") {
+                sql += " WHERE a.[gender] = ? and a.[active] = ?";
+            }
+            if (did > 0 && gender == -1 && active > -1 && search == "") {
+                sql += " WHERE a.[role_id] = ? and a.[active] = ?";
+            }
+            if (did > 0 && gender > -1 && active == -1 && search == "") {
+                sql += " WHERE a.[role_id] = ? and a.[gender] = ?";
+            }
+            if (did == 0 && gender == -1 && active > -1 && search != "") {
+                sql += " WHERE a.[active] = ? and a.[full_name] like ? or a.[phone] like ? or a.[email] like ?";
+            }
+            if (did > 0 && gender == -1 && active == -1 && search != "") {
+                sql += " WHERE a.[role_id] = ? and a.[full_name] like ? or a.[phone] like ? or a.[email] like ?";
+            }
+            if (did == 0 && gender > -1 && active == -1 && search != "") {
+                sql += " WHERE a.[gender] = ? and a.[full_name] like ? or a.[phone] like ? or a.[email] like ?";
+            }
+            if (did == 0 && gender == -1 && active > -1 && search == "") {
+                sql += " WHERE a.[active] = ?";
+            }
+            if (did > 0 && gender == -1 && active == -1 && search == "") {
+                sql += " WHERE a.[role_id] = ?";
+            }
+            if (did == 0 && gender > -1 && active == -1 && search == "") {
+                sql += " WHERE a.[gender] = ?";
+            }
+            PreparedStatement stm = connection.prepareStatement(sql);
+            if (did > 0 && gender > -1 && active > -1 && search != "") {
+                stm.setInt(1, did);
+                stm.setInt(2, gender);
+                stm.setInt(3, active);
+                stm.setString(4, "%" + search + "%");
+                stm.setString(5, "%" + search + "%");
+                stm.setString(6, "%" + search + "%");
+            }
+            if (did > 0 && gender > -1 && active > -1 && search == "") {
+                stm.setInt(1, did);
+                stm.setInt(2, gender);
+                stm.setInt(3, active);
+            }
+            if (did == 0 && gender > -1 && active > -1 && search != "") {
+                stm.setInt(1, gender);
+                stm.setInt(2, active);
+                stm.setString(3, "%" + search + "%");
+                stm.setString(4, "%" + search + "%");
+                stm.setString(5, "%" + search + "%");
+            }
+            if (did > 0 && gender == -1 && active > -1 && search != "") {
+                stm.setInt(1, did);
+                stm.setInt(2, active);
+                stm.setString(3, "%" + search + "%");
+                stm.setString(4, "%" + search + "%");
+                stm.setString(5, "%" + search + "%");
+            }
+            if (did > 0 && gender > -1 && active == -1 && search != "") {
+                stm.setInt(1, did);
+                stm.setInt(2, gender);
+                stm.setString(3, "%" + search + "%");
+                stm.setString(4, "%" + search + "%");
+                stm.setString(5, "%" + search + "%");
+            }
+            if (did == 0 && gender > -1 && active > -1 && search == "") {
+                stm.setInt(1, gender);
+                stm.setInt(2, active);
+            }
+            if (did > 0 && gender == -1 && active > -1 && search == "") {
+                stm.setInt(1, did);
+                stm.setInt(2, active);
+            }
+            if (did > 0 && gender > -1 && active == -1 && search == "") {
+                stm.setInt(1, did);
+                stm.setInt(2, gender);
+            }
+            if (did == 0 && gender == -1 && active > -1 && search != "") {
+                stm.setInt(1, active);
+                stm.setString(2, "%" + search + "%");
+                stm.setString(3, "%" + search + "%");
+                stm.setString(4, "%" + search + "%");
+            }
+            if (did > 0 && gender == -1 && active == -1 && search != "") {
+                stm.setInt(1, did);
+                stm.setString(2, "%" + search + "%");
+                stm.setString(3, "%" + search + "%");
+                stm.setString(4, "%" + search + "%");
+            }
+            if (did == 0 && gender > -1 && active == -1 && search != "") {
+                stm.setInt(1, gender);
+                stm.setString(2, "%" + search + "%");
+                stm.setString(3, "%" + search + "%");
+                stm.setString(4, "%" + search + "%");
+            }
+            if (did == 0 && gender == -1 && active > -1 && search == "") {
+                stm.setInt(1, active);
+            }
+            if (did > 0 && gender == -1 && active == -1 && search == "") {
+                stm.setInt(1, did);
+            }
+            if (did == 0 && gender > -1 && active == -1 && search == "") {
+                stm.setInt(1, gender);
+            }
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Role r = new Role();
+                r.setrId(rs.getInt("role_id"));
+                r.setrName(rs.getString("role_name"));
+                Account a = new Account();
+                a.setUser_id(rs.getInt("user_id"));
+                a.setUsername(rs.getString("username"));
+                a.setPassword(rs.getString("password"));
+                a.setFull_name(rs.getString("full_name"));
+                a.setRole(r);
+                a.setGender(rs.getBoolean("gender"));
+                a.setEmail(rs.getString("email"));
+                a.setCity(rs.getString("city"));
+                a.setCountry(rs.getString("country"));
+                a.setPhone(rs.getString("phone"));
+                a.setImage_url(rs.getString("image_url"));
+                a.setActive(rs.getInt("active"));
+                accounts.add(a);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return accounts;
+    }
+
+    public List<Account> getListByPage(List<Account> list, int start, int end) {
+        ArrayList<Account> arr = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            arr.add(list.get(i));
+        }
+        return arr;
+    }
+
+    public void updateAcc(Account model) {
+        try {
+            String sql = "UPDATE [accounts]\n"
+                    + "   SET [full_name] = ?\n"
+                    + "      ,[role_id] = ?\n"
+                    + "      ,[gender] = ?\n"
+                    + "      ,[email] = ?\n"
+                    + "      ,[phone] = ?\n"
+                    + "      ,[active] = ?\n"
+                    + " WHERE [user_id] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, model.getFull_name());
+            stm.setBoolean(3, model.isGender());
+            stm.setInt(2, model.getRole().getrId());
+            stm.setString(4, model.getEmail());
+            stm.setString(5, model.getPhone());
+            stm.setInt(6, model.getActive());
+            stm.setInt(7, model.getUser_id());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public Account getAccountByID(Account acc) {
@@ -186,7 +407,7 @@ public class AccountDAO extends DBContext {
         return false;
     }
 
-    public String singup(Account acc) {
+    public String singup(Account acc, int choise) {
         String sql = "INSERT INTO [dbo].[accounts]\n"
                 + "           ([username]\n"
                 + "           ,[password]\n"
@@ -202,8 +423,12 @@ public class AccountDAO extends DBContext {
                 + "           ,[registered_date]\n"
                 + "           ,[role_id]\n"
                 + "           ,[active])\n"
-                + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?,?,'images\\account-images\\acc.png','(Nah)','(Nah)',getdate(),1,'0')";
+                + "     VALUES";
+        if (choise == 1) {
+            sql += "(?,?,?,?,?,?,?,?,'images\\account-images\\acc.png','(Nah)','(Nah)',getdate(),?,'1')";
+        } else {
+            sql += "(?,?,?,?,?,?,?,?,'images\\account-images\\acc.png','(Nah)','(Nah)',getdate(),1,'0')";
+        }
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, acc.getUsername());
@@ -214,6 +439,9 @@ public class AccountDAO extends DBContext {
             stm.setString(6, acc.getPhone());
             stm.setString(7, acc.getAddress());
             stm.setString(8, acc.getMyHash());
+            if (choise == 1) {
+                stm.setInt(9, acc.getRole_id());
+            }
             int i = stm.executeUpdate();
             if (i != 0) {
                 //send Email
@@ -294,6 +522,17 @@ public class AccountDAO extends DBContext {
 
             ResultSet rs = stm.executeQuery();
         } catch (SQLException e) {
+        }
+    }
+
+    public void deleteAccount(String aId) {
+        String query = "DELETE FROM [accounts]\n"
+                + "      WHERE [role_id] = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(query);
+            stm.setString(1, aId);
+            ResultSet rs = stm.executeQuery();
+        } catch (Exception e) {
         }
     }
 
@@ -609,5 +848,9 @@ public class AccountDAO extends DBContext {
         AccountDAO d = new AccountDAO();
         int num = d.countCustomerPaging("", 1, 1, 6);
         System.out.println(num);
+//        ArrayList<Account> r = d.searchByRid(0);
+//        for (Account role : r) {
+//            System.out.println(role.getFull_name());
+//        }
     }
 }

@@ -19,7 +19,7 @@
         </form>-->
         <ul class="sidebar-menu">
             <li>
-                <a href="#">
+                <a href="admin">
                     <i class="fa fa-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
@@ -31,9 +31,9 @@
                 </a>
             </li>
             <li>
-                <a href="#">
-                   <i class="fa-solid fa-person-military-pointing"></i>
-                    <span>Customer List</span>
+                <a href="userslist">
+                    <i class="fa-solid fa-address-book"></i>
+                    <span>User list</span>
                 </a>
             </li>
             <li>
