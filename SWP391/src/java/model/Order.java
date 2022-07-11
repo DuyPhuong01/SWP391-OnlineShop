@@ -31,10 +31,13 @@ public class Order {
     private String note;
     private String payment;
     private double total_price;
-
+    private String sale_note;
+    
     private List<OrderDetail> orderDetailList;
     private Date orderDate;
     private Account account;
+    private Account sale;
+    private OrderStatus orderStatus;
     public Order() {
     }
 
@@ -58,6 +61,27 @@ public class Order {
         this.total_price = total_price;
     }
 
+    public Order(int order_id, int user_id, String order_Date, String require_date, String shipped_Date, int ship_via, double freight, String ship_name, String ship_address, boolean ship_gender, String ship_mobile, String ship_email, String ship_city, int status, String note, String payment, double total_price, String sale_note) {
+        this.order_id = order_id;
+        this.user_id = user_id;
+        this.order_Date = order_Date;
+        this.require_date = require_date;
+        this.shipped_Date = shipped_Date;
+        this.ship_via = ship_via;
+        this.freight = freight;
+        this.ship_name = ship_name;
+        this.ship_address = ship_address;
+        this.ship_gender = ship_gender;
+        this.ship_mobile = ship_mobile;
+        this.ship_email = ship_email;
+        this.ship_city = ship_city;
+        this.status = status;
+        this.note = note;
+        this.payment = payment;
+        this.total_price = total_price;
+        this.sale_note = sale_note;
+    }
+    
     public int getOrder_id() {
         return order_id;
     }
@@ -218,6 +242,30 @@ public class Order {
         this.account = account;
     }
 
+    public Account getSale() {
+        return sale;
+    }
+
+    public void setSale(Account sale) {
+        this.sale = sale;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public String getSale_note() {
+        return sale_note;
+    }
+
+    public void setSale_note(String sale_note) {
+        this.sale_note = sale_note;
+    }
+    
     @Override
     public String toString() {
         return "Order{" + "order_id=" + order_id + ", user_id=" + user_id + ", order_Date=" + order_Date + ", require_date=" + require_date + ", shipped_Date=" + shipped_Date + ", ship_via=" + ship_via + ", freight=" + freight + ", ship_name=" + ship_name + ", ship_address=" + ship_address + ", ship_gender=" + ship_gender + ", ship_mobile=" + ship_mobile + ", ship_email=" + ship_email + ", ship_city=" + ship_city + ", status=" + status + ", note=" + note + ", payment=" + payment + ", total_price=" + total_price + '}';

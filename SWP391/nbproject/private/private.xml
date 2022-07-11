@@ -5,6 +5,16 @@
         <group>
             <file>file:/C:/Users/win/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/src/java/controller/marketing/PostListServlet.java</file>
             <file>file:/C:/Users/win/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/web/marketing/postlist.jsp</file>
+            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/src/java/dal/SaleDAO.java</file>
+            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/web/sale/dashboard.jsp</file>
+            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/web/css/admin.css</file>
+            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/src/java/dal/AccountDAO.java</file>
+            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/web/js/admin.js</file>
+            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/src/java/dal/OrderDAO.java</file>
+            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/web/admin/dashboard.jsp</file>
+            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/src/java/controller/admin/AdminServlet.java</file>
+            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/src/java/util/DateTimeUtil.java</file>
+            <file>file:/C:/Users/Admin/Desktop/WorkSpace/summer2022-se1611-g2/SWP391/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>

@@ -358,4 +358,59 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
+    public List getListOfNewlyRegisterCustomer(LocalDate start, LocalDate end) {
+        List result = new ArrayList();
+        for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
+            result.add(RegisteredCustomerByDay(i));
+        }
+        return result;
+    }
+
+    private int RegisteredCustomerByDay(LocalDate start) {
+        String sql = "select COUNT(*) from accounts where registered_date between ? and ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, start.toString());
+            st.setString(2, start.plusDays(1).toString());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+
+        }
+        return 0;
+    }
+
+    public List getListOfNewlyBoughtCustomer(LocalDate start, LocalDate end) {
+        List result = new ArrayList();
+        for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
+            result.add(NewlyBoughtCustomerByDay(i));
+        }
+        return result;
+    }
+
+    private int NewlyBoughtCustomerByDay(LocalDate start) {
+        String sql = "select count(distinct o.user_id) from orders o\n"
+                + "inner join accounts a\n"
+                + "on o.user_id = a.user_id\n"
+                + "where order_date between ? and ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, start.toString());
+            st.setString(2, start.plusDays(1).toString());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+
+        }
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        AccountDAO d = new AccountDAO();
+        System.out.println(d.getListOfNewlyRegisterCustomer(LocalDate.parse("2022-07-01"), LocalDate.now().plusDays(1)));
+    }
 }

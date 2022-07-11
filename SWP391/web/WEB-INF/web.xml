@@ -212,6 +212,10 @@
         <servlet-name>ChangePostCategoryServlet</servlet-name>
         <servlet-class>controller.marketing.ChangePostCategoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>controller.admin.AdminServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -353,7 +357,14 @@
         <servlet-name>ChangePostCategoryServlet</servlet-name>
         <url-pattern>/marketing/changepostcategory</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
   
+=======
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+>>>>>>> 0ee95fc9210c6ebfece6983a206882c563b22acb
     <session-config>
         <session-timeout>
             30
