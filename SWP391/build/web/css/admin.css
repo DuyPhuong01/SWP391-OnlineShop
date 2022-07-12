@@ -136,3 +136,9 @@ div#revenue-wrapper>div {
 .order-count .sort-bar .select-time-wrapper{
     margin-top: 0;
 }
+.customer-wrapper span{
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-left: 20px;
+}

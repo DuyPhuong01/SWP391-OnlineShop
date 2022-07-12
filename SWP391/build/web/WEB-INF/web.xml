@@ -226,6 +226,10 @@
         <servlet-name>AdminServlet</servlet-name>
         <servlet-class>controller.admin.AdminServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SettingsList</servlet-name>
+        <servlet-class>controller.admin.SettingsList</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -370,6 +374,10 @@
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingsList</servlet-name>
+        <url-pattern>/admin/settingslist</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

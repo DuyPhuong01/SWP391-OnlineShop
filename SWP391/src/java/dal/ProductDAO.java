@@ -528,4 +528,8 @@ public class ProductDAO extends DBContext {
         return false;
     }
     // </editor-fold>
+    public static void main(String[] args) {
+        ProductDAO p = new ProductDAO();
+        List<Product> list = p.getAllProductsByRange(0, 0, "", "1", 0, 0, 0);
+    }
 }

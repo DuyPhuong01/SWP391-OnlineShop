@@ -116,9 +116,66 @@ function getColorArray(number) {
     arr = arr.substring(0, arr.length - 1);
     return arr.split(";");
 }
+var myChart1;
+var myChart2;
+var myChart3;
 function createChart(type, label = [], data = [], color = [], id, title) {
     const ctx = document.getElementById(id).getContext('2d');
-    const myChart = new Chart(ctx, {
+    myChart1 = new Chart(ctx, {
+        type: type,
+        data: {
+            labels: label,
+            datasets: [{
+                    label: 'Revenues',
+                    data: data,
+                    backgroundColor: color,
+                    borderWidth: 1
+                }]
+        },
+        options: {
+            legend: {
+                display: false,
+                position: 'left'
+            },
+            title: {
+                display: true,
+                text: title,
+                position: 'top',
+                fontSize: 16,
+                padding: 20
+            },
+            scales: {
+                yAxes: [{
+                        ticks: {
+                            min: 0
+                        }
+                    }]
+            },
+            options: {
+                responsive: true,
+                datalabels: {// This code is used to display data values
+                    anchor: 'end',
+                    align: 'top',
+                    formatter: Math.round,
+                    font: {
+                        weight: 'bold',
+                        size: 16
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Custom Chart Title'
+                    }
+                }
+            }
+        }
+    });
+}
+function updateChart(type, label = [], data = [], color = [], id, title) {
+    myChart1.destroy();
+    const ctx = document.getElementById(id).getContext('2d');
+    myChart1 = new Chart(ctx, {
         type: type,
         data: {
             labels: label,
@@ -171,7 +228,67 @@ function createChart(type, label = [], data = [], color = [], id, title) {
 }
 function createChart2(type, label = [], data1 = [], data2 = [], id, title, label1, label2) {
     const ctx = document.getElementById(id).getContext('2d');
-    const myChart = new Chart(ctx, {
+    myChart2 = new Chart(ctx, {
+        type: type,
+        data: {
+            labels: label,
+            datasets: [{
+                    label: label1,
+                    data: data1,
+                    backgroundColor: 'pink',
+                    borderWidth: 1
+                },
+                {
+                    label: label2,
+                    data: data2,
+                    backgroundColor: 'yellow',
+                    borderWidth: 1
+                }]
+        },
+        options: {
+            legend: {
+                display: false,
+                position: 'left'
+            },
+            title: {
+                display: true,
+                text: title,
+                position: 'top',
+                fontSize: 16,
+                padding: 20
+            },
+            scales: {
+                yAxes: [{
+                        ticks: {
+                            min: 0
+                        }
+                    }]
+            },
+            options: {
+                responsive: true,
+                datalabels: {// This code is used to display data values
+                    anchor: 'end',
+                    align: 'top',
+                    formatter: Math.round,
+                    font: {
+                        weight: 'bold',
+                        size: 16
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Custom Chart Title'
+                    }
+                }
+            }
+        }
+    });
+}
+function updateChart2(type, label = [], data1 = [], data2 = [], id, title, label1, label2) {
+    myChart2.destroy();
+    const ctx = document.getElementById(id).getContext('2d');
+    myChart2 = new Chart(ctx, {
         type: type,
         data: {
             labels: label,
@@ -230,7 +347,71 @@ function createChart2(type, label = [], data1 = [], data2 = [], id, title, label
 }
 function createChart3(type, label = [], data1 = [], data2 = [], id, title, label1, label2) {
     const ctx = document.getElementById(id).getContext('2d');
-    const myChart = new Chart(ctx, {
+    myChart3 = new Chart(ctx, {
+        type: type,
+        data: {
+            labels: label,
+            datasets: [{
+                    label: label1,
+                    data: data1,
+                    fill: false,
+                    borderColor: 'red',
+                    tension: 0.1,
+                    borderWidth: 1
+                },
+                {
+                    label: label2,
+                    data: data2,
+                    fill: false,
+                    borderColor: 'yellow',
+                    tension: 0.1,
+                    borderWidth: 1
+                }]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'right'
+            },
+            title: {
+                display: true,
+                text: title,
+                position: 'top',
+                fontSize: 16,
+                padding: 20
+            },
+            scales: {
+                yAxes: [{
+                        ticks: {
+                            min: 0
+                        }
+                    }]
+            },
+            options: {
+                responsive: true,
+                datalabels: {// This code is used to display data values
+                    anchor: 'end',
+                    align: 'top',
+                    formatter: Math.round,
+                    font: {
+                        weight: 'bold',
+                        size: 16
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Custom Chart Title'
+                    }
+                }
+            }
+        }
+    });
+}
+function updateChart3(type, label = [], data1 = [], data2 = [], id, title, label1, label2) {
+    myChart3.destroy();
+    const ctx = document.getElementById(id).getContext('2d');
+    myChart3 = new Chart(ctx, {
         type: type,
         data: {
             labels: label,
@@ -357,7 +538,7 @@ function newOrderStatistic(item) {
         success: function (response) {
             const myArr = JSON.parse(response);
             const label = ['submitted', 'success', 'canceled'];
-            createChart('pie', label, myArr, getColorArray(3), 'myChart', 'New order');
+            updateChart('pie', label, myArr, getColorArray(3), 'myChart', 'New order');
             document.getElementById('submitted-order').innerHTML = myArr[0];
             document.getElementById('success-order').innerHTML = myArr[1];
             document.getElementById('cancel-order').innerHTML = myArr[2];
@@ -417,7 +598,7 @@ function newCustomerTime(item) {
             console.log(myObj.newlyBought);
             console.log(myObj.label);
             console.log(myObj.newlyRegister);
-            createChart2('bar', myObj.label, myObj.newlyRegister, myObj.newlyBought, 'myChart2', 'Customer');
+            updateChart2('bar', myObj.label, myObj.newlyRegister, myObj.newlyBought, 'myChart2', 'Customer');
             var tbody = document.getElementById('customer-table-body');
             var content = "";
             for (var i = myObj.label.length - 1; i >= 0; i--) {
@@ -439,7 +620,7 @@ function newOrderTime(item) {
         },
         success: function (response) {
             const myObj = JSON.parse(response);
-            createChart3('line', myObj.label, myObj.successOrder, myObj.allOrder, 'myChart3', 'Orders Count', 'Success Orders', 'All Orders');
+            updateChart3('line', myObj.label, myObj.successOrder, myObj.allOrder, 'myChart3', 'Orders Count', 'Success Orders', 'All Orders');
             var tbody = document.getElementById('order-table-body');
             var content = "";
             for (var i = myObj.label.length - 1; i >= 0; i--) {
@@ -451,4 +632,16 @@ function newOrderTime(item) {
 
         }
     });
+}
+function submitFormWithNewOrderOption(item) {
+    document.getElementById('orderOption').value = item.value;
+    document.getElementById('submit-frm').submit();
+}
+function submitFormWithSequence(item) {
+    document.getElementById('sequence').value = item.value;
+    document.getElementById('submit-frm').submit();
+}
+function submitFormWithNewPage(page) {
+    document.getElementById('pageNumber').value = page;
+    document.getElementById('submit-frm').submit();
 }
