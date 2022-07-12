@@ -45,12 +45,10 @@
         <filter-name>NewFilter</filter-name>
         <url-pattern>/buy</url-pattern>
         <url-pattern>/feedback</url-pattern>
-        <url-pattern>/register</url-pattern>
         <url-pattern>/checkout</url-pattern>
         <url-pattern>/process</url-pattern>
         <url-pattern>/product</url-pattern>
         <url-pattern>/showcart</url-pattern>
-        <url-pattern>/activate</url-pattern>
         <url-pattern>/cartcompletion</url-pattern>
         <url-pattern>/delete_order</url-pattern>
         <url-pattern>/updateorder</url-pattern>
@@ -58,7 +56,6 @@
         <url-pattern>/myorders</url-pattern>
         <url-pattern>/orderinformation</url-pattern>
         <url-pattern>/marketing/.*</url-pattern>
-        <url-pattern>/logout</url-pattern>
         <url-pattern>/delete_order</url-pattern>
         <url-pattern>/resetpass</url-pattern>
         <url-pattern>/myorders</url-pattern>
@@ -163,10 +160,6 @@
         <servlet-class>controller.authentication.UpdateAccount</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PostListServlet</servlet-name>
-        <servlet-class>controller.marketing.PostListServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UpdateFeaturePostServlet</servlet-name>
         <servlet-class>controller.marketing.UpdateFeaturePostServlet</servlet-class>
     </servlet>
@@ -177,10 +170,6 @@
     <servlet>
         <servlet-name>UploadServlet</servlet-name>
         <servlet-class>UploadServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddPostServlet</servlet-name>
-        <servlet-class>controller.marketing.AddPostServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddPostCategoryServlet</servlet-name>
@@ -229,6 +218,22 @@
     <servlet>
         <servlet-name>SettingsList</servlet-name>
         <servlet-class>controller.admin.SettingsList</servlet-class>
+    </servlet>
+    <servlet>    
+        <servlet-name>UpdateFeatureCustomerServlet</servlet-name>
+        <servlet-class>controller.marketing.UpdateFeatureCustomerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UsersListServlet</servlet-name>
+        <servlet-class>controller.admin.UsersListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddUserServlet</servlet-name>
+        <servlet-class>controller.admin.AdminAddUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminUdateAccServlet</servlet-name>
+        <servlet-class>controller.admin.AdminUdateAccServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -379,6 +384,22 @@
         <servlet-name>SettingsList</servlet-name>
         <url-pattern>/admin/settingslist</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsersListServlet</servlet-name>
+        <url-pattern>/userslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFeatureCustomerServlet</servlet-name>
+        <url-pattern>/marketing/updatefeaturecustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddUserServlet</servlet-name>
+        <url-pattern>/adminadduser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminUdateAccServlet</servlet-name>
+        <url-pattern>/adminudateacc</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -389,9 +410,9 @@
         <servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
         <init-param>
             <description>
-                        Path to configuration file can be relative path inside application,
-                        absolute path on local file system or UNC path.
-                </description>
+                Path to configuration file can be relative path inside application,
+                absolute path on local file system or UNC path.
+            </description>
             <param-name>XMLConfig</param-name>
             <param-value>/WEB-INF/config.xml</param-value>
         </init-param>

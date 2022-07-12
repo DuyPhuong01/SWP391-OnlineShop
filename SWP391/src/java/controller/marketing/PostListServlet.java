@@ -69,7 +69,7 @@ public class PostListServlet extends HttpServlet {
         request.setAttribute("maxpage",maxPage);
         request.setAttribute("authors", authors);
         request.setAttribute("subcategories", allPostSubCategory);
-        request.getRequestDispatcher("postlist.jsp").forward(request, response);
+        request.getRequestDispatcher("/marketing/postlist.jsp").forward(request, response);
     }
 
  

@@ -46,6 +46,10 @@
                                     <h3>Filter</h3>
                                 </div>
                                 <div class="search_list row">
+                                    <div class="col-1 search-item">
+                                      
+                                    </div>
+                                    
                                     <div class="col-3 search-item">
                                         <label for="category">Category:</label>
                                         <select class="form-select form-select-sm" name="category" id="category" aria-label=".form-select-sm example" onchange="cat(1)">
@@ -56,6 +60,12 @@
                                             </c:forEach>
                                         </select>
                                     </div>
+                                      <div class="col-3 search-item">
+                                            <label for="category">Sub Category:</label>
+                                            <select class="form-select form-select-sm" name="sub_category" id="sub_category" aria-label=".form-select-sm example" onchange="SubmitForm(1)">
+                                                <option value="0" >All</option>
+                                            </select>
+                                        </div>
                                     <div class="col-3 search-item">
                                         <label for="author">Author</label>
                                         <select class="form-select form-select-sm" name="author" id="author" aria-label=".form-select-sm example" onchange="SubmitForm(1)">
@@ -65,49 +75,10 @@
                                             </c:forEach>
                                         </select>
                                     </div>
-                                    <div class="col-3 search-item">
-                                        <!--                                       <label for="category">Sort By:</label>
-                                                                               <select class="form-select form-select-sm" id="sort" aria-label=".form-select-sm example" 
-                                                                                     name="sort" id="sort" onchange="SubmitForm(1)">
-                                                                                <option value="0">All</option>
-                                                                                <option value="1">Post</option>
-                                                                                <option value="2">Author</option>
-                                                                                <option value="3">Category</option>
-                                                                              </select>-->
-                                    </div>
-
-
+                                    
                                 </div>
-                                <div class="filter-container">
-                                    <div class="search_list row">
-                                        <div class="col-3 search-item">
-                                            <label for="category">Sub Category:</label>
-                                            <select class="form-select form-select-sm" name="sub_category" id="sub_category" aria-label=".form-select-sm example" onchange="SubmitForm(1)">
-                                                <option value="0" >All</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-3 search-item">
-                                            <label for="category">Sort By:</label>
-                                            <select class="form-select form-select-sm" id="sort" aria-label=".form-select-sm example" 
-                                                    name="sort" id="sort" onchange="SubmitForm(1)">
-                                                <option value="0">ID</option>
-                                                <option value="1">Post</option>
-                                                <option value="2">Author</option>
-                                                <option value="3">Category</option>
-                                            </select>
-
-                                        </div>
-                                        <div class="col-3 search-item radio" style="align-items: center">
-                                            <label for="asc">Asc:</label>
-                                            <input type="radio" id="asc" name="op" checked value="1"
-                                                   style="margin-right: 10px;" onclick="SubmitForm(1)" >
-                                            <label for="desc">Desc</label>
-                                            <input type="radio" id="desc" name="op" value="0" onclick="SubmitForm(1)" >
-                                        </div>
-
-
-                                    </div>
-                                    <!--                         
+                            
+                                                         
                                                                             
                                      
                                     <!-- NavBar  -->
@@ -148,14 +119,24 @@
                                         </div>
                                         <!--Content-->
                                         <div id="content">
-                                            <table class="table">
+                                            <table class="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>Title</th>
-                                                        <th>Author</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
+                                                        <th>
+                                                             <i value="1" class="sort-item fa-solid fa-arrow-down-a-z sort-active" onclick="Checksort(this)"></i>   
+                                                            ID
+                                                        </th>
+                                                        <th> <i value="2" class="sort-item fa-solid fa-arrow-down-a-z " onclick="Checksort(this)"></i>
+                                                            Title
+                                                        </th>
+                                                        <th> <i value="3" class="sort-item fa-solid fa-arrow-down-a-z " onclick="Checksort(this)"></i>
+                                                            Author
+                                                        </th>
+                                                        <th> <i value="4" class="sort-item fa-solid fa-arrow-down-a-z " onclick="Checksort(this)"></i>
+                                                            Status
+                                                        </th>
+                                                        <input hidden id="sort_input" name="sort" value="1">
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="listpost">
@@ -164,13 +145,13 @@
                                                             <td>${p.post_id}</td>
                                                             <td class="w-50">
                                                                 <div class="row">
-                                                                    <div class="col-4 image-item">
+                                                                    <div class="col-3 image-item">
                                                                         <a href="postdetails?id=${p.post_id}">
 
                                                                             <img src="../${p.thumbnail}" />
                                                                         </a>
                                                                     </div>
-                                                                    <div class="col-8 title">
+                                                                    <div class="col-9 title">
                                                                         <p class="title-detail">
                                                                             ${p.title}
                                                                         </p>
@@ -188,11 +169,11 @@
                                                                     <button type="button" class="edit-btn btn btn-secondary btn-sm ">
                                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                                         <a href="postdetails?id=${p.post_id}&action=edit">Edit</a>
-                                                                    </button>
-                                                                    <button type="button" class=" view-btn btn btn-primary btn-sm ">
-                                                                        <i class="fa-solid fa-eye"></i><a href="postdetails?id=${p.post_id}&action=view">View</a></button>
-                                                                </td>
-                                                            </tr>   
+                                                                </button>
+                                                                <button type="button" class=" view-btn btn btn-primary btn-sm ">
+                                                                    <i class="fa-solid fa-eye"></i><a href="postdetails?id=${p.post_id}&action=view">View</a></button>
+                                                            </td>
+                                                        </tr>   
                                                     </c:forEach>
                                                 </tbody>
                                             </table>
@@ -246,8 +227,8 @@
                                                                     </div>
                                                                     </div>
                                                                     </div>
-                                                                    </body>
                                                                     <script src="../js/marketing/post_list.js"></script>
                                                                     <!--Ajax-->
                                                                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                                                                    </body>
                                                                     </html>

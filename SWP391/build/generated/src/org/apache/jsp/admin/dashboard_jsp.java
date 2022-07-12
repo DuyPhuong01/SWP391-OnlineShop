@@ -17,6 +17,7 @@ public final class dashboard_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_dependants.add("/admin/sidebar.jsp");
   }
 
+  private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_forEach_var_items;
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_if_test;
 
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
@@ -26,10 +27,12 @@ public final class dashboard_jsp extends org.apache.jasper.runtime.HttpJspBase
   }
 
   public void _jspInit() {
+    _jspx_tagPool_c_forEach_var_items = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _jspx_tagPool_c_if_test = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
   }
 
   public void _jspDestroy() {
+    _jspx_tagPool_c_forEach_var_items.release();
     _jspx_tagPool_c_if_test.release();
   }
 
@@ -70,8 +73,8 @@ public final class dashboard_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <!--bootstrap-->\r\n");
       out.write("        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor\" crossorigin=\"anonymous\">\r\n");
       out.write("\r\n");
-      out.write("        <link href=\"/swp/css/stylesaleheadersider.css\" rel=\"stylesheet\"/>\r\n");
-      out.write("        <link href=\"/swp/css/admin.css\" rel=\"stylesheet\"/>\r\n");
+      out.write("        <link href=\"css/stylesaleheadersider.css\" rel=\"stylesheet\"/>\r\n");
+      out.write("        <link href=\"css/admin.css\" rel=\"stylesheet\"/>\r\n");
       out.write("        <!--font-awesome-->\r\n");
       out.write("        <script src=\"https://kit.fontawesome.com/3c84cb624f.js\" crossorigin=\"anonymous\"></script>\r\n");
       out.write("    </head>\r\n");
@@ -196,19 +199,129 @@ public final class dashboard_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                    <span>Revenue</span>\r\n");
       out.write("                                    <div class=\"flex-1\"></div>\r\n");
       out.write("                                    <label>Time</label>\r\n");
-      out.write("                                    <select>\r\n");
+      out.write("                                    <select onchange=\"newRevenueTime(this);\">\r\n");
       out.write("                                        <option value=\"1\">Last 7 days</option>\r\n");
       out.write("                                        <option value=\"2\">Last 1 month</option>\r\n");
       out.write("                                        <option value=\"3\">Last 3 months</option>\r\n");
       out.write("                                    </select>\r\n");
       out.write("                                </div>\r\n");
+      out.write("                                <table class=\"table table-hover table-bordered\" id=\"\">\r\n");
+      out.write("                                    <thead>\r\n");
+      out.write("                                        <tr>\r\n");
+      out.write("                                            <th>Product category</th>\r\n");
+      out.write("                                            <th>Revenue</th>\r\n");
+      out.write("                                        </tr>\r\n");
+      out.write("                                    </thead>\r\n");
+      out.write("                                    <tbody id=\"revenue-body\">\r\n");
+      out.write("                                        ");
+      if (_jspx_meth_c_forEach_0(_jspx_page_context))
+        return;
       out.write("\r\n");
+      out.write("                                    </tbody>\r\n");
+      out.write("                                </table>\r\n");
       out.write("                            </div>\r\n");
       out.write("                        </div>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <div class=\"row\">\r\n");
+      out.write("                        <div class=\"col-md-4 feedback-wrapper\">\r\n");
+      out.write("                            <div class=\"flex feedback-wrapper-header\">\r\n");
+      out.write("                                <h3>Feedbacks</h3>\r\n");
+      out.write("                                <div class=\"flex-1\">\r\n");
+      out.write("                                </div>\r\n");
+      out.write("                                <div>\r\n");
+      out.write("                                    <span>Time</span>\r\n");
+      out.write("                                    <select name=\"feedback\" onchange=\"newFeedbackTime(this);\">\r\n");
+      out.write("                                        <option value=\"1\">Last 7 days</option>\r\n");
+      out.write("                                        <option value=\"2\">Last 1 month</option>\r\n");
+      out.write("                                        <option value=\"3\">Last 3 months</option>\r\n");
+      out.write("                                    </select>\r\n");
+      out.write("                                </div>\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                            <table>\r\n");
+      out.write("                                ");
+      if (_jspx_meth_c_forEach_1(_jspx_page_context))
+        return;
       out.write("\r\n");
+      out.write("                            </table>\r\n");
+      out.write("                        </div>\r\n");
+      out.write("                        <div class=\"col-md-8 customer-wrapper\">\r\n");
+      out.write("                            <div class=\"row\">\r\n");
+      out.write("                                <div class=\"flex\">\r\n");
+      out.write("                                    <h3>Customer</h3>\r\n");
+      out.write("                                    <div class=\"flex-1\"></div>\r\n");
+      out.write("                                    <div class=\"select-time-wrapper\">\r\n");
+      out.write("                                        <label for=\"order-time\">Time</label>\r\n");
+      out.write("                                        <select onchange=\"newCustomerTime(this);\" id=\"order-time\">\r\n");
+      out.write("                                            <option value=\"1\">Last 7 days</option>\r\n");
+      out.write("                                            <option value=\"2\">Last 1 month</option>\r\n");
+      out.write("                                            <option value=\"3\">Last 3 months</option>\r\n");
+      out.write("                                        </select>\r\n");
+      out.write("                                    </div>\r\n");
+      out.write("                                </div>\r\n");
+      out.write("                                <div class=\"col-md-6\">\r\n");
+      out.write("                                    <div class=\"chart2-wrapper\">\r\n");
+      out.write("                                        <canvas id=\"myChart2\" width=\"400\" height=\"400\"></canvas>\r\n");
+      out.write("                                    </div>\r\n");
+      out.write("                                </div>\r\n");
+      out.write("                                <div class=\"col-md-6\">\r\n");
+      out.write("                                    <div class=\"table-wrapper\">\r\n");
       out.write("\r\n");
+      out.write("                                        <table class=\"table table-striped table-hover table-bordered\">\r\n");
+      out.write("                                            <thead>\r\n");
+      out.write("                                                <tr>\r\n");
+      out.write("                                                    <th scope=\"col\">Date</th>\r\n");
+      out.write("                                                    <th scope=\"col\">Newly Registered Customer</th>\r\n");
+      out.write("                                                    <th scope=\"col\">Newly Bought Customer</th>\r\n");
+      out.write("                                                </tr>\r\n");
+      out.write("                                            </thead>\r\n");
+      out.write("                                            <tbody id=\"customer-table-body\">\r\n");
+      out.write("\r\n");
+      out.write("                                            </tbody>\r\n");
+      out.write("                                        </table>\r\n");
+      out.write("                                    </div>\r\n");
+      out.write("                                </div>\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                        </div>\r\n");
+      out.write("                    </div>\r\n");
+      out.write("                    <div class=\"row order-count\">\r\n");
+      out.write("                        <div class=\"sort-bar\">\r\n");
+      out.write("                            <h3>Trends of order count</h3>\r\n");
+      out.write("                            <div class=\"flex-1\"></div>\r\n");
+      out.write("                            <div class=\"select-time-wrapper\">\r\n");
+      out.write("                                <label for=\"order-time\">Time</label>\r\n");
+      out.write("                                <select onchange=\"newOrderTime(this);\" id=\"order-time\">\r\n");
+      out.write("                                    <option value=\"1\">Last 7 days</option>\r\n");
+      out.write("                                    <option value=\"2\">Last 1 month</option>\r\n");
+      out.write("                                    <option value=\"3\">Last 3 months</option>\r\n");
+      out.write("                                </select>\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                        </div>\r\n");
+      out.write("                        <div class=\"row\" style=\"    width: 90%;\r\n");
+      out.write("                             margin-left: auto;\r\n");
+      out.write("                             margin-right: auto;\">\r\n");
+      out.write("                            <div class=\"col-md-7\">\r\n");
+      out.write("                                <div class=\"chart3-wrapper\">\r\n");
+      out.write("                                    <canvas id=\"myChart3\" width=\"400\" height=\"400\"></canvas>\r\n");
+      out.write("                                </div>\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                            <div class=\"col-md-5\">\r\n");
+      out.write("                                <div class=\"table-wrapper\">\r\n");
+      out.write("\r\n");
+      out.write("                                    <table class=\"table table-striped table-hover table-bordered\">\r\n");
+      out.write("                                        <thead>\r\n");
+      out.write("                                            <tr>\r\n");
+      out.write("                                                <th scope=\"col\">Date</th>\r\n");
+      out.write("                                                <th scope=\"col\">Success Order</th>\r\n");
+      out.write("                                                <th scope=\"col\">All Order</th>\r\n");
+      out.write("                                            </tr>\r\n");
+      out.write("                                        </thead>\r\n");
+      out.write("                                        <tbody id=\"order-table-body\">\r\n");
+      out.write("\r\n");
+      out.write("                                        </tbody>\r\n");
+      out.write("                                    </table>\r\n");
+      out.write("                                </div>\r\n");
+      out.write("                            </div>\r\n");
+      out.write("                        </div>\r\n");
       out.write("                    </div>\r\n");
       out.write("                </section>\r\n");
       out.write("            </aside>\r\n");
@@ -260,6 +373,100 @@ public final class dashboard_jsp extends org.apache.jasper.runtime.HttpJspBase
       return true;
     }
     _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_0);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_forEach_0(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:forEach
+    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_0 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
+    _jspx_th_c_forEach_0.setPageContext(_jspx_page_context);
+    _jspx_th_c_forEach_0.setParent(null);
+    _jspx_th_c_forEach_0.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.cateList}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_forEach_0.setVar("i");
+    int[] _jspx_push_body_count_c_forEach_0 = new int[] { 0 };
+    try {
+      int _jspx_eval_c_forEach_0 = _jspx_th_c_forEach_0.doStartTag();
+      if (_jspx_eval_c_forEach_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+        do {
+          out.write("\r\n");
+          out.write("                                            <tr>\r\n");
+          out.write("                                                <td id=\"submitted-order\" class=\"");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${i.category_id == 0? \"bold\":\"\"}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write('"');
+          out.write('>');
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${i.category_name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</td>\r\n");
+          out.write("                                                <td id=\"revenue-statistic\"></td>\r\n");
+          out.write("                                            </tr>\r\n");
+          out.write("                                        ");
+          int evalDoAfterBody = _jspx_th_c_forEach_0.doAfterBody();
+          if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+            break;
+        } while (true);
+      }
+      if (_jspx_th_c_forEach_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+        return true;
+      }
+    } catch (Throwable _jspx_exception) {
+      while (_jspx_push_body_count_c_forEach_0[0]-- > 0)
+        out = _jspx_page_context.popBody();
+      _jspx_th_c_forEach_0.doCatch(_jspx_exception);
+    } finally {
+      _jspx_th_c_forEach_0.doFinally();
+      _jspx_tagPool_c_forEach_var_items.reuse(_jspx_th_c_forEach_0);
+    }
+    return false;
+  }
+
+  private boolean _jspx_meth_c_forEach_1(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:forEach
+    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_1 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
+    _jspx_th_c_forEach_1.setPageContext(_jspx_page_context);
+    _jspx_th_c_forEach_1.setParent(null);
+    _jspx_th_c_forEach_1.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.cateList}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_forEach_1.setVar("i");
+    int[] _jspx_push_body_count_c_forEach_1 = new int[] { 0 };
+    try {
+      int _jspx_eval_c_forEach_1 = _jspx_th_c_forEach_1.doStartTag();
+      if (_jspx_eval_c_forEach_1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+        do {
+          out.write("\r\n");
+          out.write("                                    <tr>\r\n");
+          out.write("                                        <th id=\"submitted-order\" class=\"");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${i.category_id == 0? \"bold\":\"\"}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write('"');
+          out.write('>');
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${i.category_name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</th>\r\n");
+          out.write("                                        <td id=\"revenue-statistic\">\r\n");
+          out.write("                                            <div class=\"progress\">\r\n");
+          out.write("                                                <div class=\"progress-bar progress-bar-striped progress-bar-animated bg-danger\" role=\"progressbar\" aria-valuenow=\"5\" aria-valuemin=\"0\" aria-valuemax=\"5\" id=\"progress-bar\"></div>\r\n");
+          out.write("                                            </div>\r\n");
+          out.write("                                        </td>\r\n");
+          out.write("                                    </tr>\r\n");
+          out.write("                                ");
+          int evalDoAfterBody = _jspx_th_c_forEach_1.doAfterBody();
+          if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+            break;
+        } while (true);
+      }
+      if (_jspx_th_c_forEach_1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+        return true;
+      }
+    } catch (Throwable _jspx_exception) {
+      while (_jspx_push_body_count_c_forEach_1[0]-- > 0)
+        out = _jspx_page_context.popBody();
+      _jspx_th_c_forEach_1.doCatch(_jspx_exception);
+    } finally {
+      _jspx_th_c_forEach_1.doFinally();
+      _jspx_tagPool_c_forEach_var_items.reuse(_jspx_th_c_forEach_1);
+    }
     return false;
   }
 }
