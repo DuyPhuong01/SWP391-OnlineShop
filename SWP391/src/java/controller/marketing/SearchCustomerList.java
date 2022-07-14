@@ -112,7 +112,7 @@ public class SearchCustomerList extends HttpServlet {
                     + "\n"
                     + "                                            </p>\n"
                     + "                                    </div>";
-            content += "<div class=\"col-1 item \">\n"
+            content += "<div class=\"col-1 item id-item \">\n"
                     + "                                        <select id=\"feature_item\" style=\" width: 90%; height: 40px;font-size: 13px;\" onchange=\"ChangeFeature("
                     + customer.getUser_id()
                     + ",$(this).children('option:selected').val())\">\n"

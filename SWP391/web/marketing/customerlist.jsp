@@ -44,7 +44,7 @@
                                                    <!--search box-->
                                                    <div class="search-nav">
                                                      <div class="input-group rounded">
-                                                         <input type="search" class="form-control rounded " oninput="SubmitForm(1)"
+                                                         <input type="search" class="form-control rounded search-nav-bar" oninput="SubmitForm(1)"
                                                                 id="search" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                                                          <select name="option_search" id="option_search" onchange="SubmitForm(1)">
                                                                     <option value="1">Full Name</option>
@@ -101,7 +101,7 @@
                                 <c:forEach items="${requestScope.cus}" var="c">
                                     <li>
                                 <div class="row item-detail">
-                                    <div class="col-1 item">
+                                    <div class="col-1 item id-item " >
                                         ${c.user_id}
                                     </div>
                                     <div class="col-2 item title-item">

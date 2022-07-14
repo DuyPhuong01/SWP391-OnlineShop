@@ -60,12 +60,92 @@ public class SearchPostListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-        if(account==null){ //have  not login
-            processRequest(request, response);
-        }
+//        HttpSession session = request.getSession();
+//        Account account = (Account) session.getAttribute("account");
+//        if(account==null){ //have  not login
+//            processRequest(request, response);
+//        }
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        String pagingHTML="";
+          String word=request.getParameter("search");
+        int sub_categoryID=Integer.parseInt(request.getParameter("sub_category"));
+        int categoryID=Integer.parseInt(request.getParameter("category"));
+        int authorID=Integer.parseInt(request.getParameter("author"));
+        int featureID=Integer.parseInt(request.getParameter("feature"));
+        int sortID=Integer.parseInt(request.getParameter("sort"));
+        int currentPage=Integer.parseInt(request.getParameter("page"));
+        int numper_page=6;
+        PostDAO postDAO=new PostDAO();
+        int maxPage=postDAO.countPostPaging(word,categoryID, sub_categoryID, authorID, featureID, 6); //num of max page 6 post per page
+        
+        response.setContentType("text/html;charset=UTF-8");
+        //Convert Page to html
+             pagingHTML+= 
 
+"                                  <div class=\"pagination\">\n" +
+"                                                 <div class=\"content-paging content-paging-footer\" name=\"page\">\n" +
+"                                                     <div class=\"title-paging\"> <span>Page "
+                     + currentPage
+                     + " of "
+                     + maxPage
+                     + "<span></div>\n" +
+"                                                     <nav class=\"\" aria-label=\"...\">\n" +
+"                                                        <ul class=\"pagination\">\n";
+                    if(currentPage!=1){//currentpage in interval page
+                        String previos="    <li class=\"page-item\" >\n" +
+"                                            <a class=\"page-link\"  onclick=\"Paging("
+                                + (currentPage-1)
+                                + ")\" >Previous</a>\n" +
+"                                            </li>";
+                        pagingHTML+=previos;
+                    }else{
+                        String previos="  <li class=\"page-item disabled\">\n" +
+"                                           <a class=\"page-link\" >Previous</a>\n" +
+"                                         </li>";
+                        pagingHTML+=previos;
+                    }
+                    
+                    pagingHTML+=
+"                                            <select class=\"select-paginate\" id=\"paging\" onchange=\"SubmitForm($('#paging').children('option:selected').val())\">\n";
+                                            for (int i = 1; i <=maxPage; i++) {
+                                                String tmp="";
+                                                
+                                              tmp="<option value=\""
+                                                      + i
+                                                      + "\"";
+                                              pagingHTML+=tmp;
+                                              
+                                              if(currentPage==i){//match currenpage
+                                                  pagingHTML+="selected";
+                                              }
+                                               tmp=" >"
+                                                       + i
+                                                       + "</option>"; 
+                                               pagingHTML+=tmp;
+                                    }
+                                               pagingHTML+="</select>";
+                                                         
+                     if(currentPage!=maxPage){//currentpage in interval page
+                        String next="    <li class=\"page-item\" >\n" +
+"                                            <a class=\"page-link\"  onclick=\"Paging("
+                                + (currentPage+1)
+                                + ")\" >Next</a>\n" +
+"                                            </li>";
+                        pagingHTML+=next;
+                    }else{
+                        String next="  <li class=\"page-item disabled\">\n" +
+"                                           <a class=\"page-link\" >Next</a>\n" +
+"                                         </li>";
+                        pagingHTML+=next;
+                    }
+                 pagingHTML+=   "</ul>\n" +
+"                                                      </nav>\n" +
+"                                               </div>\n" +
+"                                  </div>\n" +
+
+"                            \n";
+                 out.print(pagingHTML);
     }
 
 
@@ -101,146 +181,158 @@ public class SearchPostListServlet extends HttpServlet {
        
         
         
-        postHTML+="  <div data-v-75520c46=\"\" class=\"row main-content\">\n" +
-"                                 <!--header-->\n" +
-"                           <div class=\"row navbar-content\">\n" +
-"                               <div class=\"col-2\">ID</div>\n" +
-"                               <div class=\"col-4\">Title</div>\n" +
-"                               <div class=\"col-2\">Author</div>\n" +
-"                               <div class=\"col-2\">Status</div>\n" +
-"                               <div class=\"col-2\">Action </div>\n" +
-"                           </div>\n" +
-"                              <!--list-item-->\n" +
-"                            <div class=\"list-post_container \">\n" +
-"                                <!--a post-->\n" +
-"                                <ul class=\"list-post\" id=\"listpost\">\n";
-       
-                            //Convert List of post to html
-                for (Post post : posts) {
-            postHTML+="       <li>\n" +
-"                                <div class=\"row item-detail\">\n" +
-"                                    <div class=\"col-1\">"
-                    + post.getPost_id()
-                    + "</div>\n" +
-"                                    <div class=\"col-5 title-item\">\n" +
-"                                        <div class=\"col-4 image-item\">\n" +
-"                                            <img src=\"../"
-                    + post.getThumbnail()
+//        postHTML+="<table class=\"table table-striped table-hover\">\n" +
+//"                                                <thead>\n" +
+//"                                                    <tr>\n" +
+//"                                                        <th>\n" +
+//"                                                             <i value=\"1\" class=\"sort-item fa-solid fa-arrow-down-a-z sort-active\" onclick=\"Checksort(this)\"></i>   \n" +
+//"                                                            ID\n" +
+//"                                                        </th>\n" +
+//"                                                        <th> <i value=\"2\" class=\"sort-item fa-solid fa-arrow-down-a-z \" onclick=\"Checksort(this)\"></i>\n" +
+//"                                                            Title\n" +
+//"                                                        </th>\n" +
+//"                                                        <th> <i value=\"3\" class=\"sort-item fa-solid fa-arrow-down-a-z \" onclick=\"Checksort(this)\"></i>\n" +
+//"                                                            Author\n" +
+//"                                                        </th>\n" +
+//"                                                        <th> <i value=\"4\" class=\"sort-item fa-solid fa-arrow-down-a-z \" onclick=\"Checksort(this)\"></i>\n" +
+//"                                                            Status\n" +
+//"                                                        </th>\n" +
+//"                                                        <input hidden id=\"sort_input\" name=\"sort\" value=\"1\">\n" +
+//"                                                        <th></th>\n" +
+//"                                                    </tr>\n" +
+//"                                                </thead>\n" +
+//"                                                <tbody id=\"listpost\">";
+        for (Post p : posts) {
+            postHTML+=" <tr>\n" +
+"                                                            <td>"
+                    + p.getPost_id()
+                    + "</td>\n" +
+"                                                            <td class=\"w-50\">\n" +
+"                                                                <div class=\"row\">\n" +
+"                                                                    <div class=\"col-3 image-item\">\n" +
+"                                                                        <a href=\"postdetails?id="
+                    + p.getPost_id()
+                    + "\">\n" +
+"\n" +
+"                                                                            <img src=\"../"
+                    + p.getThumbnail()
                     + "\" />\n" +
-"                                        </div>\n" +
-"                                        <div class=\"col-8 title\">\n" +
-"                                            <p class=\"title-detail\">\n" +
-                                                post.getTitle()
+"                                                                        </a>\n" +
+"                                                                    </div>\n" +
+"                                                                    <div class=\"col-9 title\">\n" +
+"                                                                        <p class=\"title-detail\">\n" +
+"                                                                            "
+                    + p.getTitle()
                     + "\n" +
-"                                            </p>\n" +
-"                                        </div>\n" +
-"                                    </div>\n" +
-"                                    <div class=\"col-2\">"
-                    + post.getAuthor()
-                    + "</div>\n" +
-"                                    <div class=\"col-2\">\n";
-                    
-       postHTML+= "                                        <select id=\"feature_item\" style=\" width: 65%; height: 40px;font-size: 13px;\" onchange=\"ChangeFeature("
-               + post.getPost_id()
-               + ",$(this).children('option:selected').val())\">\n" +
-"                                            <option value=\"1\" style=\"font-size: 13px;\"";
-       if(post.isFeatured()){//feature on
-           postHTML+="selected";
-       }
-        postHTML+="  >\n" +
-"                                                Show \n" +
-"                                            </option>\n" +
-"                                            <option value=\"0\" style=\"font-size: 13px;\" ";
-        if(!post.isFeatured()){//feature off
-            postHTML+="selected";
+"                                                                        </p>\n" +
+"                                                                    </div>\n" +
+"                                                                </div>\n" +
+"                                                            </td>\n" +
+"                                                            <td>"
+                    + p.getAuthor()
+                    + "</td>";
+                    postHTML+=" <td>\n" +
+"                                                                <select class=\"form-select form-select-sm\" id=\"feature_item\" style=\" width: 65%; height: 40px;font-size: 13px;\" onchange=\"ChangeFeature("
+                            + p.getPost_id()
+                            + ", $(this).children('option:selected').val())\">\n" +
+"                                                                    <option value=\"1\" style=\"font-size: 13px;\" ";
+                            if(p.isFeatured()){
+                                postHTML+="selected";
+                            }
+                            postHTML += ">Show</option>\n";
+                            postHTML+=" <option value=\"0\" style=\"font-size: 13px;\"";
+                            if(!p.isFeatured()){
+                                postHTML+="selected";
+                            }
+                            postHTML+=">Hide</option>";
+                            postHTML+=" </select>\n" +
+"                                                                </td>\n" +
+"                                                                <td class=\"col-2 action-container\">\n" +
+"                                                                    <button type=\"button\" class=\"edit-btn btn btn-secondary btn-sm \">\n" +
+"                                                                        <i class=\"fa-solid fa-pen-to-square\"></i>";
+                            postHTML+="<a href=\"postdetails?id="
+                                    + p.getPost_id()
+                                    + "&action=edit\">Edit</a>\n" +
+"                                                                </button>\n" +
+"                                                                <button type=\"button\" class=\" view-btn btn btn-primary btn-sm \">\n" +
+"                                                                    <i class=\"fa-solid fa-eye\"></i><a href=\"postdetails?id="
+                                    + p.getPost_id()
+                                    + "&action=view\">View</a></button>\n" +
+"                                                            </td>\n" +
+"                                                        </tr>   ";
         }
-        postHTML+=" >\n" +
-"                                                Hide\n" +
-"                                            </option>\n" +
-"                                        </select>\n";
-        postHTML+=
-             
-"                                    </div>\n" +
-"                                    <div class=\"col-2 action-container\">\n" +
-"                                      <button type=\"button\" class=\"edit-btn btn btn-secondary btn-sm \">\n" +
-"                                          <i class=\"fa-solid fa-pen-to-square\"></i>\n" +
-"                                          <a href=\"postdetails?id="+post.getPost_id()+"&action=edit\">Edit</a>\n" +
-"                                      </button>\n" +
-"                                      <button type=\"button\" class=\" view-btn btn btn-primary btn-sm \">\n" +
-"                                          <i class=\"fa-solid fa-eye\"></i><a href=\"postdetails?id="+post.getPost_id()+"&action=view\">View</a></button>\n" +
-"                                    </div>\n" +
-"                                </div>\n" +
-"                                    </li>";
-        }
-                           //Convert Page to html
-             postHTML+= 
-"                                </ul>\n" +
-"                           </div>\n" +
-"                              <!--//footer-->\n" +
-"                              <footer>\n" +
-"                                  <div class=\"pagination\">\n" +
-"                                                 <div class=\"content-paging content-paging-footer\" name=\"page\">\n" +
-"                                                     <div class=\"title-paging\"> <span>Page "
-                     + currentPage
-                     + " of "
-                     + maxPage
-                     + "<span></div>\n" +
-"                                                     <nav class=\"\" aria-label=\"...\">\n" +
-"                                                        <ul class=\"pagination\">\n";
-                    if(currentPage!=1){//currentpage in interval page
-                        String previos="    <li class=\"page-item\" >\n" +
-"                                            <a class=\"page-link\"  onclick=\"Paging("
-                                + (currentPage-1)
-                                + ")\" >Previous</a>\n" +
-"                                            </li>";
-                        postHTML+=previos;
-                    }else{
-                        String previos="  <li class=\"page-item disabled\">\n" +
-"                                           <a class=\"page-link\" >Previous</a>\n" +
-"                                         </li>";
-                        postHTML+=previos;
-                    }
-                    
-                    postHTML+=
-"                                            <select class=\"select-paginate\" id=\"paging\" onchange=\"SubmitForm($('#paging').children('option:selected').val())\">\n";
-                                            for (int i = 1; i <=maxPage; i++) {
-                                                String tmp="";
-                                                
-                                              tmp="<option value=\""
-                                                      + i
-                                                      + "\"";
-                                              postHTML+=tmp;
-                                              
-                                              if(currentPage==i){//match currenpage
-                                                  postHTML+="selected";
-                                              }
-                                               tmp=" >"
-                                                       + i
-                                                       + "</option>"; 
-                                               postHTML+=tmp;
-                                    }
-                                               postHTML+="</select>";
-                                                         
-                     if(currentPage!=maxPage){//currentpage in interval page
-                        String next="    <li class=\"page-item\" >\n" +
-"                                            <a class=\"page-link\"  onclick=\"Paging("
-                                + (currentPage+1)
-                                + ")\" >Next</a>\n" +
-"                                            </li>";
-                        postHTML+=next;
-                    }else{
-                        String next="  <li class=\"page-item disabled\">\n" +
-"                                           <a class=\"page-link\" >Next</a>\n" +
-"                                         </li>";
-                        postHTML+=next;
-                    }
-                 postHTML+=   "</ul>\n" +
-"                                                      </nav>\n" +
-"                                               </div>\n" +
-"                                  </div>\n" +
-"                              </footer>\n" +
-"                            \n" +
-"                       </div>";
+                
+//                postHTML+="</tbody>\n" +
+//"                                            </table>";
+
+
+
+////Convert Page to html
+//             postHTML+= 
+//"                              <!--//footer-->\n" +
+//"                              <footer>\n" +
+//"                                  <div class=\"pagination\">\n" +
+//"                                                 <div class=\"content-paging content-paging-footer\" name=\"page\">\n" +
+//"                                                     <div class=\"title-paging\"> <span>Page "
+//                     + currentPage
+//                     + " of "
+//                     + maxPage
+//                     + "<span></div>\n" +
+//"                                                     <nav class=\"\" aria-label=\"...\">\n" +
+//"                                                        <ul class=\"pagination\">\n";
+//                    if(currentPage!=1){//currentpage in interval page
+//                        String previos="    <li class=\"page-item\" >\n" +
+//"                                            <a class=\"page-link\"  onclick=\"Paging("
+//                                + (currentPage-1)
+//                                + ")\" >Previous</a>\n" +
+//"                                            </li>";
+//                        postHTML+=previos;
+//                    }else{
+//                        String previos="  <li class=\"page-item disabled\">\n" +
+//"                                           <a class=\"page-link\" >Previous</a>\n" +
+//"                                         </li>";
+//                        postHTML+=previos;
+//                    }
+//                    
+//                    postHTML+=
+//"                                            <select class=\"select-paginate\" id=\"paging\" onchange=\"SubmitForm($('#paging').children('option:selected').val())\">\n";
+//                                            for (int i = 1; i <=maxPage; i++) {
+//                                                String tmp="";
+//                                                
+//                                              tmp="<option value=\""
+//                                                      + i
+//                                                      + "\"";
+//                                              postHTML+=tmp;
+//                                              
+//                                              if(currentPage==i){//match currenpage
+//                                                  postHTML+="selected";
+//                                              }
+//                                               tmp=" >"
+//                                                       + i
+//                                                       + "</option>"; 
+//                                               postHTML+=tmp;
+//                                    }
+//                                               postHTML+="</select>";
+//                                                         
+//                     if(currentPage!=maxPage){//currentpage in interval page
+//                        String next="    <li class=\"page-item\" >\n" +
+//"                                            <a class=\"page-link\"  onclick=\"Paging("
+//                                + (currentPage+1)
+//                                + ")\" >Next</a>\n" +
+//"                                            </li>";
+//                        postHTML+=next;
+//                    }else{
+//                        String next="  <li class=\"page-item disabled\">\n" +
+//"                                           <a class=\"page-link\" >Next</a>\n" +
+//"                                         </li>";
+//                        postHTML+=next;
+//                    }
+//                 postHTML+=   "</ul>\n" +
+//"                                                      </nav>\n" +
+//"                                               </div>\n" +
+//"                                  </div>\n" +
+//"                              </footer>\n" +
+//"                            \n";
                  
                  out.println(postHTML);
         }
