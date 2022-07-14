@@ -23,72 +23,6 @@
             <jsp:directive.include file="sidebar.jsp"/>
             <aside class="right-side">
                 <section class="content container">
-                    <div class="row general-statistics-container">
-                        <div class="today-statistic flex">
-                            <div class="general-statistics-left col-md-6">
-                                <div>
-                                    <h2>Total's statistic</h2>
-                                </div>
-                                <div class="row">
-                                    <div class="total-statistic-order col-md-6">
-                                        <div class="panel flex">
-                                            <span class="icon bg-red">
-                                                <i class="fas fa-shopping-cart"></i>
-                                            </span>
-                                            <div class="infor">
-                                                Orders
-                                                <span>${requestScope.totalOrderAllTime}</span>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="total-statistic-revenue col-md-6">
-                                        <div class="panel flex">
-                                            <span class="icon bg-yellow">
-                                                <i class="fa-solid fa-coins"></i>
-                                            </span>
-                                            <div class="infor">
-                                                Revenue
-                                                <span><fmt:formatNumber value="${requestScope.totalRevenue}" type="currency" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="general-statistics-right col-md-6">
-
-                                    <div>
-                                        <h2>Today's statistic</h2>
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="today-statistic-order col-md-6">
-                                            <div class="panel flex">
-                                                <span class="icon bg-red">
-                                                    <i class="fas fa-shopping-cart"></i>
-                                                </span>
-                                                <div class="infor">
-                                                    Orders
-                                                    <span>${requestScope.totalOrderToday}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="today-statistic-revenue col-md-6">
-                                        <div class="panel flex">
-                                            <span class="icon bg-yellow">
-                                                <i class="fa-solid fa-coins"></i>
-                                            </span>
-                                            <div class="infor">
-                                                Revenue
-                                                <span><fmt:formatNumber value="${requestScope.totalRevenueToday}" type="currency" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row" style="margin-bottom: 20px;">
                             <div class="col-md-1">
 
@@ -100,7 +34,7 @@
                                         <select onchange="changeSale(this);">
                                             <option value="0" <c:if test="${requestScope.saleIdOrder == 0}">selected</c:if>>All</option>
                                         <c:forEach items="${requestScope.saleList}" var="i">
-                                            <option value="${i.account.user_id}" <c:if test="${requestScope.saleIdOrder == i.account.user_id}">selected</c:if>>${i.account.username}</option>
+                                            <option value="${i.account.user_id}" <c:if test="${requestScope.saleIdOrder == i.account.user_id}">selected</c:if>>${i.account.full_name}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -190,12 +124,12 @@
                                         <span>Sale</span><select name="saleId">
                                             <option value="0" <c:if test="${requestScope.saleId == 0}">selected</c:if>>All</option>
                                             <c:forEach items="${requestScope.saleList}" var="i">
-                                                <option value="${i.account.user_id}" <c:if test="${requestScope.saleId == i.account.user_id}">selected</c:if>>${i.account.username}</option>
+                                                <option value="${i.account.user_id}" <c:if test="${requestScope.saleId == i.account.user_id}">selected</c:if>>${i.account.full_name}</option>
                                             </c:forEach>
                                         </select>
                                     </div>
                                     <div class="status-list">
-                                        <span>Status</span>
+                                        <span>Order Status</span>
                                         <select name="status">
                                             <option value="0" <c:if test="${requestScope.orderStatus == 0}">selected</c:if>>All</option>
                                             <c:forEach items="${requestScope.statusList}" var="i">

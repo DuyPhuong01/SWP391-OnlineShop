@@ -48,7 +48,7 @@
                             <div class="order-items bg-white flex flex-column">
                                 <div class="flex" style="padding: 10px; padding-left: 30px; border-bottom: 1px solid #21252930;">
                                     <div class="id"><a href="orderinformation?orderId=${i.order_id}">ID: ${i.order_id}</a></div>
-                                    <div class="order-date">Order Date: ${i.order_Date}</div>
+                                    <div class="order-date">Order Date: <fmt:formatDate value="${i.orderDate}" type="both"/></div>
                                 </div>
                                 <div class="flex" style="    border:1px solid #21252930;
                                      margin: 15px;">

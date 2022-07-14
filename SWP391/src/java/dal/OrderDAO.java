@@ -301,10 +301,13 @@ public class OrderDAO extends DBContext {
             while (rs.next()) {
                 Order c = getOrder(rs);
                 c.setOrderDetailList(orderDetailDAO.getOrderDetailByOrderId(c.getOrder_id()));
+                c.setOrderDate(DateTimeUtil.GetDateFromString(c.getOrder_Date()));
                 list.add(c);
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } catch (ParseException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -407,10 +410,13 @@ public class OrderDAO extends DBContext {
             while (rs.next()) {
                 Order c = getOrder(rs);
                 c.setOrderDetailList(orderDetailDAO.getOrderDetailByOrderId(c.getOrder_id()));
+                c.setOrderDate(DateTimeUtil.GetDateFromString(c.getOrder_Date()));
                 list.add(c);
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } catch (ParseException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }

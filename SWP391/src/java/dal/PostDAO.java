@@ -3,6 +3,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import model.Post;
@@ -47,7 +48,7 @@ public class PostDAO extends DBContext {
         List<Post> list = new ArrayList<>();
         String sql = "select * from (select ROW_NUMBER() over (order by " + orderOption + ") as Row,p.* from posts p "
                 + "inner join post_sub_categories psc on p.post_subcategories_id = psc.id "
-                + "where p.featured="+featured+" and p.title like '%" + title_search_key + "%' ";
+                + "where p.featured=" + featured + " and p.title like '%" + title_search_key + "%' ";
         if (sub_category_id > 0) {
             sql += "and p.post_subcategories_id =" + sub_category_id;
         } else if (category_id > 0) {
@@ -98,7 +99,7 @@ public class PostDAO extends DBContext {
     }
 
     // count filter and paging
-    public int countPostPaging(String word,int categoryID , int subCategoryID, int authorID, int feature, int numperpage) {
+    public int countPostPaging(String word, int categoryID, int subCategoryID, int authorID, int feature, int numperpage) {
         int num = 1;
         String sql = "select count(post_id)  from posts p,post_sub_categories ps\n"
                 + "where p.post_subcategories_id=ps.id";
@@ -107,8 +108,8 @@ public class PostDAO extends DBContext {
                     + word
                     + "%'";
         }
-        if(categoryID!=0){
-            sql+=" and  ps.category_id="
+        if (categoryID != 0) {
+            sql += " and  ps.category_id="
                     + categoryID;
         }
         if (subCategoryID != 0) { // have option category
@@ -145,7 +146,7 @@ public class PostDAO extends DBContext {
     }
     //get post and filter
 
-    public List<Post> getPosts(String word,int categoryID , int subCategoryID, int authorID, int feature, int orderByID,int op, int page, int numperpage) {
+    public List<Post> getPosts(String word, int categoryID, int subCategoryID, int authorID, int feature, int orderByID, int op, int page, int numperpage) {
         List<Post> list = new ArrayList<>();
         String sql = "select * from posts p,post_sub_categories ps  \n"
                 + "where p.post_subcategories_id=ps.id";
@@ -154,8 +155,8 @@ public class PostDAO extends DBContext {
                     + word
                     + "%'";
         }
-        if(categoryID!=0){
-            sql+=" and  ps.category_id="
+        if (categoryID != 0) {
+            sql += " and  ps.category_id="
                     + categoryID;
         }
         if (subCategoryID != 0) { // have option category
@@ -174,15 +175,14 @@ public class PostDAO extends DBContext {
         if (convertOrderByID(orderByID) != null) { //have option order
             sql += " order by "
                     + convertOrderByID(orderByID);
-                    
+
         } else {
             sql += " order by post_id ";
         }
-        if(op==1){
-            sql+= " asc \n";
-        }
-        else{
-            sql+= " desc \n";
+        if (op == 1) {
+            sql += " asc \n";
+        } else {
+            sql += " desc \n";
         }
         sql += " OFFSET "
                 + (page - 1) * numperpage
@@ -252,6 +252,7 @@ public class PostDAO extends DBContext {
         }
         return 0;
     }
+
     public int countPosts(int featured, String title_search_key, int sub_category_id, int category_id, List<Integer> tag_id_list) {
         String sql = "select count(p.post_id) as count from posts p "
                 + "inner join post_sub_categories psc on p.post_subcategories_id = psc.id "
@@ -420,6 +421,30 @@ public class PostDAO extends DBContext {
         } catch (SQLException e) {
 
         }
+    }
+
+    public int getNumberOfPostsByDay(LocalDate start) {
+        String sql = "select count(post_id) from posts where publication_date < ? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, start.plusDays(1).toString());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return 0;
+    }
+
+    public List getPostByDays(LocalDate start, LocalDate end) {
+        List list = new ArrayList<>();
+        for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
+            list.add(getNumberOfPostsByDay(i));
+        }
+
+        return list;
     }
 
     public static void main(String[] args) {

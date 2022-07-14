@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 //import java.util.Arrays.ArrayList;
 import java.util.List;
@@ -366,21 +367,47 @@ public class FeedbackDAO extends DBContext {
                 + "on p.sub_category_id = psc.sub_category_id\n"
                 + "inner join product_categories pc \n"
                 + "on psc.category_id = pc.category_id\n"
-                + "where feedback_date between '"+start+"' and '"+end+"'";
-        if(id != 0){
-            sql += " and pc.category_id = "+id;
+                + "where feedback_date between '" + start + "' and '" + end + "'";
+        if (id != 0) {
+            sql += " and pc.category_id = " + id;
         }
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return df.format(rs.getDouble(1));
             }
-        } catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
         return null;
     }
+
+    public int getNumberOfTotalFeedbacksByDay(LocalDate start) {
+        String sql = "select (select COUNT(feedback_id) from product_feedbacks where feedback_date < ?) + (select COUNT(feedback_id) from general_feedbacks where feedback_date < ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, start.plusDays(1).toString());
+            st.setString(2, start.plusDays(1).toString());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return 0;
+    }
+
+    public List getTotalFeedbacksByDay(LocalDate start, LocalDate end) {
+        List list = new ArrayList<>();
+        for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
+            list.add(getNumberOfTotalFeedbacksByDay(i));
+        }
+
+        return list;
+    }
+
     public static void main(String[] args) {
         FeedbackDAO fd = new FeedbackDAO();
         System.out.println(fd.getAverageRated(0, "1"));
