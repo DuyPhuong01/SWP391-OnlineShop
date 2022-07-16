@@ -102,7 +102,6 @@ public class SaleServlet extends HttpServlet {
         request.setAttribute("successRate", success);
         request.setAttribute("revenueBytime", orderDAO.getTotalRevenueBySaleIdAndTime(0, DateTimeUtil.getStartDate(6).toString(), DateTimeUtil.getEndDateDefault().toString()));
         totalSuccessOrderDoGet(request, response);
-        generalStatistic(request, response);
 
         request.setAttribute("dates", dates);
         request.setAttribute("revenue", revenue);
@@ -203,22 +202,6 @@ public class SaleServlet extends HttpServlet {
         }
     }
 
-    private void generalStatistic(HttpServletRequest request, HttpServletResponse response) {
-        OrderDAO orderDAO = new OrderDAO();
-        int totalOrder = orderDAO.getTotalOrder();
-        int totalOrderToday = orderDAO.getTotalOrderToday();
-        SaleDAO saleDAO = new SaleDAO();
-        double totalRevenueToday = saleDAO.getTotalRevenueToday();
-        double totalRevenue = saleDAO.getTotalRevenue();
-        System.out.println(totalOrderToday);
-        System.out.println(totalRevenueToday);
-        request.setAttribute("totalOrderAllTime", totalOrder);
-        request.setAttribute("totalOrderToday", totalOrderToday);
-        request.setAttribute("totalRevenueToday", totalRevenueToday);
-        request.setAttribute("totalRevenue", totalRevenue);
-
-    }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -258,7 +241,6 @@ public class SaleServlet extends HttpServlet {
         List<Sale> saleList = saleDAO.getAllSaleMember();
         List<OrderStatus> statusList = orderDAO.getAllOrderStatusForSale();
 
-        generalStatistic(request, response);
         totalSuccessOrderDoPost(request, response);
         request.setAttribute("dates", dates);
         request.setAttribute("revenue", revenue);

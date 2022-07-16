@@ -4,10 +4,10 @@
     <section class="sidebar">
         <div class="user-panel flex">
             <div class="pull-left image">
-                <img src="../images/account-images/anh-dai-dien-nguoi-giau-mat-voi-background-580x580.jpg" style="width: 45px; height: 45px;">
+                <img src="/swp/${sessionScope.account.image_url}" style="width: 45px; height: 45px;">
             </div>
             <div class="pull-left info">
-                Hello, ${sessionScope.account.username}
+                Hello, ${sessionScope.account.full_name}
             </div>
         </div>
 <!--        <form class="sidebar-form">

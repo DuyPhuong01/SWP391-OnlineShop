@@ -55,9 +55,9 @@
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     Save
                                 </button>
-                                <button type="button" class="view-btn btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#viewPost" id="view-post">
+<!--                                <button type="button" class="view-btn btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#viewPost" id="view-post">
                                     <i class="fa-solid fa-eye"></i>View
-                                </button>
+                                </button>-->
 
                             </div>
                             <div class="flex">                             

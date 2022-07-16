@@ -29,11 +29,11 @@
                                     <h3>Filter</h3>
                                     <div class="filter-option">Order date</div>
                                     <div class="start-date flex flex-column">
-                                        <span>Start date</span>
+                                        <span>From</span>
                                         <input type="date" name="startDate" value="${requestScope.startDate}"/>
                                     </div>
                                     <div class="end-date flex flex-column">
-                                        <span>End date</span>
+                                        <span>To</span>
                                         <input type="date" name="endDate" value="${requestScope.endDate}" onchange="checkEndDateInput(this);"/>
                                     </div>
                                     <div class="sale-name flex flex-column" id="sale-list">
@@ -41,7 +41,7 @@
                                         <c:set value="${requestScope.checkedSale}" var="cs"/>
                                         <c:set value="${requestScope.saleList}" var="sl"/>
                                         <c:forEach begin="0" end="${sl.size()-1}" var="i">
-                                            <div><input type="checkbox" value="${sl.get(i).account.user_id}" name="saleId" <c:if test="${cs[i]}">checked</c:if>/> ${sl.get(i).account.username}</div>
+                                            <div><input type="checkbox" value="${sl.get(i).account.user_id}" name="saleId" <c:if test="${cs[i]}">checked</c:if>/> ${sl.get(i).account.full_name}</div>
                                             </c:forEach>
 
                                     </div>

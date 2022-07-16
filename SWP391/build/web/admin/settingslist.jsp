@@ -17,7 +17,7 @@
         <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <jsp:directive.include file="salenavbar.jsp"/>
+        <jsp:directive.include file="navbar.jsp"/>
         <div class="wrapper-login">
             <jsp:directive.include file="sidebar.jsp"/>
             <aside class="right-side">
