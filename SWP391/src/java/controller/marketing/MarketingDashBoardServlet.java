@@ -13,6 +13,7 @@ import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -68,7 +69,7 @@ public class MarketingDashBoardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
 //        get session account
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
@@ -87,39 +88,7 @@ public class MarketingDashBoardServlet extends HttpServlet {
             totalProductFeedbacks = feedbackDAO.getTotalProductFeedbacks();
             totalProducts = productDAO.getTotalProducts();
 
-//            get startdate and enddate
-            String startDate = request.getParameter("startDate");
-            String endDate = request.getParameter("endDate");
-            LocalDate start, end;
-            
-//            set default if null and convert from string to LocalDate
-            if (startDate == null) {
-                start = DateTimeUtil.getStartDateDefault();
-                end = DateTimeUtil.getEndDateDefault();
-                
-            } else {
-                start = DateTimeUtil.getStartDate(startDate);
-                end = DateTimeUtil.getEndDate(endDate);
-            }
-            
-//            get statistic of new customer by day
-            List newCustomers = accountDAO.getCustomersByDays(start, end);
-            List<String> dates = DateTimeUtil.getStringOfDateItems(start, end);
-            for (int i = 0; i < dates.size(); i++) {
-                System.out.println(dates.get(i));
-        }
-            
-//            chart type
-            request.setAttribute("chartType", "line");
-            
-            //start and end date
-            request.setAttribute("startDate", start);
-            request.setAttribute("endDate", end.minusDays(1));
-//        set attribute
-            request.setAttribute("dates", dates);
-            request.setAttribute("customers", newCustomers);
-
-             //statistic 
+            //statistic 
             request.setAttribute("totalPosts", totalPosts);
             request.setAttribute("totalAccounts", totalAccounts);
             request.setAttribute("totalProducts", totalProducts);
@@ -142,7 +111,68 @@ public class MarketingDashBoardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        PrintWriter out = response.getWriter();
+        String time = request.getParameter("time");
+        String choice = request.getParameter("choice");
+        AccountDAO accountDAO = new AccountDAO();
+        Gson g = new Gson();
+        LocalDate start = DateTimeUtil.getStartDate(time);
+        LocalDate end = DateTimeUtil.getEndDateDefault();
+        List label = DateTimeUtil.getStringOfDateItems(start, end);
+
+        switch (choice) {
+            case "newCustomer":
+                List data = accountDAO.getCustomersByDays(start, end);
+                HashMap map = new HashMap();
+                map.put("label", label);
+                map.put("data", data);
+                String result = g.toJson(map);
+                out.print(result);
+                break;
+            case "post":
+                PostDAO postDAO = new PostDAO();
+                data = postDAO.getPostByDays(start, end);
+                map = new HashMap();
+                map.put("label", label);
+                map.put("data", data);
+                int addedData = ((int) data.get(data.size() - 1) - (int) data.get(0));
+                map.put("new", addedData);
+                result = g.toJson(map);
+                out.print(result);
+                break;
+            case "product":
+                ProductDAO productDAO = new ProductDAO();
+                data = productDAO.getProductsByDays(start, end);
+                map = new HashMap();
+                map.put("label", label);
+                map.put("data", data);
+                addedData = ((int) data.get(data.size() - 1) - (int) data.get(0));
+                map.put("new", addedData);
+                result = g.toJson(map);
+                out.print(result);
+                break;
+            case "customer":
+                data = accountDAO.getTotalCustomersByDay(start, end);
+                map = new HashMap();
+                map.put("label", label);
+                map.put("data", data);
+                addedData = ((int) data.get(data.size() - 1) - (int) data.get(0));
+                map.put("new", addedData);
+                result = g.toJson(map);
+                out.print(result);
+                break;
+            case "feedback":
+                FeedbackDAO feedbackDAO = new FeedbackDAO();
+                data = feedbackDAO.getTotalFeedbacksByDay(start, end);
+                map = new HashMap();
+                map.put("label", label);
+                map.put("data", data);
+                addedData = ((int) data.get(data.size() - 1) - (int) data.get(0));
+                map.put("new", addedData);
+                result = g.toJson(map);
+                out.print(result);
+                break;
+        }
     }
 
     /**

@@ -8,6 +8,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import model.Product;
@@ -527,6 +528,31 @@ public class ProductDAO extends DBContext {
         }
         return false;
     }
+
+    public int getNumberOfProductsByDay(LocalDate start) {
+        String sql = "select COUNT(product_id) from products where updated_date < ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, start.plusDays(1).toString());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return 0;
+    }
+
+    public List getProductsByDays(LocalDate start, LocalDate end) {
+        List list = new ArrayList<>();
+        for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
+            list.add(getNumberOfProductsByDay(i));
+        }
+
+        return list;
+    }
+
     // </editor-fold>
     public static void main(String[] args) {
         ProductDAO p = new ProductDAO();

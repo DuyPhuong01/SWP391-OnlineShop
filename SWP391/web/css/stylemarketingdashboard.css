@@ -31,6 +31,12 @@
 .flex-column{
     flex-direction: column;
 }
+.flex-1{
+    flex: 1;
+}
+.bold{
+    font-weight: bold;
+}
 .navbar-nav .dropdown{
     margin-left: 10px;
     margin-right: 10px;
@@ -100,6 +106,8 @@
 .trends-of-new-customer{
     margin-top: 20px;
     background: #fff;
+    padding-top: 10px;
+    padding-left: 20px;
 }
 
 .add-button button{
@@ -212,11 +220,16 @@
 .sidebar-menu li:hover{
     background: #425164;
 }
+div#post-total {
+    margin-top: 10px;
+    margin-left: 25px;
+}
+
 .icon{
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     display: inline-block;
-    line-height: 60px;
+    line-height: 40px;
     text-align: center;
     font-size: 30px;
     background: #eee;
@@ -234,6 +247,13 @@
     display: block;
     font-size: 24px;
     font-weight: 600;
+}
+.post-title{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-weight: bold;
+    font-size: 150%;
 }
 .bg-green{
     background: green;
@@ -255,6 +275,7 @@
     display: flex;
     align-items: center;
     margin-right: 20px;
+    width: 100%;
 }
 .trends-of-new-customer input{
     margin-left: 10px;
@@ -303,4 +324,54 @@
     visibility: hidden;
     height: 24px;
     display: inline-block;
+}
+#order-time{
+    height: 40px;
+    line-height: 40px;
+}
+.trends-of-new-customer span {
+    font-weight: bold;
+    margin-right: 5px;
+}
+.customer-table-wrapper table thead{
+    position: sticky;
+    background: #fff;
+    top: 0;
+    border-bottom: 2px solid currentcolor;
+    z-index: 1;
+}
+.customer-table-wrapper{
+    overflow-y: auto;
+    max-height: 380px;
+    margin-top: 59px;
+}
+.customer-table-wrapper table{
+    margin-top: 0 !important;
+    font-size: 75%;
+}
+.customer-table-wrapper table td{
+    font-size: 90%;
+    font-family: 'emoji';
+}
+.posts-chart-wrapper, .product-chart-wrapper, .customers-chart-wrapper, .feedbacks-chart-wrapper {
+    margin-top: 20px;
+    background: #fff;
+}
+select.time {
+    line-height: 40px;
+    height: 40px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+span.title {
+    font-weight: bold;
+    margin-left: 20px;
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+}
+.items-infor{
+    display: flex;
+    align-items: center;
 }
