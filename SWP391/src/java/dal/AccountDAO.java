@@ -65,7 +65,7 @@ public class AccountDAO extends DBContext {
             String sql = "SELECT s.screen_name\n"
                     + "FROM [permissions] p  join [screens] s \n"
                     + "ON p.screen_id = s.screen_id\n"
-                    + "WHERE p.[role_id] = ?";
+                    + "WHERE p.[role_id] = ? AND p.[status] = 1";
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setInt(1, role_id);
             ResultSet rs = stm.executeQuery();
