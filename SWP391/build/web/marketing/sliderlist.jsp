@@ -11,7 +11,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/style.css"/>
         <!--<link rel="stylesheet" href="../css/post_list.css"/>-->
-        <!--<link rel="stylesheet" href="../css/sliderlist.css"/>-->
+        <link rel="stylesheet" href="../css/sliderlist.css"/>
           <!--font-awesome-->
         <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
@@ -45,7 +45,7 @@
                                                    <!--search box-->
                                                    <div class="search-nav">
                                                      <div class="input-group rounded">
-                                                         <input type="search" class="form-control rounded " oninput="SubmitForm(1)"
+                                                         <input type="search" class="form-control rounded search-nav-bar" oninput="SubmitForm(1)"
                                                                 id="search" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                                                          <select name="option_search" id="option_search" onchange="SubmitForm(1)">
                                                                     <option value="1">Title</option>
@@ -53,8 +53,10 @@
                                                                 </select>
                                                    </div>
                                                    </div>
-                                                   <div class="add-post">
+<!--                                                   <div class="add-post">
                                                        <button type="button"  onclick="window.location.href='addslider'" class="btn btn-success">Add New   +</button>
+                                                   </div>-->
+                                                   <div class="add-post">
                                                    </div>
                                                </div>
                                </div>
@@ -81,10 +83,13 @@
                                         ${s.id}
                                     </div>
                                     <div class="col-5 title-item">
-                                        <div class="col-4 image-item">
+                                        <div class="col-3 image-item">
                                             <img src="../${s.imagePath}" />
                                         </div>
-                                        <div class="col-8 title">
+                                        <div class="col-1">
+                                            
+                                        </div>
+                                        <div class="col-7 title">
                                             <p class="title-detail">
                                                ${s.title}
                                             </p>

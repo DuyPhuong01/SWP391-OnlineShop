@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.product;
+package controller.order;
 
+import controller.product.*;
 import dal.OrderDAO;
 import dal.ProductDAO;
+import dal.SaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.exit;
@@ -198,7 +200,7 @@ public class CheckoutServlet extends HttpServlet {
             customer.setAddress(address);
             customer.setCity(city);
             customer.setGender(gender);
-            /*remove cart after add  order*/
+            /*remove cart after add  checkout*/
             OrderDAO oderDAO = new OrderDAO();
             order=oderDAO.addOrderUser(customer, cart, note);
             }else{
@@ -208,7 +210,11 @@ public class CheckoutServlet extends HttpServlet {
             }
             String newContentCart = removeCartCookieContent(cookieContent, userID);
             Cookie c = new Cookie("cart", newContentCart);
+            /*send email after checkout*/
             emailService.sendEmailComfirmOrder(getServletContext(), name, email, order.getOrder_id());
+            /*assign a sale */
+            SaleDAO saleDao=new SaleDAO();
+            saleDao.AssignSale(order.getOrder_id());
             response.addCookie(c);
             request.setAttribute("order",order);
             request.setAttribute("cart",cart);

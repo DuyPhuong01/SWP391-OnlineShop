@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.product;
+package controller.order;
 
+import controller.product.*;
 import static controller.product.ProcessServlet.getUpdateCart;
 import static controller.product.ProcessServlet.getUpdateCartContent;
 import static controller.product.ProcessServlet.separateCookieContent;
