@@ -118,7 +118,7 @@
                                     <div class="flex infor-row">
                                         <div class="receiver-fullname flex">
                                             <span><label for="receiver-name">Full name:</label></span>
-                                            <span><input type="text" placeholder="Receiver name" id="receiver-name" name="shipName" value="${o.ship_name}"/></span>
+                                            <span><input type="text" placeholder="Receiver name" id="receiver-name" name="shipName" value="${o.ship_name}" required/></span>
                                         </div>
                                         <div class="receiver-gender flex">
                                             <span style="margin-right: 15px; font-weight: bold; color: 21252b;">Gender: </span>
@@ -128,27 +128,11 @@
                                         </div>
                                         <div class="receiver-email infor-row">
                                             <span><label for="email">Email</label></span>
-                                            <span><input type="text" id="email" name="shipEmail" value="${o.ship_email}"/></span>
+                                            <span><input type="email" id="email" name="shipEmail" value="${o.ship_email}" required/></span>
                                     </div>
                                     <div class="receiver-mobile infor-row">
                                         <span><label for="receiver-mobile">Mobile</label></span>
-                                        <span><input type="text" id="receiver-mobile" name="shipMobile" value="${o.ship_mobile}"/></span>
-                                    </div>
-                                    <div class="receiver-address infor-row">
-                                        <span><label for="receiver-city">City</label></span>
-                                        <span style="margin-right: 50px;"><input type="text" id="receiver-city" name="shipCity" value="${o.ship_city}"/></span>
-                                        <span><label for="receiver-address">Address</label></span>
-                                        <span><input type="text" id="receiver-address" name="shipAddress" value="${o.ship_address}"/></span>
-                                    </div>
-                                    <div class="flex" style="    margin-top: 20px;
-                                         height: 40px;
-                                         line-height: 40px;"><span style="font-weight: bold;
-                                            color: #21252b;">Payment method: </span>
-                                        <select name="payment" class="receiver-payment" style="margin-left: 10px;">
-                                            <c:forEach items="${requestScope.payments}" var="i">
-                                                <option value="${i}" <c:if test="${i eq o.payment}">selected</c:if>/> ${i}
-                                            </c:forEach>
-                                        </select>
+                                        <span><input type="text" id="receiver-mobile" name="shipMobile" value="${o.ship_mobile}" required/></span>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end">

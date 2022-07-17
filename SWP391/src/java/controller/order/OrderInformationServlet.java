@@ -8,6 +8,7 @@ package controller.order;
 import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Base64;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,7 @@ public class OrderInformationServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet OrderInformationServlet</title>");            
+            out.println("<title>Servlet OrderInformationServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet OrderInformationServlet at " + request.getContextPath() + "</h1>");
@@ -65,20 +66,23 @@ public class OrderInformationServlet extends HttpServlet {
         OrderDAO orderDAO = new OrderDAO();
         String orderId_raw = request.getParameter("orderId");
         int orderId;
-        try{
+        try {
             orderId = Integer.parseInt(orderId_raw);
             Order myOrder = orderDAO.getOrderByUserIdAndOrderId(acocunt.getUser_id(), orderId);
-            if(myOrder == null){
+            if (myOrder == null) {
                 PrintWriter out = response.getWriter();
                 out.println("access denied");
             } else {
+                String orderID_encode = myOrder.getOrder_id() + "";
+                String orderID_encoded = Base64.getEncoder().encodeToString(orderID_encode.getBytes("UTF-8"));
+                request.setAttribute("orderID_encoded", orderID_encoded);
                 request.setAttribute("myOrder", myOrder);
                 request.getRequestDispatcher("orderinformation.jsp").forward(request, response);
-                
+
             }
-            
-        }catch(IOException | NumberFormatException e){
-            
+
+        } catch (IOException | NumberFormatException e) {
+
         }
     }
 
