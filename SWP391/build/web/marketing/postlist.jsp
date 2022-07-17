@@ -118,8 +118,8 @@
                                             </div>
                                         </div>
                                         <!--Content-->
-                                        <div id="content">
-                                            <table class="table table-striped table-hover">
+<!--                                        <div id="content">-->
+                                            <table  id="content" class="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th>
@@ -139,7 +139,8 @@
                                                         <th></th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="listpost">
+                                                <tbody id="listpost ">
+                                               
                                                     <c:forEach items="${requestScope.posts}" var="p">
                                                         <tr>
                                                             <td>${p.post_id}</td>
@@ -177,7 +178,7 @@
                                                     </c:forEach>
                                                 </tbody>
                                             </table>
-                                            <footer>
+                                            <footer id="footer">
                                                 <div class="pagination">
                                                     <div class="content-paging content-paging-footer" name="page">
                                                         <div class="title-paging"> <span>Page ${requestScope.curpage} of ${requestScope.maxpage}<span></div>
@@ -217,7 +218,7 @@
                                                                     </div>
                                                                     </footer>
 
-                                                                    </div>
+                                                                    <!--</div>-->
                                                                     </div>
 
                                                                     </div>

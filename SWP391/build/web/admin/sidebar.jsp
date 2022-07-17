@@ -4,23 +4,29 @@
     <section class="sidebar">
         <div class="user-panel flex">
             <div class="pull-left image">
-                <img src="../images/account-images/anh-dai-dien-nguoi-giau-mat-voi-background-580x580.jpg" style="width: 45px; height: 45px;">
+                <img src="/swp/${sessionScope.account.image_url}" style="width: 45px; height: 45px;">
             </div>
             <div class="pull-left info">
-                Hello, ${sessionScope.account.username}
+                Hello, ${sessionScope.account.full_name}
             </div>
         </div>
         <ul class="sidebar-menu">
             <li>
-                <a href="admin">
+                <a href="/swp/admin">
                     <i class="fa fa-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="userslist">
+                <a href="/swp/admin/userslist">
                     <i class="fa-solid fa-address-book"></i>
-                    <span>User list</span>
+                    <span>Users list</span>
+                </a>
+            </li>
+            <li>
+                <a href="/swp/admin/settingslist">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings list</span>
                 </a>
             </li>
             <li>

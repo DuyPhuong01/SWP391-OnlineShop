@@ -4,7 +4,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header class="header">
     <a class="logo">
-        Sale
+        Admin
     </a>
     <nav class="navbar">
         <a class="navbar-btn sidebar-toggle">

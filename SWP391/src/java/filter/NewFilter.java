@@ -61,9 +61,6 @@ public class NewFilter implements Filter {
             chain.doFilter(request, response);
         } else {
             request.getRequestDispatcher("accessdenied").forward(request, response);
-//            RequestDispatcher dispatcher = httpRequest.getRequestDispatcher("../accessdenied.jsp");
-//            dispatcher.forward(request, response);
-//              httpResponse.sendRedirect("../accessdenied.jsp");
         }
     }
 

@@ -53,7 +53,7 @@
                                             <span class="order-infor-fields">Order Date:</span> <fmt:formatDate value="${requestScope.myOrder.orderDate}" type="both" dateStyle="short"></fmt:formatDate>
                                             </span>
                                             <span>
-                                                <span class="order-infor-fields">Total Cost:</span> <fmt:formatNumber value="${requestScope.myOrder.total_price}" type="currency" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber>
+                                                <span class="order-infor-fields">Total Cost:</span> <fmt:formatNumber value="${requestScope.myOrder.total_price + requestScope.myOrder.freight}" type="currency" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber>
                                             </span>
                                             <span>
                                                 <span class="order-infor-fields" id="sale-name-origin" data-bind="${requestScope.myOrder.sale.user_id}" data-bind2="${requestScope.myOrder.sale.full_name}">Sale name:</span> ${requestScope.myOrder.sale.full_name}
@@ -77,8 +77,7 @@
                                 <div class="receiver-infor">
                                     <span class="bold">Sale note</span>
                                     <div class="receiver-infor-wrapper flex flex-column">
-                                        <textarea disabled class="sale-note" id="sale-note-origin">${requestScope.myOrder.sale_note}
-                                        </textarea>
+                                        <textarea disabled class="sale-note" id="sale-note-origin">${requestScope.myOrder.sale_note}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +177,8 @@
                                                 <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="btn-sale-name">
                                                     ${requestScope.myOrder.sale.full_name}
                                                 </button>
-                                                <ul class="dropdown-menu" id="myDropdown">
+                                                <ul class="dropdown-menu" id="myDropdown" style="    max-height: 70vh;
+                                                    overflow-y: auto;">
                                                     <input type="text" placeholder="search" id="myInput" onkeyup="filterFunction();"/>
                                                     <c:forEach items="${requestScope.saleList}" var="i">
                                                         <li><a class="dropdown-item" data-bind="${i.user_id}" onclick="changeValue(this);">${i.full_name}</a></li>

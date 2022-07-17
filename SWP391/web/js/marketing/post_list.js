@@ -79,8 +79,43 @@ function SubmitForm(numpage) {
         },
 
         "success": function (data) {
+//            console.log(data);
+            $('#content tbody').empty();
+            $('#content tbody').append(data);
+
+        },
+        "error": function (errorData) {
+            console.log("lookup ajax error");
+            console.log(errorData);
+        }
+    });
+    submitpage(numpage);
+}
+function submitpage(numpage){
+          var category_raw=document.getElementById("category");
+    var check=$('.sort-active')[0].className.includes('fa-arrow-up-a-z');
+    var op;
+   op=(check==true)?1:0;
+    $.ajax({
+        "type": "get",
+        // generate the request url from the query.
+        // escape the query string to avoid errors caused by special characters 
+        "url": "/swp/searchpostlist",
+        "data": {
+            op: op,
+            search: document.getElementById("search").value,
+            category: $('#category').children("option:selected").val(),
+            sub_category: $('#sub_category').children("option:selected").val(),
+            author: $('#author').children("option:selected").val(),
+            feature: document.getElementById("feature_input").value,
+            sort: $('#sort_input').val(),
+            page: numpage
+        },
+
+        "success": function (data) {
             console.log(data);
-            $('#content').empty().append(data);
+           $("#footer").empty();
+           $("#footer").append(data);
 
         },
         "error": function (errorData) {
@@ -89,6 +124,7 @@ function SubmitForm(numpage) {
         }
     });
 }
+
 // change featured
 function ChangeFeature(postid, featured) {
     console.log(postid);

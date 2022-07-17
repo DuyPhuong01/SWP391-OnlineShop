@@ -71,6 +71,24 @@
         <url-pattern>/sale</url-pattern>
         <url-pattern>/sale/orderslist</url-pattern>
         <url-pattern>/sale/orderdetails</url-pattern>
+        <url-pattern>/marketing/postdetails</url-pattern>
+        <url-pattern>/marketing/changepostcategory</url-pattern>
+        <url-pattern>/admin</url-pattern>
+        <url-pattern>/admin/settingslist</url-pattern>
+        <url-pattern>/admin/adduser</url-pattern>
+        <url-pattern>/admin/userslist</url-pattern>
+        <url-pattern>/admin/udateacc</url-pattern>
+        <url-pattern>/admin/settingdetails</url-pattern>
+        <url-pattern>/admin/addsetting</url-pattern>
+        <url-pattern>/marketing/addcustomer</url-pattern>
+        <url-pattern>/marketing/customerlist</url-pattern>
+        <url-pattern>/marketing/editslider</url-pattern>
+        <url-pattern>/marketing/feedbackslist</url-pattern>
+        <url-pattern>/marketing/postslist</url-pattern>
+        <url-pattern>/marketing/getproductslist</url-pattern>
+        <url-pattern>/marketing/searchcustomerlist</url-pattern>
+        <url-pattern>/marketing/sliderslist</url-pattern>
+        <url-pattern>/marketing/slider</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
@@ -216,7 +234,7 @@
         <servlet-name>SettingsList</servlet-name>
         <servlet-class>controller.admin.SettingsList</servlet-class>
     </servlet>
-    <servlet>    
+    <servlet>
         <servlet-name>UpdateFeatureCustomerServlet</servlet-name>
         <servlet-class>controller.marketing.UpdateFeatureCustomerServlet</servlet-class>
     </servlet>
@@ -231,6 +249,14 @@
     <servlet>
         <servlet-name>AdminUdateAccServlet</servlet-name>
         <servlet-class>controller.admin.AdminUdateAccServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SettingDetailsServlet</servlet-name>
+        <servlet-class>controller.admin.SettingDetailsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSettingServlet</servlet-name>
+        <servlet-class>controller.admin.AddSettingServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -383,7 +409,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UsersListServlet</servlet-name>
-        <url-pattern>/userslist</url-pattern>
+        <url-pattern>/admin/userslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateFeatureCustomerServlet</servlet-name>
@@ -391,11 +417,19 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminAddUserServlet</servlet-name>
-        <url-pattern>/adminadduser</url-pattern>
+        <url-pattern>/admin/adduser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminUdateAccServlet</servlet-name>
-        <url-pattern>/adminudateacc</url-pattern>
+        <url-pattern>/admin/udateacc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingDetailsServlet</servlet-name>
+        <url-pattern>/admin/settingdetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSettingServlet</servlet-name>
+        <url-pattern>/admin/addsetting</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

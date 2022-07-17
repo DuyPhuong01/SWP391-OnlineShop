@@ -70,7 +70,7 @@ public class AccountDAO extends DBContext {
             String sql = "SELECT s.screen_name\n"
                     + "FROM [permissions] p  join [screens] s \n"
                     + "ON p.screen_id = s.screen_id\n"
-                    + "WHERE p.[role_id] = ?";
+                    + "WHERE p.[role_id] = ? AND p.[status] = 1";
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setInt(1, role_id);
             ResultSet rs = stm.executeQuery();
@@ -466,9 +466,10 @@ public class AccountDAO extends DBContext {
         }
         return "Success";
     }
+
     public String AddCustomer(Customer acc) {
         //check id exist
-        if(checkAccountExist(acc.getUsername())!=null){
+        if (checkAccountExist(acc.getUsername()) != null) {
             return "User name have been exist";
         }
         String sql = "INSERT INTO [dbo].[accounts]\n"
@@ -643,6 +644,30 @@ public class AccountDAO extends DBContext {
         return list;
     }
 
+    public int getNumberOfTotalCustomersByDay(LocalDate start) {
+        String sql = "select COUNT(user_id) from accounts where role_id = 1 and registered_date < ? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, start.plusDays(1).toString());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return 0;
+    }
+
+    public List getTotalCustomersByDay(LocalDate start, LocalDate end) {
+        List list = new ArrayList<>();
+        for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {
+            list.add(getNumberOfTotalCustomersByDay(i));
+        }
+
+        return list;
+    }
+
     public List<Account> getAuthors() {
         List<Account> list = new ArrayList<>();
         try {
@@ -739,7 +764,7 @@ public class AccountDAO extends DBContext {
     }
 
     //Get customer paging for customer list in admin role
-    public List<Customer> getCustomers(String word, int searchOption, int status, int orderID,int op, int page, int numperpage) {
+    public List<Customer> getCustomers(String word, int searchOption, int status, int orderID, int op, int page, int numperpage) {
         List<Customer> list = new ArrayList<>();
         String sql = "select  user_id,full_name,featured, email,phone,gender from\n"
                 + "accounts where role_id=1";
@@ -768,7 +793,7 @@ public class AccountDAO extends DBContext {
         }
         sql += " \norder by";
         sql += " " + convertOrderID(orderID);
-        sql+=(op==1)?" asc":" desc";
+        sql += (op == 1) ? " asc" : " desc";
 
         sql += " OFFSET "
                 + (page - 1) * numperpage
@@ -789,7 +814,7 @@ public class AccountDAO extends DBContext {
         return list;
     }
 
-     //update status of slider
+    //update status of slider
     public boolean updateFeatured(int id, int featured) {
         String sql = "UPDATE Accounts\n"
                 + "SET featured = "
@@ -807,7 +832,7 @@ public class AccountDAO extends DBContext {
 
         return false;//exception
     }
-    
+
     public List getListOfNewlyRegisterCustomer(LocalDate start, LocalDate end) {
         List result = new ArrayList();
         for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {

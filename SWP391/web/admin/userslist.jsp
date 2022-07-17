@@ -13,8 +13,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
-        <link href="css/stylesaleheadersider.css" rel="stylesheet"/>
-        <link href="css/userslist.css" rel="stylesheet"/>
+        <link href="../css/stylesaleheadersider.css" rel="stylesheet"/>
+        <link href="../css/userslist.css" rel="stylesheet"/>
         <link href="css/admin.css" rel="stylesheet"/>
         <!--font-awesome-->
         <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
@@ -105,7 +105,7 @@
         </script>
     </head>
     <body>
-        <jsp:directive.include file="salenavbar.jsp"/>
+        <jsp:directive.include file="navbar.jsp"/>
         <div class="wrapper-login">
             <jsp:directive.include file="sidebar.jsp"/>
             <aside class="right-side">
@@ -115,7 +115,7 @@
                             <div class="card-body">
                                 <h5 class="card-title text-uppercase mb-0">Manage Users</h5>
                             </div>
-                            <form action="userslist" id="frmSearch" method="GET">
+                            <form action="admin/userslist" id="frmSearch" method="GET">
                                 <div class="mb-3 d-flex justify-content-between" style="padding-left: 10px; padding-right: 10px;">
                                     <div class="d-flex">
                                         <div class="me-3 ">
@@ -185,7 +185,7 @@
                                         </thead>
                                         <tbody>
                                         <c:forEach items="${requestScope.accounts}" var="a">
-                                        <form action="adminudateacc" id="frmUpdate" method="POST">
+                                        <form action="admin/udateacc" id="frmUpdate" method="POST">
                                             <tr>
                                                 <td class="pl-4">
                                                     ${a.getUser_id()}
@@ -210,7 +210,6 @@
                                                         <label class="form-check-label" for="flexSwitchCheckDisabled"></label>
                                                         <input class="form-check-input viewmode${a.getUser_id()}" type="checkbox" role="switch" id="flexSwitchCheckDisabled" <c:if test="${a.getActive() == 1}">checked</c:if>  disabled>
                                                         <input class="form-check-input editmode${a.getUser_id()}" type="checkbox" role="switch" id="edit_active${a.getUser_id()}" name="active"   <c:if test="${a.getActive() == 1}">checked</c:if>/>
-
                                                         </div>
                                                     </td>
                                                     <td>
@@ -265,7 +264,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="py-1">
-                            <form class="form" action="adminadduser" method="post">
+                            <form class="form" action="admin/adduser" method="post">
 
                                 <div class="row">
                                     <div class="col">

@@ -45,7 +45,7 @@
                         <div class="content order-information-container bg-white">
                         <c:set value="${requestScope.myOrder}" var="order"></c:set>
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-5">
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title">Order Information</h5>
@@ -56,7 +56,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Order Date:</td>
-                                                <td>${order.order_Date}</td>
+                                                <td><fmt:formatDate value="${order.orderDate}" type="both"/></td>
                                             </tr>
                                             <tr>
                                                 <td>Total Cost:</td>
@@ -64,7 +64,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Status:</td>
-                                                <c:if test="${order.status == 0}"><td>Cancel</td></c:if>
+                                                <c:if test="${order.status == 6}"><td>Cancel</td></c:if>
                                                 <c:if test="${order.status == 1}"><td>Submitted</td></c:if>
                                                 <c:if test="${order.status == 2}"><td>Payment information confirmation</td></c:if>
                                                 <c:if test="${order.status == 3}"><td>Active</td></c:if>
@@ -76,7 +76,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-8">
+                                <div class="col-7">
                                     <div class="card">
                                         <div class="card-body receiver-infor">
                                             <h5 class="card-title">Receiver Information</h5>
@@ -102,12 +102,13 @@
                                     </div>
                                 </div>
                             </div>
+                                                <c:if test="${requestScope.myOrder.status == 1}"><span class="note"><span>*NOTE:</span> Your order is not finished yet!! Click <a href="cartcompletion?orderid=${requestScope.orderID_encoded}">here</a> to finish your order</span></c:if>
+                            </div>
                         </div>
-                    </div>
-                    <div class="content order-details bg-white">
-                        <h3 style="font-weight: bold;
-                            font-family: emoji;
-                            padding-left: 10px;">Ordered Products</h3>
+                        <div class="content order-details bg-white">
+                            <h3 style="font-weight: bold;
+                                font-family: emoji;
+                                padding-left: 10px;">Ordered Products</h3>
                         <c:set value="${order.orderDetailList}" var="orderDetails"></c:set>
                             <table class="table">
                                 <tbody>
@@ -129,12 +130,12 @@
                                             <p class="subtotal"><fmt:formatNumber type="currency" value="${i.price * i.quantity}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></p>
                                             </td>
                                             <td><div>
-                                                    <a href="product?id=${i.product.product_id}" class="btn action" style="    border-radius: 3px;
+                                                    <a class="btn action" style="    border-radius: 3px;
                                                    border-color: black;
                                                    margin-left: 30px;
                                                    margin-bottom: 10px;
                                                    color: black;
-                                                   display: block;">Rebuy</a>
+                                                   display: block;" onclick="reBuy(${i.product.product_id}, ${i.quantity}, ${i.product.unit_in_stock});">Rebuy</a>
                                                 <a href="feedback?id=${i.product.product_id}" class="btn action" style="    border-radius: 3px;
                                                    border-color: black;
                                                    margin-left: 30px;
@@ -148,8 +149,12 @@
                                 </c:forEach>
                             </tbody>
                         </table>
+                        <form action="buy" method="post" id="frm1">
+                            <input type="hidden" value="" name="id" id="rebuy-product-id"/>
+                            <input type="hidden" value="" name="quantity" id="rebuy-product-quantity"/>
+                        </form>
                         <form action="" method="" id="frm">
-                            <input type="hidden" value="${order.order_id}" name="orderId"/>
+                            <input type="hidden" value="${requestScope.myOrder.order_id}" name="orderId"/>
                         </form>
                         <c:if test="${order.status == 1}">
 

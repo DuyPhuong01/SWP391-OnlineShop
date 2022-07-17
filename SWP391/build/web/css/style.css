@@ -292,7 +292,7 @@ ul {
     padding-right: 0px;
 }
 .gender-item{
-    margin-bottom: 30px;
+    margin-bottom: 0px !important;
 }
 .navbar-content{
     padding-bottom: 30px;
