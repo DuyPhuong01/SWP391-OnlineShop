@@ -95,7 +95,7 @@
                     <div class="row" style="margin-bottom: 20px;">
                         <h2>Settings Detail</h2>
                         <div class="bg-light rounded-4 ">
-                            <form action="settingdetails" method="POST">
+                            <form action="admin/settingdetails" method="POST">
                                 <div class="settings-wrapper " style="margin-top: 10px;">
                                     <div class="d-flex flex-row-reverse align-items-center mb-3">
                                         <input class="btn btn-primary profile-button viewmode${requestScope.settingsList.settingId}" type="button" value="Edit" style="width: auto;"  onclick="Edit_onclick(${requestScope.settingsList.settingId});"/>

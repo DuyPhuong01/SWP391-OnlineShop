@@ -31,7 +31,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="/admin/userslist">
                     <i class="fa-solid fa-address-book"></i>
                     <span>User list</span>
                 </a>
