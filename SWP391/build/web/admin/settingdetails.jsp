@@ -87,7 +87,7 @@
         </script>
     </head>
     <body>
-        <jsp:directive.include file="salenavbar.jsp"/>
+        <jsp:directive.include file="navbar.jsp"/>
         <div class="wrapper-login">
             <jsp:directive.include file="sidebar.jsp"/>
             <aside class="right-side">
