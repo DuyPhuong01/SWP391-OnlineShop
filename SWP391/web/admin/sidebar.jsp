@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li>
-                <a href="/swp/userslist">
+                <a href="/swp/admin/userslist">
                     <i class="fa-solid fa-address-book"></i>
                     <span>Users list</span>
                 </a>

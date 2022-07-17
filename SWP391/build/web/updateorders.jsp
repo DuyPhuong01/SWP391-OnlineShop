@@ -102,7 +102,7 @@
                                     <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted" >Sub total</b>
                                         <h5 class="font-weight-bold" id="subtotal-final" style="color: red;"><fmt:formatNumber value="${o.total_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
                                     </li>
-                                    <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Shipping fee</b><b style="color: red;"><c:if test="${o.freight != 0}">${o.freight}</c:if><c:if test="${o.freight == 0}">Free ship</c:if></b></li>
+                                    <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Shipping fee</b><b style="color: red;"><c:if test="${o.freight != 0}"><fmt:formatNumber value="${o.freight}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></c:if><c:if test="${o.freight == 0}">Free ship</c:if></b></li>
                                         <li class="d-flex justify-content-between py-3 border-bottom"><b class="text-muted">Total</b>
                                                 <h5 class="font-weight-bold" id="total-final" style="color: red;"><fmt:formatNumber value="${o.total_price + o.freight}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></h5>
                                     </li>
