@@ -5,6 +5,10 @@
  */
 package dal;
 
+import static controller.authentication.RegisterServlet.getMd5;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import util.SendingEmailUtil;
 import java.sql.PreparedStatement;
@@ -14,6 +18,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -299,18 +304,28 @@ public class AccountDAO extends DBContext {
 
     public Account getAccountByID(Account acc) {
         try {
-            String sql = "SELECT *"
-                    + "  FROM [accounts]\n"
-                    + "  WHERE [user_id] = ?";
+            String sql = "SELECT a.*, r.role_name FROM [accounts] a inner join [roles] r on a.[role_id] = r.[role_id] WHERE [user_id] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, acc.getUser_id());
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                Account account = new Account(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"),
-                        rs.getString("full_name"), rs.getInt("role_id"), rs.getBoolean("gender"), rs.getString("email"),
-                        rs.getString("city"), rs.getString("country"), rs.getString("address"), rs.getString("phone"),
-                        rs.getString("image_url"), rs.getBoolean("featured"), rs.getString("hash"), rs.getInt("active"));
-                return account;
+                Role r = new Role();
+                r.setrId(rs.getInt("role_id"));
+                r.setrName(rs.getString("role_name"));
+                Account a = new Account();
+                a.setUser_id(rs.getInt("user_id"));
+                a.setUsername(rs.getString("username"));
+                a.setPassword(rs.getString("password"));
+                a.setFull_name(rs.getString("full_name"));
+                a.setRole(r);
+                a.setGender(rs.getBoolean("gender"));
+                a.setEmail(rs.getString("email"));
+                a.setCity(rs.getString("city"));
+                a.setCountry(rs.getString("country"));
+                a.setPhone(rs.getString("phone"));
+                a.setImage_url(rs.getString("image_url"));
+                a.setActive(rs.getInt("active"));
+                return a;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -648,11 +663,106 @@ public class AccountDAO extends DBContext {
         return 0;
     }
 
-    public static void main(String[] args) {
-        AccountDAO d = new AccountDAO();
-//        ArrayList<Account> r = d.searchByRid(0);
-//        for (Account role : r) {
-//            System.out.println(role.getFull_name());
-//        }
+    public boolean changeActive(int user_id, int active_status) {
+        String sql = "update accounts set active = ? where user_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, active_status);
+            st.setInt(2, user_id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+
+        }
+        return false;
+    }
+
+    public boolean changeRole(int user_id, int role_id) {
+        String sql = "update accounts set role_id = ? where user_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, role_id);
+            st.setInt(2, user_id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+
+        }
+        return false;
+    }
+
+    public Role getRole(int role_id) {
+        String sql = "select * from roles where role_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, role_id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Role role = new Role(
+                        rs.getInt("role_id"),
+                        rs.getString("role_name")
+                );
+                return role;
+            }
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
+
+    public boolean creatUser(Account a) {
+        String sql = "insert into accounts (username, password, full_name, role_id, gender, email, city, country, address, phone, featured, hash, active, registered_date) "
+                + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, GETDATE())";
+        try {
+            Random random = new Random();
+            random.nextInt(9999999);
+            String myHash = getMd5("" + random);
+
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, a.getUsername());
+            st.setString(2, getMd5(a.getPassword()));
+            st.setString(3, a.getFull_name());
+            st.setInt(4, a.getRole_id());
+            st.setInt(5, a.isGender() ? 1: 0);
+            st.setString(6, a.getEmail());
+            st.setString(7, a.getCity());
+            st.setString(8, a.getCountry());
+            st.setString(9, a.getAddress());
+            st.setString(10, a.getPhone());
+            st.setInt(11, a.isFeature() ? 1 : 0);
+            st.setString(12, myHash);
+            st.setInt(13, a.getActive());
+            System.out.println(sql);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+
+        }
+        return false;
+    }
+
+    private String getMd5(String input) {
+        try {
+
+            // Static getInstance method is called with hashing MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // digest() method is called to calculate message digest
+            //  of an input digest() return array of byte
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        } // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

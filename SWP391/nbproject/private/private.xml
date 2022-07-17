@@ -3,16 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/controller/marketing/FeedbacksListServlet.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/marketing/feedbackslist.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/productslist.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/blogdetails.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/feedbackdetails.html</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/controller/marketing/FeedbackServlet.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/model/Feedback.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/model/Account.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/dal/AccountDAO.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/cartcompletion.jsp</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/admin/userslist.jsp</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/cartdetail.jsp</file>
             <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/marketing/feedbackdetails.jsp</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/dal/FeedbackDAO.java</file>
-            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/error/page_not_found.jsp</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/admin/userdetails.jsp</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/controller/admin/AddUserServlet.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/service/EmailService.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/controller/marketing/EditFeedbackServlet.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/controller/admin/EditUserServlet.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/src/java/service/EmailServiceIml.java</file>
+            <file>file:/C:/Users/Duy%20Phuong/Desktop/Summer%202022/SWP391/GitLab/summer2022-se1611-g2/SWP391/web/js/admin/userdetails.js</file>
         </group>
     </open-files>
 </project-private>

@@ -47,6 +47,7 @@ public class EmailServiceIml implements EmailService {
 
     private static final String EMAIL_CONFIRMATION_ORDER = "OnlineShop - CONFIRMATION ORDER";
     private static final String EMAIL_UPDATE_METHOD_ORDER = "OnlineShop - UPDATE ORDER";
+    private static final String EMAIL_GET_ACCOUNT = "OnlineShop - Account";
     @Override
     public void sendEmail(ServletContext context, Account recipient, String type, String text) {
         String host = context.getInitParameter("host");
@@ -252,6 +253,24 @@ public class EmailServiceIml implements EmailService {
             Logger.getLogger(EmailServiceIml.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;//exception
+    }
+
+    @Override
+    public void sendEmailGetNewAccount(ServletContext context, Account recipient) {
+        try {
+            String host = context.getInitParameter("host");
+            String port = context.getInitParameter("port");
+            String user = context.getInitParameter("user");
+            String pass = context.getInitParameter("pass");
+            String content = "Dear " + recipient.getEmail() + "! you have been created an new account in OnlineShopSystem. "
+                    + "Below is your password to login to system, please change your password to protect your account.\n";
+            content += "Username: " + recipient.getUsername()+ "\n";
+            content += "Password: " + recipient.getPassword()+ "\n";
+            String subject = EMAIL_GET_ACCOUNT;
+            SendingEmailUtil.sendEmail(host, port, user, pass, recipient.getEmail(), subject, content);
+        } catch (MessagingException ex) {
+            Logger.getLogger(EmailServiceIml.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 

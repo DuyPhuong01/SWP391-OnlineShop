@@ -17,5 +17,5 @@ public interface EmailService {
     void sendEmail(ServletContext context, Account recipient, String type, String text);
     void sendEmailComfirmOrder(ServletContext context, String name, String email, int orderID);
     void sendEmailComfirmUpdateOrder(ServletContext context, String name, String email, int orderID);
-  
+    void sendEmailGetNewAccount(ServletContext context, Account recipient);
 }

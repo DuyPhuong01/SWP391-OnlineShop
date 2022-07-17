@@ -12,11 +12,11 @@
     </context-param>
     <context-param>
         <param-name>user</param-name>
-        <param-value>dungbahe150633@fpt.edu.vn</param-value>
+        <param-value>phuongnldhe150657@fpt.edu.vn</param-value>
     </context-param>
     <context-param>
         <param-name>pass</param-name>
-        <param-value>anhyeu123</param-value>
+        <param-value>phuong1510</param-value>
     </context-param>
     <context-param>
         <param-name>banking_system</param-name>
@@ -43,13 +43,9 @@
     </filter>
     <filter-mapping>
         <filter-name>NewFilter</filter-name>
-        <url-pattern>/buy</url-pattern>
         <url-pattern>/feedback</url-pattern>
         <url-pattern>/register</url-pattern>
         <url-pattern>/checkout</url-pattern>
-        <url-pattern>/process</url-pattern>
-        <url-pattern>/product</url-pattern>
-        <url-pattern>/showcart</url-pattern>
         <url-pattern>/activate</url-pattern>
         <url-pattern>/cartcompletion</url-pattern>
         <url-pattern>/delete_order</url-pattern>

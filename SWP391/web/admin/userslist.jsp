@@ -227,7 +227,7 @@
 
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2 viewmode${a.getUser_id()}"><i class="fa-solid fa-arrow-up-right-from-square"></i> </button>
+                                                    <a href="user?id=${a.getUser_id()}" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2 viewmode${a.getUser_id()}"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                                                     <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2 viewmode${a.getUser_id()}" onclick="Edit_onclick(${a.getUser_id()});"><i class="fa fa-edit"></i> </button>
                                                     <input class="btn btn-primary editmode${a.getUser_id()}" type="submit" value="Save">
                                                     <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2 editmode${a.getUser_id()}" 

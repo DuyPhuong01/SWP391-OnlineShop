@@ -10,24 +10,11 @@
                 Hello, ${sessionScope.account.username}
             </div>
         </div>
-<!--        <form class="sidebar-form">
-            <div class="flex sidebar-form-container">
-                <input type="text" placeholder="search"/>
-                <button><i class="fas fa-search"></i></button>
-                
-            </div>
-        </form>-->
         <ul class="sidebar-menu">
             <li>
                 <a href="admin">
                     <i class="fa fa-dashboard"></i>
                     <span>Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Orders List</span>
                 </a>
             </li>
             <li>

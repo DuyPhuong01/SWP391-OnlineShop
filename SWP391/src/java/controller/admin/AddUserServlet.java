@@ -3,23 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.marketing;
+package controller.admin;
 
-import dal.FeedbackDAO;
+import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
+import service.EmailService;
+import service.EmailServiceIml;
 
 /**
  *
  * @author Duy Phuong
  */
-@WebServlet(name = "EditFeedbackServlet", urlPatterns = {"/marketing/editfeedback"})
-public class EditFeedbackServlet extends HttpServlet {
+@WebServlet(name = "AddUserServlet", urlPatterns = {"/adduser"})
+public class AddUserServlet extends HttpServlet {
+    private EmailService emailService = new EmailServiceIml();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,34 +40,35 @@ public class EditFeedbackServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        FeedbackDAO feedbackDAO = new FeedbackDAO();
-        boolean pos;
+        PrintWriter out = response.getWriter();
+        AccountDAO accountDAO = new AccountDAO();
         
-        String action = request.getParameter("action");
-        String id_raw = request.getParameter("id");
-        String type = request.getParameter("type");
-        try {
-            int id = Integer.parseInt(id_raw);
-            switch (action) {
-                case "showfeedback":
-                    pos = type.equals("1") ? feedbackDAO.changeGeneralFeedbackStatus(id, 1) : feedbackDAO.changeProductFeedbackStatus(id, 1);
-                    if(!pos) {
-                        System.out.println("showfeedback fail");
-                        response.sendError(1, "showfeedback fail");
-                    }
-                    break;
-                    
-                case "hidefeedback":
-                    pos = type.equals("1") ? feedbackDAO.changeGeneralFeedbackStatus(id, 0) : feedbackDAO.changeProductFeedbackStatus(id, 0);
-                    if(!pos) {
-                        System.out.println("hide feedback fail");
-                        response.sendError(1, "hide feedback fail");
-                    }
-                    break;
-            }
-        } catch (NumberFormatException nfe) {
-            System.out.println(nfe);
+        String email = request.getParameter("mail");
+        String username = request.getParameter("username");
+        String fullname = request.getParameter("fullname");
+        int gender = Integer.parseInt(request.getParameter("gender"));
+        String phone = request.getParameter("phone");
+        String city = request.getParameter("city");
+        String country = request.getParameter("country");
+        String address = request.getParameter("address");
+        int role_id = Integer.parseInt(request.getParameter("role_id"));
+        Account a = new Account(username, generatePassword(), fullname, role_id, gender==1, email, city, country, address, phone, true, null, 1);
+        System.out.println(a);
+        boolean pos = accountDAO.creatUser(a);
+        emailService.sendEmailGetNewAccount(getServletContext(), a);
+        if(!pos){
+            response.sendError(1, "something wrong");
         }
+    }
+    
+    private String generatePassword() {
+        String key = "1234567890!@#$%&abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ";
+        String result = "";
+        Random r = new Random();
+        for (int i = 0; i < 20; i++) {
+            result += key.charAt(r.nextInt(key.length()));
+        }
+        return result;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

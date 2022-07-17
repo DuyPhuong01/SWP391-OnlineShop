@@ -385,8 +385,30 @@ public class FeedbackDAO extends DBContext {
     }
     
     
-    public boolean changeFeedbackStatus(int id, int status) {
-        String sql = "update feedbacks";
+    public boolean changeGeneralFeedbackStatus(int id, int status) {
+        String sql = "update general_feedbacks set status = ? where feedback_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, status);
+            st.setInt(2, id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    public boolean changeProductFeedbackStatus(int id, int status) {
+        String sql = "update product_feedbacks set status = ? where feedback_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, status);
+            st.setInt(2, id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
         return false;
     }
 

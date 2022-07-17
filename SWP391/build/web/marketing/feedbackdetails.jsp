@@ -4,27 +4,27 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="feedback" value="${requestScope.feedback}"></c:set>
 <fmt:setLocale value = "vi_VN"/>
-    <!Doctype html>
-    <html lang="en">
-        <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Marketing - Feedback Details</title>
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-            <link rel="stylesheet" href="../css/style.css">
-            <!--            <link rel="stylesheet" href="../asserts/fontawesome-free-6.0.0/css/all.min.css"/>
-                        <link rel="stylesheet" href="../asserts/fontawesome-free-6.0.0/css/fontawesome.min.css"/>-->
-            <!--<script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>-->
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-            <style>
-                i.star-rate.checked{
-                    color: orange;
-                }
-            </style>
+<!Doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Marketing - Feedback Details</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="stylesheet" href="../css/style.css">
+        <!--            <link rel="stylesheet" href="../asserts/fontawesome-free-6.0.0/css/all.min.css"/>
+                    <link rel="stylesheet" href="../asserts/fontawesome-free-6.0.0/css/fontawesome.min.css"/>-->
+        <!--<script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        <style>
+            i.star-rate.checked{
+                color: orange;
+            }
+        </style>
 
-        </head>
-        <body>
-            <div class="d-flex">
+    </head>
+    <body>
+        <div class="d-flex">
             <c:import url="/marketing/sidebar.jsp"></c:import>
                 <div class="container-lg my-5">
                     <div>
@@ -81,8 +81,7 @@
                                     <div><h5>Status</h5></div>
                                     <div>
                                         <div class="form-check form-switch form-switch-md">
-                                            <input class="featured-btn form-check-input" style="cursor: pointer" type="checkbox" role="switch" <c:if test="${feedback.status==1}">checked</c:if> onchange="<c:if test="${feedback.status==1}">hide</c:if><c:if test="${feedback.status!=1}">show</c:if>Feedback(,${feedback.id})"/>
-                                                <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                                            <input class="featured-btn form-check-input" id="feedback-status-checkbox" style="cursor: pointer" type="checkbox" role="switch" data-bs-toggle="modal" data-bs-target="${feedback.status==1 ? "#confirm-hide-feedback" : "#confirm-show-feedback"}" <c:if test="${feedback.status==1}">checked</c:if>/>
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +106,7 @@
                                         <div class="my-3">
                                             ${feedback.content}
                                         </div>
-                                        <div>
+                                        <div style="max-width: 300px">
                                             <c:if test="${feedback.image_url != null }"><img src="../${feedback.image_url}"></c:if>
                                         </div>
                                     </div>
@@ -117,8 +116,37 @@
                     </div>
                 </div>
             </div>
+            <div class="modal" id="confirm-show-feedback" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Do you want to show this feedback?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary" onclick="showFeedback(${requestScope.isproductfeedback ? "2":"1"}, ${feedback.id})">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="confirm-hide-feedback" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Do you want to hide this feedback?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary" onclick="hideFeedback(${requestScope.isproductfeedback ? "2":"1"}, ${feedback.id})">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../js/marketing/feedbackdetails.js"></script>
 
 </html>

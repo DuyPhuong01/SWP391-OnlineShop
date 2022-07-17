@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.marketing;
+package controller.admin;
 
-import dal.FeedbackDAO;
+import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Duy Phuong
  */
-@WebServlet(name = "EditFeedbackServlet", urlPatterns = {"/marketing/editfeedback"})
-public class EditFeedbackServlet extends HttpServlet {
+@WebServlet(name = "EditUserServlet", urlPatterns = {"/edituser"})
+public class EditUserServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -31,35 +31,38 @@ public class EditFeedbackServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        AccountDAO accountDAO = new AccountDAO();
         response.setContentType("text/html;charset=UTF-8");
-        FeedbackDAO feedbackDAO = new FeedbackDAO();
-        boolean pos;
+        PrintWriter out = response.getWriter();
         
+        int id = Integer.parseInt(request.getParameter("id"));
         String action = request.getParameter("action");
-        String id_raw = request.getParameter("id");
-        String type = request.getParameter("type");
-        try {
-            int id = Integer.parseInt(id_raw);
-            switch (action) {
-                case "showfeedback":
-                    pos = type.equals("1") ? feedbackDAO.changeGeneralFeedbackStatus(id, 1) : feedbackDAO.changeProductFeedbackStatus(id, 1);
-                    if(!pos) {
-                        System.out.println("showfeedback fail");
-                        response.sendError(1, "showfeedback fail");
-                    }
-                    break;
-                    
-                case "hidefeedback":
-                    pos = type.equals("1") ? feedbackDAO.changeGeneralFeedbackStatus(id, 0) : feedbackDAO.changeProductFeedbackStatus(id, 0);
-                    if(!pos) {
-                        System.out.println("hide feedback fail");
-                        response.sendError(1, "hide feedback fail");
-                    }
-                    break;
-            }
-        } catch (NumberFormatException nfe) {
-            System.out.println(nfe);
+        boolean pos;
+        switch(action) {
+            case "activate":
+                pos = accountDAO.changeActive(id, 1);
+                if (!pos) {
+                    response.sendError(1, "activate fail");
+                }
+                break;
+            case "disactivate":
+                pos = accountDAO.changeActive(id, 0);
+                if (!pos) {
+                    response.sendError(1, "disactivate fail");
+                }
+                break;
+            case "changerole":
+                int role_id = Integer.parseInt(request.getParameter("role_id"));
+                pos = accountDAO.changeRole(id, role_id);
+                
+                if (!pos) {
+                    response.sendError(1, "disactivate fail");
+                } else {
+                    out.print(accountDAO.getRole(role_id).getrName());
+                }
+                break;
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
