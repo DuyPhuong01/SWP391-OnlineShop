@@ -1,0 +1,33 @@
+SMAP
+dashboard_jsp.java
+JSP
+*S JSP
+*F
++ 0 dashboard.jsp
+admin/dashboard.jsp
++ 1 salenavbar.jsp
+admin/salenavbar.jsp
++ 2 sidebar.jsp
+admin/sidebar.jsp
+*L
+1,20:63
+1#1,21:83
+21:355,8
+22,3:363
+24,5:106
+20#0,3:111
+1#2,9:114
+10:123,3
+11,32:126
+22#0,60:157
+81:384,11
+82:395
+83:396,6
+84,3:402
+86,23:219
+108:429,11
+109:440
+110:441,6
+111,7:447
+117,93:244
+*E

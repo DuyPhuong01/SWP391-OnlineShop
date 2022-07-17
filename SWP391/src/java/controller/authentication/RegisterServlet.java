@@ -55,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
         Random random = new Random();
         random.nextInt(9999999);
         myHash = getMd5("" + random);
-
+        
         //Add to bean
         AccountDAO dao = new AccountDAO();
         Account a = new Account();

@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-size: 20px;
+    font-size: 18px;
     transition: .2s;
     scroll-behavior: smooth;
     font-family: "Segoe UI", Arial, sans-serif;
@@ -273,4 +273,27 @@ tr {
 input[name="poststatus-radio"]:checked + div{
     color: var(--theme-primary-color);
     border-bottom: 1px solid var(--theme-primary-color); 
+}
+ul {
+    list-style-type: none;
+}
+
+.sort-item:hover{
+    cursor: pointer;
+}
+.sort-active{
+    color: #005db3;
+}
+.item{
+    padding: 0;
+}
+.action-container{
+    padding-left: 60px;
+    padding-right: 0px;
+}
+.gender-item{
+    margin-bottom: 30px;
+}
+.navbar-content{
+    padding-bottom: 30px;
 }

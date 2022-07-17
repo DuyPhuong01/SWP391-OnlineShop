@@ -64,6 +64,7 @@ public class SendingEmailUtil {
         // sends the e-mail
         Transport.send(msg);
     }
+    
      public static void sendEmailConfirmationOrder(String host, String port,
             final String userName, final String password, String toAddress,
             String subject, String message,String contentForm) throws AddressException,

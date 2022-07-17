@@ -65,11 +65,10 @@
                             <div data-v-75520c46="" class="row main-content " id="content">
                                  <!--header-->
                            <div class="row navbar-content">
-                               <div class="col-2">ID</div>
+                               <div class="col-2"style="margin-left: 34px" >ID</div>
                                <div class="col-4">Title</div>
                                <div class="col-2">Backlink</div>
                                <div class="col-2">Status</div>
-                               <div class="col-2">Action </div>
                            </div>
                               <!--list-item-->
                             <div class="list-post_container ">

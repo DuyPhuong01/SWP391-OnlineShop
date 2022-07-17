@@ -1,3 +1,18 @@
+//check sort option
+function Checksort(e) {
+    var sort = document.getElementsByClassName('sort-item');
+    var current = document.getElementsByClassName(" sort-active");
+    if (e.className === current[0].className && e.className.includes("fa-arrow-down-a-z")) {
+        e.className = "sort-item fa-solid fa-arrow-up-a-z sort-active";
+    } else if (e.className === current[0].className && e.className.includes("fa-arrow-up-a-z")) {
+        e.className = "sort-item fa-solid fa-arrow-down-a-z sort-active";
+    } else {
+        current[0].className = current[0].className.replace(" sort-active", "");
+        e.className += " sort-active";
+    }
+    $('#sort_input').val(e.getAttribute('value'));
+    SubmitForm(1);
+}
 
 // check feature select
 function CheckFeature(e) {
@@ -43,19 +58,23 @@ function cat(numpage) {
 }
 //submit form
 function SubmitForm(numpage) {
+      var category_raw=document.getElementById("category");
+    var check=$('.sort-active')[0].className.includes('fa-arrow-up-a-z');
+    var op;
+   op=(check==true)?1:0;
     $.ajax({
         "type": "post",
         // generate the request url from the query.
         // escape the query string to avoid errors caused by special characters 
         "url": "/swp/searchpostlist",
         "data": {
-            op: $('input[name="op"]:checked').val(),
+            op: op,
             search: document.getElementById("search").value,
             category: $('#category').children("option:selected").val(),
             sub_category: $('#sub_category').children("option:selected").val(),
             author: $('#author').children("option:selected").val(),
             feature: document.getElementById("feature_input").value,
-            sort: $('#sort').children("option:selected").val(),
+            sort: $('#sort_input').val(),
             page: numpage
         },
 

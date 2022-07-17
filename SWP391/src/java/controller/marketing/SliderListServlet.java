@@ -26,16 +26,6 @@ import model.Slider;
  */
 @WebServlet(name = "SliderListServlet", urlPatterns = {"/marketing/sliderslist"})
 public class SliderListServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -46,16 +36,6 @@ public class SliderListServlet extends HttpServlet {
             out.println("</script>");
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -64,12 +44,11 @@ public class SliderListServlet extends HttpServlet {
 //        if(account==null){ //have  not login
 //            processRequest(request, response);
 //        }
-         PostDAO postDAO=new PostDAO();
          int currentPage=1;//start page=1
-         int numper_page=6;
+         int numPerPage=6;
          SliderDAO sliderDAO=new SliderDAO();
-        List<Slider> sliders = sliderDAO.getSliders("", 1, -1, currentPage, numper_page); //dafault page 1 and all status
-        int maxPage= sliderDAO.countSliderPaging("", 1, -1, numper_page); //dafault page 1 and all status
+        List<Slider> sliders = sliderDAO.getSliders("", 1, -1, currentPage, numPerPage); //dafault page 1 and all status
+        int maxPage= sliderDAO.countSliderPaging("", 1, -1, numPerPage); //dafault page 1 and all status
          request.setAttribute("curpage", currentPage);
          request.setAttribute("maxpage",maxPage);
          request.setAttribute("sliders", sliders);

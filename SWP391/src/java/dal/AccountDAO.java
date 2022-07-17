@@ -23,6 +23,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import model.Account;
+import model.Customer;
+import model.Slider;
 import model.Role;
 import service.EmailService;
 import service.EmailServiceIml;
@@ -464,6 +466,55 @@ public class AccountDAO extends DBContext {
         }
         return "Success";
     }
+    public String AddCustomer(Customer acc) {
+        //check id exist
+        if(checkAccountExist(acc.getUsername())!=null){
+            return "User name have been exist";
+        }
+        String sql = "INSERT INTO [dbo].[accounts]\n"
+                + "           ([username]\n"
+                + "           ,[password]\n"
+                + "           ,[full_name]\n"
+                + "           ,[gender]\n"
+                + "           ,[email]\n"
+                + "           ,[phone]\n"
+                + "           ,[address]\n"
+                + "           ,[hash]\n"
+                + "           ,[image_url]\n"
+                + "           ,[city]\n"
+                + "           ,[country]\n"
+                + "           ,[registered_date]\n"
+                + "           ,[role_id]\n"
+                + "           ,[active]\n"
+                + "           ,[featured])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?,?,?,?,?,?,getdate(),?,?,?)";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, acc.getUsername());
+            stm.setString(2, acc.getPassword());
+            stm.setString(3, acc.getFull_name());
+            stm.setBoolean(4, acc.isGender());
+            stm.setString(5, acc.getEmail());
+            stm.setString(6, acc.getPhone());
+            stm.setString(7, acc.getAddress());
+            stm.setString(8, acc.getMyHash());
+            stm.setString(9, acc.getImage_url());
+            stm.setString(10, acc.getCity());
+            stm.setString(11, acc.getCountry());
+            stm.setInt(12, acc.getRole_id());
+            stm.setInt(13, acc.getActive());
+            stm.setBoolean(14, acc.isFeature());
+            int i = stm.executeUpdate();
+            if (i != 0) {
+                //send Email
+                return "Success";
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return "Fail";
+    }
 
     public void updateAccount(Account a) {
         String sql = "UPDATE [accounts]\n"
@@ -612,6 +663,151 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
+    //convert order id to string 
+    private String convertOrderID(int id) {
+        String content = "";
+        switch (id) {
+            case 1:
+                return "user_id";
+            case 2:
+                return "full_name";
+            case 3:
+                return "gender";
+            case 4:
+                return "email";
+            case 5:
+                return "featured";
+            default:
+                return "user_id";//default 
+        }
+    }
+
+    //get property of customer from database
+    public Customer fillCustomerDetails(ResultSet rs) {
+        try {
+            return new Customer(rs.getInt("user_id"), rs.getString("full_name"),
+                    rs.getBoolean("gender"), rs.getString("email"), rs.getString("phone"), rs.getBoolean("featured"));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return null; //exception
+    }
+
+    //count page of customer search
+    public int countCustomerPaging(String word, int searchOption, int status, int numperpage) {
+        int num = 1;//default
+        String sql = "select  count(user_id) from\n"
+                + "accounts where role_id=1";
+        if (!word.equals("") && searchOption == 1) { //have option word
+            sql += " and  full_name like '%"
+                    + word
+                    + "%'";
+        }
+        if (!word.equals("") && searchOption == 2) { //have option word
+            sql += " and  email like '%"
+                    + word
+                    + "%'";
+        }
+        if (!word.equals("") && searchOption == 3) { //have option word
+            sql += " and  phone like '%"
+                    + word
+                    + "%'";
+        }
+        if (status == 1) {
+            sql += " and featured ="
+                    + 1;
+        }
+        if (status == 0) {
+            sql += " and featured ="
+                    + 0;
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                num = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        if (num == 0) {
+            return 1;//minimum=1
+        } else if (num % numperpage == 0) { //number full page
+            return num / numperpage;
+        }
+        return num / numperpage + 1;
+    }
+
+    //Get customer paging for customer list in admin role
+    public List<Customer> getCustomers(String word, int searchOption, int status, int orderID,int op, int page, int numperpage) {
+        List<Customer> list = new ArrayList<>();
+        String sql = "select  user_id,full_name,featured, email,phone,gender from\n"
+                + "accounts where role_id=1";
+        if (!word.equals("") && searchOption == 1) { //have option word
+            sql += " and  full_name like '%"
+                    + word
+                    + "%'";
+        }
+        if (!word.equals("") && searchOption == 2) { //have option word
+            sql += " and  email like '%"
+                    + word
+                    + "%'";
+        }
+        if (!word.equals("") && searchOption == 3) { //have option word
+            sql += " and  phone like '%"
+                    + word
+                    + "%'";
+        }
+        if (status == 1) {
+            sql += " and featured ="
+                    + 1;
+        }
+        if (status == 0) {
+            sql += " and featured ="
+                    + 0;
+        }
+        sql += " \norder by";
+        sql += " " + convertOrderID(orderID);
+        sql+=(op==1)?" asc":" desc";
+
+        sql += " OFFSET "
+                + (page - 1) * numperpage
+                + " ROWS FETCH NEXT "
+                + numperpage
+                + " ROWS ONLY";
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Customer customer = fillCustomerDetails(rs);
+                list.add(customer);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+     //update status of slider
+    public boolean updateFeatured(int id, int featured) {
+        String sql = "UPDATE Accounts\n"
+                + "SET featured = "
+                + featured
+                + "\n"
+                + "WHERE user_id="
+                + id;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return false;//exception
+    }
+    
     public List getListOfNewlyRegisterCustomer(LocalDate start, LocalDate end) {
         List result = new ArrayList();
         for (LocalDate i = start; i.compareTo(end) < 0; i = i.plusDays(1)) {

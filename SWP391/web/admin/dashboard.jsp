@@ -24,16 +24,19 @@
                 <section class="content container">
                     <div class="row" style="margin-bottom: 20px;">
                         <div class="col-md-6 row order-statistic-wrapper">
+                            <div class="select-time-wrapper flex" style="height: 40px; line-height: 40px;">
+                                <span style="font-size: 24px;
+                                      font-weight: bold;">New Order</span>
+                                <div class="flex-1"></div>
+                                <label for="order-time">Time</label>
+                                <select onchange="newOrderStatistic(this);" id="order-time">
+                                    <option value="1">Last 7 days</option>
+                                    <option value="2">Last 1 month</option>
+                                    <option value="3">Last 3 months</option>
+                                </select>
+                            </div>
                             <div class="col-md-6">
-                                <div class="chart-wrapper">                                
-                                    <div class="select-time-wrapper">
-                                        <label for="order-time">Time</label>
-                                        <select onchange="newOrderStatistic(this);" id="order-time">
-                                            <option value="1">Last 7 days</option>
-                                            <option value="2">Last 1 month</option>
-                                            <option value="3">Last 3 months</option>
-                                        </select>
-                                    </div>
+                                <div class="chart-wrapper">
                                     <canvas id="myChart" width="400" height="400"></canvas>
                                 </div>
                             </div>
@@ -105,9 +108,13 @@
                                 </div>
                             </div>
                             <table>
+                                <tr>
+                                    <th>Product Category</th>
+                                    <th>Average rated</th>
+                                </tr>
                                 <c:forEach items="${requestScope.cateList}" var="i">
                                     <tr>
-                                        <th id="submitted-order" class="${i.category_id == 0? "bold":""}">${i.category_name}</th>
+                                        <td id="submitted-order" class="${i.category_id == 0? "bold":""}">${i.category_name}</td>
                                         <td id="revenue-statistic">
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" id="progress-bar"></div>
@@ -120,7 +127,7 @@
                         <div class="col-md-8 customer-wrapper">
                             <div class="row">
                                 <div class="flex">
-                                    <h3>Customer</h3>
+                                    <span class="title">Customer</span>
                                     <div class="flex-1"></div>
                                     <div class="select-time-wrapper">
                                         <label for="order-time">Time</label>
