@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Role;
 import model.Setting;
 import util.Pagination;
 
@@ -79,6 +80,12 @@ public class SettingsList extends HttpServlet {
         request.setAttribute("orderOption", "setting_id");
         request.setAttribute("sequence", "asc");
 
+        List value = settingDAO.getValue();
+        List<Role> order = settingDAO.getOrder();
+
+        request.setAttribute("value", value);
+        request.setAttribute("order", order);
+
         request.getRequestDispatcher("/admin/settingslist.jsp").forward(request, response);
     }
 
@@ -114,11 +121,9 @@ public class SettingsList extends HttpServlet {
             if (page > numberPage) {
                 page = 1;
             }
-            int start = Pagination.getStart(page);            
+            int start = Pagination.getStart(page);
             int end = Pagination.getEnd(page, total);
             List<Setting> settingsList = settingDAO.getSettingsByPage(start + 1, end, orderOption + " " + sequence, type, status, key);
-            System.out.println(start);
-            System.out.println(end);
             request.setAttribute("type", Alltype);
             request.setAttribute("settingsList", settingsList);
             request.setAttribute("pageNumber", page);
@@ -139,6 +144,12 @@ public class SettingsList extends HttpServlet {
                     }
                 }
             }
+
+            List value = settingDAO.getValue();
+            List<Role> order = settingDAO.getOrder();
+
+            request.setAttribute("value", value);
+            request.setAttribute("order", order);
             request.setAttribute("activate", activate);
             request.setAttribute("deactivate", deactivate);
             request.getRequestDispatcher("/admin/settingslist.jsp").forward(request, response);

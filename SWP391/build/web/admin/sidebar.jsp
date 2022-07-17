@@ -10,13 +10,13 @@
                 Hello, ${sessionScope.account.full_name}
             </div>
         </div>
-<!--        <form class="sidebar-form">
-            <div class="flex sidebar-form-container">
-                <input type="text" placeholder="search"/>
-                <button><i class="fas fa-search"></i></button>
-                
-            </div>
-        </form>-->
+        <!--        <form class="sidebar-form">
+                    <div class="flex sidebar-form-container">
+                        <input type="text" placeholder="search"/>
+                        <button><i class="fas fa-search"></i></button>
+                        
+                    </div>
+                </form>-->
         <ul class="sidebar-menu">
             <li>
                 <a href="/swp/admin">
@@ -25,15 +25,15 @@
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Orders List</span>
+                <a href="/swp/userslist">
+                    <i class="fa-solid fa-address-book"></i>
+                    <span>Users list</span>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <i class="fa-solid fa-address-book"></i>
-                    <span>User list</span>
+                <a href="/swp/admin/settingslist">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings list</span>
                 </a>
             </li>
             <li>

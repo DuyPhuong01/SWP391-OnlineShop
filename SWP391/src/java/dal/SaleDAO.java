@@ -8,9 +8,14 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import model.Account;
 import model.Order;
 import model.Sale;
@@ -469,7 +474,79 @@ public class SaleDAO extends DBContext {
         }
         return 0;
     }
-
+        //Assign a sale
+    public void AssignSale(int order_id){
+        Map.Entry<Integer, Timestamp> saleAssign = getSaleAssign();
+        int user_id=saleAssign.getKey();//id
+        AssignDate(user_id);
+        AssignOrder(order_id, user_id);
+        
+    }
+        //get a map of sale for next assign
+    public Map.Entry<Integer, Timestamp>getSaleAssign(){
+        HashMap<Integer,Timestamp> map =new HashMap<>();
+        List<Sale> list = getAllSaleMember();
+        for (Sale sale : list) {
+            int user_id = sale.getAccount().getUser_id();
+            Timestamp dateAssign = getDateAssign(user_id);
+            map.put(user_id, dateAssign);
+        }
+//        sort map asc
+        List<Map.Entry<Integer, Timestamp>> sortMap = map.entrySet().stream().sorted((k1, k2) -> {
+            
+            return k1.getValue().compareTo(k2.getValue());
+        }).collect(Collectors.toList()); 
+        
+              return sortMap.get(0);
+          
+    }
+      //get assign date of a sale
+    public Timestamp getDateAssign(int user_id){
+        String sql="select top 1 a.user_id,u.date  from accounts a inner join roles r\n" +
+                    "on a.role_id=r.role_id\n" +
+                    "inner join update_date u\n" +
+                    "on a.user_id =u.user_id\n" +
+                    "where a.role_id=3 and a.user_id="
+                + user_id
+                + "\n" +
+                    "order by date desc";
+        try {
+            PreparedStatement st=connection.prepareStatement(sql);
+             ResultSet rs = st.executeQuery();
+             if (rs.next()) {                
+                Timestamp timestamp = rs.getTimestamp("date");
+               return timestamp;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null; //exception or null
+    }
+  
+          //Update assign date for sale
+    public void AssignDate(int user_id){
+        String sql="insert into update_date (user_id,date)\n" +
+        "values(?,GETDATE())";
+        try {
+             PreparedStatement st = connection.prepareStatement(sql);
+             st.setInt(1, user_id);
+             st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public void AssignOrder(int order_id,int user_id){
+        String sql="insert into orders_management (order_id,user_id)\n" +
+                    "values(?,?)";
+        try {
+            PreparedStatement st=connection.prepareCall(sql);
+            st.setInt(1, order_id);
+            st.setInt(2, user_id);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
     public static void main(String[] args) {
         SaleDAO saleDAO = new SaleDAO();
         System.out.println(saleDAO.getTotalRevenueByDay(LocalDate.now()));

@@ -210,7 +210,6 @@
                                                         <label class="form-check-label" for="flexSwitchCheckDisabled"></label>
                                                         <input class="form-check-input viewmode${a.getUser_id()}" type="checkbox" role="switch" id="flexSwitchCheckDisabled" <c:if test="${a.getActive() == 1}">checked</c:if>  disabled>
                                                         <input class="form-check-input editmode${a.getUser_id()}" type="checkbox" role="switch" id="edit_active${a.getUser_id()}" name="active"   <c:if test="${a.getActive() == 1}">checked</c:if>/>
-
                                                         </div>
                                                     </td>
                                                     <td>

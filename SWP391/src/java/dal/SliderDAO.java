@@ -161,7 +161,7 @@ public class SliderDAO extends DBContext {
         String sql = "select * from sliders where slider_id=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, 1);
+            st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Slider s = fillSliderDetails(rs);
