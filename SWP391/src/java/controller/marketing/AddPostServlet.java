@@ -83,9 +83,9 @@ public class AddPostServlet extends HttpServlet {
             throws ServletException, IOException {
                  HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-        if(account==null){ //have  not login
-            processRequest(request, response);
-        }
+//        if(account==null){ //have  not login
+//            processRequest(request, response);
+//        }
         PostCategoryDAO pcd=new PostCategoryDAO();
         List<PostCategory> categories = pcd.getPostCategory();
         request.setAttribute("categories", categories);

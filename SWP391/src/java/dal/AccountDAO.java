@@ -1062,9 +1062,6 @@ public class AccountDAO extends DBContext {
         return num / numperpage + 1;
 
         }
-    public static void main(String[] args) {
-        AccountDAO d = new AccountDAO();
-       
     public boolean changeActive(int user_id, int active_status) {
         String sql = "update accounts set active = ? where user_id = ?";
         try {

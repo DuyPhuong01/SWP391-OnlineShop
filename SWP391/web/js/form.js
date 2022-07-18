@@ -24,6 +24,8 @@ function checkPayment(value){
         
 }
 
-
+function ChoosePayment(){
+    $('#pay-ment').submit();
+}
 
 

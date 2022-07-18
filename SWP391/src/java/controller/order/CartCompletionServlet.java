@@ -97,41 +97,16 @@ public class CartCompletionServlet extends HttpServlet {
             int oderID = Integer.parseInt(request.getParameter("orderID"));
             OrderDAO orderDAO = new OrderDAO();
             Order order = orderDAO.getOrderByOrderID(oderID);
-            String name = request.getParameter("name");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            String address = request.getParameter("address");
-            String city = request.getParameter("city");
-            int gender_raw = Integer.parseInt(request.getParameter("gender"));
-            boolean gender;
-            if (gender_raw == 0) {
-                gender = false;
-            } else {
-                gender = true;
-            }
             int status = 2;//after choose paymentmethod
             String note = request.getParameter("note");
             int paymentID = Integer.parseInt(request.getParameter("payment"));
             String payment = getPaymentByID(paymentID);
-            String freight_raw=request.getParameter("freight");
-            double freight = Double.parseDouble(freight_raw);
-            double total_price = Double.parseDouble(request.getParameter("total_price"));
-            //set information to update order
-            order.setOrder_id(oderID);
-            order.setShip_name(name);
-            order.setShip_email(email);
-            order.setShip_mobile(phone);
-            order.setShip_address(address);
-            order.setShip_city(city);
-            order.setShip_gender(gender);
-            order.setStatus(status);
             order.setPayment(payment);
-            order.setFreight(freight);
-            order.setNote(note);
-            order.setTotal_price(total_price);
+            order.setStatus(status);
+            //set information to update order
             orderDAO.UpdateOrderInformation(order);  //update order
             //send mail
-            emailService.sendEmailComfirmUpdateOrder(getServletContext(), name, email, order.getOrder_id());
+            emailService.sendEmailComfirmUpdateOrder(getServletContext(), order.getShip_name(), order.getShip_email(), order.getOrder_id());
             Cart cartSubmitted = orderDAO.getCartSubmitted(oderID);
             request.setAttribute("order", order);
             request.setAttribute("cart", cartSubmitted);

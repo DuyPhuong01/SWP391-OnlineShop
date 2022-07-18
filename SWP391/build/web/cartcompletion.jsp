@@ -22,7 +22,7 @@
        
         <div class="header">
             <c:import url="navbar.jsp"></c:import>
-            </div>
+         </div>
             <div class="container-lg mb-5">
                 <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -41,11 +41,12 @@
                     </div>
                     <div class="col">
                         <div class="p-3 bg-white rounded shadow-sm mb-3">
+                            <div>ID:${order.order_id}</div>
                             <!--cart status-->
                             <div class="status">
                                 <div class="stepper">
                                     
-                                <c:if test="${order.status==0}">
+                                <c:if test="${order.status==0||order.status==6}">
                                     <div class="stepper__step ">
                                         <div class="stepper__step-icon " style="border-color: #df8650bd;
     color: red;">
@@ -130,7 +131,7 @@
                                                 payment information confirmation
                                             </div>
                                             <div class="stepper__step-date">
-                                                19:51 08-06-2022</div>
+                                                </div>
                                         </div>
 
                                         <div class="stepper__step stepper__step--pending">
@@ -230,7 +231,7 @@
                                     </div>
                                 </c:if>
                             </div>
-                       <c:if test="${order.status==1||order.status==2}">  
+                       <c:if test="${order.status==1}">  
                             <!--return-->
                             <div class="_1umrlw">
                                 <div class="_2c2kYQ">Warning!:If you do not complete order confirmation, the order will be deleted after 1 day by the administrator </div>
@@ -253,18 +254,18 @@
                                 </form>
                             </div>
                         </c:if>       
-                       <c:if test="${order.status==3||order.status==4}">  
+                       <c:if test="${order.status==2||order.status==3||order.status==4}">  
                             <!--return-->
                               <div class="_1umrlw">
-                                <div class="_2c2kYQ"> </div>
+                                <div class="_2c2kYQ"> Waiting to next processing</div>
                                 <div class="_2iv7q8">
                                     <button class="stardust-button stardust-button--primary _2x5SvJ"
                                             onclick="window.location.href = 'productslist'">Back to product list</button>
                                 </div>
                             </div>
-                            <div class="_1umrlw">
+<!--                            <div class="_1umrlw">
                                 <div class="_2c2kYQ">Waiting to next processing </div>
-                            </div>
+                            </div>-->
                         </c:if>       
                        <c:if test="${order.status==5}">  
                             <!--return-->
@@ -390,9 +391,7 @@
                             <ul class="list-unstyled mb-4">
                                 <li class="d-flex justify-content-between py-3 border-bottom">
                                     <div class="payment-container col-12" style=" pointer-events: none;">
-                                        <div class="col-12">
-                                            Total cost:
-                                        </div>
+                                        
                                         <div class="col-12 bg-white rounded main-banking">
                                             <div class="radio-toolbar">
                                                 <input type="radio"
@@ -428,7 +427,7 @@
                                 <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
                                     <span class="price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>
                                 </li>
-                                <li class="d-flex justify-content-between py-3 border-bottom price-item">Shopping Fee
+                                <li class="d-flex justify-content-between py-3 border-bottom">Shopping Fee
                                     <input type="hidden" name="freight" value="${o.freight}">
                                    <span class="price-item"><fmt:formatNumber value="${o.freight}" type="currency" currencySymbol="đ"/></span>
                                 </li>
@@ -441,17 +440,19 @@
                             <div class="col-12">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <!--<a class="btn" href="showcart">Cancel order</a>-->
-                                    <button disabled class="btn btn-outline-primary" type="submit">Finish</button>
+                                    <!--<button disabled class="btn btn-outline-primary" type="submit">Finish</button>-->
                                 </div>
                             </div>
                      </form>
                    </c:if>              
-                            <c:if test="${order.status>0&&order.status<2}"> 
-                         
+                        <c:if test="${order.status>0&&order.status<2}"> 
+                            
+                       
                                  <!--cart contact-->
                             <div class="text-center title-item-pay">
                                 <h3 class="pb-3 text-uppercase font-weight-bold ">Choose Payment Method</h3>
                             </div>
+                                 
                         <div class="p-3 bg-white rounded shadow-sm cart-contain">
                             <table class="table table-hover">
                                 <thead>
@@ -465,36 +466,7 @@
                                 </thead>
                                 <tbody class="table-group-divider">
                                     
-                                    <c:forEach items="${o.items}" var="i">
-<!--                                        <tr>
-                                            <td class="align-middle">
-                                                <p class="mb-0 product-id-cart-contact">
-                                                    ${i.product.product_id}
-                                                </p>
-                                            </td>
-                                            <td style="width: 10%">
-                                                <img src="${i.product.thumbnail}" alt="" width="10%" class="img-fluid rounded shadow-sm">
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="product?id=${i.product.product_id}" class="text-decoration-none text-muted"><p class="mb-0 product-title">${i.product.briefInfor}</p></a>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="d-flex justify-content-center ">
-                                                    <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price}" type="currency" currencySymbol="đ"/></c:if>
-                                                    <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price}" type="currency" currencySymbol="đ" /></c:if>
-                                                    </span  >
-                                                </td>
-                                                <td class="align-middle">
-                                                    <p class="text-center mb-0">${i.quantity}</p>
-                                            </td>
-                                            <td class="align-middle">
-                                                <p class="text-end mb-0 price-item">
-                                                    <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price*i.quantity}" type="currency" currencySymbol="đ"/></c:if>
-                                                    <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price*i.quantity}" type="currency" currencySymbol="đ" /></c:if>
-                                                    </p>
-                                                </td>
-                                            </tr>-->
-                                    </c:forEach>
+                               
                                 </tbody>
                             </table>
                             <ul class="list-unstyled mb-4">
@@ -506,7 +478,11 @@
                                             </p>
                                             <span class="font-weight-bold price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>-->
                                         </div>
+                                            
+                                       
                                         <div class="col-12 bg-white rounded main-banking">
+                                        <form action="cartcompletion" method="post" id="pay-ment">
+                                              <input hidden value="${order.order_id}" name="orderID">
                                             <div class="radio-toolbar">
                                                 <input type="radio"
                                                        <c:if test="${order.payment=='Ship COD'||order.payment==null}">checked</c:if>
@@ -524,7 +500,7 @@
                                                        id="radioOrange" name="payment" value="3" onclick="checkPayment(this.value)">
                                                 <label for="radioOrange">VNPAY QR</label> 
                                             </div>
-
+                                        </form>             
                                            <div class="payment-content ship_cod">
                                             <c:import url="payment_ShipCOD.jsp"></c:import>
                                             </div>
@@ -553,10 +529,10 @@
                                 
                             <div class="col-12">
                                 <div class="d-grid gap-2 d-md-flex  flex-ed justify-content-end">
-                                    <button class="btn btn-outline-primary" type="submit">submit</button>
+                                    <button class="btn btn-outline-primary" type="button" onclick="ChoosePayment()">submit</button>
                                 </div>
                             </div>
-                     </form>
+                     
                         </div>
                    </c:if>              
 

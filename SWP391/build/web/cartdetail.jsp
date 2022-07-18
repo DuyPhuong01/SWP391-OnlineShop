@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html id="content">
+<html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -227,7 +227,7 @@
  
         // Cart details script
 function Down(e,productID){
-   
+  
     $.ajax({
     "type": "GET",
     // generate the request url from the query.
@@ -243,14 +243,19 @@ function Down(e,productID){
 //        row.innerHTML="";
 //        row.innerHTML=data
         console.log("normal  successful");
-
+        
     },
     "error": function(errorData) {
         console.log("lookup ajax error")
         console.log(errorData)
     }
 });
- var fe=e.parentElement;
+Decrease(e,productID);
+        
+}
+function Decrease(e,productID){
+     
+     var fe=e.parentElement;
   var parent=e.parentElement.parentElement.parentElement.parentElement; //get tr
     var quantity=fe.childNodes[3];
     var error=fe.childNodes[7];
@@ -262,6 +267,15 @@ function Down(e,productID){
     }else{
     quantity.innerHTML=old_quantity-'1';
     UpdateSubTotal(parent,quantity.innerHTML);
+    }
+    CheckEmpty();
+}
+function CheckEmpty(){
+    var items=document.getElementsByTagName('tr');
+    if(items.length==1){
+    document.getElementById('submit-cart').className+=' disabled';
+    }else{
+        document.getElementById('submit-cart').className=document.getElementById('submit-cart').className.replace(' disabled','');
     }
 }
 function Up(e,productID,max){
@@ -278,16 +292,21 @@ function Up(e,productID,max){
             },
             
     "success": function(data) {
-        var row=document.getElementById("content");
+//        var row=document.getElementById("content");
 //        row.innerHTML=data;
-
+          
     },
     "error": function(errorData) {
         console.log("lookup ajax error")
         console.log(errorData)
     }
 });
+
        
+Increase(e,productID,max);
+ 
+}
+function Increase(e,productID,max){
      var parent=e.parentElement.parentElement.parentElement.parentElement; //get tr
      var fe=e.parentElement;
     var quantity=fe.childNodes[3];
@@ -303,13 +322,17 @@ function Up(e,productID,max){
         quantity.innerHTML=old_quantity-'-1';
     }
      UpdateSubTotal(parent,quantity.innerHTML);
- 
 }
-function Delete(e,productID){
-  
+
+function Del(e,productID){
+    
    parent=e.parentElement.parentElement;
      parent.remove();
      upDateTotal();
+     CheckEmpty();
+}
+function Delete(e,productID){
+    
     $.ajax({
     "type": "post",
     // generate the request url from the query.
@@ -322,7 +345,7 @@ function Delete(e,productID){
     "success": function(data) {
 //        var row=document.getElementById("content");
 //        row.innerHTML=data;
-
+        Del(e,productID);
     },
     "error": function(errorData) {
         console.log("lookup ajax error")
