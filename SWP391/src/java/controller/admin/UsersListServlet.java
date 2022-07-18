@@ -64,6 +64,7 @@ public class UsersListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        
         AccountDAO adb = new AccountDAO();
         
         
@@ -91,6 +92,7 @@ public class UsersListServlet extends HttpServlet {
         int active = Integer.parseInt(raw_active);
         
         ArrayList<Account> accounts = adb.searchByRid(rid, gender, active, raw_search);
+        List<Role> listRoles = adb.getListRole();
 
         int page, numperpage = 8;
         int size = accounts.size();
@@ -106,14 +108,16 @@ public class UsersListServlet extends HttpServlet {
         start = (page - 1) * numperpage;
         end = Math.min(page * numperpage, size);
         
-        List<Role> listRoles = adb.getListRole();
         List<Account> list = adb.getListByPage(accounts, start, end);
 
-        request.setAttribute("num", num);
+        request.setAttribute("numberPage", num);
+        request.setAttribute("pageNumber", page);
+        
         request.setAttribute("rid", rid);
         request.setAttribute("gender", gender);
         request.setAttribute("active", active);
         request.setAttribute("rawsearch", raw_search);
+        
         request.setAttribute("accounts", list);
         request.setAttribute("listRoles", listRoles);
         request.getRequestDispatcher("/admin/userslist.jsp").forward(request, response);

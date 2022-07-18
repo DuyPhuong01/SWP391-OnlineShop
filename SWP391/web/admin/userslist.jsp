@@ -102,6 +102,10 @@
                     }
                 }
             }
+            function submitFormWithNewPage(page) {
+                document.getElementById('pageNumber').value = page;
+                document.getElementById('frmSearch').submit();
+            }
         </script>
     </head>
     <body>
@@ -115,7 +119,8 @@
                             <div class="card-body">
                                 <h5 class="card-title text-uppercase mb-0">Manage Users</h5>
                             </div>
-                            <form action="admin/userslist" id="frmSearch" method="GET">
+                            <form action="userslist" id="frmSearch" method="GET">
+                                <input type="hidden" name="page" value="${requestScope.pageNumber}" id="pageNumber"/>
                                 <div class="mb-3 d-flex justify-content-between" style="padding-left: 10px; padding-right: 10px;">
                                     <div class="d-flex">
                                         <div class="me-3 ">
@@ -237,15 +242,80 @@
                                     </c:forEach>
                                     </tbody>
                                 </table>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item"><a class="page-link" href="userslist?page=${1}&&rid=${requestScope.rid}&&gender=${requestScope.gender}&&active=${requestScope.active}&&search=${requestScope.rawsearch}">First</a></li>
-                                            <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                            <li class="page-item"><a class="page-link" href="userslist?page=${i}&&rid=${requestScope.rid}&&gender=${requestScope.gender}&&active=${requestScope.active}&&search=${requestScope.rawsearch}">${i}</a></li>
+                                <nav aria-label="...">
+                                    <ul class="pagination">
+                                        <c:if test="${requestScope.numberPage < 3}">
+                                            <li class="page-item <c:if test="${requestScope.pageNumber == 1}">disabled</c:if>">
+                                                <span class="page-link" onclick="submitFormWithNewPage(${requestScope.pageNumber-1})"><</span>
+                                            </li>
+                                            <c:forEach begin="0" end="${requestScope.numberPage - 1}" var="i">
+
+                                                <li class="page-item" onclick="submitFormWithNewPage(${i+1})">
+                                                    <span class="page-link ${requestScope.pageNumber == (i+1)?"active":""}">${i+1}</span>
+                                                </li>
                                             </c:forEach>
-                                        <li class="page-item"><a class="page-link" href="userslist?page=${requestScope.num}&&rid=${requestScope.rid}&&gender=${requestScope.gender}&&active=${requestScope.active}&&search=${requestScope.rawsearch}">Last</a></li>
+                                            <li class="page-item <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if>">
+                                                <span class="page-link" onclick="submitFormWithNewPage(${requestScope.pageNumber+1})">></span>
+                                            </li>
+                                        </c:if>
+                                        <c:if test="${requestScope.numberPage >= 3}">
+                                            <c:if test="${requestScope.pageNumber == 1}">
+                                                <li class="page-item <c:if test="${requestScope.pageNumber == 1}">disabled</c:if>">
+                                                    <span class="page-link" onclick="submitFormWithNewPage(${requestScope.pageNumber-1})"><</span>
+                                                </li>
+                                                <li class="page-item" onclick="submitFormWithNewPage(1)">
+                                                    <span class="page-link active">1</span>
+                                                </li>
+                                                <li class="page-item" onclick="submitFormWithNewPage(2)">
+                                                    <span class="page-link">2</span>
+                                                </li>
+                                                <li class="page-item" onclick="submitFormWithNewPage(3)">
+                                                    <span class="page-link">3</span>
+                                                </li>
+
+                                                <li class="page-item <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if>">
+                                                    <span class="page-link" onclick="submitFormWithNewPage(${requestScope.pageNumber+1})">></span>
+                                                </li>
+                                            </c:if>
+                                            <c:if test="${requestScope.pageNumber == requestScope.numberPage}">
+                                                <li class="page-item <c:if test="${requestScope.pageNumber == 1}">disabled</c:if>">
+                                                    <span class="page-link" onclick="submitFormWithNewPage(${requestScope.pageNumber-1})"><</span>
+                                                </li>
+
+                                                <li class="page-item" onclick="submitFormWithNewPage(${requestScope.pageNumber-2})">
+                                                    <span class="page-link">${requestScope.pageNumber-2}</span>
+                                                </li>
+                                                <li class="page-item" onclick="submitFormWithNewPage(${requestScope.pageNumber-1})">
+                                                    <span class="page-link">${requestScope.pageNumber-1}</span>
+                                                </li>
+                                                <li class="page-item" onclick="submitFormWithNewPage(${requestScope.pageNumber})">
+                                                    <span class="page-link active">${requestScope.pageNumber}</span>
+                                                </li>
+                                                <li class="page-item <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if>">
+                                                    <span class="page-link" onclick="submitFormWithNewPage(${requestScope.pageNumber+1})">></span>
+                                                </li>
+                                            </c:if>
+                                            <c:if test="${requestScope.pageNumber != 1 && requestScope.pageNumber != requestScope.numberPage}">
+                                                <li class="page-item <c:if test="${requestScope.pageNumber == 1}">disabled</c:if>">
+                                                    <span class="page-link" onclick="submitFormWithNewPage(${requestScope.pageNumber-1})"><</span>
+                                                </li>
+                                                <li class="page-item" onclick="submitFormWithNewPage(${requestScope.pageNumber-1})">
+                                                    <span class="page-link">${requestScope.pageNumber-1}</span>
+                                                </li>
+                                                <li class="page-item" onclick="submitFormWithNewPage(${requestScope.pageNumber})">
+                                                    <span class="page-link active">${requestScope.pageNumber}</span>
+                                                </li>
+                                                <li class="page-item" onclick="submitFormWithNewPage(${requestScope.pageNumber+1})">
+                                                    <span class="page-link">${requestScope.pageNumber+1}</span>
+                                                </li>
+                                                <li class="page-item <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if>">
+                                                    <span class="page-link" onclick="submitFormWithNewPage(${requestScope.pageNumber+1})">></span>
+                                                </li>
+                                            </c:if>
+
+                                        </c:if>
                                     </ul>
-                                </nav>
+                                </nav>    
                             </div>
                         </div>
                     </div>
