@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cart Contacts</title>
+        <title>Cart Completion</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <!--CSS-->
@@ -22,7 +22,7 @@
        
         <div class="header">
             <c:import url="navbar.jsp"></c:import>
-            </div>
+         </div>
             <div class="container-lg mb-5">
                 <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -41,11 +41,12 @@
                     </div>
                     <div class="col">
                         <div class="p-3 bg-white rounded shadow-sm mb-3">
+                            <div>ID:${order.order_id}</div>
                             <!--cart status-->
                             <div class="status">
                                 <div class="stepper">
                                     
-                                <c:if test="${order.status==0}">
+                                <c:if test="${order.status==0||order.status==6}">
                                     <div class="stepper__step ">
                                         <div class="stepper__step-icon " style="border-color: #df8650bd;
     color: red;">
@@ -130,7 +131,7 @@
                                                 payment information confirmation
                                             </div>
                                             <div class="stepper__step-date">
-                                                19:51 08-06-2022</div>
+                                                </div>
                                         </div>
 
                                         <div class="stepper__step stepper__step--pending">
@@ -230,7 +231,7 @@
                                     </div>
                                 </c:if>
                             </div>
-                       <c:if test="${order.status==1||order.status==2}">  
+                       <c:if test="${order.status==1}">  
                             <!--return-->
                             <div class="_1umrlw">
                                 <div class="_2c2kYQ">Warning!:If you do not complete order confirmation, the order will be deleted after 1 day by the administrator </div>
@@ -253,18 +254,18 @@
                                 </form>
                             </div>
                         </c:if>       
-                       <c:if test="${order.status==3||order.status==4}">  
+                       <c:if test="${order.status==2||order.status==3||order.status==4}">  
                             <!--return-->
                               <div class="_1umrlw">
-                                <div class="_2c2kYQ"> </div>
+                                <div class="_2c2kYQ"> Waiting to next processing</div>
                                 <div class="_2iv7q8">
                                     <button class="stardust-button stardust-button--primary _2x5SvJ"
                                             onclick="window.location.href = 'productslist'">Back to product list</button>
                                 </div>
                             </div>
-                            <div class="_1umrlw">
+<!--                            <div class="_1umrlw">
                                 <div class="_2c2kYQ">Waiting to next processing </div>
-                            </div>
+                            </div>-->
                         </c:if>       
                        <c:if test="${order.status==5}">  
                             <!--return-->
@@ -277,11 +278,11 @@
                             <div class="j7z7l_">
                                 <div class="_1AsWWl"></div>
                             </div>
+                            <c:if test="${order.status==0||order.status>=2}"> 
                             <!--cart contact-->
                             <div class="text-center">
                                 <h3 class="pb-3 text-uppercase font-weight-bold">Cart Contact</h3>
                             </div>
-                            <c:if test="${order.status==0||order.status>2}"> 
                             <form id="checkout" class="row g-3" action="cartcompletion" method="post">
                                 <input hidden value="${order.order_id}" name="orderID">
                                 <div class="col-6">
@@ -390,10 +391,8 @@
                             <ul class="list-unstyled mb-4">
                                 <li class="d-flex justify-content-between py-3 border-bottom">
                                     <div class="payment-container col-12" style=" pointer-events: none;">
-                                        <div class="col-12">
-                                            Choose Payment Method
-                                        </div>
-                                        <div class="col-12 bg-white rounded shadow-sm main-banking">
+                                        
+                                        <div class="col-12 bg-white rounded main-banking">
                                             <div class="radio-toolbar">
                                                 <input type="radio"
                                                        <c:if test="${order.payment=='Ship COD'||order.payment==null}">checked</c:if>
@@ -428,7 +427,7 @@
                                 <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
                                     <span class="price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>
                                 </li>
-                                <li class="d-flex justify-content-between py-3 border-bottom price-item">Shopping Fee
+                                <li class="d-flex justify-content-between py-3 border-bottom">Shopping Fee
                                     <input type="hidden" name="freight" value="${o.freight}">
                                    <span class="price-item"><fmt:formatNumber value="${o.freight}" type="currency" currencySymbol="đ"/></span>
                                 </li>
@@ -441,124 +440,49 @@
                             <div class="col-12">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <!--<a class="btn" href="showcart">Cancel order</a>-->
-                                    <button disabled class="btn btn-outline-primary" type="submit">Finish</button>
+                                    <!--<button disabled class="btn btn-outline-primary" type="submit">Finish</button>-->
                                 </div>
                             </div>
                      </form>
                    </c:if>              
-                            <c:if test="${order.status>0&&order.status<=2}"> 
-                            <form id="checkout" class="row g-3" action="cartcompletion" method="post">
-                                <input hidden value="${order.order_id}" name="orderID">
-                                <div class="col-6">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Full name*</span>
-                                        <input type="text" class="form-control" name="name"
-                                               value="${order.ship_name}" aria-describedby="basic-addon1" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Phone</span>
-                                        <input type="tel" class="form-control" placeholder="+84" name="phone" value="${order.ship_mobile}"
-                                               aria-label="tel" aria-describedby="basic-addon1" required>
-
-                                    </div>
-                                </div>
-                                <div class="col-8">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Email</span>
-                                        <input type="mail" class="form-control" placeholder="email" name="email" value="${order.ship_email}"
-                                               aria-label="email" aria-describedby="basic-addon1" required>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">City</span>
-                                        <input type="text" class="form-control" placeholder="city" name="city" value="${order.ship_city}"
-                                               aria-label="city" aria-describedby="basic-addon1" required>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Gender</span>
-                                        <select name="gender" id="inputState" class="form-select" required>
-                                            <option selected disabled hidden>Choose...</option>
-                                            <option value="1"<c:if test="${order.ship_gender}">selected</c:if> >Male</option>
-                                            <option  value="0"<c:if test="${!order.ship_gender}">selected</c:if>>Female</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Address</span>
-                                            <input type="text" class="form-control" placeholder="Address"
-                                                   name="address"
-                                                   value="${order.ship_address}"
-                                            aria-label="address" aria-describedby="basic-addon1" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="note" class="form-label">Note</label>
-                                    <textarea class="form-control" id="note" form="checkout" name="note" rows="3">${order.note}
-                                    </textarea>
-                                </div>        
-                                <!--                            <div>
-                                                                Already have an account? <a href="login">Login</a><br />
-                                                            </div>-->
-
-                        </div>
-
+                        <c:if test="${order.status>0&&order.status<2}"> 
+                            
+                       
+                                 <!--cart contact-->
+                            <div class="text-center title-item-pay">
+                                <h3 class="pb-3 text-uppercase font-weight-bold ">Choose Payment Method</h3>
+                            </div>
+                                 
                         <div class="p-3 bg-white rounded shadow-sm cart-contain">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr>
+<!--                                    <tr>
                                         <th >ID</th>
                                         <th colspan="2">Product</th>
                                         <th class="text-center">Price</th>
                                         <th class="text-center">Quantity</th>
                                         <th class="text-end">Sub total</th>
-                                    </tr>
+                                    </tr>-->
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    <c:forEach items="${o.items}" var="i">
-                                        <tr>
-                                            <td class="align-middle">
-                                                <p class="mb-0 product-id-cart-contact">
-                                                    ${i.product.product_id}
-                                                </p>
-                                            </td>
-                                            <td style="width: 10%">
-                                                <img src="${i.product.thumbnail}" alt="" width="10%" class="img-fluid rounded shadow-sm">
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="product?id=${i.product.product_id}" class="text-decoration-none text-muted"><p class="mb-0 product-title">${i.product.briefInfor}</p></a>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="d-flex justify-content-center ">
-                                                    <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price}" type="currency" currencySymbol="đ"/></c:if>
-                                                    <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price}" type="currency" currencySymbol="đ" /></c:if>
-                                                    </span  >
-                                                </td>
-                                                <td class="align-middle">
-                                                    <p class="text-center mb-0">${i.quantity}</p>
-                                            </td>
-                                            <td class="align-middle">
-                                                <p class="text-end mb-0 price-item">
-                                                    <c:if test="${i.product.sale_price != 0}"><fmt:formatNumber value="${i.product.sale_price*i.quantity}" type="currency" currencySymbol="đ"/></c:if>
-                                                    <c:if test="${i.product.sale_price == 0}"><fmt:formatNumber value="${i.product.original_price*i.quantity}" type="currency" currencySymbol="đ" /></c:if>
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                    </c:forEach>
+                                    
+                               
                                 </tbody>
                             </table>
                             <ul class="list-unstyled mb-4">
                                 <li class="d-flex justify-content-between py-3 border-bottom">
                                     <div class="payment-container col-12">
                                         <div class="col-12">
-                                            Choose Payment Method
+<!--                                            <p class="total-cost-item">
+                                                Total:
+                                            </p>
+                                            <span class="font-weight-bold price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>-->
                                         </div>
-                                        <div class="col-12 bg-white rounded shadow-sm main-banking">
+                                            
+                                       
+                                        <div class="col-12 bg-white rounded main-banking">
+                                        <form action="cartcompletion" method="post" id="pay-ment">
+                                              <input hidden value="${order.order_id}" name="orderID">
                                             <div class="radio-toolbar">
                                                 <input type="radio"
                                                        <c:if test="${order.payment=='Ship COD'||order.payment==null}">checked</c:if>
@@ -576,7 +500,7 @@
                                                        id="radioOrange" name="payment" value="3" onclick="checkPayment(this.value)">
                                                 <label for="radioOrange">VNPAY QR</label> 
                                             </div>
-
+                                        </form>             
                                            <div class="payment-content ship_cod">
                                             <c:import url="payment_ShipCOD.jsp"></c:import>
                                             </div>
@@ -590,28 +514,27 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
+<!--                                <li class="d-flex justify-content-between py-3 border-bottom">Sub Total
                                     <span class="price-item"><fmt:formatNumber value="${o.totalMoney}" type="currency" currencySymbol="đ"/></span>
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom">Shopping Fee
                                     <input type="hidden" name="freight" value="${o.freight}">
                                     <span class="price-item"><fmt:formatNumber value="${o.freight}" type="currency" currencySymbol="đ"/></span>
                                 </li>
-                                <li class="d-flex justify-content-between py-3 border-bottom">Total Cost
+-->                                <li class="d-flex justify-content-between py-3 border-bottom">Total Cost
                                     <h5 class="font-weight-bold price-item"><fmt:formatNumber value="${o.totalMoney+o.freight}" type="currency" currencySymbol="đ"/></h5>
                                     <input type="hidden" name="total_price" value="${o.totalMoney+o.freight}"/>
                                 </li>
                             </ul>
                                 
                             <div class="col-12">
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <!--<a class="btn" href="showcart">Cancel order</a>-->
-                                    <button class="btn btn-outline-primary" type="submit">Finish</button>
+                                <div class="d-grid gap-2 d-md-flex  flex-ed justify-content-end">
+                                    <button class="btn btn-outline-primary" type="button" onclick="ChoosePayment()">submit</button>
                                 </div>
                             </div>
-                     </form>
-                   </c:if>              
+                     
                         </div>
+                   </c:if>              
 
 
                     </div>

@@ -68,6 +68,8 @@ svg {
           <c:if test="${sessionScope.account.getRole_id()== 1 || sessionScope.account == null}">http://localhost:8080/swp/home</c:if>
           <c:if test="${sessionScope.account.getRole_id()== 2}">http://localhost:8080/swp/marketing/dashboard</c:if>
           <c:if test="${sessionScope.account.getRole_id()== 3}">http://localhost:8080/swp/sale</c:if>
+          <c:if test="${sessionScope.account.getRole_id()== 4}">http://localhost:8080/swp/sale</c:if>
+          <c:if test="${sessionScope.account.getRole_id()== 5}">http://localhost:8080/swp/admin</c:if>
           
           ">Home!</a></h2>
 <script>

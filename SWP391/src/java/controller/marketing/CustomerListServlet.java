@@ -22,7 +22,7 @@ import model.Customer;
  *
  * @author win
  */
-@WebServlet(name = "CustomerListServlet", urlPatterns = {"/marketing/customerlist"})
+@WebServlet(name = "CustomersListServlet", urlPatterns = {"/marketing/customerslist"})
 public class CustomerListServlet extends HttpServlet {
 
     /**
@@ -48,11 +48,11 @@ public class CustomerListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//         HttpSession session = request.getSession();
-//        Account account = (Account) session.getAttribute("account");
-//        if (account == null) { //have  not login
-//            processRequest(request, response);
-//        }
+         HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        if (account == null) { //have  not login
+            processRequest(request, response);
+        }
         int currentPage = 1;//start page=1
         int numPerPage = 6;
         int op=1;//descending

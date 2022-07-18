@@ -10,8 +10,8 @@ package model;
  * @author Admin
  */
 public class OrderInformation {
-    Order order;
-    Cart cart;
+    private Order order;
+    private Cart cart;
     public OrderInformation() {
     }
 

@@ -297,3 +297,7 @@ ul {
 .navbar-content{
     padding-bottom: 30px;
 }
+.input-group select{
+    border-radius: 3px;
+    border-color: #ddd;
+}

@@ -103,7 +103,7 @@ public class SendingEmailUtil {
             // attactment guide 
             MimeMultipart multipart=new MimeMultipart();
             MimeBodyPart attachment=new MimeBodyPart();
-            attachment.attachFile(new File("C:\\Users\\win\\Desktop\\WorkSpace\\summer2022-se1611-g2\\SWP391\\web\\file\\paymentguide\\paymentguide.pdf"));
+            attachment.attachFile(new File("C:\\Users\\Admin\\Desktop\\WorkSpace\\summer2022-se1611-g2\\SWP391\\web\\file\\paymentguide\\paymentguide.pdf"));
              //send form html through mail
             MimeBodyPart messageBodyPart=new MimeBodyPart();
             messageBodyPart.setContent(contentForm,"text/html;charset=UTF-8");

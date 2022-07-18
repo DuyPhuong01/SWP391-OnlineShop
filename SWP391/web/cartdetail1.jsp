@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html id="content">
+<html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,8 +19,6 @@
     </head>
 
     <body>
-        <c:set var="o" value="${requestScope.cart}" />
-        <c:set var="freight" value="${100000}" />
         <div class="header">
             <c:import url="navbar.jsp"></c:import>
             </div>
@@ -263,6 +261,9 @@ function Down(e,productID){
     quantity.innerHTML=old_quantity-'1';
     UpdateSubTotal(parent,quantity.innerHTML);
     }
+}
+function CheckEmpty(){
+    document.getElementById('submit-cart').className+=' disabled';
 }
 function Up(e,productID,max){
         
