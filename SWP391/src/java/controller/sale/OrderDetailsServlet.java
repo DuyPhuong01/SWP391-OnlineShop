@@ -18,8 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Order;
+import model.OrderDetail;
 import model.OrderStatus;
 import model.Sale;
+import service.EmailServiceIml;
 
 /**
  *
@@ -122,6 +124,56 @@ public class OrderDetailsServlet extends HttpServlet {
                     int newStatus = Integer.parseInt(newStatus_raw);
                     int orderId = Integer.parseInt(orderId_raw);
                     orderDAO.updateOrder(orderId, newStatus, newNote);
+                    if (newStatus == 5) {
+                        Order order = orderDAO.getOrderByOrderID(orderId);
+                        AccountDAO accountDAO = new AccountDAO();
+                        Account a = accountDAO.getAccountByID(order.getUser_id());
+
+                        String content = "";
+                        content += "        <style>\n"
+                                + "            .total {\n"
+                                + "                margin-top: 20px;\n"
+                                + "                font-size: 150%;\n"
+                                + "            }\n"
+                                + "            .total span {\n"
+                                + "                font-weight: bold;\n"
+                                + "            }\n"
+                                + "            a {\n"
+                                + "                text-decoration: none;\n"
+                                + "            }\n"
+                                + "        </style>\n"
+                                + "        <div>\n"
+                                + "            <h3>Your order is finished</h3>\n"
+                                + "            <span>List of ordered product</span>\n"
+                                + "            <table border=\"1px\">\n"
+                                + "                <tr>\n"
+                                + "                    <th>Product Name</th>\n"
+                                + "                    <th>Price</th>\n"
+                                + "                    <th>Quantity</th>\n"
+                                + "                    <th>Subtotal</th>\n"
+                                + "                    <th>Action</th>\n"
+                                + "                </tr>\n";
+                        for (OrderDetail orderDetail : order.getOrderDetailList()) {
+                            content += "                <tr>\n"
+                                    + "                    <td>" + orderDetail.getProduct().getName() + "</td>\n"
+                                    + "                    <td>" + orderDetail.getPrice() + "</td>\n"
+                                    + "                    <td>" + orderDetail.getQuantity() + "</td>\n"
+                                    + "                    <td>" + (orderDetail.getQuantity() * orderDetail.getPrice()) + "</td>\n"
+                                    + "                    <td><a href=\"http://localhost:8080/swp/feedback?id=" + orderDetail.getProduct().getProduct_id() + "\">Feedback</a></td>\n"
+                                    + "                </tr>";
+                        }
+                        content += "            </table>\n"
+                                + "            <div class=\"total\">\n"
+                                + "                <span>Freight: </span><span>" + order.getFreight() + "</span>\n"
+                                + "                <span>Total: </span><span>" + (order.getTotal_price()) + "</span>\n"
+                                + "            </div>\n"
+                                + "            <div>\n"
+                                + "                <a href=\"http://localhost:8080/swp/feedback\">Feedback this order</a>"
+                                + "            </div>\n"
+                                + "        </div>";
+                        EmailServiceIml esi = new EmailServiceIml();
+                        esi.sendEmailFinishOrder(getServletContext(), a, "finishOrder", content);
+                    }
                 } catch (NumberFormatException e) {
 
                 }
@@ -129,12 +181,12 @@ public class OrderDetailsServlet extends HttpServlet {
                 break;
             case "assign":
                 String saleId_raw = request.getParameter("newSaleId");
-                try{
+                try {
                     int saleId = Integer.parseInt(saleId_raw);
                     int orderId = Integer.parseInt(orderId_raw);
                     orderDAO.updateOrderManagement(orderId, saleId);
-                }catch(NumberFormatException e){
-                    
+                } catch (NumberFormatException e) {
+
                 }
                 response.sendRedirect("/swp/sale/orderdetails?orderId=" + orderId_raw);
                 break;

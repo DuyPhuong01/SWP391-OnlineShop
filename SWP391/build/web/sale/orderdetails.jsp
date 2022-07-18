@@ -53,7 +53,7 @@
                                             <span class="order-infor-fields">Order Date:</span> <fmt:formatDate value="${requestScope.myOrder.orderDate}" type="both" dateStyle="short"></fmt:formatDate>
                                             </span>
                                             <span>
-                                                <span class="order-infor-fields">Total Cost:</span> <fmt:formatNumber value="${requestScope.myOrder.total_price + requestScope.myOrder.freight}" type="currency" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber>
+                                                <span class="order-infor-fields">Total Cost:</span> <fmt:formatNumber value="${requestScope.myOrder.total_price}" type="currency" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber>
                                             </span>
                                             <span>
                                                 <span class="order-infor-fields" id="sale-name-origin" data-bind="${requestScope.myOrder.sale.user_id}" data-bind2="${requestScope.myOrder.sale.full_name}">Sale name:</span> ${requestScope.myOrder.sale.full_name}

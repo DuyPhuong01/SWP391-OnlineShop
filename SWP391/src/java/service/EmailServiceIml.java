@@ -44,10 +44,12 @@ public class EmailServiceIml implements EmailService {
     private static final String EMAIL_FORGOT_PASSWORD = "OnlineShop - New Password";
     private static final String EMAIL_CANCEL_ORDER = "OnlineShop - Cancel Order";
     private static final String EMAIL_UPDATE_ORDER = "OnlineShop - Update Order";
+    private static final String EMAIL_FINISHED_ORDER = "OnlineShop - Order finished";
 
     private static final String EMAIL_CONFIRMATION_ORDER = "OnlineShop - CONFIRMATION ORDER";
     private static final String EMAIL_UPDATE_METHOD_ORDER = "OnlineShop - UPDATE ORDER";
     private static final String EMAIL_GET_ACCOUNT = "OnlineShop - Account";
+
     @Override
     public void sendEmail(ServletContext context, Account recipient, String type, String text) {
         String host = context.getInitParameter("host");
@@ -98,7 +100,23 @@ public class EmailServiceIml implements EmailService {
             e.printStackTrace();
         }
     }
-    
+
+    public void sendEmailFinishOrder(ServletContext context, Account recipient, String type, String text) {
+        String host = context.getInitParameter("host");
+        String port = context.getInitParameter("port");
+        String user = context.getInitParameter("user");
+        String pass = context.getInitParameter("pass");
+        String subject = EMAIL_FINISHED_ORDER;
+        String content = "Dear " + recipient.getFull_name() + ",\n"
+                + text + "\n"
+                + "Thank you very much!\n";
+        try {
+            SendingEmailUtil.sendEmailFinishOrder(host, port, user, pass, recipient.getEmail(), subject, content);
+        } catch (MessagingException ex) {
+            Logger.getLogger(EmailServiceIml.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     //send email confirmation order
     @Override
     public void sendEmailComfirmOrder(ServletContext context, String name, String email, int orderID) {
@@ -118,6 +136,7 @@ public class EmailServiceIml implements EmailService {
         }
 
     }
+
     @Override
     public void sendEmailComfirmUpdateOrder(ServletContext context, String name, String email, int orderID) {
         try {
@@ -143,16 +162,16 @@ public class EmailServiceIml implements EmailService {
             DecimalFormat formatter = new DecimalFormat("###,###,###");
             OrderDAO orderDAO = new OrderDAO();
             Cart cart = orderDAO.getCartSubmitted(orderID);
-            double freight=cart.getFreight();
+            double freight = cart.getFreight();
             Order order = orderDAO.getOrderByOrderID(orderID);
             //Encoding the link:
-            String orderID_encode=orderID+"";
-            String orderID_encoded=Base64.getEncoder().encodeToString(orderID_encode.getBytes("UTF-8"));
+            String orderID_encode = orderID + "";
+            String orderID_encoded = Base64.getEncoder().encodeToString(orderID_encode.getBytes("UTF-8"));
             String gender;
-            if(order.isShip_gender()){
-                gender="male";
-            }else{
-                gender="female";
+            if (order.isShip_gender()) {
+                gender = "male";
+            } else {
+                gender = "female";
             }
             //add header
             String content = "<p><strong>Name:"
@@ -161,17 +180,17 @@ public class EmailServiceIml implements EmailService {
                     + order.getShip_email()
                     + "\">Email:"
                     + order.getShip_email()
-                    + "</a></strong></p>\n" +
-                    "<p><strong>Mobile:"
+                    + "</a></strong></p>\n"
+                    + "<p><strong>Mobile:"
                     + order.getShip_mobile()
                     + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</strong><strong>Address: "
                     + order.getShip_address()
-                    + "</strong></p>\n" +
-                    "<p><strong>Gender:"
+                    + "</strong></p>\n"
+                    + "<p><strong>Gender:"
                     + gender
                     + "&nbsp;</strong></p>\n"
-                    + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</strong></p>\n" +
-                    "<p><br></p>"
+                    + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</strong></p>\n"
+                    + "<p><br></p>"
                     + "\n"
                     + "<div style=\"border:1px solid rgb(19, 18, 18); height: fit-content;width: fit-content;\">\n"
                     + "\n"
@@ -210,7 +229,7 @@ public class EmailServiceIml implements EmailService {
                         + "                </td>\n"
                         + "                <td style=\"width: 90.6pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;\">\n"
                         + "                    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:.0001pt;margin-left:0cm;line-height:  normal;font-size:19px;font-family:\"Times New Roman\",serif;'>"
-                        + formatter.format(i.getPrice())+"VNĐ"
+                        + formatter.format(i.getPrice()) + "VNĐ"
                         + "</p>\n"
                         + "                </td>\n"
                         + "                <td style=\"width: 61.1pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;\">\n"
@@ -220,7 +239,7 @@ public class EmailServiceIml implements EmailService {
                         + "                </td>\n"
                         + "                <td style=\"width: 120.2pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;\">\n"
                         + "                    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:.0001pt;margin-left:0cm;line-height:  normal;font-size:19px;font-family:\"Times New Roman\",serif;'>"
-                        + formatter.format(i.getPrice() * i.getQuantity()) +"VNĐ"
+                        + formatter.format(i.getPrice() * i.getQuantity()) + "VNĐ"
                         + "</p>\n"
                         + "                </td>\n"
                         + "            </tr>";
@@ -231,21 +250,21 @@ public class EmailServiceIml implements EmailService {
                     + "    </table>\n"
                     + "    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:107%;font-size:19px;font-family:\"Times New Roman\",serif;'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>\n"
                     + "    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:107%;font-size:19px;font-family:\"Times New Roman\",serif;'>Sub Total &nbsp;: &nbsp;<span style='font-size:18px;line-height:107%;font-family:\"Arial\",sans-serif;color:red;background:white;'>"
-                    + formatter.format(cart.getTotalMoney()) +"VNĐ"
+                    + formatter.format(cart.getTotalMoney()) + "VNĐ"
                     + "</span> &nbsp;</p>\n"
                     + "    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:107%;font-size:19px;font-family:\"Times New Roman\",serif;'>------------------------------------- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>\n"
                     + "    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:107%;font-size:19px;font-family:\"Times New Roman\",serif;'>Shipping fee : &nbsp; &nbsp; <span style='font-size:18px;line-height:107%;font-family:\"Arial\",sans-serif;color:red;background:white;'>"
-                    + formatter.format(freight) +"VNĐ"
+                    + formatter.format(freight) + "VNĐ"
                     + "</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>\n"
                     + "    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:107%;font-size:19px;font-family:\"Times New Roman\",serif;'>-------------------------------------</p>\n"
                     + "    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:107%;font-size:19px;font-family:\"Times New Roman\",serif;'>Total Cost: &nbsp;<span style='font-size:18px;line-height:107%;font-family:\"Arial\",sans-serif;color:red;background:white;'>"
-                    + formatter.format(cart.getTotalMoney() - cart.getFreight())+"VNĐ"
+                    + formatter.format(cart.getTotalMoney() - cart.getFreight()) + "VNĐ"
                     + "</span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>\n"
-                    +"    <button style=\"height:42px; width: 90px; margin: 20px 0px 20px 40px;background-color: rgb(245, 187, 160); border: none; border-radius:3px;\">\n" +
-                    "    <a style=\"text-decoration:none;\" href=\"http://localhost:8080/swp/cartcompletion?orderid="
+                    + "    <button style=\"height:42px; width: 90px; margin: 20px 0px 20px 40px;background-color: rgb(245, 187, 160); border: none; border-radius:3px;\">\n"
+                    + "    <a style=\"text-decoration:none;\" href=\"http://localhost:8080/swp/cartcompletion?orderid="
                     + orderID_encoded
-                    + "\">View Detail</a>\n" +
-                    "    </button>"
+                    + "\">View Detail</a>\n"
+                    + "    </button>"
                     + "</div>";
             content += totalContent;
             return content;
@@ -264,14 +283,13 @@ public class EmailServiceIml implements EmailService {
             String pass = context.getInitParameter("pass");
             String content = "Dear " + recipient.getEmail() + "! you have been created an new account in OnlineShopSystem. "
                     + "Below is your password to login to system, please change your password to protect your account.\n";
-            content += "Username: " + recipient.getUsername()+ "\n";
-            content += "Password: " + recipient.getPassword()+ "\n";
+            content += "Username: " + recipient.getUsername() + "\n";
+            content += "Password: " + recipient.getPassword() + "\n";
             String subject = EMAIL_GET_ACCOUNT;
             SendingEmailUtil.sendEmail(host, port, user, pass, recipient.getEmail(), subject, content);
         } catch (MessagingException ex) {
             Logger.getLogger(EmailServiceIml.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 
 }
