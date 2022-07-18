@@ -3,8 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/win/Desktop/WorkSpace/summer2022-se1611-g2/summer2022-se1611-g2/SWP391/web/cartdetail.jsp</file>
-            <file>file:/C:/Users/win/Desktop/WorkSpace/summer2022-se1611-g2/summer2022-se1611-g2/SWP391/src/java/controller/order/ProcessServlet.java</file>
+            <file>file:/C:/Users/win/Desktop/WorkSpace/summer2022-se1611-g2/summer2022-se1611-g2/SWP391/src/java/dal/AccountDAO.java</file>
+            <file>file:/C:/Users/win/Desktop/WorkSpace/summer2022-se1611-g2/summer2022-se1611-g2/SWP391/web/js/marketing/customer.js</file>
+            <file>file:/C:/Users/win/Desktop/WorkSpace/summer2022-se1611-g2/summer2022-se1611-g2/SWP391/web/css/customer.css</file>
+            <file>file:/C:/Users/win/Desktop/WorkSpace/summer2022-se1611-g2/summer2022-se1611-g2/SWP391/src/java/controller/marketing/CustomerServlet.java</file>
+            <file>file:/C:/Users/win/Desktop/WorkSpace/summer2022-se1611-g2/summer2022-se1611-g2/SWP391/web/marketing/customer.jsp</file>
         </group>
     </open-files>
 </project-private>

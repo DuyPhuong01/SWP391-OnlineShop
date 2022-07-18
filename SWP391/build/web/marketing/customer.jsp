@@ -59,8 +59,11 @@
                         <tr>
                           <td>Name:</td>
                           <td>
-                              <input required type="text" id="name" name="name" value="${requestScope.cus.full_name}">
+                              <input required type="text" oninput="CheckName()"
+                                     id="name" name="name" value="${requestScope.cus.full_name}">
+                              <span id="err-name" class="mess">Name is not empty</span>
                           </td>
+                          
                         </tr>
                           <tr>
                             <td>Gender</td>
@@ -88,13 +91,17 @@
                           <tr>
                             <td>Mobile</td>
                             <td>
-                              <input required name="phone" id="phone" value="${requestScope.cus.phone}">
+                                <input required name="phone" oninput="CheckPhone()"
+                                     id="phone" value="${requestScope.cus.phone}">
+                              <span id="err-phone" class="mess">Mobile is not emptys</span>
                             </td>
                           </tr>
                           <tr>
                             <td>Address</td>
                             <td>
-                                <input required name="address" id="address" value=" ${requestScope.cus.address}">
+                                <input required name="address" id="address" oninput="CheckAddress()"
+                                       value=" ${requestScope.cus.address}">
+                                <span id="err-address" class="mess">Address is not empty</span>
                             </td>
                           </tr>
                           <tr>

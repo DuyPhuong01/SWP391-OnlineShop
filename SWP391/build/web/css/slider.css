@@ -22,3 +22,11 @@
     bottom: 0;
     object-fit: cover;
 }
+.form-switch{
+    width: 281px !important;
+    justify-content: space-around !important;
+    display: flex !important;
+}
+.form-switch p{
+    margin-top: 5px;
+}

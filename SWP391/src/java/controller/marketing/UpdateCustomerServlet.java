@@ -25,15 +25,6 @@ import model.HistoryProfile;
 @WebServlet(name = "UpdateCustomerServlet", urlPatterns = {"/marketing/updatecustomer"})
 public class UpdateCustomerServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -77,7 +68,6 @@ public class UpdateCustomerServlet extends HttpServlet {
             account.setPhone(phone);
             account.setAddress(address);
             account.setPhone(phone);
-            account.setAddress(address);
             account.setFeature(feature);
             AccountDAO accountDAO=new AccountDAO();
             //update account

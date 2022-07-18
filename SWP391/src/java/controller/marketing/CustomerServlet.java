@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Account;
 import model.HistoryProfile;
 
@@ -24,51 +25,33 @@ import model.HistoryProfile;
 @WebServlet(name = "CustomerServlet", urlPatterns = {"/marketing/customer"})
 public class CustomerServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CustomerServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CustomerServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Access denied');");
+            out.println("window.location.href = \"http://localhost:8080/swp/home#divOne\";");
+            out.println("</script>");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            int user_id=Integer.parseInt(request.getParameter("id"));
-            AccountDAO ac=new AccountDAO();
+         HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("account");
+        if (acc == null) { //have  not login
+            processRequest(request, response);
+        }
+        int user_id = Integer.parseInt(request.getParameter("id"));
+        AccountDAO ac = new AccountDAO();
         Account account = ac.getAccountByID(user_id);
-        int numper_page=6;
-        int currentPage=1;
-        List<HistoryProfile> histories = ac.getHistory_profiles(user_id,currentPage,numper_page);//default
-        int maxPage=ac.countPagingHistories(user_id, currentPage, numper_page);
+        int numper_page = 6;
+        int currentPage = 1;
+        List<HistoryProfile> histories = ac.getHistory_profiles(user_id, currentPage, numper_page);//default
+        int maxPage = ac.countPagingHistories(user_id, currentPage, numper_page);
         request.setAttribute("curpage", currentPage);
         request.setAttribute("maxpage", maxPage);
         request.setAttribute("cus", account);

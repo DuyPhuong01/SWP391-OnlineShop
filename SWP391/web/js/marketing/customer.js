@@ -1,6 +1,7 @@
 function Edit(){
     $("#normal"). css("display", "none");
     $("#edit"). css("display", "block");
+    document.getElementById("mess").innerText='';
 }
 function Paging(numpage) {
     SubmitForm(numpage);
@@ -58,6 +59,8 @@ function submitpage(numpage){
     });
 }
 function update(){
+    if(validation()){
+        
      var id=document.getElementById("user_id").value;
      var name=document.getElementById("name").value;
      var gender=$('#gender').children("option:selected").val();
@@ -94,6 +97,48 @@ function update(){
             console.log("lookup ajax error");
             console.log(errorData);
         }
-    });
+    }); 
+   }
     
+}
+
+function CheckName(){
+    var name =document.getElementById('name').value;
+    if(name==''){
+        $('#err-name').show();
+        return false;
+    }
+    $('#err-name').hide();
+    return true;
+}
+function CheckPhone(){
+    var phone =document.getElementById('phone').value;
+    if(phone==''){
+        $('#err-phone').show();
+        return false;
+    }
+     $('#err-phone').hide();
+    return true;
+}
+function CheckAddress(){
+    var address =document.getElementById('address').value;
+    if(address.trim()==''){
+         $('#err-address').show();
+        return false;
+    }
+   $('#err-address').hide();
+    return true;
+}
+function validation(){
+    var check=true;
+    if(!CheckName()){
+       check= false;
+    }
+    if(!CheckAddress()){
+        check=false;
+    }
+    if(!CheckPhone()){
+        check=false;
+    }
+    return check;
 }

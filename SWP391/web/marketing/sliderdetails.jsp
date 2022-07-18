@@ -29,6 +29,7 @@
                     </div>
                     <div>
                         <div class="form-check form-switch form-switch-md">
+                            <p>Featured</p>
                             <input class="featured-btn form-check-input" style="cursor: pointer" type="checkbox" role="switch" id="sliderStatusSwitch" ${slider.status eq "1" ? "checked" : "" } onchange="${slider.status eq "1" ? "hideSlider" : "showSlider" }(${slider.id})"/>
                             <label class="form-check-label" for="sliderStatusSwitch"></label>
                         </div>

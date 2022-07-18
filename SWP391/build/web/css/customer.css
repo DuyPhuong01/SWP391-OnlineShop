@@ -33,3 +33,13 @@
 .edit-icon{
     margin-right: 5px;
 }
+.mess{
+    position: absolute;
+    white-space: nowrap;
+    right: -175px;
+    color: red;
+    display: none;
+}
+td{
+    position: relative;
+}
