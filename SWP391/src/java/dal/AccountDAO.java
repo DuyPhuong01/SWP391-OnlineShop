@@ -10,6 +10,7 @@ import util.SendingEmailUtil;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,8 +20,10 @@ import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import model.Account;
 import model.Customer;
+import model.HistoryProfile;
 import model.Slider;
 import model.Role;
+import model.UpdateDate;
 import service.EmailService;
 import service.EmailServiceIml;
 
@@ -97,6 +100,32 @@ public class AccountDAO extends DBContext {
                 }
             }
             return s;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Role getRoleByID(int role_id) {
+        Role role = new Role();
+        try {
+            Connection conn = DBContext.getConnection();
+            String sql = "SELECT [role_id]\n"
+                    + "      ,[role_name]\n"
+                    + "  FROM [roles]\n"
+                    + "where role_id="
+                    + role_id;
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+
+                role.setrId(rs.getInt("role_id"));
+                role.setrName(rs.getString("role_name"));
+
+            }
+
+            return role;
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -450,6 +479,22 @@ public class AccountDAO extends DBContext {
         } catch (Exception e) {
         }
         return "Success";
+    }
+
+    public UpdateDate getUpdateDate(int id) {
+        String sql = "select * from update_date\n"
+                + "where id="
+                + id;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return new UpdateDate(rs.getInt("id"), rs.getInt("user_id"), rs.getTimestamp("date"));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;//exception
     }
 
     public String AddCustomer(Customer acc) {
@@ -869,13 +914,141 @@ public class AccountDAO extends DBContext {
         return 0;
     }
 
+    //get history information
+    //update customer information
+    public void updateCustomer(Account a, String update_by) {
+        //insert into account table
+        String sql = "UPDATE [accounts]\n"
+                + "   SET [full_name] = ?\n"
+                + "      ,[gender] = ?\n"
+                + "      ,[city] = ?\n"
+                + "      ,[country] = ?\n"
+                + "      ,[address] = ?\n"
+                + "      ,[phone] = ?\n"
+                + "      ,[featured]=?\n"
+                + " WHERE [user_id] = ?";
+        try{
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, a.getFull_name());
+            stm.setBoolean(2, a.isGender());
+            stm.setString(3, a.getCity());
+            stm.setString(4, a.getCountry());
+            stm.setString(5, a.getAddress());
+            stm.setString(6, a.getPhone());
+            stm.setBoolean(7, a.isFeature());
+            stm.setInt(8, a.getUser_id());
+            
+            stm.execute();
+       
+            
+            int update_id = 0;
+            //insert update date
+            String sql1 = "insert into update_date (user_id,date)\n"
+                    + "values(?,getdate())";
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            st1.setInt(1, a.getUser_id());
+            st1.executeUpdate();
+
+            //get  id of this update
+            String sql2 = "select top 1 u.id from update_date u\n"
+                    + "where u.user_id=? "
+                    + "\norder by date desc";
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st2.setInt(1, a.getUser_id());
+            ResultSet rs2 = st2.executeQuery();
+            if (rs2.next()) {
+                update_id = rs2.getInt("id");
+            }
+            //insert  into history_table
+            String sql3 = "insert into history_profile (update_id,full_name,gender,email,address,phone,feature,update_by)\n"
+                    + "values(?,?,?,?,?,?,?,?)";
+            PreparedStatement st3 = connection.prepareStatement(sql3);
+            st3.setInt(1, update_id);
+            st3.setString(2, a.getFull_name());
+            st3.setBoolean(3, a.isGender());
+            st3.setString(4, a.getEmail());
+            st3.setString(5, a.getAddress());
+            st3.setString(6, a.getPhone());
+            st3.setBoolean(7, a.isFeature());
+            st3.setString(8, update_by);
+            st3.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public HistoryProfile fillHistoryProfile(ResultSet rs) {
+        try {
+            UpdateDate update = getUpdateDate(rs.getInt("update_id"));
+            String full_name = rs.getString("full_name");
+            boolean gender = rs.getBoolean("gender");
+            String email = rs.getString("email");
+            String address = rs.getString("address");
+            String phone = rs.getString("phone");
+            boolean feature = rs.getBoolean("feature");
+            String update_by =rs.getString("update_by");
+            return new HistoryProfile(update, full_name, gender, email, address, phone, feature, update_by);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;//exception or not found
+    }
+    //paging
+    public List<HistoryProfile> getHistory_profiles(int user_id , int page, int numperpage) {
+        List<HistoryProfile> list = new ArrayList<>();
+        String sql ="select u.date,h.full_name,h.gender,h.email,h.address,h.phone,h.feature,h.update_by,h.update_id from accounts a\n" +
+"inner join update_date u\n" +
+"on u.user_id=a.user_id\n" +
+"inner join history_profile h\n" +
+"on h.update_id=u.id\n" +
+"where u.user_id="
+                + user_id;
+                sql += " order by date desc";
+                 sql += " OFFSET "
+                + (page - 1) * numperpage
+                + " ROWS FETCH NEXT "
+                + numperpage
+                + " ROWS ONLY";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                HistoryProfile history = fillHistoryProfile(rs);
+                list.add(history);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+        public int countPagingHistories(int user_id , int page, int numperpage){
+            int num=1;
+             String sql="select count(h.id) from accounts a\n" +
+            "inner join update_date u\n" +
+            "on u.user_id=a.user_id\n" +
+            "inner join history_profile h\n" +
+            "on h.update_id=u.id\n" +
+            "where u.user_id="
+                     + user_id;
+             try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                num = rs.getInt(1);
+            }
+            } catch (Exception e) {
+                 System.out.println(e);
+            }
+         if (num == 0) {
+            return 1;//minimum=1
+        } else if (num % numperpage == 0) { //number full apge
+            return num / numperpage;
+        }
+        return num / numperpage + 1;
+
+        }
     public static void main(String[] args) {
         AccountDAO d = new AccountDAO();
-        int num = d.countCustomerPaging("", 1, 1, 6);
-        System.out.println(num);
-//        ArrayList<Account> r = d.searchByRid(0);
-//        for (Account role : r) {
-//            System.out.println(role.getFull_name());
-//        }
+       
     }
 }

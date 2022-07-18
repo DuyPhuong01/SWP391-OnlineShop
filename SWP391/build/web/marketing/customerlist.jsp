@@ -144,8 +144,8 @@
                                         </select>
                                     </div>
                                     <div class="col-2 action-container ">
-                                      <a type="button" class=" view-btn btn btn-primary btn-sm " href="slider?id=${s.id}">
-                                                                        <i class="fa-solid fa-eye"></i>View more</a>
+                                      <a type="button" class=" view-btn btn btn-primary btn-sm " href="customer?id=${c.user_id}">
+                                      <i class="fa-solid fa-eye"></i>View more</a>
                                     </div>
                                 </div>
                                     </li>   

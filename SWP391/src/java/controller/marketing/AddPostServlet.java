@@ -6,6 +6,7 @@
 package controller.marketing;
 
 import dal.CategoryDAO;
+import dal.PostCategoryDAO;
 import dal.PostDAO;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -85,8 +86,8 @@ public class AddPostServlet extends HttpServlet {
         if(account==null){ //have  not login
             processRequest(request, response);
         }
-        CategoryDAO categoryDAO=new CategoryDAO();
-        List<PostCategory> categories = categoryDAO.getPostCategory();
+        PostCategoryDAO pcd=new PostCategoryDAO();
+        List<PostCategory> categories = pcd.getPostCategory();
         request.setAttribute("categories", categories);
         request.getRequestDispatcher("/marketing/addpost.jsp").forward(request, response);
     }
@@ -111,12 +112,13 @@ public class AddPostServlet extends HttpServlet {
         //get attribure
         String title=request.getParameter("title");
      
-        int categoryID=Integer.parseInt(request.getParameter("category"));
+//        int categoryID=Integer.parseInt(request.getParameter("category"));
+        int sub_categoryID=Integer.parseInt(request.getParameter("sub_category"));
         int feature_raw=Integer.parseInt(request.getParameter("feature"));
         boolean feature=(feature_raw==1);
         String postDetail = request.getParameter("content");
         CategoryDAO categoryDAO=new CategoryDAO();
-        PostSubCategory postCategory = categoryDAO.getPostSubCategory(categoryID);
+        PostSubCategory postCategory = categoryDAO.getPostSubCategory(sub_categoryID);
         
         //get image
          response.setContentType("text/html;charset=UTF-8");
@@ -148,13 +150,13 @@ public class AddPostServlet extends HttpServlet {
         if(check){//insert success
               out.println("<script type=\"text/javascript\">");
             out.println("alert('Successfully!');");
-            out.println("window.location.href = \"http://localhost:8080/swp/postlist\";");
+            out.println("window.location.href = \"http://localhost:8080/swp/marketing/postlist\";");
             out.println("</script>");
         }
         else{
                                    out.println("<script type=\"text/javascript\">");
             out.println("alert('failed!');");
-            out.println("window.location.href = \"http://localhost:8080/swp/addpost\";");
+            out.println("window.location.href = \"http://localhost:8080/swp/marketing/addpost\";");
             out.println("</script>");
         }
     }

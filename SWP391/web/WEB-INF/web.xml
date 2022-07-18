@@ -219,7 +219,7 @@
         <servlet-name>SettingsList</servlet-name>
         <servlet-class>controller.admin.SettingsList</servlet-class>
     </servlet>
-    <servlet>    
+    <servlet>
         <servlet-name>UpdateFeatureCustomerServlet</servlet-name>
         <servlet-class>controller.marketing.UpdateFeatureCustomerServlet</servlet-class>
     </servlet>

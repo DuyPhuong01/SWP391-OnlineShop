@@ -113,7 +113,7 @@ public class SearchSliderList extends HttpServlet {
                     + "                                        </select>\n"
                     + "                                    </div>\n"
                     + "                                    <div class=\"col-2 action-container\">\n"
-                    + "                                      <a type=\"button\" class=\" view-btn btn btn-primary btn-sm \" href=\"slider?" + s.getId() + "\">\n"
+                    + "                                      <a type=\"button\" class=\" view-btn btn btn-primary btn-sm \" href=\"slider?id=" + s.getId() + "\">\n"
                     + "                                                                        <i class=\"fa-solid fa-eye\"></i>View more</a>"
                     + "                                    </div>\n"
                     + "                                </div>\n"
