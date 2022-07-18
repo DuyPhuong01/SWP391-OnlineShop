@@ -119,6 +119,7 @@ function changeCategory() {
             cid: selected
         },
         success: function (response) {
+            console.log(response);
             div.innerHTML = response;
         }
     });

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Duy Phuong
  */
-@WebServlet(name = "EditUserServlet", urlPatterns = {"/edituser"})
+@WebServlet(name = "EditUserServlet", urlPatterns = {"/admin/edituser"})
 public class EditUserServlet extends HttpServlet {
 
     /**

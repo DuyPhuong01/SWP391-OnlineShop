@@ -38,95 +38,102 @@
                     </div>
                     <div class="col-9">
                         <div class="content">
+                        <c:if test="${requestScope.myorders.size() != 0}">
                             <div class="flex my-order-header-bar bg-white">
                                 <div style="margin-right: 55%;">Order</div>
                                 <div style="margin-right: 15%;">Total price</div>
                                 <div>Status</div>
 
                             </div>
-                        <c:forEach items="${requestScope.myorders}" var="i">
-                            <div class="order-items bg-white flex flex-column">
-                                <div class="flex" style="padding: 10px; padding-left: 30px; border-bottom: 1px solid #21252930;">
-                                    <div class="id"><a href="orderinformation?orderId=${i.order_id}">ID: ${i.order_id}</a></div>
-                                    <div class="order-date">Order Date: <fmt:formatDate value="${i.orderDate}" type="both"/></div>
-                                </div>
-                                <div class="flex" style="    border:1px solid #21252930;
-                                     margin: 15px;">
-                                    <div class="first-product-image"><img src="${i.orderDetailList.get(0).product.thumbnail}"></div>
-                                    <div class="products-name">
-                                        <div>${i.orderDetailList.get(0).product.name}</div><c:if test="${i.orderDetailList.size() > 1}">
-                                            <div> and ${i.orderDetailList.size()-1} more</div></c:if>
-                                            <div style="height: 10px;"></div>
-                                        </div>
-                                    <div class="total-cost flex"><span><fmt:formatNumber type="currency" value="${i.total_price}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></span></div>
-                                        <div class="status flex">
-                                            <span>
-                                            <c:if test="${i.status == 6}">Cancel</c:if>
-                                            <c:if test="${i.status == 1}">Submitted</c:if>
-                                            <c:if test="${i.status == 2}">Payment information confirmation</c:if>
-                                            <c:if test="${i.status == 3}">Active</c:if>
-                                            <c:if test="${i.status == 4}">Transporting</c:if>
-                                            <c:if test="${i.status == 5}">Finished</c:if>
-                                            </span>
-                                        </div>
+                            <c:forEach items="${requestScope.myorders}" var="i">
+                                <div class="order-items bg-white flex flex-column">
+                                    <div class="flex" style="padding: 10px; padding-left: 30px; border-bottom: 1px solid #21252930;">
+                                        <div class="id"><a href="orderinformation?orderId=${i.order_id}">ID: ${i.order_id}</a></div>
+                                        <div class="order-date">Order Date: <fmt:formatDate value="${i.orderDate}" type="both"/></div>
                                     </div>
+                                    <div class="flex" style="    border:1px solid #21252930;
+                                         margin: 15px;">
+                                        <div class="first-product-image"><img src="${i.orderDetailList.get(0).product.thumbnail}"></div>
+                                        <div class="products-name">
+                                            <div>${i.orderDetailList.get(0).product.name}</div><c:if test="${i.orderDetailList.size() > 1}">
+                                                <div> and ${i.orderDetailList.size()-1} more</div></c:if>
+                                                <div style="height: 10px;"></div>
+                                            </div>
+                                            <div class="total-cost flex"><span><fmt:formatNumber type="currency" value="${i.total_price}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></span></div>
+                                            <div class="status flex">
+                                                <span>
+                                                <c:if test="${i.status == 6}">Cancel</c:if>
+                                                <c:if test="${i.status == 1}">Submitted</c:if>
+                                                <c:if test="${i.status == 2}">Payment information confirmation</c:if>
+                                                <c:if test="${i.status == 3}">Active</c:if>
+                                                <c:if test="${i.status == 4}">Transporting</c:if>
+                                                <c:if test="${i.status == 5}">Finished</c:if>
+                                                </span>
+                                            </div>
+                                        </div>
 
 
 
 
 
-                                </div>
-                        </c:forEach>
-                        <nav aria-label="...">
-                            <ul class="pagination">
-                                <c:if test="${requestScope.numberPage < 3}">
-                                    <li class="page-item <c:if test="${requestScope.pageNumber == 1}">disabled</c:if>">
-                                        <span class="page-link"><a href="myorders?page=${requestScope.pageNumber-1}"><</a></span>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="myorders?page=1">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="myorders?page=2">2</a></li>
-                                    <li class="page-item <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if>">
-                                        <a class="page-link" href="myorders?page=${requestScope.pageNumber+1}">></a>
-                                    </li>
-                                </c:if>
-                                <c:if test="${requestScope.numberPage >= 3}">
-                                    <c:if test="${requestScope.pageNumber == 1}">
+                                    </div>
+                            </c:forEach>
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                    <c:if test="${requestScope.numberPage < 3}">
                                         <li class="page-item <c:if test="${requestScope.pageNumber == 1}">disabled</c:if>">
                                             <span class="page-link"><a href="myorders?page=${requestScope.pageNumber-1}"><</a></span>
                                         </li>
                                         <li class="page-item"><a class="page-link" href="myorders?page=1">1</a></li>
                                         <li class="page-item"><a class="page-link" href="myorders?page=2">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="myorders?page=3">3</a></li>
                                         <li class="page-item <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if>">
                                             <a class="page-link" href="myorders?page=${requestScope.pageNumber+1}">></a>
                                         </li>
                                     </c:if>
-                                    <c:if test="${requestScope.pageNumber == requestScope.numberPage}">
-                                        <li class="page-item <c:if test="${requestScope.pageNumber == 1}">disabled</c:if>">
-                                            <span class="page-link"><a href="myorders?page=${requestScope.pageNumber-1}"><</a></span>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="myorders?page=${requestScope.pageNumber - 2}">${requestScope.pageNumber - 2}</a></li>
-                                        <li class="page-item"><a class="page-link" href="myorders?page=${requestScope.pageNumber - 1}">${requestScope.pageNumber - 1}</a></li>
-                                        <li class="page-item"><a class="page-link" href="myorders?page=${requestScope.pageNumber}">${requestScope.pageNumber}</a></li>
-                                        <li class="page-item <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if>">
-                                            <a class="page-link" href="myorders?page=${requestScope.pageNumber+1}">></a>
-                                        </li>
-                                    </c:if>
-                                    <c:if test="${requestScope.pageNumber != 1 && requestScope.pageNumber != requestScope.numberPage}">
-                                        <li class="page-item <c:if test="${requestScope.pageNumber == 1}">disabled</c:if>">
-                                            <span class="page-link"><a href="myorders?page=${requestScope.pageNumber-1}"><</a></span>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="myorders?page=${requestScope.pageNumber - 1}">${requestScope.pageNumber - 1}</a></li>
-                                        <li class="page-item"><a class="page-link" href="myorders?page=${requestScope.pageNumber}">${requestScope.pageNumber}</a></li>
-                                        <li class="page-item"><a class="page-link" href="myorders?page=${requestScope.pageNumber+1}">${requestScope.pageNumber+1}</a></li>
-                                        <li class="page-item <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if>">
-                                            <a class="page-link" href="myorders?page=${requestScope.pageNumber+1}">></a>
-                                        </li>
-                                    </c:if>
+                                    <c:if test="${requestScope.numberPage >= 3}">
+                                        <c:if test="${requestScope.pageNumber == 1}">
+                                            <li class="page-item <c:if test="${requestScope.pageNumber == 1}">disabled</c:if>">
+                                                <span class="page-link"><a href="myorders?page=${requestScope.pageNumber-1}"><</a></span>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="myorders?page=1">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="myorders?page=2">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="myorders?page=3">3</a></li>
+                                            <li class="page-item <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if>">
+                                                <a class="page-link" href="myorders?page=${requestScope.pageNumber+1}">></a>
+                                            </li>
+                                        </c:if>
+                                        <c:if test="${requestScope.pageNumber == requestScope.numberPage}">
+                                            <li class="page-item <c:if test="${requestScope.pageNumber == 1}">disabled</c:if>">
+                                                <span class="page-link"><a href="myorders?page=${requestScope.pageNumber-1}"><</a></span>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="myorders?page=${requestScope.pageNumber - 2}">${requestScope.pageNumber - 2}</a></li>
+                                            <li class="page-item"><a class="page-link" href="myorders?page=${requestScope.pageNumber - 1}">${requestScope.pageNumber - 1}</a></li>
+                                            <li class="page-item"><a class="page-link" href="myorders?page=${requestScope.pageNumber}">${requestScope.pageNumber}</a></li>
+                                            <li class="page-item <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if>">
+                                                <a class="page-link" href="myorders?page=${requestScope.pageNumber+1}">></a>
+                                            </li>
+                                        </c:if>
+                                        <c:if test="${requestScope.pageNumber != 1 && requestScope.pageNumber != requestScope.numberPage}">
+                                            <li class="page-item <c:if test="${requestScope.pageNumber == 1}">disabled</c:if>">
+                                                <span class="page-link"><a href="myorders?page=${requestScope.pageNumber-1}"><</a></span>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="myorders?page=${requestScope.pageNumber - 1}">${requestScope.pageNumber - 1}</a></li>
+                                            <li class="page-item"><a class="page-link" href="myorders?page=${requestScope.pageNumber}">${requestScope.pageNumber}</a></li>
+                                            <li class="page-item"><a class="page-link" href="myorders?page=${requestScope.pageNumber+1}">${requestScope.pageNumber+1}</a></li>
+                                            <li class="page-item <c:if test="${requestScope.pageNumber == requestScope.numberPage}">disabled</c:if>">
+                                                <a class="page-link" href="myorders?page=${requestScope.pageNumber+1}">></a>
+                                            </li>
+                                        </c:if>
 
-                                </c:if>
-                            </ul>
-                        </nav>
+                                    </c:if>
+                                </ul>
+                            </nav>
+                        </c:if>
+                        <c:if test="${requestScope.myorders.size() == 0}">
+                            <div class="bg-white" style="height: 100%;">
+                                There is no ordes
+                            </div>
+                        </c:if>
                     </div>
                 </div>
             </div>

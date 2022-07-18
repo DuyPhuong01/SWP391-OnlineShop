@@ -357,6 +357,7 @@ public class AccountDAO extends DBContext {
                 a.setPhone(rs.getString("phone"));
                 a.setImage_url(rs.getString("image_url"));
                 a.setActive(rs.getInt("active"));
+                a.setFeature(rs.getBoolean("featured"));
                 return a;
             }
         } catch (SQLException ex) {
@@ -463,6 +464,7 @@ public class AccountDAO extends DBContext {
                 + "           ,[address]\n"
                 + "           ,[hash]\n"
                 + "           ,[image_url]\n"
+                + "           ,[featured]\n"
                 + "           ,[city]\n"
                 + "           ,[country]\n"
                 + "           ,[registered_date]\n"
@@ -470,9 +472,9 @@ public class AccountDAO extends DBContext {
                 + "           ,[active])\n"
                 + "     VALUES";
         if (choise == 1) {
-            sql += "(?,?,?,?,?,?,?,?,'images\\account-images\\acc.png','(Nah)','(Nah)',getdate(),?,'1')";
+            sql += "(?,?,?,?,?,?,?,?,'images\\account-images\\acc.png',"+1+",'(Nah)','(Nah)',getdate(),?,'1')";
         } else {
-            sql += "(?,?,?,?,?,?,?,?,'images\\account-images\\acc.png','(Nah)','(Nah)',getdate(),1,'0')";
+            sql += "(?,?,?,?,?,?,?,?,'images\\account-images\\acc.png',"+1+",'(Nah)','(Nah)',getdate(),1,'0')";
         }
         try {
             PreparedStatement stm = connection.prepareStatement(sql);

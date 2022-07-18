@@ -129,7 +129,7 @@ public class SearchCustomerList extends HttpServlet {
                 content += "selected";
             }
             content += " >\n"
-                    + "                                                De-active\n"
+                    + "                                                Inactive\n"
                     + "                                            </option>\n"
                     + "                                        </select>\n"
                     + "                                    </div>\n"

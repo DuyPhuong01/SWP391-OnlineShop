@@ -190,7 +190,7 @@
                                         </thead>
                                         <tbody>
                                         <c:forEach items="${requestScope.accounts}" var="a">
-                                        <form action="admin/udateacc" id="frmUpdate" method="POST">
+                                        <form action="uupdateacc" id="frmUpdate" method="POST">
                                             <tr>
                                                 <td class="pl-4">
                                                     ${a.getUser_id()}

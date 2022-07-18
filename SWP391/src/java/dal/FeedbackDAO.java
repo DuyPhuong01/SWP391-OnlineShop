@@ -67,9 +67,10 @@ public class FeedbackDAO extends DBContext {
                 + "           ,[gender]\n"
                 + "           ,[email]\n"
                 + "           ,[image_url]\n"
-                + "           ,[feedback_date])\n"
+                + "           ,[feedback_date]\n"
+                + "           ,[status])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?,?,?,GETDATE())";
+                + "           (?,?,?,?,?,?,?,?,?,GETDATE(), 1)";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, f.getUser().getUser_id());
@@ -80,7 +81,11 @@ public class FeedbackDAO extends DBContext {
             stm.setString(6, f.getPhone());
             stm.setBoolean(7, f.isGender());
             stm.setString(8, f.getEmail());
-            stm.setString(9, f.getImage_url());
+            if (f.getImage_url().isEmpty()) {
+                stm.setString(9, null);
+            } else {
+                stm.setString(9, f.getImage_url());
+            }
             stm.executeUpdate();
         } catch (Exception e) {
         }
@@ -95,9 +100,10 @@ public class FeedbackDAO extends DBContext {
                 + "           ,[gender]\n"
                 + "           ,[email]\n"
                 + "           ,[image_url]\n"
-                + "           ,[feedback_date])\n"
+                + "           ,[feedback_date]\n"
+                + "           ,[status])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?,GETDATE())";
+                + "           (?,?,?,?,?,?,?,GETDATE(), 1)";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
 
@@ -107,7 +113,11 @@ public class FeedbackDAO extends DBContext {
             stm.setString(4, f.getPhone());
             stm.setBoolean(5, f.isGender());
             stm.setString(6, f.getEmail());
-            stm.setString(7, f.getImage_url());
+            if (f.getImage_url().isEmpty()) {
+                stm.setString(7, null);
+            } else {
+                stm.setString(7, f.getImage_url());
+            }
             stm.executeUpdate();
         } catch (Exception e) {
         }
@@ -200,8 +210,8 @@ public class FeedbackDAO extends DBContext {
         }
         return 0;
     }
-    
-    public Feedback getGeneralFeedback(int id){
+
+    public Feedback getGeneralFeedback(int id) {
         String sql = "select * from general_feedbacks where feedback_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -215,7 +225,8 @@ public class FeedbackDAO extends DBContext {
         }
         return null;
     }
-    public Feedback getProductFeedback(int id){
+
+    public Feedback getProductFeedback(int id) {
         String sql = "select * from product_feedbacks where feedback_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -229,7 +240,7 @@ public class FeedbackDAO extends DBContext {
         }
         return null;
     }
-    
+
     public List<Feedback> getGeneralFeedbacksByRange(int start, int end) {
         int[] stars = {1, 2, 3, 4, 5};
         return getGeneralFeedbacksByRange("feedback_id desc", "", -1, stars, start, end);
@@ -384,8 +395,7 @@ public class FeedbackDAO extends DBContext {
         }
         return 0;
     }
-    
-    
+
     public boolean changeGeneralFeedbackStatus(int id, int status) {
         String sql = "update general_feedbacks set status = ? where feedback_id = ?";
         try {
@@ -399,6 +409,7 @@ public class FeedbackDAO extends DBContext {
         }
         return false;
     }
+
     public boolean changeProductFeedbackStatus(int id, int status) {
         String sql = "update product_feedbacks set status = ? where feedback_id = ?";
         try {

@@ -94,3 +94,6 @@ td, .order-link{
 .pagination a{
     color: #232629;
 }
+.content {
+    height: 100%;
+}

@@ -38,7 +38,7 @@
                                                     </label>
                                                     <label class="me-3 cursor-pointer">
                                                         <input type="radio" name="poststatus-radio" value="0" onclick="CheckFeature(this)" hidden>
-                                                        <div>De-Active</div>
+                                                        <div>Inactive</div>
                                                     </label>
                                                    </div>
                                                    <!--search box-->
@@ -139,7 +139,7 @@
                                             <option value="0" style="font-size: 13px;" 
                                             <c:if test="${!c.feature}">selected</c:if>
                                                     >
-                                                De-active
+                                                Inactive
                                             </option>
                                         </select>
                                     </div>

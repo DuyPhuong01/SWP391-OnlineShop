@@ -12,11 +12,11 @@
     </context-param>
     <context-param>
         <param-name>user</param-name>
-        <param-value>dungbahe150633@fpt.edu.vn</param-value>
+        <param-value>quangtvhe153307@fpt.edu.vn</param-value>
     </context-param>
     <context-param>
         <param-name>pass</param-name>
-        <param-value>anhyeu123</param-value>
+        <param-value>Linhbui5</param-value>
     </context-param>
     <context-param>
         <param-name>banking_system</param-name>
@@ -59,7 +59,6 @@
         <url-pattern>/orderinformation</url-pattern>
         <url-pattern>/updateorder</url-pattern>
         <url-pattern>/cancel_order</url-pattern>
-        <url-pattern>/updateacc</url-pattern>
         <url-pattern>/marketing/productslist</url-pattern>
         <url-pattern>/marketing/product</url-pattern>
         <url-pattern>/marketing</url-pattern>
@@ -421,7 +420,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminUdateAccServlet</servlet-name>
-        <url-pattern>/admin/udateacc</url-pattern>
+        <url-pattern>/admin/uupdateacc</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SettingDetailsServlet</servlet-name>

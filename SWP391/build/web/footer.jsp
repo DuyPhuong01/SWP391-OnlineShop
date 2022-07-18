@@ -17,7 +17,7 @@
             <div class="col-md-3">
                 <h3 class="footer-title">Information</h3>
                 <ul class="footer-links list-unstyled">
-                    <li><a class="text-muted" href="3">About us</a></li>
+                    <li><a class="text-muted" href="#">About us</a></li>
                     <li><a class="text-muted" href="#">Contact us</a></li>
                     <li><a class="text-muted" href="#">Privacy Policy</a></li>
                     <li><a class="text-muted" href="#">Orders and Returns</a></li>

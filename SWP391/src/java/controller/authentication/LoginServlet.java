@@ -86,39 +86,43 @@ public class LoginServlet extends HttpServlet {
         AccountDAO db = new AccountDAO();
         Account account = db.getAccountByUsernamePassword(username, getMd5(password));
         if (account != null) {
-            if (account.getActive() != 1) {
-                response.sendRedirect("home?mess=Your+or+account+needs+to+be+activated(check+account's+mail)#divOne");
-            } else {
-                //luu account len tren cookie
-                Cookie u = new Cookie("userC", username);
-                Cookie p = new Cookie("passC", password);
-                Cookie r = new Cookie("rememC", remember);
+            if (account.isFeature()) {
+                if (account.getActive() != 1) {
+                    response.sendRedirect("home?mess=Your+or+account+needs+to+be+activated(check+account's+mail)#divOne");
+                } else {
+                    //luu account len tren cookie
+                    Cookie u = new Cookie("userC", username);
+                    Cookie p = new Cookie("passC", password);
+                    Cookie r = new Cookie("rememC", remember);
 
-                if (remember == null) {
-                    u.setMaxAge(0);
-                    p.setMaxAge(0);
-                    r.setMaxAge(0);
-                } else {
-                    u.setMaxAge(3600 * 24 * 30);
-                    p.setMaxAge(3600 * 24 * 30);
-                    r.setMaxAge(3600 * 24 * 30);
+                    if (remember == null) {
+                        u.setMaxAge(0);
+                        p.setMaxAge(0);
+                        r.setMaxAge(0);
+                    } else {
+                        u.setMaxAge(3600 * 24 * 30);
+                        p.setMaxAge(3600 * 24 * 30);
+                        r.setMaxAge(3600 * 24 * 30);
+                    }
+                    response.addCookie(u);//luu u va p len tren chrome
+                    response.addCookie(p);
+                    response.addCookie(r);
+                    HttpSession session = request.getSession();
+                    session.setAttribute("account", account);
+                    if (account.getRole_id() == 2) {
+                        response.sendRedirect("marketing/dashboard");
+                    } else if (account.getRole_id() == 3) {
+                        response.sendRedirect("sale");
+                    } else if (account.getRole_id() == 4) {
+                        response.sendRedirect("marketing/dashboard");
+                    } else if (account.getRole_id() == 5) {
+                        response.sendRedirect("admin");
+                    } else {
+                        response.sendRedirect("home");
+                    }
                 }
-                response.addCookie(u);//luu u va p len tren chrome
-                response.addCookie(p);
-                response.addCookie(r);
-                HttpSession session = request.getSession();
-                session.setAttribute("account", account);
-                if (account.getRole_id() == 2) {
-                    response.sendRedirect("marketing/dashboard");
-                } else if (account.getRole_id() == 3) {
-                    response.sendRedirect("sale");
-                } else if (account.getRole_id() == 4) {
-                    response.sendRedirect("marketing/dashboard");
-                } else if (account.getRole_id() == 5) {
-                    response.sendRedirect("admin");
-                } else {
-                    response.sendRedirect("home");
-                }
+            } else {
+                response.sendRedirect("home?mess=Account+is+blocked#divOne");
             }
         } else {
             response.sendRedirect("home?mess=Username+or+password+is+incorrect#divOne");

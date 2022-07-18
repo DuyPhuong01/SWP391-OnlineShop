@@ -88,6 +88,7 @@ public class ProductFeedbackServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
 //        processRequest(request, response);
         FeedbackDAO fdb = new FeedbackDAO();
         response.setContentType("text/html;charset=UTF-8");

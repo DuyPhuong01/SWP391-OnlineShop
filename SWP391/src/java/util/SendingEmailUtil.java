@@ -21,6 +21,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -67,7 +68,7 @@ public class SendingEmailUtil {
     
      public static void sendEmailConfirmationOrder(String host, String port,
             final String userName, final String password, String toAddress,
-            String subject, String message,String contentForm) throws AddressException,
+            String subject, String message,String contentForm, ServletContext context) throws AddressException,
             MessagingException {
 
         try {
@@ -103,8 +104,9 @@ public class SendingEmailUtil {
             // attactment guide 
             MimeMultipart multipart=new MimeMultipart();
             MimeBodyPart attachment=new MimeBodyPart();
-            attachment.attachFile(new File("C:\\Users\\Admin\\Desktop\\WorkSpace\\summer2022-se1611-g2\\SWP391\\web\\file\\paymentguide\\paymentguide.pdf"));
-             //send form html through mail
+            String filePath = context.getRealPath("/").replace("\\build", "");
+            filePath += "file\\paymentguide\\paymentguide.pdf";
+            attachment.attachFile(new File(filePath));
             MimeBodyPart messageBodyPart=new MimeBodyPart();
             messageBodyPart.setContent(contentForm,"text/html;charset=UTF-8");
             multipart.addBodyPart(messageContentPart);

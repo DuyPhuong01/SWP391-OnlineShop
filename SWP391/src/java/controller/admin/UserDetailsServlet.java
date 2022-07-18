@@ -19,7 +19,7 @@ import model.Account;
  *
  * @author Duy Phuong
  */
-@WebServlet(name = "UserDetailsServlet", urlPatterns = {"/user"})
+@WebServlet(name = "UserDetailsServlet", urlPatterns = {"/admin/user"})
 public class UserDetailsServlet extends HttpServlet {
 
     /**

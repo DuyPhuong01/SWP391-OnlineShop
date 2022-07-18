@@ -11,8 +11,8 @@
         <!--bootstrap-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-        <link href="css/stylesaleheadersider.css" rel="stylesheet"/>
-        <link href="css/styleadminsettings.css" rel="stylesheet"/>
+        <link href="../css/stylesaleheadersider.css" rel="stylesheet"/>
+        <link href="../css/styleadminsettings.css" rel="stylesheet"/>
         <!--font-awesome-->
         <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
         <script>
@@ -95,7 +95,7 @@
                     <div class="row" style="margin-bottom: 20px;">
                         <h2>Settings Detail</h2>
                         <div class="bg-light rounded-4 ">
-                            <form action="admin/settingdetails" method="POST">
+                            <form action="settingdetails" method="POST">
                                 <div class="settings-wrapper " style="margin-top: 10px;">
                                     <div class="d-flex flex-row-reverse align-items-center mb-3">
                                         <input class="btn btn-primary profile-button viewmode${requestScope.settingsList.settingId}" type="button" value="Edit" style="width: auto;"  onclick="Edit_onclick(${requestScope.settingsList.settingId});"/>

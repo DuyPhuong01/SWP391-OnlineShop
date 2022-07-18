@@ -357,7 +357,8 @@ function createChart3(type, label = [], data1 = [], data2 = [], id, title, label
                     fill: false,
                     borderColor: 'red',
                     tension: 0.1,
-                    borderWidth: 1
+                    borderWidth: 1,
+                    pointRadius: 0
                 },
                 {
                     label: label2,
@@ -365,7 +366,8 @@ function createChart3(type, label = [], data1 = [], data2 = [], id, title, label
                     fill: false,
                     borderColor: 'yellow',
                     tension: 0.1,
-                    borderWidth: 1
+                    borderWidth: 1,
+                    pointRadius: 0
                 }]
         },
         options: {
@@ -421,7 +423,8 @@ function updateChart3(type, label = [], data1 = [], data2 = [], id, title, label
                     fill: false,
                     borderColor: 'red',
                     tension: 0.1,
-                    borderWidth: 1
+                    borderWidth: 1,
+                    pointRadius: 0
                 },
                 {
                     label: label2,
@@ -429,7 +432,8 @@ function updateChart3(type, label = [], data1 = [], data2 = [], id, title, label
                     fill: false,
                     borderColor: 'yellow',
                     tension: 0.1,
-                    borderWidth: 1
+                    borderWidth: 1,
+                    pointRadius: 0
                 }]
         },
         options: {

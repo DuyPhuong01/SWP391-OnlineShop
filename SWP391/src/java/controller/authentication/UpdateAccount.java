@@ -162,7 +162,7 @@ public class UpdateAccount extends HttpServlet {
 
         a = dao.getAccountByID(a);
         session.setAttribute("account", a);
-        request.getRequestDispatcher("home").forward(request, response);
+        response.sendRedirect("home");
 
     }
 

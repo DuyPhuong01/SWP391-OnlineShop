@@ -112,7 +112,7 @@ public class EmailServiceIml implements EmailService {
                     + "Below is your order information and payment guide attacch<h5>";
             String subject = EMAIL_CONFIRMATION_ORDER;
             String form = getOrderInformationForm(orderID);//return html form order information
-            SendingEmailUtil.sendEmailConfirmationOrder(host, port, user, pass, email, subject, content, form);
+            SendingEmailUtil.sendEmailConfirmationOrder(host, port, user, pass, email, subject, content, form, context);
         } catch (MessagingException ex) {
             System.out.println(ex);
         }
@@ -129,7 +129,7 @@ public class EmailServiceIml implements EmailService {
                     + "Below is your order information and payment guide attacch</h5>";
             String subject = EMAIL_UPDATE_METHOD_ORDER;
             String form = getOrderInformationForm(orderID);//return html form order information
-            SendingEmailUtil.sendEmailConfirmationOrder(host, port, user, pass, email, subject, content, form);
+            SendingEmailUtil.sendEmailConfirmationOrder(host, port, user, pass, email, subject, content, form, context);
         } catch (MessagingException ex) {
             System.out.println(ex);
         }

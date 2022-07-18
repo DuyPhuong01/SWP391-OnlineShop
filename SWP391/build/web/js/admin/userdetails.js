@@ -88,7 +88,7 @@ function createuser() {
     var address = modal.querySelector('input[name="address"]').value;
     var role_id = modal.querySelector('select[name="role_id"] option:checked').value;
     $.ajax({
-        url: 'adduser',
+        url: 'addnewuser',
         type: 'post',
         data: {
             mail: mail,

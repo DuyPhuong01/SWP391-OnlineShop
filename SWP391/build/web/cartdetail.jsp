@@ -121,12 +121,6 @@
                             </tbody>
                         </table>
                         <!-- End -->
-                        <section class="home-sp">
-                            <div class="page-trang table">
-                                <a href="#"></a>
-                                <a href="#"></a>
-                            </div>
-                        </section>
 
                     </div>
                    <form action="checkout" method="get">      

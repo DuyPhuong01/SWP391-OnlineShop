@@ -19,10 +19,10 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
-        <link href="css/stylesaleheadersider.css" rel="stylesheet"/>
+        <link href="../css/stylesaleheadersider.css" rel="stylesheet"/>
         <!--<link href="css/userslist.css" rel="stylesheet"/>-->
-        <link href="css/admin.css" rel="stylesheet"/>
-        <link href="css/user.css" rel="stylesheet"/>
+        <link href="../css/admin.css" rel="stylesheet"/>
+        <link href="../css/user.css" rel="stylesheet"/>
         <style>
             input[aria-label-name="role-selection"]:checked + div {
                 background: rgb(135, 206, 250) !important;
@@ -30,94 +30,9 @@
         </style>
         <!--font-awesome-->
         <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
-        <script>
-            var ids = [];
-            <c:forEach items="${requestScope.accounts}" var="a">
-            ids.push(${a.getUser_id()});
-            </c:forEach>
-            function submitForm()
-            {
-                document.getElementById('frmSearch').submit();
-            }
-            function submitUpdate()
-            {
-                document.getElementById('frmUpdate').submit();
-            }
-
-            function hideControlsbyClassName(name)
-            {
-                var controls = document.getElementsByClassName(name);
-                for (var i = 0; i < controls.length; i++)
-                {
-                    controls[i].style.display = 'none';
-                }
-            }
-            function showControlsbyClassName(name)
-            {
-                var controls = document.getElementsByClassName(name);
-                for (var i = 0; i < controls.length; i++)
-                {
-                    controls[i].style.display = 'inline';
-                }
-            }
-            function hideEditModeControls()
-            {
-                for (var i = 0; i < ids.length; i++)
-                {
-                    hideControlsbyClassName('editmode' + ids[i]);
-                }
-            }
-            function hideViewModeControls()
-            {
-                for (var i = 0; i < ids.length; i++)
-                {
-                    hideControlsbyClassName('viewmode' + ids[i]);
-                }
-            }
-            function showEditModeControls(id)
-            {
-                for (var i = 0; i < ids.length; i++)
-                {
-                    showControlsbyClassName('editmode' + ids[i]);
-                }
-            }
-            function showViewModeControls()
-            {
-                for (var i = 0; i < ids.length; i++)
-                {
-                    showControlsbyClassName('viewmode' + ids[i]);
-                }
-            }
-
-            function Edit_onclick(id)
-            {
-                hideControlsbyClassName('viewmode' + id);
-                showControlsbyClassName('editmode' + id);
-            }
-
-            function Cancel_onclick(id, name, gender, email, phone, active, rid)
-            {
-                hideControlsbyClassName('editmode' + id);
-                showControlsbyClassName('viewmode' + id);
-                document.getElementById('edit_name' + id).value = name;
-                document.getElementById('edit_email' + id).value = email;
-                document.getElementById('edit_phone' + id).value = phone;
-                document.getElementById('edit_gender' + id).checked = gender;
-                document.getElementById('edit_active' + id).checked = active;
-                var options = document.getElementById('edit_rid' + id).getElementsByTagName('option');
-                for (var i = 0; i < options.length; i++)
-                {
-                    if (options[i].value == rid)
-                    {
-                        document.getElementById('edit_rid' + id).selectedIndex = i;
-                        break;
-                    }
-                }
-            }
-        </script>
     </head>
     <body>
-        <jsp:directive.include file="salenavbar.jsp"/>
+        <jsp:directive.include file="navbar.jsp"/>
         <div class="wrapper-login">
             <jsp:directive.include file="sidebar.jsp"/>
             <aside class="right-side">
@@ -140,7 +55,7 @@
                                         <div class="row">
                                             <div class="col-3">
                                                 <div class="user-avatar-container">
-                                                    <img src="${user.image_url != null ? user.image_url : "https://npsot.org/wp/speaker/files/2022/02/placeholder-image-person-jpg.jpg"}" class="w-100 rounded" alt="...">
+                                                    <img src="../${user.image_url != null ? user.image_url : "https://npsot.org/wp/speaker/files/2022/02/placeholder-image-person-jpg.jpg"}" class="w-100 rounded" alt="...">
                                                 </div>
                                             </div>
                                             <div class="col-9" style="font-size: 1.3rem">
@@ -349,7 +264,7 @@
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script src="js/admin/userdetails.js"></script>
+    <script src="../js/admin/userdetails.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

@@ -25,7 +25,7 @@ import service.EmailServiceIml;
  *
  * @author Duy Phuong
  */
-@WebServlet(name = "AddUserServlet", urlPatterns = {"/adduser"})
+@WebServlet(name = "AddUserServlet", urlPatterns = {"/admin/addnewuser"})
 public class AddUserServlet extends HttpServlet {
     private EmailService emailService = new EmailServiceIml();
 

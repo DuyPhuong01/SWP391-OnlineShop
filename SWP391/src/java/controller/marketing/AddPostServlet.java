@@ -150,7 +150,7 @@ public class AddPostServlet extends HttpServlet {
         if(check){//insert success
               out.println("<script type=\"text/javascript\">");
             out.println("alert('Successfully!');");
-            out.println("window.location.href = \"http://localhost:8080/swp/marketing/postlist\";");
+            out.println("window.location.href = \"http://localhost:8080/swp/marketing/postslist\";");
             out.println("</script>");
         }
         else{

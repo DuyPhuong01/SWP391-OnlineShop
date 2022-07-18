@@ -141,7 +141,7 @@ function ChangeFeature(postid, featured) {
 
         "success": function (data) {
             console.log(data);
-            alert(data);
+//            alert(data);
 
         },
         "error": function (errorData) {
@@ -246,7 +246,7 @@ function SubmitCategoryForm() {
 
         "success": function (data) {
             console.log(data);
-            alert('successfully');
+//            alert('successfully');
             closeCategoryForm();
             $('#category-content').empty().append(data);
             document.getElementById('name').value = '';
