@@ -27,11 +27,11 @@
                 <div class="form-inner">
                     <form action="resetpass" method="POST" class="signup">
                         <p class="text-danger">${requestScope.mess}</p>
-                        <input type="hidden" name="email" value="${requestScope.mail}"/>
+
                         <div class="input-box">
                             <input
                                 class="p-input"
-                                name="pass"
+                                name="npass"
                                 type="password"
                                 spellcheck="false"
                                 required
@@ -53,6 +53,8 @@
                         </div>
                         <div class="field btn">
                             <div class="btn-layer"></div>
+                            <input type="hidden" name="email" value="${requestScope.mail}"/>
+                            <input type="hidden" name="choise" value="forgot"/>
                             <input type="submit" value="Save" />
                         </div>
                     </form>

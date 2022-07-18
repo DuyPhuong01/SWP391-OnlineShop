@@ -119,23 +119,43 @@ public class ResetPasswordServlet extends HttpServlet {
         String pass = request.getParameter("pass");
         String npass = request.getParameter("npass");
         String re_pass = request.getParameter("repass");
+        
+        String choise = request.getParameter("choise");
+        
         AccountDAO dao = new AccountDAO();
         Account a = new Account();
         a = dao.getAccountByEmail(email);
-        if (a.getPassword().equals(getMd5(pass)) == false) {
-            request.setAttribute("mess", "Password incorect!");
-            request.setAttribute("title", "Check your current Password !");
-            request.getRequestDispatcher("verify.jsp").forward(request, response);
-        } else if (!npass.equals(re_pass)) {
-            request.setAttribute("mess", "New Password does not match!");
-            request.setAttribute("title", "Check your New Password !");
-            request.getRequestDispatcher("verify.jsp").forward(request, response);
-        } else {
-            dao.updatePassword(email, getMd5(npass));
-            request.setAttribute("mess", "Thank!");
-            request.setAttribute("title", "Password have been changed !");
-            request.getRequestDispatcher("verify.jsp").forward(request, response);
+        switch (choise) {
+            case "forgot":
+                if (!npass.equals(re_pass)) {
+                    request.setAttribute("mess", "New Password does not match!");
+                    request.setAttribute("title", "Check your New Password !");
+                    request.getRequestDispatcher("verify.jsp").forward(request, response);
+                } else {
+                    dao.updatePassword(email, getMd5(npass));
+                    request.setAttribute("mess", "Thank!");
+                    request.setAttribute("title", "Password have been changed !");
+                    request.getRequestDispatcher("verify.jsp").forward(request, response);
+                }
+                break;
+            case "reset":
+                if (a.getPassword().equals(getMd5(pass)) == false) {
+                    request.setAttribute("mess", "Password incorect!");
+                    request.setAttribute("title", "Check your current Password !");
+                    request.getRequestDispatcher("verify.jsp").forward(request, response);
+                } else if (!npass.equals(re_pass)) {
+                    request.setAttribute("mess", "New Password does not match!");
+                    request.setAttribute("title", "Check your New Password !");
+                    request.getRequestDispatcher("verify.jsp").forward(request, response);
+                } else {
+                    dao.updatePassword(email, getMd5(npass));
+                    request.setAttribute("mess", "Thank!");
+                    request.setAttribute("title", "Password have been changed !");
+                    request.getRequestDispatcher("verify.jsp").forward(request, response);
+                }
+                break;
         }
+
     }
 
     /**

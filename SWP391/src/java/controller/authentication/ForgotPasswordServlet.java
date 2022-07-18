@@ -54,7 +54,7 @@ public class ForgotPasswordServlet extends HttpServlet {
             db.updateFeatured(a, "false");
 
             long start = System.currentTimeMillis();
-            long end = start + 30 * 1000;
+            long end = start + 60 * 1000;
 
             emailService.sendEmail(getServletContext(), a, "forgot", "http://localhost:8080/swp/resetpass?key1=" + a.getEmail() + "&key2=" + a.getMyHash());
             request.setAttribute("mess", "Check your mail!");
@@ -69,7 +69,7 @@ public class ForgotPasswordServlet extends HttpServlet {
                     acc.setMyHash(myHash);
                     db.updateHashCode(acc);               
                     start = System.currentTimeMillis();
-                    end = start + 30 * 1000;
+                    end = start + 60 * 1000;
                 }
                 a = db.getAccountByEmail(email);
             }

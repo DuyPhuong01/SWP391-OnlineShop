@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Desktop/SWP3006/summer2022-se1611-g2/SWP391/web/css/styleorderinformation.css</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP3006/summer2022-se1611-g2/SWP391/src/java/controller/authentication/AccessDeniedServlet.java</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP3006/summer2022-se1611-g2/SWP391/web/js/updateorderinformation.js</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP3006/summer2022-se1611-g2/SWP391/web/orderinformation.jsp</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP3006/summer2022-se1611-g2/SWP391/src/java/controller/home/HomeServlet.java</file>
+            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/changepassword.jsp</file>
+            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/controller/authentication/UpdateAccount.java</file>
+            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/createnewpassword.jsp</file>
+            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/controller/authentication/ResetPasswordServlet.java</file>
+            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/controller/authentication/ForgotPasswordServlet.java</file>
+            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>
