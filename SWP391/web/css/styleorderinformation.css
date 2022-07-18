@@ -61,3 +61,9 @@ span.note a {
     font-weight: bold;
     font-variant: petite-caps;
 }
+span#rebuy-message {
+    margin-left: 50px;
+    color: red;
+    font-weight: bold;
+    font-size: 85%;
+}

@@ -110,7 +110,7 @@
                                                                 </span>
                                                             </td>
                                                             <td>
-                                                                <a class="btn btn-primary" href="admin/settingdetails?settingID=${i.settingId}" role="button">Detail</a>
+                                                                <a class="btn btn-primary" href="settingdetails?settingID=${i.settingId}" role="button">Detail</a>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>

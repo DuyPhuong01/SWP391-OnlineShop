@@ -12,7 +12,7 @@ function cancel() {
 }
 function reBuy(id, quantity, unitInStock){
     if(quantity > unitInStock){
-        alert('quang');
+        document.getElementById('rebuy-message').innerHTML = 'OUT OF STOCKS';
     } else {
         var frm = document.getElementById('frm1');
         frm.querySelector('#rebuy-product-id').value = id;

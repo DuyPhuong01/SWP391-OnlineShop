@@ -129,7 +129,9 @@
                                             <span>Sub Total</span>
                                             <p class="subtotal"><fmt:formatNumber type="currency" value="${i.price * i.quantity}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></p>
                                             </td>
-                                            <td><div>
+                                            <td>
+                                                <span id="rebuy-message"></span>
+                                                <div>
                                                     <a class="btn action" style="    border-radius: 3px;
                                                    border-color: black;
                                                    margin-left: 30px;
