@@ -43,12 +43,9 @@
     </filter>
     <filter-mapping>
         <filter-name>NewFilter</filter-name>
-        <url-pattern>/buy</url-pattern>
         <url-pattern>/feedback</url-pattern>
         <url-pattern>/checkout</url-pattern>
-        <url-pattern>/process</url-pattern>
-        <url-pattern>/product</url-pattern>
-        <url-pattern>/showcart</url-pattern>
+        <url-pattern>/activate</url-pattern>
         <url-pattern>/cartcompletion</url-pattern>
         <url-pattern>/delete_order</url-pattern>
         <url-pattern>/updateorder</url-pattern>

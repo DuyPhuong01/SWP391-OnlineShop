@@ -25,8 +25,8 @@
         </a>
     </div>
     <div>
-        <a type="button" href="customerlist" class="p-2" data-bs-toggle="tooltip">
-            <i class="fa-solid fa-people-group"></i>
+        <a type="button" href="customerslist" class="p-2" data-bs-toggle="tooltip">
+            <i class="fa-solid fa-users"></i>
             <span>Customers List</span>
         </a>
     </div>

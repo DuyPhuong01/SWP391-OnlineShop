@@ -10,13 +10,6 @@
                 Hello, ${sessionScope.account.full_name}
             </div>
         </div>
-        <!--        <form class="sidebar-form">
-                    <div class="flex sidebar-form-container">
-                        <input type="text" placeholder="search"/>
-                        <button><i class="fas fa-search"></i></button>
-                        
-                    </div>
-                </form>-->
         <ul class="sidebar-menu">
             <li>
                 <a href="/swp/admin">
