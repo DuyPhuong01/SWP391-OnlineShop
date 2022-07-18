@@ -114,6 +114,7 @@ public class SaleDAO extends DBContext {
                 + "inner join accounts a \n"
                 + "on a.user_id = om.user_id\n"
                 + "where order_date between ? and ?";
+        System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, start.toString());
@@ -548,7 +549,6 @@ public class SaleDAO extends DBContext {
     }
     public static void main(String[] args) {
         SaleDAO saleDAO = new SaleDAO();
-        Map.Entry<Integer, Timestamp> a = saleDAO.getSaleAssign();
-        saleDAO.AssignSale(23);
+        System.out.println(saleDAO.getTotalRevenueByDay(LocalDate.now()));
     }
 }
