@@ -144,11 +144,11 @@
                                 </div>
                             <c:forEach var="product" items="${requestScope.productsList}">
                                 <div class="col-3 mb-3">
-                                    <div class="card product-card">
+                                    <div class="card product-card h-100">
                                         <a href="product?id=${product.product_id}">
                                             <img src="${product.thumbnail}" class="card-img-top">
                                         </a>
-                                        <div class="card-body">
+                                        <div class="card-body position-relative pb-5">
                                             <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.name}">
                                                 <h6 class="card-title product-title">${product.name}</h6>
                                             </a>
@@ -159,7 +159,7 @@
                                                 <c:if test="${product.sale_price == 0}"><span><fmt:formatNumber value="${product.original_price}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></span></c:if>
                                                 </h6>
                                                 <p class="brief-infor">${product.briefInfor}</p>
-                                            <a href="product?id=${product.product_id}" type="button" class="btn btn-outline-primary">Details</a>
+                                                <a href="product?id=${product.product_id}" type="button" class="btn btn-outline-primary position-absolute" style="right: 9px; bottom: 18px">Details</a>
                                         </div>
                                     </div>
                                 </div>

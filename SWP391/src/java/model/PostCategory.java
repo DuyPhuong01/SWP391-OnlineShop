@@ -17,7 +17,7 @@ public class PostCategory {
     private String category_name;
     private String description;
     private boolean status;
-    private List<PostSubCategory>subcategories; // cái này ko nên cho vào b à, nếu ở đây có r thì bên sub ko có PostCategory, xong r đấy ok tks :((
+    private List<PostSubCategory>subcategories;
     public PostCategory() {
     }
 

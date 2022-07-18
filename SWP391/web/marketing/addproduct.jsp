@@ -15,9 +15,9 @@
     </head>
     <body>
         <c:set var="product" value="${requestScope.product}"></c:set>
-            <div class="d-flex my-5">
+            <div class="d-flex">
             <c:import url="/marketing/sidebar.jsp"></c:import>
-                <div class="container-lg">
+                <div class="container-lg my-5">
                     <div class="p-3 bg-white rounded shadow-sm">
                         <form class="product_details" enctype="multipart/form-data" method="post" action="addproduct">
                             <div class="d-flex justify-content-between sticky-0 bg-white pt-3 border-bottom border-2 mb-3 pb-1">

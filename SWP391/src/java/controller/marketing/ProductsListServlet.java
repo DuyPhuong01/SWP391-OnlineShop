@@ -29,8 +29,7 @@ import model.SubCategory;
 public class ProductsListServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -45,10 +44,22 @@ public class ProductsListServlet extends HttpServlet {
         String category_id_raw = request.getParameter("categoryId");
         String sub_category_id_raw = request.getParameter("subCategoryId");
         String orderby = request.getParameter("orderby");
-        if(featured_raw == null) featured_raw = "-1";
-        if(category_id_raw == null) category_id_raw = "-1";
-        if(sub_category_id_raw == null) sub_category_id_raw = "-1";
-        if(orderby == null) orderby = "product_id asc";
+        String key = request.getParameter("search_key");
+        if (featured_raw == null) {
+            featured_raw = "-1";
+        }
+        if (category_id_raw == null) {
+            category_id_raw = "-1";
+        }
+        if (sub_category_id_raw == null) {
+            sub_category_id_raw = "-1";
+        }
+        if (orderby == null || orderby.equals("")) {
+            orderby = "product_id asc";
+        }
+        if (key == null) {
+            key = "";
+        }
 
         //pagination
         String pageNumberRaw = request.getParameter("page");
@@ -57,13 +68,13 @@ public class ProductsListServlet extends HttpServlet {
 
         try {
             //assign pageNumber = 1 if it null, otherwise parse
-             pageNumber = pageNumberRaw == null ? 1 : Integer.parseInt(pageNumberRaw);
-             
-             int featured = Integer.parseInt(featured_raw);
-             int category_id = Integer.parseInt(category_id_raw);
-             int sub_category_id = Integer.parseInt(sub_category_id_raw);
+            pageNumber = pageNumberRaw == null ? 1 : Integer.parseInt(pageNumberRaw);
 
-            int productCount = productDAO.countAllProducts(sub_category_id, category_id, "", featured);
+            int featured = Integer.parseInt(featured_raw);
+            int category_id = Integer.parseInt(category_id_raw);
+            int sub_category_id = Integer.parseInt(sub_category_id_raw);
+
+            int productCount = productDAO.countAllProducts(sub_category_id, category_id, key, featured);
             //get number of page 
             if (productCount % NUMBER_ITEMS_PER_PAGE == 0) {
                 numberPage = productCount / NUMBER_ITEMS_PER_PAGE;
@@ -76,9 +87,8 @@ public class ProductsListServlet extends HttpServlet {
             end = Math.min(pageNumber * NUMBER_ITEMS_PER_PAGE, productCount);
 
 //            get product by page with key = "", orderOption = newest
-            List<Product> productListByPage = productDAO.getAllProductsByRange(sub_category_id, category_id, "", orderby, start + 1, end, featured);
+            List<Product> productListByPage = productDAO.getAllProductsByRange(sub_category_id, category_id, key, orderby, start + 1, end, featured);
 
-            CategoryDAO c_dao = new CategoryDAO(); 
             request.setAttribute("choosen_featured", featured);
             request.setAttribute("choosen_category_id", category_id);
             request.setAttribute("choosen_sub_category_id", sub_category_id);
@@ -89,7 +99,6 @@ public class ProductsListServlet extends HttpServlet {
             System.out.println(pageNumber);
             System.out.println(numberPage);
             request.setAttribute("productListByPage", productListByPage);
-
 
 //            forward to jsp
             request.getRequestDispatcher("/marketing/productslist.jsp").forward(request, response);

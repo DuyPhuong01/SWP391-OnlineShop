@@ -121,35 +121,6 @@
                                 </div>
                             </div>
 
-                            <div class="card">
-                                <a class="text-muted text-uppercase" data-bs-toggle="collapse" href="#collapseThree">
-                                    <h5 class="mt-2 text-center">Reviews</h5>
-                                </a>
-                                <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
-                                    <hr class="mt-0">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="star-widget">
-                                                    <input type="radio" name="rate" id="rate-1" value="5" >
-                                                    <label for="rate-1" class="fas fa-star"></label>
-                                                    <input type="radio" name="rate" id="rate-2" value="4">
-                                                    <label for="rate-2" class="fas fa-star"></label>
-                                                    <input type="radio" name="rate" id="rate-3" value="3">
-                                                    <label for="rate-3" class="fas fa-star"></label>
-                                                    <input type="radio" name="rate" id="rate-4" value="2">
-                                                    <label for="rate-4" class="fas fa-star"></label>
-                                                    <input type="radio" name="rate" id="rate-5" value="1" checked="">
-                                                    <label for="rate-5" class="fas fa-star"></label>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -34,8 +34,8 @@
                                 <div class="d-flex">
                                     <div class="me-3">
                                         <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon1">Featured</span>
-                                            <select class="form-control" name="featured" aria-describedby="basic-addon1">
+                                            <label class="input-group-text" for="inputGroupSelect01">Featured</label>
+                                            <select class="form-select" id="inputGroupSelect01" name="featured">
                                                 <option value="-1"  ${requestScope.choosen_featured eq -1?"selected":""}> All </option>
                                                 <option value="1" ${requestScope.choosen_featured eq 1?"selected":""}> On </option>
                                                 <option value="0" ${requestScope.choosen_featured eq 0?"selected":""}> Off </option>
@@ -45,7 +45,7 @@
                                     <div class="me-3">
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon1">Category</span>
-                                            <select class="form-control" name="categoryId" aria-describedby="basic-addon1" id="select-category" onchange="updateSubCategry()">
+                                            <select class="form-select" name="categoryId" aria-describedby="basic-addon1" id="select-category" onchange="updateSubCategry()">
                                                 <%
                                                     CategoryDAO category_dao = new CategoryDAO();
                                                 %>
@@ -59,7 +59,7 @@
                                     <div class="me-3">
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon1">Sub Category</span>
-                                            <select class="form-control" name="subCategoryId" aria-describedby="basic-addon1" id="select-sub-category">
+                                            <select class="form-select" name="subCategoryId" aria-describedby="basic-addon1" id="select-sub-category">
                                                 <option value="-1"> All </option>
                                                 <c:forEach var="category" items="<%= category_dao.getProductCategory()%>">
                                                     <c:if test="${requestScope.choosen_category_id eq category.category_id}">
@@ -72,29 +72,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input name="search_key" type="hidden">
                                 <div>
+                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
                                     <input class="btn btn-primary" type="submit" value="Filter">
                                 </div>
                             </div>
-                            <script>
-                                function updateSubCategry() {
-                                    var selected = document.getElementById('select-category').querySelector('option:checked').value;
-                                    var div = document.getElementById('select-sub-category');
-                                    $.ajax({
-                                        url: 'getsubcategory',
-                                        type: 'post',
-                                        data: {
-                                            cid: selected
-                                        },
-                                        success: function (response) {
-                                            div.innerHTML = response;
-                                        },
-                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                            b.checked = false;
-                                        }
-                                    });
-                                }
-                            </script>
                             <div>
                                 <span class="me-3" id="basic-addon1">Sort by</span>
                                 <label>
@@ -245,34 +230,66 @@
                 </div>
             </div>
         </div>
-        <script>
-            function nextProductPage(pageNumber) {
-                document.getElementById('page').value = pageNumber;
-                document.getElementById('productSearchForm').submit();
-            }
-        </script>
-        <div class="fixed-end-bottom">
-            <div class="px-3 py-2 bg-white rounded-pill shadow-sm mb-3">
-                <a href="addproduct" class="cursor-pointer"><i class="fa-solid fa-circle-plus fs-4"></i></a>
+        <div id="corner-buttons" class="fixed-end-bottom">
+            <div>
+                <div class="px-3 py-2 bg-white rounded-pill shadow-sm mb-3 corner-button">
+                    <a href="addproduct" class="cursor-pointer d-flex"><i class="fa-solid fa-circle-plus fs-4"></i><div class="button-title"><span> Add new Product</span></div></a>
+                </div>
             </div>
-            <!--            <div class="px-3 py-2 bg-white rounded-pill shadow-sm">
-<a class="cursor-pointer" onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></a>
-</div>-->
-            <script>
-                //
-                //                function search (){
-                //                    
-                //                }
-                //
-            </script>
+        </div>
+        <div class="modal" tabindex="-1" id="modal-search">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input class="form-control" type="text" name="search-bar" placeholder="Search product by name" onkeydown="submitform(event)">
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script>
-                const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+                            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+                            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    </script>
+    <script>
+        function submitform(event) {
+            if (event.key === 'Enter') {
+                var input = $('input[name="search-bar"]').val();
+                $('input[name="search_key"]').val(input);
+                $('#productSearchForm').submit();
+            }
+        }
+    </script>
+    <script>
+        function nextProductPage(pageNumber) {
+            document.getElementById('page').value = pageNumber;
+            document.getElementById('productSearchForm').submit();
+        }
+    </script>
+    <script>
+        function updateSubCategry() {
+            var selected = document.getElementById('select-category').querySelector('option:checked').value;
+            var div = document.getElementById('select-sub-category');
+            $.ajax({
+                url: 'getsubcategory',
+                type: 'post',
+                data: {
+                    cid: selected
+                },
+                success: function (response) {
+                    div.innerHTML = response;
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    b.checked = false;
+                }
+            });
+        }
     </script>
     <script>
         document.querySelectorAll('.featured-btn').forEach(b => {

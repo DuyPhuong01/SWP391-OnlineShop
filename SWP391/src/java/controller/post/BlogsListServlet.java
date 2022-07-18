@@ -73,7 +73,8 @@ public class BlogsListServlet extends HttpServlet {
             int end = Math.min(pageNumber * NUMBER_ITEMS_PER_PAGE, postsCount);
             System.out.println(postsCount);
             request.setAttribute("postsList", postDAO.getPosts(orderOption, 1, key, sub_category_id, category_id, tag_id_list, start, end));
-            request.setAttribute("selectedCategoryId", category_id);
+            request.setAttribute("categoryId", category_id);
+            request.setAttribute("subCategoryId", sub_category_id);
             request.setAttribute("orderOption", orderOption);
             request.setAttribute("pageNumber", pageNumber);
             request.setAttribute("numberPage", numberPage);

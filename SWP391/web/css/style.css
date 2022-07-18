@@ -217,7 +217,10 @@ tr {
 .fixed-end-bottom{
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    right: 0;
+}
+.fixed-end-bottom > *{
+    padding-right: 20px;
 }
 
 .post .post-thumbnail{
@@ -300,4 +303,16 @@ ul {
 .input-group select{
     border-radius: 3px;
     border-color: #ddd;
+}
+#corner-buttons > div{
+    transform: translate(calc(100% - 65px), 0);
+}
+#corner-buttons > div .button-title{
+    margin-left: 30px;
+}
+#corner-buttons > div:hover {
+    transform: none;
+}
+#corner-buttons > div:hover .button-title{
+    margin-left: 10px;
 }
