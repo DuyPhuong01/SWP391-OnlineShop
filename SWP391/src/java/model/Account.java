@@ -31,7 +31,22 @@ public class Account {
     public Account() {
     }
 
-    
+    public Account(String username, String password, String full_name, int role_id, boolean gender, String email, String city, String country, String address, String phone, boolean feature, String myHash, int active) {
+        this.username = username;
+        this.password = password;
+        this.full_name = full_name;
+        this.role_id = role_id;
+        this.gender = gender;
+        this.email = email;
+        this.city = city;
+        this.country = country;
+        this.address = address;
+        this.phone = phone;
+        this.feature = feature;
+        this.myHash = myHash;
+        this.active = active;
+    }
+
     public Account(int user_id, String username, String password, String full_name, int role_id, boolean gender, String email, String city, String country, String address, String phone, String image_url, boolean feature) {
         this.user_id = user_id;
         this.username = username;
@@ -227,6 +242,11 @@ public class Account {
 
     public void setActive(int active) {
         this.active = active;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" + "user_id=" + user_id + ", username=" + username + ", password=" + password + ", full_name=" + full_name + ", role_id=" + role_id + ", gender=" + gender + ", email=" + email + ", city=" + city + ", country=" + country + ", address=" + address + ", phone=" + phone + ", image_url=" + image_url + ", feature=" + feature + ", myHash=" + myHash + ", active=" + active + ", role=" + role + '}';
     }
 
 }

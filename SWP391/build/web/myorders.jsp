@@ -61,7 +61,7 @@
                                     <div class="total-cost flex"><span><fmt:formatNumber type="currency" value="${i.total_price}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></span></div>
                                         <div class="status flex">
                                             <span>
-                                            <c:if test="${i.status == 0}">Cancel</c:if>
+                                            <c:if test="${i.status == 6}">Cancel</c:if>
                                             <c:if test="${i.status == 1}">Submitted</c:if>
                                             <c:if test="${i.status == 2}">Payment information confirmation</c:if>
                                             <c:if test="${i.status == 3}">Active</c:if>

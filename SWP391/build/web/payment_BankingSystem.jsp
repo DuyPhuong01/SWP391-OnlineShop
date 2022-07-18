@@ -6,4 +6,5 @@
     Bank system:${initParam['banking_system']}
     Account holder:${initParam['account_holder']}
     Bank Account number:${initParam['account_number']}
+    Content:'Your email' +'your name' + Payment orders
 </textarea>

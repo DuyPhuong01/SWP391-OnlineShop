@@ -601,10 +601,13 @@ public class OrderDAO extends DBContext {
             if (rs.next()) {
                 Order c = getOrder(rs);
                 c.setOrderDetailList(orderDetailDAO.getOrderDetailByOrderId(c.getOrder_id()));
+                c.setOrderDate(DateTimeUtil.GetDateFromString(c.getOrder_Date()));
                 return c;
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } catch (ParseException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

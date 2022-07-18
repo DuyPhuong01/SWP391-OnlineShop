@@ -323,7 +323,7 @@ public class PostDAO extends DBContext {
     //add new post
 
     public boolean InsertPost(Post post) {
-        String sql = "insert into posts(user_id,title,thumbnail,category_id,post_details,featured,publication_date)\n"
+        String sql = "insert into posts(user_id,title,thumbnail,post_subcategories_id,post_details,featured,publication_date)\n"
                 + "values(?,?,?,?,?,?,getdate())";
         try {
             PreparedStatement st = connection.prepareStatement(sql);

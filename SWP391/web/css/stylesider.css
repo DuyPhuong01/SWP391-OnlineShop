@@ -84,3 +84,6 @@ ul.sub-category-list {
 .flex-column{
     flex-direction: column;
 }
+div#sider {
+    color: #000;
+}

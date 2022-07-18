@@ -92,26 +92,16 @@ public class UpdateOrderServlet extends HttpServlet {
                 }
                 String shipEmail = request.getParameter("shipEmail");
                 String shipMobile = request.getParameter("shipMobile");
-                String shipAddress = request.getParameter("shipAddress");
-                String shipCity = request.getParameter("shipCity");
-                String payment = request.getParameter("payment");
-                orderDAO.updateOrder(myOrder, shipName, gender, shipEmail, shipMobile, shipAddress, shipCity, payment);
+                orderDAO.updateOrder(myOrder, shipName, gender, shipEmail, shipMobile, myOrder.getShip_address(), myOrder.getShip_city(), myOrder.getPayment());
                 
-                System.out.println(shipName);
-                System.out.println(gender);
-                System.out.println(shipEmail);
-                System.out.println(shipMobile);
-                System.out.println(shipAddress);
-                System.out.println(shipCity);
-                System.out.println(payment);
+
 //                send mail
                 String message = "Your order has been updated!\n";
                 message += "Ship Name: " + shipName + "\n";
                 message += "Ship Email: " + shipEmail + "\n";
                 message += "Ship Mobile: " + shipMobile + "\n";
-                message += "Ship Address: " + shipAddress + "\n";
-                message += "Ship City: " + shipCity + "\n";
-                message += "Payment: " + payment + "\n";
+                message += "Ship Address: " + myOrder.getShip_address() + "\n";
+                message += "Ship City: " + myOrder.getShip_city() + "\n";
 
                 EmailServiceIml sendMail = new EmailServiceIml();
                 sendMail.sendEmail(getServletContext(), acocunt, "update", message);

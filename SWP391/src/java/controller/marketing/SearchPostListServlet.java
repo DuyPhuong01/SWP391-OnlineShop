@@ -73,11 +73,11 @@ public class SearchPostListServlet extends HttpServlet {
         int categoryID=Integer.parseInt(request.getParameter("category"));
         int authorID=Integer.parseInt(request.getParameter("author"));
         int featureID=Integer.parseInt(request.getParameter("feature"));
-        int sortID=Integer.parseInt(request.getParameter("sort"));
+//        int sortID=Integer.parseInt(request.getParameter("sort"));
         int currentPage=Integer.parseInt(request.getParameter("page"));
         int numper_page=6;
         PostDAO postDAO=new PostDAO();
-        int maxPage=postDAO.countPostPaging(word,categoryID, sub_categoryID, authorID, featureID, 6); //num of max page 6 post per page
+        int maxPage=postDAO.countPostPaging(word,categoryID, sub_categoryID, authorID, featureID, numper_page); //num of max page 6 post per page
         
         response.setContentType("text/html;charset=UTF-8");
         //Convert Page to html
@@ -168,40 +168,15 @@ public class SearchPostListServlet extends HttpServlet {
         int numper_page=6;
         PostDAO postDAO=new PostDAO();
         List<Post> posts = postDAO.getPosts(word,categoryID,sub_categoryID, authorID, featureID, sortID,op, currentPage,numper_page); //get all product for page 1
-        CategoryDAO categoryDAO=new CategoryDAO();
-        List<PostCategory> postCategory = categoryDAO.getPostCategory();
-        AccountDAO accountDAO=new AccountDAO();
-        List<Account> authors = accountDAO.getAuthors();
-        int maxPage=postDAO.countPostPaging(word,categoryID, sub_categoryID, authorID, featureID, 6); //num of max page 6 post per page
+//        CategoryDAO categoryDAO=new CategoryDAO();
+//        List<PostCategory> postCategory = categoryDAO.getPostCategory();
+//        AccountDAO accountDAO=new AccountDAO();
+//        List<Account> authors = accountDAO.getAuthors();
         
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String postHTML="";//contain htm; of list post
          
-       
-        
-        
-//        postHTML+="<table class=\"table table-striped table-hover\">\n" +
-//"                                                <thead>\n" +
-//"                                                    <tr>\n" +
-//"                                                        <th>\n" +
-//"                                                             <i value=\"1\" class=\"sort-item fa-solid fa-arrow-down-a-z sort-active\" onclick=\"Checksort(this)\"></i>   \n" +
-//"                                                            ID\n" +
-//"                                                        </th>\n" +
-//"                                                        <th> <i value=\"2\" class=\"sort-item fa-solid fa-arrow-down-a-z \" onclick=\"Checksort(this)\"></i>\n" +
-//"                                                            Title\n" +
-//"                                                        </th>\n" +
-//"                                                        <th> <i value=\"3\" class=\"sort-item fa-solid fa-arrow-down-a-z \" onclick=\"Checksort(this)\"></i>\n" +
-//"                                                            Author\n" +
-//"                                                        </th>\n" +
-//"                                                        <th> <i value=\"4\" class=\"sort-item fa-solid fa-arrow-down-a-z \" onclick=\"Checksort(this)\"></i>\n" +
-//"                                                            Status\n" +
-//"                                                        </th>\n" +
-//"                                                        <input hidden id=\"sort_input\" name=\"sort\" value=\"1\">\n" +
-//"                                                        <th></th>\n" +
-//"                                                    </tr>\n" +
-//"                                                </thead>\n" +
-//"                                                <tbody id=\"listpost\">";
         for (Post p : posts) {
             postHTML+=" <tr>\n" +
 "                                                            <td>"
@@ -262,78 +237,6 @@ public class SearchPostListServlet extends HttpServlet {
 "                                                        </tr>   ";
         }
                 
-//                postHTML+="</tbody>\n" +
-//"                                            </table>";
-
-
-
-////Convert Page to html
-//             postHTML+= 
-//"                              <!--//footer-->\n" +
-//"                              <footer>\n" +
-//"                                  <div class=\"pagination\">\n" +
-//"                                                 <div class=\"content-paging content-paging-footer\" name=\"page\">\n" +
-//"                                                     <div class=\"title-paging\"> <span>Page "
-//                     + currentPage
-//                     + " of "
-//                     + maxPage
-//                     + "<span></div>\n" +
-//"                                                     <nav class=\"\" aria-label=\"...\">\n" +
-//"                                                        <ul class=\"pagination\">\n";
-//                    if(currentPage!=1){//currentpage in interval page
-//                        String previos="    <li class=\"page-item\" >\n" +
-//"                                            <a class=\"page-link\"  onclick=\"Paging("
-//                                + (currentPage-1)
-//                                + ")\" >Previous</a>\n" +
-//"                                            </li>";
-//                        postHTML+=previos;
-//                    }else{
-//                        String previos="  <li class=\"page-item disabled\">\n" +
-//"                                           <a class=\"page-link\" >Previous</a>\n" +
-//"                                         </li>";
-//                        postHTML+=previos;
-//                    }
-//                    
-//                    postHTML+=
-//"                                            <select class=\"select-paginate\" id=\"paging\" onchange=\"SubmitForm($('#paging').children('option:selected').val())\">\n";
-//                                            for (int i = 1; i <=maxPage; i++) {
-//                                                String tmp="";
-//                                                
-//                                              tmp="<option value=\""
-//                                                      + i
-//                                                      + "\"";
-//                                              postHTML+=tmp;
-//                                              
-//                                              if(currentPage==i){//match currenpage
-//                                                  postHTML+="selected";
-//                                              }
-//                                               tmp=" >"
-//                                                       + i
-//                                                       + "</option>"; 
-//                                               postHTML+=tmp;
-//                                    }
-//                                               postHTML+="</select>";
-//                                                         
-//                     if(currentPage!=maxPage){//currentpage in interval page
-//                        String next="    <li class=\"page-item\" >\n" +
-//"                                            <a class=\"page-link\"  onclick=\"Paging("
-//                                + (currentPage+1)
-//                                + ")\" >Next</a>\n" +
-//"                                            </li>";
-//                        postHTML+=next;
-//                    }else{
-//                        String next="  <li class=\"page-item disabled\">\n" +
-//"                                           <a class=\"page-link\" >Next</a>\n" +
-//"                                         </li>";
-//                        postHTML+=next;
-//                    }
-//                 postHTML+=   "</ul>\n" +
-//"                                                      </nav>\n" +
-//"                                               </div>\n" +
-//"                                  </div>\n" +
-//"                              </footer>\n" +
-//"                            \n";
-                 
                  out.println(postHTML);
         }
 

@@ -325,10 +325,23 @@ svg:not(:root) {
 label :hover{
     cursor: pointer;
 }
+label {
+    cursor: pointer !important;
+}
 .qrcode{
     height: 80px;
     width: 80px;
 }
 .qrcode img{
     object-fit: contain;
+}
+.total-cost-itemơ{
+    font-weight: 400px;
+}
+h3{
+    padding: 0;
+}
+.title-item-pay h3{
+    padding: 0px;
+    font-size: 20px;
 }

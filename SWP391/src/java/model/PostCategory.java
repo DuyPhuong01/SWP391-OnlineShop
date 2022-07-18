@@ -13,11 +13,11 @@ import java.util.List;
  * @author Admin
  */
 public class PostCategory {
-    int category_id;
-    String category_name;
-    String description;
-    boolean status;
-    List<PostSubCategory>subcategories; // cái này ko nên cho vào b à, nếu ở đây có r thì bên sub ko có PostCategory, xong r đấy ok tks :((
+    private int category_id;
+    private String category_name;
+    private String description;
+    private boolean status;
+    private List<PostSubCategory>subcategories; // cái này ko nên cho vào b à, nếu ở đây có r thì bên sub ko có PostCategory, xong r đấy ok tks :((
     public PostCategory() {
     }
 
