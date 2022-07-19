@@ -91,14 +91,12 @@ public class AddSettingServlet extends HttpServlet {
         switch (type) {
             case "Role":
                 s.setValue(rName);
-                if (String.valueOf(sdb.getRoleId(s.getValue())) == null) {
+                
                 sdb.insertRoleToGetId(rName);
-                sdb.insertRoleSetting(s);
                 s.setOrder((String.valueOf(sdb.getRoleId(rName))));
+                sdb.insertRoleSetting(s);
                 response.sendRedirect("/swp/admin/settingslist");
-                }else{
-                    response.sendRedirect("/swp/settingdetails?settingID="+id);
-                }
+                
                 break;
             case "Permission":
 

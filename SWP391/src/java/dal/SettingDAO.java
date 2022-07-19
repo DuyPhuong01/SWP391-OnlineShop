@@ -216,7 +216,7 @@ public class SettingDAO extends DBContext {
                 + "   SET [status] = ?\n"
                 + "   FROM [permissions] p join [screens] s \n"
                 + "ON p.screen_id = s.screen_id\n"
-                + "WHERE s.screen_description like ?";
+                + "WHERE s.screen_description like ? AND p.[role_id] = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, s.getDescription());
@@ -224,6 +224,7 @@ public class SettingDAO extends DBContext {
             st.setInt(3, s.getSettingId());
             st.setInt(4, s.getStatus());
             st.setString(5, s.getValue());
+            st.setInt(6, Integer.parseInt(s.getOrder()));
 
             ResultSet rs = st.executeQuery();
         } catch (SQLException e) {

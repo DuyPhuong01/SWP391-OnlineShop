@@ -62,7 +62,7 @@ public class SettingDetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SettingDAO settingDAO = new SettingDAO();
-        if (request.getParameter("settingID") == null) {
+        if (request.getParameter("settingID") == null || request.getParameter("settingID") == "") {
             response.sendRedirect("admin/settingslist");
         } else {
             int settingID = Integer.parseInt(request.getParameter("settingID"));
