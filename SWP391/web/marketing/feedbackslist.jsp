@@ -37,6 +37,7 @@
                             <div class="mb-3 d-flex justify-content-between">
                                 <div>
                                     <a class="btn btn-outline-primary cursor-pointer"  data-bs-toggle="modal" data-bs-target="#modal-filer">Choose Filter</a>
+                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-search"><i class="fa-solid fa-magnifying-glass"></i></button>
                                 </div>
                                 <div>
                                     <div id="modal-filer" class="modal modal-xl fade" style="transition: .2s">
@@ -49,57 +50,61 @@
                                                     <div class="row">
                                                         <div class="col-6 mb-3">
                                                             <h3>Status</h3>
-                                                            <div>
-                                                                <label>
-                                                                    <input class="me-2" type="radio" name="status" value="-1" ${requestScope.status eq -1 ? "checked": ""}>All
-                                                                </label>
-                                                            </div>
-                                                            <div>
-                                                                <label>
-                                                                    <input class="me-2" type="radio" name="status" value="1" ${requestScope.status eq 1 ? "checked": ""}>Showed
-                                                                </label>
-                                                            </div>
-                                                            <div>
-                                                                <label>
-                                                                    <input class="me-2" type="radio" name="status" value="0" ${requestScope.status eq 0 ? "checked": ""}>Hidden
-                                                                </label>
+                                                            <div class="d-flex">
+                                                                <div class="me-3">
+                                                                    <label>
+                                                                        <input class="me-2" type="radio" name="status" value="-1" ${requestScope.status eq -1 ? "checked": ""}>All
+                                                                    </label>
+                                                                </div>
+                                                                <div class="me-3">
+                                                                    <label>
+                                                                        <input class="me-2" type="radio" name="status" value="1" ${requestScope.status eq 1 ? "checked": ""}>Showed
+                                                                    </label>
+                                                                </div>
+                                                                <div>
+                                                                    <label>
+                                                                        <input class="me-2" type="radio" name="status" value="0" ${requestScope.status eq 0 ? "checked": ""}>Hidden
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-6 mb-3">
                                                             <h3>Rated Star</h3>
-                                                            <div>
-                                                                <label>
-                                                                    <input class="me-2" type="checkbox" name="rated_star" value="-1" onclick="clearCheckboxRatedStar()">All
-                                                                </label>
-                                                            </div>
-                                                            <div>
-                                                                <label>
-                                                                    <input class="me-2" type="checkbox" name="rated_star" value="1" onclick="clearCheckboxRatedStarAll()">1
-                                                                </label>
-                                                            </div>
-                                                            <div>
-                                                                <label>
-                                                                    <input class="me-2" type="checkbox" name="rated_star" value="2" onclick="clearCheckboxRatedStarAll()">2
-                                                                </label>
-                                                            </div>
-                                                            <div>
-                                                                <label>
-                                                                    <input class="me-2" type="checkbox" name="rated_star" value="3" onclick="clearCheckboxRatedStarAll()">3
-                                                                </label>
-                                                            </div>
-                                                            <div>
-                                                                <label>
-                                                                    <input class="me-2" type="checkbox" name="rated_star" value="4" onclick="clearCheckboxRatedStarAll()">4
-                                                                </label>
-                                                            </div>
-                                                            <div>
-                                                                <label>
-                                                                    <input class="me-2" type="checkbox" name="rated_star" value="5" onclick="clearCheckboxRatedStarAll()">5
-                                                                </label>
+                                                            <div class="d-flex">
+                                                                <div class="me-3">
+                                                                    <label>
+                                                                        <input class="me-2" type="checkbox" name="rated_star" value="-1" onclick="clearCheckboxRatedStar()">All
+                                                                    </label>
+                                                                </div>
+                                                                <div class="me-3">
+                                                                    <label>
+                                                                        <input class="me-2" type="checkbox" name="rated_star" value="1" onclick="clearCheckboxRatedStarAll()">1
+                                                                    </label>
+                                                                </div>
+                                                                <div class="me-3">
+                                                                    <label>
+                                                                        <input class="me-2" type="checkbox" name="rated_star" value="2" onclick="clearCheckboxRatedStarAll()">2
+                                                                    </label>
+                                                                </div>
+                                                                <div class="me-3">
+                                                                    <label>
+                                                                        <input class="me-2" type="checkbox" name="rated_star" value="3" onclick="clearCheckboxRatedStarAll()">3
+                                                                    </label>
+                                                                </div>
+                                                                <div class="me-3">
+                                                                    <label>
+                                                                        <input class="me-2" type="checkbox" name="rated_star" value="4" onclick="clearCheckboxRatedStarAll()">4
+                                                                    </label>
+                                                                </div>
+                                                                <div>
+                                                                    <label>
+                                                                        <input class="me-2" type="checkbox" name="rated_star" value="5" onclick="clearCheckboxRatedStarAll()">5
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
+                                                    <div class="row mb-3">
                                                         <div class="col-5">
                                                             <h3>Feedbacks Type</h3>
                                                             <div>
@@ -112,39 +117,7 @@
                                                                     <input class="me-2" type="radio" name="type" value="2" onclick="showProductOption(event)" ${requestScope.type eq "2" ?  "checked" : ""}>Product Feedbacks
                                                                 </label>
                                                             </div>
-                                                            <div id="sub-product-select" class="ms-5" style="${requestScope.type eq "2" ?  "" : "opacity: 0;"}">
-                                                                <div>
-                                                                    <label>
-                                                                        <input class="me-2" type="radio" name="typeProduct" value="1" onclick="hideProductList(event)" ${requestScope.selectOption eq "1" ?  "checked" : ""}>All Products
-                                                                    </label>
-                                                                </div>
-                                                                <div>
-                                                                    <label>
-                                                                        <input class="me-2" type="radio" name="typeProduct" value="2" onclick="showProductList(event)" ${requestScope.selectOption eq "2" ?  "checked" : ""}>Custom Products
-                                                                    </label>
-                                                                </div>
-                                                                <div id="input-productSearch" class="mt-3" style="opacity: ${requestScope.selectOption eq "2" ?  "1" : "0"};">
-                                                                    <input class="form-control border-none border-bottom" name="productSearch" onkeydown="searchProduct()" placeholder="Search Product">
-                                                                </div>
-                                                                <c:if test="${requestScope.selectedProduct != null}">
-                                                                    <div class="bg-light rounded mt-3">
-                                                                        <h6>Selected:</h6>
-                                                                        <div class="row">
-                                                                            <div class="col-4"><img src="../${requestScope.selectedProduct.thumbnail}"></div>
-                                                                            <div class="col-8">${requestScope.selectedProduct.name}</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </c:if>
-                                                            </div>
                                                         </div>
-                                                        <div id="product-list" class="col-4" style="opacity: ${requestScope.selectOption eq "2" ?  "1" : "0"};">
-                                                            <div class="mb-3">
-                                                                <h5>Select Product</h5>
-                                                            </div>
-                                                            <div id="product-list-container">
-                                                            </div>
-                                                        </div>
-
                                                     </div>
                                                     <div>
                                                         <h3>Sort by</h3>
@@ -224,7 +197,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <input class="form-control" type="text" name="key" value="${requestScope.searchKey}" onkeydown="searchFeedback()">
+                                                <input class="form-control" type="text" name="key" value="${requestScope.searchKey}" onkeydown="searchFeedback()" placeholder="Search feedback by fullname">
                                             </div>
                                         </div>
                                     </div>
@@ -297,11 +270,6 @@
                     document.getElementById('productSearchForm').submit();
                 }
             </script>
-            <div class="fixed-end-bottom">
-                <div class="px-3 py-2 bg-white rounded-pill shadow-sm cursor-pointer" data-bs-toggle="modal" data-bs-target="#modal-search">
-                    <i class="fa-solid fa-magnifying-glass me-2"></i>Search
-                </div>
-            </div>
         </body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

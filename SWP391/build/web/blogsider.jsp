@@ -14,26 +14,38 @@
             <div class="search-container mb-3">
                 <input id="productSeachKey" class="form-control" type="text" placeholder="Search Post" aria-label="default input example" name="key" id="productSeachKey" value="${requestScope.key}">
             </div>
-            <div class="categories-list-container mb-3">
-                <div class="text-center">
+            <div class="categories-list-container">
+                <div class="text-center mb-2">
                     <h5 class="mb-0 font-weight-bold">Categories</h5>
                 </div>
                 <div class="form-check sider-form-check">
-                    <div>
-                        <label>
-                            <input type="radio" name="categoryId" value="-1" ${requestScope.selectedCategoryId eq -1 ? "checked": ""}>
-                            <span>All</span>
-                        </label>
+                    <div class="category-panel"> 
+                        <p class="category-container"> 
+                            <a href="blogslist" class="category-title">All</a>
+                        </p>
                     </div>
-                    <c:set var="postsCategoryList" value="<%= category_dao.getPostCategory()%>" />
                     <c:set var="checked" value="${requestScope.checked}" />
 
                     <c:forEach var="category" items="<%= category_dao.getPostCategory()%>">
-                        <div>
-                            <label>
-                                <input type="radio" name="categoryId" value="${category.category_id}" ${requestScope.selectedCategoryId eq category.category_id ? "checked": ""}>
-                                <span>${category.category_name}</span>
-                            </label>
+                        <div class="category-panel">
+                            <p class="category-container"> 
+                                <a href="blogslist?categoryId=${category.category_id}" class="category-title">${category.category_name}</a>
+                                <a class="btn collapse-btn" data-bs-toggle="collapse" href="#multiCollapse${category.category_id}" role="button" aria-expanded="false" aria-controls="multiCollapse${category.category_id}" onclick="changeState(this);" <c:if test="${category.category_id == requestScope.categoryIdParent.category_id}">id="category-active"</c:if>>+</a>
+                                </p>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="collapse multi-collapse" id="multiCollapse${category.category_id}">
+                                        <ul class="sub-category-list">
+                                            <c:forEach items="${category.subcategories}" var="k">
+                                                <li class="sub-category-item" <c:if test="${k.id == requestScope.subCategoryId}">id="sub-category-active"</c:if>>
+                                                    <a href="blogslist?subCategoryId=${k.id}">${k.name}</a>
+
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </c:forEach>
                 </div>
@@ -41,11 +53,8 @@
             <div class="hidden-input">
                 <input type="hidden" value="1" name="page" id="page"/>
                 <input type="hidden" value="${requestScope.orderOption}" name="orderOption" id="order-option"/>
-                <c:if test="${requestScope.categoryId != null}"><input type="hidden" value="${requestScope.categoryId.category_id}" name="categoryId"></c:if>
-                <c:if test="${requestScope.subCategoryId != null}"><input type="hidden" value="${requestScope.subCategoryId.id}" name="subCategoryId"></c:if>
-                </div>
-                <div class="submit-button">
-                    <button class="btn btn-light w-100" type="subbmit">Search</button>
+                <c:if test="${requestScope.categoryId != null}"><input type="hidden" value="${requestScope.categoryId}" name="categoryId"></c:if>
+                <c:if test="${requestScope.subCategoryId != null}"><input type="hidden" value="${requestScope.subCategoryId}" name="subCategoryId"></c:if>
                 </div>
             </form>
             <div class="bg-white p-2 rounded shadow-sm mb-3">

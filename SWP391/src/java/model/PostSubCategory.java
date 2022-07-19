@@ -19,6 +19,13 @@ public class PostSubCategory {
     public PostSubCategory() {
     }
 
+    public PostSubCategory(int id, String name, String Description, boolean feature) {
+        this.id = id;
+        this.name = name;
+        this.Description = Description;
+        this.feature = feature;
+    }
+    
     public PostSubCategory(int id, PostCategory category, String name, String Description, boolean feature) {
         this.id = id;
         this.category = category;

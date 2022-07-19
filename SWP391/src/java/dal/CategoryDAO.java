@@ -137,6 +137,27 @@ public class CategoryDAO extends DBContext {
         }
         return null;
     }
+    public List<PostSubCategory> getPostSubCategorByCategory(int category_id) {
+        List<PostSubCategory> list = new ArrayList<>();
+        String sql = "select * from post_sub_categories where category_id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, category_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                PostSubCategory sub_category = new PostSubCategory(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getInt("feature")==1
+                );
+                System.out.println(sub_category.getId()+ " - " + sub_category.getName());
+                list.add(sub_category);
+            }
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+        return list;
+    }
 
     public List<PostCategory> getPostCategory() {
         List<PostCategory> list = new ArrayList<>();
@@ -145,10 +166,12 @@ public class CategoryDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                PostCategory category = new PostCategory(rs.getInt("category_id"),
+                int id = rs.getInt("category_id");
+                PostCategory category = new PostCategory(id,
                         rs.getString("category_name"),
                         rs.getString("description"),
-                        rs.getInt("status")==1
+                        rs.getInt("status")==1,
+                        getPostSubCategorByCategory(id)
                 );
                 list.add(category);
             }

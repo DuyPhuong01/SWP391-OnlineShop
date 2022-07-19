@@ -15,10 +15,10 @@
     </head>
     <body>
         <c:set var="product" value="${requestScope.product}"></c:set>
-            <div class="d-flex my-5">
+            <div class="d-flex">
             <c:import url="/marketing/sidebar.jsp"></c:import>
                 <div class="container-lg">
-                    <div class="p-3 bg-white rounded shadow-sm">
+                    <div class="p-3 bg-white rounded shadow-sm my-5">
                         <div class="product_details">
                             <div class="d-flex justify-content-between sticky-0 bg-white pt-3 border-bottom border-2 mb-3 pb-1">
                                 <div>
@@ -51,11 +51,11 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-between mt-5">
+                                <div class="d-flex align-items-center mt-5">
                                     <h3>Product Images</h3>
                                     <div>
                                         <label for="images">
-                                            <a class="cursor-pointer"><i class="fa-solid fa-plus mx-auto my-auto text-primary"></i></a>
+                                            <a class="cursor-pointer ms-3"><i class="fa-solid fa-plus mx-auto my-auto text-primary"></i></a>
                                         </label>
                                         <form id="form-product-image" enctype="multipart/form-data">
                                             <input type="text" name="action" value="addImage" hidden>
@@ -64,22 +64,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <script>
-                                    function uploadProductImage(event) {
-                                        var selectedFile = event.target.files[0];
-                                        var reader = new FileReader();
 
-                                        var imgtag = document.getElementById("product-image-load");
-                                        imgtag.title = selectedFile.name;
-
-                                        reader.onload = function (event) {
-                                            imgtag.src = event.target.result;
-                                        };
-
-                                        reader.readAsDataURL(selectedFile);
-                                        document.getElementById("modal-product-image").style = "display: block";
-                                    }
-                                </script>
                                 <div id="product-images" class="row">
                                     <c:forEach var="image" items="${product.images}">
                                         <div class="col-4 mb-2 product-image">
@@ -99,33 +84,7 @@
                                     </c:forEach>
                                 </div>
                             </div>
-                            <script>
-                                function addEventDelete() {
 
-                                    document.querySelectorAll('.product-image').forEach(f => {
-                                        f.querySelector('a[aria-label="submit"]').addEventListener("click", function () {
-                                            var data = new FormData(f.querySelector('form.form-delete-product-image'));
-                                            if (confirm('Do you want to delete this pictures?')) {
-                                                $.ajax({
-                                                    url: 'editproduct',
-                                                    type: 'post',
-                                                    data: data,
-                                                    contentType: false,
-                                                    processData: false,
-                                                    success: function (response) {
-                                                        f.style = "display: none";
-                                                    },
-                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                                        d.querySelector('span.message').innerHTML = "Upload Fails";
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    });
-                                }
-                                addEventDelete();
-
-                            </script>
                             <div class="col-6">
                                 <div class="d-flex justify-content-between">
                                     <h3 class="mt-3">Product Information</h3>
@@ -134,39 +93,7 @@
                                         <button type="button" class="btn btn-outline-primary" onclick="editProductInformation()" aria-label="edit-product-information">Edit</button>
                                     </div>
                                 </div>
-                                <script>
-                                    function editProductInformation() {
-                                        document.querySelectorAll('#product-information [disabled]').forEach(input => {
-                                            input.disabled = false;
-                                        });
-                                        document.querySelector('button[aria-label="save-product-information"]').style = "";
-                                        document.querySelector('button[aria-label="edit-product-information"]').style = "display: none";
-                                    }
-                                </script>
-                                <script>
-                                    function updateProductInformation() {
-                                        var form = document.getElementById('product-information');
-                                        var data = new FormData(form);
-                                        $.ajax({
-                                            url: 'editproduct',
-                                            type: 'post',
-                                            data: data,
-                                            contentType: false,
-                                            processData: false,
-                                            success: function (response) {
-                                                document.querySelectorAll('#product-information input,select,textarea').forEach(input => {
-                                                    input.disabled = true;
-                                                });
-                                                console.log(response);
-                                                document.querySelector('button[aria-label="save-product-information"]').style = "display: none";
-                                                document.querySelector('button[aria-label="edit-product-information"]').style = "";
-                                            },
-                                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                                d.querySelector('span.message').innerHTML = "Upload Fails";
-                                            }
-                                        });
-                                    }
-                                </script>
+                                
                                 <form id="product-information" class="row">
                                     <input type="text" name="product_id" value="${product.product_id}" hidden>
                                     <input type="text" name="action" value="updateproductinformation" hidden>
@@ -215,25 +142,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <script>
-                                        function updateSubCategry() {
-                                            var selected = document.getElementById('select-category').querySelector('option:checked').value;
-                                            var div = document.getElementById('select-sub-category');
-                                            $.ajax({
-                                                url: 'getsubcategory',
-                                                type: 'post',
-                                                data: {
-                                                    cid: selected
-                                                },
-                                                success: function (response) {
-                                                    div.innerHTML = response;
-                                                },
-                                                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                                    b.checked = false;
-                                                }
-                                            });
-                                        }
-                                    </script>
+
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">Original Price</span>
                                         <input type="number" class="form-control" placeholder="Original Price" name="original_price" aria-describedby="basic-addon1" id="original_price" disabled>
@@ -258,8 +167,8 @@
                                     </div>
                                 </form>
                                 <!--<h3 class="mt-5">Product Specification</h3>-->
-<!--                                <c:if test="${requestScope.isExit}"><c:import url="../file/product_details/product_${product.product_id}.html" charEncoding="UTF-8"></c:import></c:if>
-                                <div class="border border-primary border-2 w-100 rounded d-flex cursor-pointer mb-3" style="height: 50px"><i class="fa-solid fa-plus mx-auto my-auto text-primary"></i></div>-->
+                                <!--                                <c:if test="${requestScope.isExit}"><c:import url="../file/product_details/product_${product.product_id}.html" charEncoding="UTF-8"></c:import></c:if>
+                                                                <div class="border border-primary border-2 w-100 rounded d-flex cursor-pointer mb-3" style="height: 50px"><i class="fa-solid fa-plus mx-auto my-auto text-primary"></i></div>-->
                             </div>
                         </div>
                     </div>
@@ -424,5 +333,99 @@
         });
 
     </script>
+    <script>
+        function uploadProductImage(event) {
+            var selectedFile = event.target.files[0];
+            var reader = new FileReader();
 
+            var imgtag = document.getElementById("product-image-load");
+            imgtag.title = selectedFile.name;
+
+            reader.onload = function (event) {
+                imgtag.src = event.target.result;
+            };
+
+            reader.readAsDataURL(selectedFile);
+            document.getElementById("modal-product-image").style = "display: block";
+        }
+    </script>
+    <script>
+        function addEventDelete() {
+
+            document.querySelectorAll('.product-image').forEach(f => {
+                f.querySelector('a[aria-label="submit"]').addEventListener("click", function () {
+                    var data = new FormData(f.querySelector('form.form-delete-product-image'));
+                    if (confirm('Do you want to delete this pictures?')) {
+                        $.ajax({
+                            url: 'editproduct',
+                            type: 'post',
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+                                f.style = "display: none";
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                d.querySelector('span.message').innerHTML = "Upload Fails";
+                            }
+                        });
+                    }
+                });
+            });
+        }
+        addEventDelete();
+
+    </script>
+    <script>
+        function updateSubCategry() {
+            var selected = document.getElementById('select-category').querySelector('option:checked').value;
+            var div = document.getElementById('select-sub-category');
+            $.ajax({
+                url: 'getsubcategory',
+                type: 'post',
+                data: {
+                    cid: selected
+                },
+                success: function (response) {
+                    div.innerHTML = response;
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    b.checked = false;
+                }
+            });
+        }
+    </script>
+    <script>
+                                    function editProductInformation() {
+                                        document.querySelectorAll('#product-information [disabled]').forEach(input => {
+                                            input.disabled = false;
+                                        });
+                                        document.querySelector('button[aria-label="save-product-information"]').style = "";
+                                        document.querySelector('button[aria-label="edit-product-information"]').style = "display: none";
+                                    }
+                                </script>
+                                <script>
+                                    function updateProductInformation() {
+                                        var form = document.getElementById('product-information');
+                                        var data = new FormData(form);
+                                        $.ajax({
+                                            url: 'editproduct',
+                                            type: 'post',
+                                            data: data,
+                                            contentType: false,
+                                            processData: false,
+                                            success: function (response) {
+                                                document.querySelectorAll('#product-information input,select,textarea').forEach(input => {
+                                                    input.disabled = true;
+                                                });
+                                                console.log(response);
+                                                document.querySelector('button[aria-label="save-product-information"]').style = "display: none";
+                                                document.querySelector('button[aria-label="edit-product-information"]').style = "";
+                                            },
+                                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                                d.querySelector('span.message').innerHTML = "Upload Fails";
+                                            }
+                                        });
+                                    }
+                                </script>
 </html>
