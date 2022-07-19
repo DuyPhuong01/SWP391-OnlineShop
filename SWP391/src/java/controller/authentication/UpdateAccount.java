@@ -161,8 +161,19 @@ public class UpdateAccount extends HttpServlet {
         a = (Account) request.getSession().getAttribute("account");
 
         a = dao.getAccountByID(a);
+        a.setRole_id(a.getRole().getrId());
         session.setAttribute("account", a);
-        response.sendRedirect("home");
+        if (a.getRole().getrId() == 2) {
+            response.sendRedirect("marketing/dashboard");
+        } else if (a.getRole().getrId() == 3) {
+            response.sendRedirect("sale");
+        } else if (a.getRole().getrId() == 4) {
+            response.sendRedirect("sale");
+        } else if (a.getRole().getrName().equals("Admin")) {
+            response.sendRedirect("admin");
+        } else {
+            response.sendRedirect("home");
+        }
 
     }
 
