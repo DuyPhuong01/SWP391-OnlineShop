@@ -155,7 +155,9 @@ public class ProductsListServlet extends HttpServlet {
         if (request.getParameter("categoryId") != null || request.getParameter("subCategoryId") != null) {
             if (request.getParameter("categoryId") != null) {
                 subCategoryList = subCategoryDAO.getSubCategoryByCategoryId(Integer.parseInt(request.getParameter("categoryId")));
-                request.setAttribute("categoryId", request.getParameter("categoryId"));
+                int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+                ProductCategory productCate = categoryDAO.getProductCategory(categoryId);
+                request.setAttribute("categoryId", productCate);
             } else {
                 subCategoryList = new ArrayList<>();
 
