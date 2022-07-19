@@ -5,9 +5,11 @@
         <group>
             <file>file:/C:/Users/Admin/Desktop/SWP391Final/summer2022-se1611-g2/SWP391/web/sale/orderdetails.jsp</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391Final/summer2022-se1611-g2/SWP391/web/productslist.jsp</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391Final/summer2022-se1611-g2/SWP391/src/java/util/SendingEmailUtil.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391Final/summer2022-se1611-g2/SWP391/web/js/form.js</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391Final/summer2022-se1611-g2/SWP391/web/payment_VNPAY.jsp</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391Final/summer2022-se1611-g2/SWP391/src/java/controller/home/HomeServlet.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391Final/summer2022-se1611-g2/SWP391/src/java/controller/sale/OrderDetailsServlet.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391Final/summer2022-se1611-g2/SWP391/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391Final/summer2022-se1611-g2/SWP391/src/java/controller/product/ProductsListServlet.java</file>
         </group>
     </open-files>

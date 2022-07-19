@@ -67,3 +67,9 @@ span#rebuy-message {
     font-weight: bold;
     font-size: 85%;
 }
+.rebuy-message{
+    font-size: 12px;
+    color: red;
+    margin-left: 30px;
+    font-weight: bold;
+}

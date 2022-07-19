@@ -1,11 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id="sidebar" class="p-2 bg-white shadow-sm">
-    <div>
+<!--    <div>
         <a type="button" href="/swp/home" class="p-2" data-bs-toggle="tooltip">
             <i class="fa-solid fa-house"></i>
             <span>Home</span>
         </a>
-    </div>
+    </div>-->
     <div>
         <a type="button" href="dashboard" class="p-2" data-bs-toggle="tooltip">
             <i class="fa-solid fa-table-cells"></i>

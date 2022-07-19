@@ -3,8 +3,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header class="header">
-    <a class="logo" href="/swp/home">
-        Home
+    <a class="logo">
+        Sale
     </a>
     <nav class="navbar">
         <a class="navbar-btn sidebar-toggle">

@@ -27,7 +27,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" onclick="document.getElementById('checkout').submit()" class="btn btn-primary">I scanned and paid</button>
+            <button type="button" onclick="document.getElementById('pay-ment').submit()" class="btn btn-primary">I scanned and paid</button>
           </div>
         </div>
       </div>

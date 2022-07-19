@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//document.getElementById('radioApple').click();
 function buy(id){
     var quantity=document.f.num.value;
     document.f.action="buy?id="+id+"&num="+quantity;
