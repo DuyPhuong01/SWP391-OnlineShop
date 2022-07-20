@@ -77,147 +77,147 @@
         height:100%;
         object-fit: cover;
     }
-    
-.form-container  {
-    padding: 30px;
-}
-.form-container .form-inner form .field {
-    height: 50px;
-    width: 100%;
-    margin-top: 20px;
-}
 
-.form-container .form-inner form .field input {
-    height: 100%;
-    width: 100%;
-    outline: none;
-    padding-left: 15px;
-    border-radius: 5px;
-    border: 1px solid lightgrey;
-    border-bottom-width: 2px;
-    font-size: 17px;
-    transition: all 0.3s ease;
-}
+    .form-container  {
+        padding: 30px;
+    }
+    .form-container .form-inner form .field {
+        height: 50px;
+        width: 100%;
+        margin-top: 20px;
+    }
 
-.form-container .form-inner form .field input:focus {
-    border-color: #6280e6;
-    /* box-shadow: inset 0 0 3px #fb6aae; */
-}
+    .form-container .form-inner form .field input {
+        height: 100%;
+        width: 100%;
+        outline: none;
+        padding-left: 15px;
+        border-radius: 5px;
+        border: 1px solid lightgrey;
+        border-bottom-width: 2px;
+        font-size: 17px;
+        transition: all 0.3s ease;
+    }
 
-.form-container .form-inner form .field input::placeholder {
-    color: #999;
-    transition: all 0.3s ease;
-}
+    .form-container .form-inner form .field input:focus {
+        border-color: #6280e6;
+        /* box-shadow: inset 0 0 3px #fb6aae; */
+    }
 
-.form-container form .field input:focus::placeholder {
-    color: #b3b3b3;
-}
+    .form-container .form-inner form .field input::placeholder {
+        color: #999;
+        transition: all 0.3s ease;
+    }
 
-.form-container form .btn {
-    height: 50px;
-    width: 100%;
-    border-radius: 5px;
-    position: relative;
-    overflow: hidden;
-}
+    .form-container form .field input:focus::placeholder {
+        color: #b3b3b3;
+    }
 
-.form-container form .btn .btn-layer {
-    height: 100%;
-    width: 300%;
-    position: absolute;
-    left: -100%;
-    background: -webkit-linear-gradient(right, #009dff, #007bff, #0099ff, #006aff);
-    border-radius: 5px;
-    transition: all 0.4s ease;
-    ;
-}
+    .form-container form .btn {
+        height: 50px;
+        width: 100%;
+        border-radius: 5px;
+        position: relative;
+        overflow: hidden;
+    }
 
-.form-container form .btn:hover .btn-layer {
-    left: 0;
-}
+    .form-container form .btn .btn-layer {
+        height: 100%;
+        width: 300%;
+        position: absolute;
+        left: -100%;
+        background: -webkit-linear-gradient(right, #009dff, #007bff, #0099ff, #006aff);
+        border-radius: 5px;
+        transition: all 0.4s ease;
+        ;
+    }
 
-.form-container form .btn input[type="submit"] {
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-    position: relative;
-    background: none;
-    border: none;
-    color: #fff;
-    padding-left: 0;
-    border-radius: 5px;
-    font-size: 20px;
-    font-weight: 500;
-    cursor: pointer;
-}
+    .form-container form .btn:hover .btn-layer {
+        left: 0;
+    }
 
-.form-container .form-inner .login .input-box,
-.form-container .form-inner .signup .input-box {
-    position: relative;
-    height: 50px;
-    margin-bottom: 10px;
-}
+    .form-container form .btn input[type="submit"] {
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+        position: relative;
+        background: none;
+        border: none;
+        color: #fff;
+        padding-left: 0;
+        border-radius: 5px;
+        font-size: 20px;
+        font-weight: 500;
+        cursor: pointer;
+    }
 
-.form-container .form-inner .login .input-box input,
-.form-container .form-inner .signup .input-box input {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border: 2px solid #ccc;
-    border-radius: 6px;
-    padding: 0 35px 0 15px;
-    transition: all 0.2s linear;
-}
+    .form-container .form-inner .login .input-box,
+    .form-container .form-inner .signup .input-box {
+        position: relative;
+        height: 50px;
+        margin-bottom: 10px;
+    }
 
-.form-container .form-inner .login .input-box input:is(:focus, :valid),
-.form-container .form-inner .signup .input-box input:is(:focus, :valid) {
-    border-color: #4070f4;
-}
+    .form-container .form-inner .login .input-box input,
+    .form-container .form-inner .signup .input-box input {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        outline: none;
+        border: 2px solid #ccc;
+        border-radius: 6px;
+        padding: 0 35px 0 15px;
+        transition: all 0.2s linear;
+    }
 
-.form-container .form-inner .login .input-box :is(label, i),
-.form-container .form-inner .signup .input-box :is(label, i) {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #999;
-    transition: all 0.2s linear;
-}
+    .form-container .form-inner .login .input-box input:is(:focus, :valid),
+    .form-container .form-inner .signup .input-box input:is(:focus, :valid) {
+        border-color: #4070f4;
+    }
 
-.form-container .form-inner .login .input-box label, 
-.form-container .form-inner .signup .input-box label {
-    left: 15px;
-    pointer-events: none;
-    font-size: 16px;
-    font-weight: 400;
-}
+    .form-container .form-inner .login .input-box :is(label, i),
+    .form-container .form-inner .signup .input-box :is(label, i) {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+        transition: all 0.2s linear;
+    }
 
-.form-container .form-inner .login .input-box input:is(:focus, :valid)~label, 
-.form-container .form-inner .signup .input-box input:is(:focus, :valid)~label {
-    color: #4070f4;
-    top: 0;
-    font-size: 12px;
-    font-weight: 500;
-    background-color: #fff;
-}
+    .form-container .form-inner .login .input-box label, 
+    .form-container .form-inner .signup .input-box label {
+        left: 15px;
+        pointer-events: none;
+        font-size: 16px;
+        font-weight: 400;
+    }
 
-.form-container .form-inner .login .input-box i,
-.form-container .form-inner .signup .input-box i{
-    right: 15px;
-    cursor: pointer;
-    font-size: 20px;
-}
+    .form-container .form-inner .login .input-box input:is(:focus, :valid)~label, 
+    .form-container .form-inner .signup .input-box input:is(:focus, :valid)~label {
+        color: #4070f4;
+        top: 0;
+        font-size: 12px;
+        font-weight: 500;
+        background-color: #fff;
+    }
 
-.form-container .form-inner .login .input-box input:is(:focus, :valid)~i, 
-.form-container .form-inner .signup .input-box input:is(:focus, :valid)~i {
-    color: #4070f4;
-}
-.form-container .title {
-    width: 50%;
-    font-size: 35px;
-    font-weight: 600;
-    text-align: center;
-}
+    .form-container .form-inner .login .input-box i,
+    .form-container .form-inner .signup .input-box i{
+        right: 15px;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    .form-container .form-inner .login .input-box input:is(:focus, :valid)~i, 
+    .form-container .form-inner .signup .input-box input:is(:focus, :valid)~i {
+        color: #4070f4;
+    }
+    .form-container .title {
+        width: 50%;
+        font-size: 35px;
+        font-weight: 600;
+        text-align: center;
+    }
 </style>
 
 <script>
@@ -311,10 +311,10 @@
                 <span>Home</span>
             </a>
         </div>-->
-
+    <div>
         <li class="nav-item dropdown me-2">
             <div class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="${sessionScope.account.getImage_url()}" class="img-thumbnail" style="width: 40px;height: 40px; border-radius: 50%; margin: -0.5rem 0">
+                <img src="../${sessionScope.account.getImage_url()}" class="img-thumbnail" style="width: 40px;height: 40px; border-radius: 50%; margin: -0.5rem 0">
                 My Account
             </div>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -332,6 +332,7 @@
                 <li><a class="dropdown-item" href="../logout">Log out</a></li>
             </ul>
         </li>
+    </div>
     <div>
         <a type="button" href="dashboard" class="p-2" data-bs-toggle="tooltip">
             <i class="fa-solid fa-table-cells"></i>
@@ -392,7 +393,7 @@
                                     <div style="position: absolute;">
                                         <input class="btn btn-primary profile-button viewmode${sessionScope.account.getActive()}" type="button" value="Edit" style="width: auto;"  onclick="Edit_onclick(${sessionScope.account.getActive()});"/>
                                     </div>
-                                    <img class="rounded-circle avatar" id="blah" alt="your image" src="${sessionScope.account.getImage_url()}">
+                                    <img class="rounded-circle avatar" id="blah" alt="your image" src="../${sessionScope.account.getImage_url()}">
                                     <form action="../updateacc" id="frmImgUpdate" method="POST" enctype="multipart/form-data">
                                         <div class="inner editmode${sessionScope.account.getActive()}">
                                             <input type="hidden" name="id" value="${sessionScope.account.getUser_id()}"/>
@@ -550,7 +551,7 @@
         }
     }
     //            cancelBtn.onclick = evt => {
-        //                const  [file] = '${sessionScope.account.getImage_url()}'
+    //                const  [file] = '${sessionScope.account.getImage_url()}'
     //                if(file) {
     //                    
     //                }

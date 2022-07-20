@@ -2,18 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/accessdenied.jsp</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/marketing/dashboard.jsp</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/sale/salenavbar.jsp</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/controller/authentication/UpdateAccount.java</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/model/Role.java</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/controller/authentication/AccessDeniedServlet.java</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/verify.jsp</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/sale/dashboard.jsp</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/admin/navbar.jsp</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/src/java/model/Account.java</file>
-            <file>file:/D:/Study/Sum22/SWP/summer2022-se1611-g2/SWP391/web/marketing/sidebar.jsp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
