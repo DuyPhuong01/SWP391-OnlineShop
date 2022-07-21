@@ -129,7 +129,7 @@
                                         <div class="me-3">
                                             <div class="input-group">
                                                 <span class="input-group-text" id="basic-addon1">Gender</span>
-                                                <select  name="gender" onchange="submitForm();">
+                                                <select  name="gender" onchange="submitFormWithNewPage(${requestScope.pageNumber});">
                                                     <option value="-1"  <c:if test="${requestScope.gender == -1}">selected</c:if>> All </option>
                                                     <option value="1" <c:if test="${requestScope.gender == 1}">selected</c:if>> Male </option>
                                                     <option value="0" <c:if test="${requestScope.gender == 0}">selected</c:if>> Female </option>
@@ -139,7 +139,7 @@
                                             <div class="me-3">
                                                 <div class="input-group">
                                                     <span class="input-group-text" id="basic-addon1">Role</span>
-                                                    <select name="rid" onchange="submitForm();" >
+                                                    <select name="rid" onchange="submitFormWithNewPage(${requestScope.pageNumber});" >
                                                         <option value="0">----ALL----</option>
                                                     <c:forEach items="${requestScope.listRoles}" var="r">
                                                         Department: <option
@@ -154,7 +154,7 @@
                                         <div class="me-3">
                                             <div class="input-group">
                                                 <span class="input-group-text" id="basic-addon1">Status</span>
-                                                <select name="active" onchange="submitForm();">
+                                                <select name="active" onchange="submitFormWithNewPage(${requestScope.pageNumber});">
                                                     <option value="-1"  <c:if test="${requestScope.active == -1}">selected</c:if>> All </option>
                                                     <option value="1" <c:if test="${requestScope.active == 1}">selected</c:if>> Activate </option>
                                                     <option value="0" <c:if test="${requestScope.active == 0}">selected</c:if>> Deactivate </option>
