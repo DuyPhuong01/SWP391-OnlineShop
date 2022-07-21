@@ -84,9 +84,9 @@
 </style>
 
 <script>
-    var ids = [];
+    var idss = [];
     <c:forEach items="${requestScope.students}" var="s">
-    ids.push(${sessionScope.account.getUser_id()});
+    idss.push(${sessionScope.account.getUser_id()});
     </c:forEach>
     function submitForm()
     {
@@ -109,46 +109,46 @@
             controls[i].style.display = 'inline';
         }
     }
-    function hideEditModeControls()
+    function hideEditModeeControlss()
     {
-        for (var i = 0; i < ids.length; i++)
+        for (var i = 0; i < idss.length; i++)
         {
-            hideControlsbyClassName('editmode' + ${sessionScope.account.getUser_id()});
-            hideControlsbyClassName('editmode' + ${sessionScope.account.getActive()});
+            hideControlsbyClassName('editmodee' + ${sessionScope.account.getUser_id()});
+            hideControlsbyClassName('editmodee' + ${sessionScope.account.getActive()});
         }
     }
-    function hideViewModeControls()
+    function hideViewModeeControls()
     {
-        for (var i = 0; i < ids.length; i++)
+        for (var i = 0; i < idss.length; i++)
         {
-            hideControlsbyClassName('viewmode' + ids[i]);
+            hideControlsbyClassName('viewmodee' + idss[i]);
         }
     }
-    function showEditModeControls(id)
+    function showEditModeeControls(id)
     {
-        for (var i = 0; i < ids.length; i++)
+        for (var i = 0; i < idss.length; i++)
         {
-            showControlsbyClassName('editmode' + ids[i]);
+            showControlsbyClassName('editmodee' + idss[i]);
         }
     }
-    function showViewModeControls()
+    function showViewModeeControls()
     {
-        for (var i = 0; i < ids.length; i++)
+        for (var i = 0; i < idss.length; i++)
         {
-            showControlsbyClassName('viewmode' + ids[i]);
+            showControlsbyClassName('viewmodee' + idss[i]);
         }
     }
 
-    function Edit_onclick(id)
+    function Edit_onclickk(id)
     {
-        hideControlsbyClassName('viewmode' + id);
-        showControlsbyClassName('editmode' + id);
+        hideControlsbyClassName('viewmodee' + id);
+        showControlsbyClassName('editmodee' + id);
     }
 
-    function Cancel_onclick(id, name, gender, phone, city, county, address)
+    function Cancel_onclickk(id, name, gender, phone, city, county, address)
     {
-        hideControlsbyClassName('editmode' + id);
-        showControlsbyClassName('viewmode' + id);
+        hideControlsbyClassName('editmodee' + id);
+        showControlsbyClassName('viewmodee' + id);
         document.getElementById('edit_name' + id).value = name;
         document.getElementById('edit_phone' + id).value = phone;
         document.getElementById('edit_city' + id).value = city;
@@ -189,7 +189,7 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
                                 <a class="dropdown-item" data-bs-toggle="modal" href="#exampleModalToggle2" role="button"
-                                   onclick="Cancel_onclick(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');"
+                                   onclick="Cancel_onclickk(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');"
                                    >Profile</a>
                             </li>
                             <li>
@@ -220,11 +220,11 @@
                             <div class="rounded-box">
                                 <div class="outer">
                                     <div style="position: absolute;">
-                                        <input class="btn btn-primary profile-button viewmode${sessionScope.account.getActive()}" type="button" value="Edit" style="width: auto;"  onclick="Edit_onclick(${sessionScope.account.getActive()});"/>
+                                        <input class="btn btn-primary profile-button viewmodee${sessionScope.account.getActive()}" type="button" value="Edit" style="width: auto;"  onclick="Edit_onclickk(${sessionScope.account.getActive()});"/>
                                     </div>
                                     <img class="rounded-circle avatar" id="blah" alt="your image" src="/swp/${sessionScope.account.getImage_url()}">
                                     <form action="/swp/updateacc" id="frmImgUpdate" method="POST" enctype="multipart/form-data">
-                                        <div class="inner editmode${sessionScope.account.getActive()}">
+                                        <div class="inner editmodee${sessionScope.account.getActive()}">
                                             <input type="hidden" name="id" value="${sessionScope.account.getUser_id()}"/>
                                             <input type="hidden" name="type" value="1"/>
                                             <input accept="image/*" type="file" name="file" id="imgInp">
@@ -240,10 +240,10 @@
                                 ${sessionScope.account.getEmail()}
                             </span>
 
-                            <div class="mt-5 text-center editmode${sessionScope.account.getActive()}">
-                                <input class="btn btn-primary profile-button editmode${sessionScope.account.getActive()}" type="submit" onclick="submitForm();" value="Save" style="width: auto;"/>
-                                <input id="cancel-btn" class="btn btn-primary profile-button editmode${sessionScope.account.getActive()}" type="button" value="Cancel" style="width: auto;"
-                                       onclick="Cancel_onclick(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');"/>
+                            <div class="mt-5 text-center editmodee${sessionScope.account.getActive()}">
+                                <input class="btn btn-primary profile-button editmodee${sessionScope.account.getActive()}" type="submit" onclick="submitForm();" value="Save" style="width: auto;"/>
+                                <input id="cancel-btn" class="btn btn-primary profile-button editmodee${sessionScope.account.getActive()}" type="button" value="Cancel" style="width: auto;"
+                                       onclick="Cancel_onclickk(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');"/>
                             </div>
                             <span>
                             </span>
@@ -256,19 +256,19 @@
                             <div class="p-3 py-5">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h4 class="text-right">Profile Settings</h4>                                    
-                                    <input class="btn btn-primary profile-button viewmode${sessionScope.account.getUser_id()}" type="button" value="Edit" style="width: auto;"  onclick="Edit_onclick(${sessionScope.account.getUser_id()});"/>
+                                    <input class="btn btn-primary profile-button viewmodee${sessionScope.account.getUser_id()}" type="button" value="Edit" style="width: auto;"  onclick="Edit_onclickk(${sessionScope.account.getUser_id()});"/>
 
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-md-6">
                                         <label class="labels">FullName</label><br>
-                                        <span class="viewmode${sessionScope.account.getUser_id()}" >${sessionScope.account.getFull_name()}</span>
-                                        <input id="edit_name${sessionScope.account.getUser_id()}" name="fname" type="text" class="form-control editmode${sessionScope.account.getUser_id()}" placeholder="${sessionScope.account.getFull_name()}" value="${sessionScope.account.getFull_name()}">
+                                        <span class="viewmodee${sessionScope.account.getUser_id()}" >${sessionScope.account.getFull_name()}</span>
+                                        <input id="edit_name${sessionScope.account.getUser_id()}" name="fname" type="text" class="form-control editmodee${sessionScope.account.getUser_id()}" placeholder="${sessionScope.account.getFull_name()}" value="${sessionScope.account.getFull_name()}">
                                     </div>
                                     <div class="col-md-6">
                                         Gender<br>
-                                        <span class="viewmode${sessionScope.account.getUser_id()}" >${sessionScope.account.isGender()?"Male":"Female"}</span>
-                                        <select name="gender" class="editmode${sessionScope.account.getUser_id()}" style="margin-top: 5px;">
+                                        <span class="viewmodee${sessionScope.account.getUser_id()}" >${sessionScope.account.isGender()?"Male":"Female"}</span>
+                                        <select name="gender" class="editmodee${sessionScope.account.getUser_id()}" style="margin-top: 5px;">
                                             <option value="1" <c:if test="${sessionScope.account.isGender()}">selected</c:if> >Male</option>
                                             <option value="0" <c:if test="${sessionScope.account.isGender()}">selected</c:if>>Female</option>
                                             </select>
@@ -277,27 +277,27 @@
                                     <div class="row mt-3">
                                         <div class="col-md-12">
                                             <label class="labels">Mobile Number</label><br>
-                                            <span class="viewmode${sessionScope.account.getUser_id()}" >${sessionScope.account.getPhone()}</span>
-                                        <input id="edit_phone${sessionScope.account.getUser_id()}" name="phone" type="text" class="form-control editmode${sessionScope.account.getUser_id()}" placeholder="${sessionScope.account.getPhone()}" value="${sessionScope.account.getPhone()}">
+                                            <span class="viewmodee${sessionScope.account.getUser_id()}" >${sessionScope.account.getPhone()}</span>
+                                        <input id="edit_phone${sessionScope.account.getUser_id()}" name="phone" type="text" class="form-control editmodee${sessionScope.account.getUser_id()}" placeholder="${sessionScope.account.getPhone()}" value="${sessionScope.account.getPhone()}">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="labels">City</label><br>
-                                        <span class="viewmode${sessionScope.account.getUser_id()}" >${sessionScope.account.getCity()}</span>
-                                        <input id="edit_city${sessionScope.account.getUser_id()}" name="city" type="text" class="form-control editmode${sessionScope.account.getUser_id()}" placeholder="${sessionScope.account.getCity()}" value="${sessionScope.account.getCity()}"></div>
+                                        <span class="viewmodee${sessionScope.account.getUser_id()}" >${sessionScope.account.getCity()}</span>
+                                        <input id="edit_city${sessionScope.account.getUser_id()}" name="city" type="text" class="form-control editmodee${sessionScope.account.getUser_id()}" placeholder="${sessionScope.account.getCity()}" value="${sessionScope.account.getCity()}"></div>
                                     <div class="col-md-6">
                                         <label class="labels">Country</label><br>
-                                        <span class="viewmode${sessionScope.account.getUser_id()}" >${sessionScope.account.getCountry()}</span>
-                                        <input id="edit_country${sessionScope.account.getUser_id()}" name="country" type="text" class="form-control editmode${sessionScope.account.getUser_id()}"  placeholder="${sessionScope.account.getCountry()}" value="${sessionScope.account.getCountry()}"></div>
+                                        <span class="viewmodee${sessionScope.account.getUser_id()}" >${sessionScope.account.getCountry()}</span>
+                                        <input id="edit_country${sessionScope.account.getUser_id()}" name="country" type="text" class="form-control editmodee${sessionScope.account.getUser_id()}"  placeholder="${sessionScope.account.getCountry()}" value="${sessionScope.account.getCountry()}"></div>
                                     <div class="col-md-12">
                                         <label class="labels">Address </label><br>
-                                        <span class="viewmode${sessionScope.account.getUser_id()}" >${sessionScope.account.getAddress()}</span>
-                                        <input id="edit_address${sessionScope.account.getUser_id()}" name="address" type="text" class="form-control editmode${sessionScope.account.getUser_id()}" placeholder="${sessionScope.account.getAddress()}" value="${sessionScope.account.getAddress()}"></div>
+                                        <span class="viewmodee${sessionScope.account.getUser_id()}" >${sessionScope.account.getAddress()}</span>
+                                        <input id="edit_address${sessionScope.account.getUser_id()}" name="address" type="text" class="form-control editmodee${sessionScope.account.getUser_id()}" placeholder="${sessionScope.account.getAddress()}" value="${sessionScope.account.getAddress()}"></div>
                                 </div>
 
                                 <div class="mt-5 text-center">
-                                    <input class="btn btn-primary profile-button editmode${sessionScope.account.getUser_id()}" type="submit" value="Save" style="width: auto;"/>
-                                    <input class="btn btn-primary profile-button editmode${sessionScope.account.getUser_id()}" type="button" value="Cancel" style="width: auto;"
-                                           onclick="Cancel_onclick(${sessionScope.account.getUser_id()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');"/>
+                                    <input class="btn btn-primary profile-button editmodee${sessionScope.account.getUser_id()}" type="submit" value="Save" style="width: auto;"/>
+                                    <input class="btn btn-primary profile-button editmodee${sessionScope.account.getUser_id()}" type="button" value="Cancel" style="width: auto;"
+                                           onclick="Cancel_onclickk(${sessionScope.account.getUser_id()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');"/>
                                 </div>
                             </div>
                         </form>
@@ -389,9 +389,9 @@
         blah.src = '${sessionScope.account.getImage_url()}';
     });
 
-    hideEditModeControls();
-    Cancel_onclick(${sessionScope.account.getUser_id()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');
-    Cancel_onclick(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');
+    hideEditModeeControlss();
+    Cancel_onclickk(${sessionScope.account.getUser_id()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');
+    Cancel_onclickk(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');
 </script>      
 <script>
     const pswrd_1 = document.querySelector("#pswrd_1");
