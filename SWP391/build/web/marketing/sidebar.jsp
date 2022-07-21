@@ -312,26 +312,27 @@
             </a>
         </div>-->
     <div>
-        <li class="nav-item dropdown me-2">
-            <div class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../${sessionScope.account.getImage_url()}" class="img-thumbnail" style="width: 40px;height: 40px; border-radius: 50%; margin: -0.5rem 0">
-                My Account
-            </div>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                    <a class="dropdown-item" data-bs-toggle="modal" href="#exampleModalToggle2" role="button"
-                       onclick="Cancel_onclick(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');"
-                       >Profile</a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li>
-                    <a class="dropdown-item" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Change password</a>
-                </li>
-                <li><a class="dropdown-item" href="../logout">Log out</a></li>
-            </ul>
-        </li>
+        <ul class="p-2">
+            <li class="nav-item dropdown me-2">
+                <div class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="../${sessionScope.account.getImage_url()}" class="img-thumbnail" style="width: 40px;height: 40px; border-radius: 50%; margin: -0.5rem 0">
+                    My Account
+                </div>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                        <a class="dropdown-item" data-bs-toggle="modal" href="#exampleModalToggle2" role="button"
+                           onclick="Cancel_onclick(${sessionScope.account.getActive()}, '${sessionScope.account.getFull_name()}',${sessionScope.account.isGender()}, '${sessionScope.account.getPhone()}', '${sessionScope.account.getCity()}', '${sessionScope.account.getCountry()}', '${sessionScope.account.getAddress()}');"
+                           >Profile</a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Change password</a>
+                    </li>
+                    <li><a class="dropdown-item" href="../logout">Log out</a></li>
+                </ul>
+            </li>
     </div>
     <div>
         <a type="button" href="dashboard" class="p-2" data-bs-toggle="tooltip">
@@ -394,7 +395,7 @@
                                         <input class="btn btn-primary profile-button viewmode${sessionScope.account.getActive()}" type="button" value="Edit" style="width: auto;"  onclick="Edit_onclick(${sessionScope.account.getActive()});"/>
                                     </div>
                                     <img class="rounded-circle avatar" id="blah" alt="your image" src="../${sessionScope.account.getImage_url()}">
-                                    <form action="../updateacc" id="frmImgUpdate" method="POST" enctype="multipart/form-data">
+                                    <form action="/swp/updateacc" id="frmImgUpdate" method="POST" enctype="multipart/form-data">
                                         <div class="inner editmode${sessionScope.account.getActive()}">
                                             <input type="hidden" name="id" value="${sessionScope.account.getUser_id()}"/>
                                             <input type="hidden" name="type" value="1"/>
@@ -490,7 +491,7 @@
                     <p style="font-size: 18px;">Enter your new password</p>
                 </div>
                 <div class="form-inner">
-                    <form action="../resetpass" method="POST" class="signup">
+                    <form action="/swp/resetpass" method="POST" class="signup">
                         <input type="hidden" name="email" value="${sessionScope.account.getEmail()}"/>
                         <input type="hidden" name="choise" value="reset"/>
                         <p class="text-danger">${requestScope.messp}</p>

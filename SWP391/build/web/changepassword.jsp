@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-container">
                     <div class="form-inner">
-                        <form action="resetpass" method="POST" class="signup">
+                        <form action="/swp/resetpass" method="POST" class="signup">
                             <input type="hidden" name="email" value="${sessionScope.account.getEmail()}"/>
                             <input type="hidden" name="choise" value="reset"/>
                             <p class="text-danger">${requestScope.messp}</p>

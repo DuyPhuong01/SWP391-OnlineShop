@@ -194,8 +194,8 @@
                                         <div style="position: absolute;">
                                             <input class="btn btn-primary profile-button viewmode${sessionScope.account.getActive()}" type="button" value="Edit" style="width: auto;"  onclick="Edit_onclick(${sessionScope.account.getActive()});"/>
                                         </div>
-                                        <img class="rounded-circle avatar" id="blah" alt="your image" src="${sessionScope.account.getImage_url()}">
-                                        <form action="updateacc" id="frmImgUpdate" method="POST" enctype="multipart/form-data">
+                                        <img class="rounded-circle avatar" id="blah" alt="your image" src="/swp/${sessionScope.account.getImage_url()}">
+                                        <form action="/swp/updateacc" id="frmImgUpdate" method="POST" enctype="multipart/form-data">
                                             <div class="inner editmode${sessionScope.account.getActive()}">
                                                 <input type="hidden" name="id" value="${sessionScope.account.getUser_id()}"/>
                                                 <input type="hidden" name="type" value="1"/>
@@ -222,7 +222,7 @@
                             </div>
                         </div>
                         <div class="col-md-9 border-right">
-                            <form action="updateacc" method="POST" enctype="multipart/form-data">
+                            <form action="/swp/updateacc" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="type" value="0"/>
                                 <input type="hidden" name="id" value="${sessionScope.account.getUser_id()}"/>
                                 <div class="p-3 py-5">

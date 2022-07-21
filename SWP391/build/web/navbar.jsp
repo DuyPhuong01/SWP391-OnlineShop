@@ -29,7 +29,7 @@
 
                     <li class="nav-item dropdown me-2">
                         <div class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="${sessionScope.account.getImage_url()}" class="img-thumbnail" style="width: 40px;height: 40px; border-radius: 50%; margin: -0.5rem 0">
+                            <img src="/swp/${sessionScope.account.getImage_url()}" class="img-thumbnail" style="width: 40px;height: 40px; border-radius: 50%; margin: -0.5rem 0">
                             My Account
                         </div>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

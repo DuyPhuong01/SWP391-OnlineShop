@@ -183,7 +183,7 @@
 
                     <li class="nav-item dropdown me-2">
                         <div class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="${sessionScope.account.getImage_url()}" class="img-thumbnail" style="width: 40px;height: 40px; border-radius: 50%; margin: -0.5rem 0">
+                            <img src="/swp/${sessionScope.account.getImage_url()}" class="img-thumbnail" style="width: 40px;height: 40px; border-radius: 50%; margin: -0.5rem 0">
                             My Account
                         </div>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -222,8 +222,8 @@
                                     <div style="position: absolute;">
                                         <input class="btn btn-primary profile-button viewmode${sessionScope.account.getActive()}" type="button" value="Edit" style="width: auto;"  onclick="Edit_onclick(${sessionScope.account.getActive()});"/>
                                     </div>
-                                    <img class="rounded-circle avatar" id="blah" alt="your image" src="${sessionScope.account.getImage_url()}">
-                                    <form action="updateacc" id="frmImgUpdate" method="POST" enctype="multipart/form-data">
+                                    <img class="rounded-circle avatar" id="blah" alt="your image" src="/swp/${sessionScope.account.getImage_url()}">
+                                    <form action="/swpw/updateacc" id="frmImgUpdate" method="POST" enctype="multipart/form-data">
                                         <div class="inner editmode${sessionScope.account.getActive()}">
                                             <input type="hidden" name="id" value="${sessionScope.account.getUser_id()}"/>
                                             <input type="hidden" name="type" value="1"/>
@@ -250,7 +250,7 @@
                         </div>
                     </div>
                     <div class="col-md-9 border-right">
-                        <form action="updateacc" method="POST" enctype="multipart/form-data">
+                        <form action="/swp/updateacc" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="type" value="0"/>
                             <input type="hidden" name="id" value="${sessionScope.account.getUser_id()}"/>
                             <div class="p-3 py-5">
@@ -319,7 +319,7 @@
                     <p style="font-size: 18px;">Enter your new password</p>
                 </div>
                 <div class="form-inner">
-                    <form action="resetpass" method="POST" class="signup">
+                    <form action="/swp/resetpass" method="POST" class="signup">
                         <input type="hidden" name="email" value="${sessionScope.account.getEmail()}"/>
                         <input type="hidden" name="choise" value="reset"/>
                         <p class="text-danger">${requestScope.messp}</p>

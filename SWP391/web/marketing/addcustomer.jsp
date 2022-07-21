@@ -109,7 +109,7 @@
                     value="1">Active</option>
                 <option 
                     <c:if test="${!requestScope.cus.feature}">selected</c:if>
-                    value="0">De-active</option>
+                    value="0">Inactive</option>
               </select>
               </div>
             </div>
@@ -123,7 +123,7 @@
                     <button type="submit" class="btn btn-success">Submit</button>
                 </div>
                 <div class=" col-1 mb-3">
-                    <button type="button" class="btn btn-secondary">Cancel</button>
+                    <button type="button" class="btn btn-secondary" style="width: fit-content;">Cancel</button>
                 </div>
             </div>
          </div>   
