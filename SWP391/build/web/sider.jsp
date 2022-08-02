@@ -3,6 +3,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value = "vi_VN"/>
+
 <link href="css/stylesider.css" rel="stylesheet"/>
 <div id="sider" class="h-100 bg-white p-3 rounded shadow-sm">
     <%
@@ -34,7 +36,6 @@
                                         <c:forEach items="${productCategoryList.get(i).subCategoryList}" var="k">
                                             <li class="sub-category-item" <c:if test="${k.id == requestScope.subCategoryId.id}">id="sub-category-active"</c:if>>
                                                 <a href="productslist?subCategoryId=${k.id}">${k.name}</a>
-
                                             </li>
                                         </c:forEach>
                                     </ul>
@@ -63,7 +64,7 @@
             <c:forEach var="product" items="<%= product_dao.getLastActiveProducts(6)%>">
                 <div class="flex latest-product-items">
                     <div class="latest-product-img-panel">
-                        <a href="product?id=${product.product_id}" data-bs-toggle="tooltip" title="${product.name}">
+                        <a href="product?id=${product.product_id}" title="${product.name}">
                             <img src="${product.thumbnail}" class="card-img-top latest-product-img" alt="${product.images.get(0).description}">
                         </a>
                     </div>
@@ -72,8 +73,8 @@
                             ${product.name}
                         </div>
                         <div class="latest-product-price">
-                            <c:if test="${product.sale_price != 0}"><span style="color: red;"><fmt:formatNumber type="currency" value="${product.sale_price}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></span></c:if>
-                            <c:if test="${product.sale_price == 0}"><span style="color: red;"><fmt:formatNumber type="currency" value="${product.original_price}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></span></c:if>
+                            <c:if test="${product.sale_price != 0}"><span style="color: red;"><fmt:formatNumber type="currency" value="${product.sale_price}"></fmt:formatNumber></span></c:if>
+                            <c:if test="${product.sale_price == 0}"><span style="color: red;"><fmt:formatNumber type="currency" value="${product.original_price}"></fmt:formatNumber></span></c:if>
                                 </div>
                             </div>
                         </div>

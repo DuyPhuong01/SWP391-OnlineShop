@@ -121,7 +121,7 @@ public class ProductsListServlet extends HttpServlet {
 
             request.setAttribute("pageNumber", pageNumber);
             request.setAttribute("numberPage", numberPage);
-            request.setAttribute("productListByPage", productListByPage);
+            request.setAttribute("productsList", productListByPage);
 
 
 //            forward to jsp
@@ -226,7 +226,7 @@ public class ProductsListServlet extends HttpServlet {
             request.setAttribute("key", key);
             request.setAttribute("pageNumber", pageNumber);
             request.setAttribute("numberPage", numberPage);
-            request.setAttribute("productListByPage", productListByPage);
+            request.setAttribute("productsList", productListByPage);
             request.setAttribute("orderOption", orderOption);
 //            forward to jsp
             request.getRequestDispatcher("productslist.jsp").forward(request, response);

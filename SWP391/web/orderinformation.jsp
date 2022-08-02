@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value = "vi_VN"/>
 <!DOCTYPE html>
 <html>
 
@@ -21,20 +22,21 @@
             <c:import url="navbar.jsp"></c:import>
                 <!-- end navbar -->
             </div>
-            <div class="breadcrumb-my-product container-lg flex" style="margin-top: 75px;
-                 margin-bottom: 10px;">
-                <span><a href="home">Home</a></span>
-                <span> > </span>
-                <span><a href="myorders">My order</a></span>
-                <span> > </span>
-                <span><a href="orderinformation?orderId=${requestScope.myOrder.order_id}">Order informations</a></span>
-        </div>
-        <div class="container">
-            <div class="row">
-                <!-- sider -->
-                <div class="col-3">
-                    <div class="sider">
-                        <!-- sider -->
+            <div class="container-lg">
+                <div class="px-5 py-3 bg-white rounded shadow-sm mb-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="home">Home</a></li>
+                            <li class="breadcrumb-item"><a href="myorders">My order</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Order informations</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="row">
+                    <!-- sider -->
+                    <div class="col-3">
+                        <div class="sider">
+                            <!-- sider -->
                         <c:import url="sider.jsp"></c:import>
                             <!-- end sider -->
                         </div>
@@ -60,7 +62,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Total Cost:</td>
-                                                <td><fmt:formatNumber type="currency" value="${order.total_price}" currencySymbol="VND" maxFractionDigits="0"></fmt:formatNumber></td>
+                                                <td><fmt:formatNumber type="currency" value="${order.total_price}"></fmt:formatNumber></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Status:</td>
@@ -102,7 +104,7 @@
                                     </div>
                                 </div>
                             </div>
-                                                <c:if test="${requestScope.myOrder.status == 1}"><span class="note"><span>*NOTE:</span> Your order is not finished yet!! Click <a href="cartcompletion?orderid=${requestScope.orderID_encoded}">here</a> to finish your order</span></c:if>
+                            <c:if test="${requestScope.myOrder.status == 1}"><span class="note"><span>*NOTE:</span> Your order is not finished yet!! Click <a href="cartcompletion?orderid=${requestScope.orderID_encoded}">here</a> to finish your order</span></c:if>
                             </div>
                         </div>
                         <div class="content order-details bg-white">
@@ -131,8 +133,8 @@
                                             </td>
                                             <td>
                                                 <span id="rebuy-message${i.product.product_id}" class="rebuy-message"></span>
-                                                <div>
-                                                    <a class="btn action" style="    border-radius: 3px;
+                                            <div>
+                                                <a class="btn action" style="    border-radius: 3px;
                                                    border-color: black;
                                                    margin-left: 30px;
                                                    margin-bottom: 10px;

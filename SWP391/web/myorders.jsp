@@ -8,7 +8,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Products List</title>
+        <title>My Orders</title>
         <!-- CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
@@ -25,34 +25,35 @@
             <c:import url="navbar.jsp"></c:import>
                 <!-- end navbar -->
             </div>
-            <div class="breadcrumb-my-product container-lg flex" style="margin-top: 75px;
-                 margin-bottom: 10px;">
-                <span><a href="home">Home</a></span>
-                <span> > </span>
-                <span><a href="myorders">My order</a></span>
-            </div>
             <div class="container-lg">
+                <div class="px-5 py-3 bg-white rounded shadow-sm mb-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="home">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">My order</li>
+                        </ol>
+                    </nav>
+                </div>
                 <div class="row">
                     <div class="col-3">
                     <c:import url="sider.jsp"></c:import>
                     </div>
                     <div class="col-9">
-                        <div class="content">
+                        <div class="p-3 bg-white rounded shadow-sm">
                         <c:if test="${requestScope.myorders.size() != 0}">
-                            <div class="flex my-order-header-bar bg-white">
+                            <div class="border rounded flex my-order-header-bar bg-white">
                                 <div style="margin-right: 55%;">Order</div>
                                 <div style="margin-right: 15%;">Total price</div>
                                 <div>Status</div>
 
                             </div>
                             <c:forEach items="${requestScope.myorders}" var="i">
-                                <div class="order-items bg-white flex flex-column">
+                                <div class="border rounded order-items bg-white flex flex-column">
                                     <div class="flex" style="padding: 10px; padding-left: 30px; border-bottom: 1px solid #21252930;">
                                         <div class="id"><a href="orderinformation?orderId=${i.order_id}">ID: ${i.order_id}</a></div>
                                         <div class="order-date">Order Date: <fmt:formatDate value="${i.orderDate}" type="both"/></div>
                                     </div>
-                                    <div class="flex" style="    border:1px solid #21252930;
-                                         margin: 15px;">
+                                    <div class="flex m-3">
                                         <div class="first-product-image"><img src="${i.orderDetailList.get(0).product.thumbnail}"></div>
                                         <div class="products-name">
                                             <div>${i.orderDetailList.get(0).product.name}</div><c:if test="${i.orderDetailList.size() > 1}">

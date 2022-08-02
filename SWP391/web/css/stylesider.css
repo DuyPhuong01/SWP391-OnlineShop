@@ -66,12 +66,15 @@ ul.sub-category-list {
     padding: 5px;
 }
 .latest-product-name {
-    font-size: 12px;
-    font-weight: 200;
-    font-family: 'unicons-line';
+    font-size: .9rem;
     margin-left: 10px;
-    height: 40px;
+    word-wrap: break-word;
+    white-space: normal;
     overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 .latest-product-price span {
     font-size: 12px;

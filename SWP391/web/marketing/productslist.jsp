@@ -74,7 +74,7 @@
                                 </div>
                                 <input name="search_key" type="hidden">
                                 <div>
-                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-search">
+                                    <button type="button" class="btn btn-outline-primary" onclick="openseachmodal()">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
                                     <input class="btn btn-primary" type="submit" value="Filter">
@@ -267,6 +267,10 @@
         }
     </script>
     <script>
+        function openseachmodal() {
+            $('#modal-search').modal('show');
+            $('#modal-search input').focus();
+        }
         function nextProductPage(pageNumber) {
             document.getElementById('page').value = pageNumber;
             document.getElementById('productSearchForm').submit();

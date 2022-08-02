@@ -1,5 +1,5 @@
 :root{
-    --post-image-ratio: calc( 21 / 9 );
+    --post-image-ratio: calc( 600 / 300 );
 }
 
 .slider .slider-image{

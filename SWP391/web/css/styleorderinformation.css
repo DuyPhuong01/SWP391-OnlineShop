@@ -1,6 +1,4 @@
-.breadcrumb-my-product span a{
-    font-family: "emoji";
-}
+
 .order-information-container{
     padding: 15px;
     border-radius: 10px;
@@ -30,20 +28,11 @@
     border-radius: 3px;
     /*border-color: black;*/
 }
-td{
-    font-family: "emoji";
-}
-td h5 a, td h6, td span, td p, td div{
-    font-family: "emoji";
 
-}
 td h5 a, td span{
     font-weight: 700;
 }
-.card-title{
-    font-family: "emoji";
-    font-weight: bold;
-}
+
 .receiver-infor td:first-child{
     font-weight: bold;
     width: 15%;

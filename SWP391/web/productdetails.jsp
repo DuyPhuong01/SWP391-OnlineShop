@@ -12,6 +12,7 @@
         <!-- CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/carousel.css">
         <!--font-awesome-->
         <script src="https://kit.fontawesome.com/3c84cb624f.js" crossorigin="anonymous"></script>
     </head>
@@ -25,50 +26,46 @@
             <div class="container">
                 <div class="row">
                     <div class="col-3">
-                            <!-- sider -->
-                        <c:import url="sider.jsp"></c:import>
-                            <!-- end sider -->
+                        <!-- sider -->
+                    <c:import url="sider.jsp"></c:import>
+                        <!-- end sider -->
                     </div>
                     <div class="col-9">
                         <div class="p-3 bg-white rounded shadow-sm">
                         <c:set var="prodct" value="${requestScope.product}"></c:set>
                             <div class="row product-details-container mb-3">
                                 <div class="col-6">
-                                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-                                        <div class="carousel-indicators">
-                                        <%
-                                            int index = 0;
-                                        %>
+                                    <div class="rei_banner_container mb-3">
+                                        <div class="rei_banner_body">
                                         <c:forEach var="product_image" items="${product.images}">
-                                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= index%>" aria-current="true" aria-label="Slide <%= index + 1%>"></button>
-                                            <%
-                                                index++;
-                                            %>
-                                        </c:forEach>
-                                    </div>
-                                    <div class="carousel-inner rounded">
-                                        <c:forEach var="product_image" items="${product.images}">
-                                            <div class="carousel-item">
-                                                <img src="${product_image.path}" class="d-block w-100" alt="${product_image.description}">
+                                            <div>
+                                                    <div class="slider-image">
+                                                        <img src="${product_image.path}">
+                                                    </div>
                                             </div>
                                         </c:forEach>
                                     </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
+                                    <div class="rei_banner_bottombtns">
+                                        <div>
+                                            <%
+                                                int i = 1;
+                                            %>
+                                            <c:forEach var="product_image" items="${product.images}">
+                                                <span onclick="getBanner(<%= i%>)"></span>
+                                                <%
+                                                    i++;
+                                                %>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">${product.name} ${product.briefInfor} <c:if test="${product.model!=null}">(${product.model})</c:if></h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">Category: 
-                                            <a href="productlist?category=${product.subCategory.category.category_id}">${product.subCategory.category.category_name}</a>
+                                            <h6 class="card-subtitle mb-2 text-muted">Category: 
+                                                <a href="productlist?category=${product.subCategory.category.category_id}">${product.subCategory.category.category_name}</a>
                                             <span> ,</span>
                                             <a href="productlist?category=${product.subCategory.id}">${product.subCategory.name}</a>
                                         </h6>
@@ -129,10 +126,4 @@
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="js/carousel.js"></script>
-
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-    </script>
 </html>
